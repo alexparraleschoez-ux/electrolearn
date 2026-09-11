@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Repositorio interactivo de electricidad y electrónica básica">
+    <meta name="author" content="Alex Parrales Choez - Bachiller en Informática 2026">
+    <title>ElectroLearn - Repositorio Digital Interactivo</title>
+    
+    <!-- Tailwind CSS (vía CDN para desarrollo rápido) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Configuración de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'electro-dark': '#0f172a',
+                        'electro-yellow': '#facc15',
+                        'electro-cyan': '#22d3ee',
+                        'electro-green': '#4ade80',
+                        'electro-red': '#f87171',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-electro-dark text-white font-body">
+
+    <!-- ============ HEADER ============ -->
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-600 p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-heading font-bold flex items-center">
+                <i class="fas fa-bolt mr-2 text-electro-yellow"></i> ElectroLearn
+            </a>
+            
+            <!-- Botón menú móvil -->
+            <button id="menu-btn" class="md:hidden text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Menú de navegación -->
+            <nav>
+                <ul id="menu" class="hidden md:flex gap-6 font-semibold">
+                    <li><a href="#inicio" class="hover:text-electro-yellow transition">Inicio</a></li>
+                    <li><a href="#modulos" class="hover:text-electro-yellow transition">Módulos</a></li>
+                    <li><a href="#simuladores" class="hover:text-electro-yellow transition">Simuladores</a></li>
+                    <li><a href="#progreso" class="hover:text-electro-yellow transition">Mi Progreso</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section id="inicio" class="py-20 text-center px-4">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-6xl font-heading font-bold mb-6">
+                Aprende <span class="text-electro-yellow">Electricidad</span> y 
+                <span class="text-electro-cyan">Electrónica</span>
+            </h2>
+            <p class="text-xl text-slate-300 max-w-2xl mx-auto mb-8">
+                Repositorio interactivo diseñado para estudiantes de 1er año 
+                de Soporte Informático. Aprende haciendo, experimentando y divirtiéndote.
+            </p>
+            <button onclick="document.getElementById('modulos').scrollIntoView({behavior: 'smooth'})" 
+                    class="bg-electro-yellow hover:bg-yellow-400 text-black font-bold py-3 px-8 rounded-full transition transform hover:scale-105 shadow-lg">
+                Comenzar Ahora <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- ============ MÓDULOS ============ -->
+    <section id="modulos" class="py-16 bg-slate-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-4">
+                Módulos de Aprendizaje
+            </h2>
+            <p class="text-center text-slate-300 mb-12">Explora cada tema a tu propio ritmo</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Módulo 1 -->
+                <a href="modulos/modulo1-corriente/index.html" 
+                   class="bg-slate-700 rounded-xl p-6 hover:scale-105 transition cursor-pointer block border-2 border-transparent hover:border-electro-cyan">
+                    <i class="fas fa-wave-square text-4xl text-electro-cyan mb-4"></i>
+                    <h3 class="text-xl font-heading font-bold mb-2">Módulo 1: Corriente Eléctrica</h3>
+                    <p class="text-slate-300 mb-4">Conceptos fundamentales, tipos de corriente y mediciones básicas.</p>
+                    <span class="text-electro-yellow font-semibold">Entrar →</span>
+                </a>
+
+                <!-- Módulo 2 -->
+                <a href="modulos/modulo2-ley-ohm/index.html" 
+                   class="bg-slate-700 rounded-xl p-6 hover:scale-105 transition cursor-pointer block border-2 border-transparent hover:border-electro-green">
+                    <i class="fas fa-calculator text-4xl text-electro-green mb-4"></i>
+                    <h3 class="text-xl font-heading font-bold mb-2">Módulo 2: Ley de Ohm</h3>
+                    <p class="text-slate-300 mb-4">Simulador interactivo para calcular Voltaje, Corriente y Resistencia.</p>
+                    <span class="text-electro-yellow font-semibold">Entrar →</span>
+                </a>
+
+                <!-- Módulo 3 -->
+                <a href="modulos/modulo3-componentes/index.html" 
+                   class="bg-slate-700 rounded-xl p-6 hover:scale-105 transition cursor-pointer block border-2 border-transparent hover:border-purple-400">
+                    <i class="fas fa-microchip text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-heading font-bold mb-2">Módulo 3: Componentes</h3>
+                    <p class="text-slate-300 mb-4">Resistencias, capacitores, diodos, LEDs y transistores explicados.</p>
+                    <span class="text-electro-yellow font-semibold">Entrar →</span>
+                </a>
+
+                <!-- Módulo 4 -->
+                <a href="modulos/modulo4-circuitos/index.html" 
+                class="bg-slate-700 rounded-xl p-6 hover:scale-105 transition cursor-pointer block border-2 border-transparent hover:border-red-400">
+                    <i class="fas fa-project-diagram text-4xl text-red-400 mb-4"></i>
+                    <h3 class="text-xl font-heading font-bold mb-2">Módulo 4: Circuitos</h3>
+                    <p class="text-slate-300 mb-4">Circuitos en serie, paralelo y mixtos con simulaciones.</p>
+                    <span class="text-electro-yellow font-semibold">Entrar →</span>
+                </a>
+
+                <!-- Módulo 5 -->
+                <a href="modulos/modulo5-herramientas/index.html" 
+                class="bg-slate-700 rounded-xl p-6 hover:scale-105 transition cursor-pointer block border-2 border-transparent hover:border-orange-400">
+                    <i class="fas fa-tools text-4xl text-orange-400 mb-4"></i>
+                    <h3 class="text-xl font-heading font-bold mb-2">Módulo 5: Herramientas</h3>
+                    <p class="text-slate-300 mb-4">Multímetro, soldador, protoboard y herramientas de medición.</p>
+                    <span class="text-electro-yellow font-semibold">Entrar →</span>
+                </a>
+
+                <!-- Laboratorio Virtual -->
+                <a href="#simuladores" 
+                   class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl p-6 hover:scale-105 transition cursor-pointer block">
+                    <i class="fas fa-flask text-4xl text-yellow-300 mb-4"></i>
+                    <h3 class="text-xl font-heading font-bold mb-2">Laboratorio Virtual</h3>
+                    <p class="text-slate-100 mb-4">Simuladores externos integrados: PhET y Tinkercad.</p>
+                    <span class="text-yellow-300 font-semibold">Explorar →</span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SIMULADORES EXTERNOS ============ -->
+    <section id="simuladores" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-12">
+                Laboratorio Virtual
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-800 p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-electro-cyan">
+                        <i class="fas fa-atom mr-2"></i> PhET Simulations
+                    </h3>
+                    <p class="text-slate-300 mb-4">Simulador de construcción de circuitos de la Universidad de Colorado.</p>
+                    <a href="https://phet.colorado.edu/es/simulations/circuit-construction-kit-ac" 
+                       target="_blank" 
+                       class="inline-block bg-electro-cyan text-black font-bold py-2 px-6 rounded-lg hover:bg-cyan-300 transition">
+                        Abrir Simulador <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-4 text-electro-green">
+                        <i class="fas fa-microchip mr-2"></i> Tinkercad Circuits
+                    </h3>
+                    <p class="text-slate-300 mb-4">Laboratorio virtual de electrónica y Arduino en 3D.</p>
+                    <a href="https://www.tinkercad.com/circuits" 
+                       target="_blank" 
+                       class="inline-block bg-electro-green text-black font-bold py-2 px-6 rounded-lg hover:bg-green-300 transition">
+                        Abrir Simulador <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PROGRESO ============ -->
+    <section id="progreso" class="py-16 bg-slate-800">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">
+                <i class="fas fa-chart-line text-electro-yellow mr-2"></i> Tu Progreso
+            </h2>
+            <div class="max-w-md mx-auto bg-slate-900 p-6 rounded-xl">
+                <p class="text-slate-300 mb-4">Módulos completados:</p>
+                <div class="w-full bg-slate-700 rounded-full h-4 mb-4">
+                    <div id="barra-progreso" class="bg-electro-green h-4 rounded-full transition-all" style="width: 0%"></div>
+                </div>
+                <p id="texto-progreso" class="text-electro-yellow font-bold">0 de 3 módulos (0%)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="bg-slate-950 p-8 text-center border-t border-slate-800">
+        <p class="text-lg font-semibold">© 2026 ElectroLearn - Proyecto de Grado</p>
+        <p class="text-slate-400 mt-2">Desarrollado por Alex Parrales Choez</p>
+        <p class="text-slate-500 text-sm mt-4">Bachiller en Informática - Soporte Informático</p>
+    </footer>
+
+    <!-- Script principal -->
+    <script src="js/main.js"></script>
+</body>
+</html>

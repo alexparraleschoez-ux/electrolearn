@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas de Medición - ElectroLearn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .multimetro-display {
+            font-family: 'Courier New', monospace;
+            background: #1a2332;
+            color: #4ade80;
+            text-shadow: 0 0 10px #4ade80;
+        }
+        .selector-knob {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-body min-h-screen">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-600 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="text-2xl font-heading font-bold flex items-center">
+                <i class="fas fa-bolt mr-2 text-yellow-300"></i> ElectroLearn
+            </a>
+            <a href="../../index.html" class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-slate-200 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Volver
+            </a>
+        </div>
+    </header>
+
+    <!-- TÍTULO -->
+    <section class="py-8 text-center px-4">
+        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
+            <i class="fas fa-tools text-orange-400"></i> Herramientas de Medición
+        </h1>
+        <p class="text-slate-300 text-lg">Multímetro, soldador y protoboard</p>
+    </section>
+
+    <div class="container mx-auto px-4 pb-16 space-y-8">
+
+        <!-- MULTÍMETRO VIRTUAL -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
+                <i class="fas fa-tachometer-alt mr-2"></i> Multímetro Virtual
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Simula el uso de un multímetro digital. Selecciona el modo de medición e ingresa los valores.
+            </p>
+            
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <!-- Display del multímetro -->
+                <div class="multimetro-display p-6 rounded-lg text-center mb-6 border-4 border-slate-700">
+                    <p class="text-xs text-slate-400 mb-2" id="modo-actual">MODO: VOLTAJE DC</p>
+                    <p class="text-5xl font-bold" id="display-valor">0.00</p>
+                    <p class="text-lg mt-2" id="unidad-actual">V</p>
+                </div>
+
+                <!-- Selector de modo -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+                    <button onclick="cambiarModo('vdc')" id="btn-vdc" 
+                            class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 rounded transition">
+                        <i class="fas fa-battery-full block mb-1"></i>
+                        Voltaje DC
+                    </button>
+                    <button onclick="cambiarModo('vac')" id="btn-vac" 
+                            class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded transition">
+                        <i class="fas fa-wave-square block mb-1"></i>
+                        Voltaje AC
+                    </button>
+                    <button onclick="cambiarModo('resistencia')" id="btn-resistencia" 
+                            class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded transition">
+                        <i class="fas fa-microchip block mb-1"></i>
+                        Resistencia
+                    </button>
+                    <button onclick="cambiarModo('continuidad')" id="btn-continuidad" 
+                            class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded transition">
+                        <i class="fas fa-volume-up block mb-1"></i>
+                        Continuidad
+                    </button>
+                </div>
+
+                <!-- Entrada de valores -->
+                <div id="entrada-valores" class="space-y-3">
+                    <div>
+                        <label class="block mb-2 font-semibold">
+                            <i class="fas fa-battery-full text-yellow-400 mr-2"></i>
+                            Voltaje de la fuente (V):
+                        </label>
+                        <input type="range" id="voltaje-fuente" min="0" max="24" step="0.1" value="9" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-400">
+                        <p class="text-center text-yellow-400 font-bold mt-1">
+                            <span id="voltaje-valor">9.0</span> V
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Resultado de medición -->
+                <div class="mt-6 p-4 bg-blue-900 rounded-lg">
+                    <h3 class="font-bold mb-2 text-yellow-300">📖 ¿Cómo usar el multímetro real?</h3>
+                    <ol class="text-sm text-slate-300 space-y-1 list-decimal list-inside">
+                        <li>Conecta la sonda negra al puerto COM</li>
+                        <li>Conecta la sonda roja al puerto correspondiente</li>
+                        <li>Selecciona el modo y rango adecuado</li>
+                        <li>Toca los puntos de medición</li>
+                        <li>Lee el valor en la pantalla</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- GALERÍA DE HERRAMIENTAS -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-orange-400">
+                <i class="fas fa-toolbox mr-2"></i> Herramientas Esenciales
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                
+                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
+                    <i class="fas fa-fire text-4xl text-red-400 mb-3"></i>
+                    <h3 class="font-bold text-lg mb-2">Cautín/Soldador</h3>
+                    <p class="text-sm text-slate-300">
+                        Herramienta para unir componentes mediante soldadura de estaño.
+                        Temperatura típica: 300-400°C.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
+                    <i class="fas fa-th text-4xl text-green-400 mb-3"></i>
+                    <h3 class="font-bold text-lg mb-2">Protoboard</h3>
+                    <p class="text-sm text-slate-300">
+                        Tablero de pruebas para armar circuitos sin soldar.
+                        Los agujeros están conectados internamente.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
+                    <i class="fas fa-cut text-4xl text-blue-400 mb-3"></i>
+                    <h3 class="font-bold text-lg mb-2">Pinzas de corte</h3>
+                    <p class="text-sm text-slate-300">
+                        Para cortar cables y patillas de componentes.
+                        Esenciales para trabajos de precisión.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
+                    <i class="fas fa-search text-4xl text-purple-400 mb-3"></i>
+                    <h3 class="font-bold text-lg mb-2">Lupa</h3>
+                    <p class="text-sm text-slate-300">
+                        Para inspeccionar soldaduras y componentes pequeños.
+                        Muy útil en trabajos SMD.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
+                    <i class="fas fa-wind text-4xl text-cyan-400 mb-3"></i>
+                    <h3 class="font-bold text-lg mb-2">Extractor de estaño</h3>
+                    <p class="text-sm text-slate-300">
+                        Para remover soldadura excedente o corregir errores.
+                        Funciona como una jeringa de succión.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
+                    <i class="fas fa-lightbulb text-4xl text-yellow-400 mb-3"></i>
+                    <h3 class="font-bold text-lg mb-2">Fuente de poder</h3>
+                    <p class="text-sm text-slate-300">
+                        Suministra voltaje regulable para probar circuitos.
+                        Más segura que usar baterías sueltas.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PROTOBOARD INTERACTIVO -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-green-400">
+                <i class="fas fa-th-large mr-2"></i> ¿Cómo funciona la Protoboard?
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Haz clic en las filas para ver cómo están conectadas internamente.
+            </p>
+            
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <div class="grid grid-cols-10 gap-1 max-w-2xl mx-auto" id="protoboard">
+                    <!-- Se genera con JavaScript -->
+                </div>
+                <p class="text-center text-sm text-slate-400 mt-4">
+                    <span class="inline-block w-4 h-4 bg-red-500 rounded mr-2"></span>Fila positiva
+                    <span class="inline-block w-4 h-4 bg-blue-500 rounded ml-4 mr-2"></span>Fila negativa
+                    <span class="inline-block w-4 h-4 bg-slate-600 rounded ml-4 mr-2"></span>Puntos de conexión
+                </p>
+            </div>
+        </div>
+
+        <!-- SEGURIDAD -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl border-2 border-red-500">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-red-400">
+                <i class="fas fa-exclamation-triangle mr-2"></i> Normas de Seguridad
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-slate-900 p-4 rounded-lg">
+                    <h3 class="font-bold text-green-400 mb-2"><i class="fas fa-check mr-2"></i>SÍ hacer:</h3>
+                    <ul class="text-sm text-slate-300 space-y-1 list-disc list-inside">
+                        <li>Usar gafas de protección al soldar</li>
+                        <li>Trabajar en área ventilada</li>
+                        <li>Desconectar energía antes de medir</li>
+                        <li>Verificar polaridad antes de conectar</li>
+                        <li>Usar guantes térmicos con el soldador</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-lg">
+                    <h3 class="font-bold text-red-400 mb-2"><i class="fas fa-times mr-2"></i>NO hacer:</h3>
+                    <ul class="text-sm text-slate-300 space-y-1 list-disc list-inside">
+                        <li>Tocar componentes calientes</li>
+                        <li>Medir resistencia con circuito energizado</li>
+                        <li>Usar herramientas dañadas</li>
+                        <li>Dejar el soldador encendido sin supervisión</li>
+                        <li>Trabajar con las manos mojadas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============ MULTÍMETRO VIRTUAL ============
+        let modoActual = 'vdc';
+        const voltajeFuente = document.getElementById('voltaje-fuente');
+        const voltajeValor = document.getElementById('voltaje-valor');
+        const displayValor = document.getElementById('display-valor');
+        const unidadActual = document.getElementById('unidad-actual');
+        const modoActualEl = document.getElementById('modo-actual');
+
+        const modos = {
+            'vdc': { nombre: 'VOLTAJE DC', unidad: 'V', color: '#facc15' },
+            'vac': { nombre: 'VOLTAJE AC', unidad: 'V~', color: '#facc15' },
+            'resistencia': { nombre: 'RESISTENCIA', unidad: 'Ω', color: '#22d3ee' },
+            'continuidad': { nombre: 'CONTINUIDAD', unidad: 'BEEP', color: '#4ade80' }
+        };
+
+        function cambiarModo(nuevoModo) {
+            modoActual = nuevoModo;
+            
+            // Actualizar botones
+            document.querySelectorAll('#btn-vdc, #btn-vac, #btn-resistencia, #btn-continuidad').forEach(btn => {
+                btn.classList.remove('bg-yellow-600');
+                btn.classList.add('bg-slate-700');
+            });
+            document.getElementById('btn-' + nuevoModo).classList.remove('bg-slate-700');
+            document.getElementById('btn-' + nuevoModo).classList.add('bg-yellow-600');
+            
+            // Actualizar display
+            modoActualEl.textContent = 'MODO: ' + modos[nuevoModo].nombre;
+            unidadActual.textContent = modos[nuevoModo].unidad;
+            displayValor.style.color = modos[nuevoModo].color;
+            
+            actualizarMedicion();
+        }
+
+        function actualizarMedicion() {
+            const v = parseFloat(voltajeFuente.value);
+            voltajeValor.textContent = v.toFixed(1);
+            
+            switch(modoActual) {
+                case 'vdc':
+                case 'vac':
+                    displayValor.textContent = v.toFixed(2);
+                    break;
+                case 'resistencia':
+                    // Simular medición de resistencia basada en voltaje
+                    const r = v * 100;
+                    displayValor.textContent = r.toFixed(0);
+                    break;
+                case 'continuidad':
+                    if (v > 0) {
+                        displayValor.textContent = '0.00';
+                        displayValor.style.color = '#4ade80';
+                    } else {
+                        displayValor.textContent = 'OL';
+                        displayValor.style.color = '#f87171';
+                    }
+                    break;
+            }
+        }
+
+        voltajeFuente.addEventListener('input', actualizarMedicion);
+
+        // ============ PROTOBOARD INTERACTIVA ============
+        const protoboard = document.getElementById('protoboard');
+        
+        for (let fila = 0; fila < 30; fila++) {
+            for (let col = 0; col < 10; col++) {
+                const celda = document.createElement('div');
+                celda.className = 'h-6 rounded cursor-pointer transition hover:scale-110';
+                
+                if (fila === 0) {
+                    celda.classList.add('bg-red-500');
+                    celda.title = 'Fila positiva (+)';
+                } else if (fila === 29) {
+                    celda.classList.add('bg-blue-500');
+                    celda.title = 'Fila negativa (-)';
+                } else {
+                    celda.classList.add('bg-slate-600');
+                    celda.title = `Fila ${fila + 1}, Columna ${col + 1}`;
+                }
+                
+                celda.addEventListener('click', () => {
+                    celda.classList.toggle('bg-yellow-400');
+                    celda.classList.toggle('bg-slate-600');
+                });
+                
+                protoboard.appendChild(celda);
+            }
+        }
+
+        // Inicializar
+        actualizarMedicion();
+    </script>
+</body>
+</html>

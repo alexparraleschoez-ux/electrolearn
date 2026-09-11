@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Ley de Ohm - ElectroLearn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-body min-h-screen">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-600 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="text-2xl font-heading font-bold flex items-center">
+                <i class="fas fa-bolt mr-2 text-yellow-300"></i> ElectroLearn
+            </a>
+            <a href="../../index.html" class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-slate-200 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Volver
+            </a>
+        </div>
+    </header>
+
+    <!-- TÍTULO -->
+    <section class="py-8 text-center px-4">
+        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
+            <i class="fas fa-bolt text-yellow-400"></i> Simulador Ley de Ohm
+        </h1>
+        <p class="text-slate-300 text-lg">Experimenta con Voltaje, Corriente y Resistencia</p>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="container mx-auto px-4 pb-16 grid md:grid-cols-2 gap-6">
+        
+        <!-- PANEL DE CONTROLES -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
+                <i class="fas fa-sliders-h mr-2"></i> Controles
+            </h2>
+            
+            <!-- Control Voltaje -->
+            <div class="mb-6">
+                <label class="block mb-2 font-semibold">
+                    <i class="fas fa-battery-full text-yellow-400 mr-2"></i>
+                    Voltaje (V): <span id="vValor" class="text-yellow-400 text-xl">5.0</span> V
+                </label>
+                <input type="range" id="voltaje" min="0" max="24" step="0.1" value="5" 
+                       class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-400">
+                <div class="flex justify-between text-xs text-slate-400 mt-1">
+                    <span>0V</span><span>12V</span><span>24V</span>
+                </div>
+            </div>
+            
+            <!-- Control Resistencia -->
+            <div class="mb-6">
+                <label class="block mb-2 font-semibold">
+                    <i class="fas fa-microchip text-cyan-400 mr-2"></i>
+                    Resistencia (R): <span id="rValor" class="text-cyan-400 text-xl">100</span> Ω
+                </label>
+                <input type="range" id="resistencia" min="1" max="1000" step="1" value="100" 
+                       class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                <div class="flex justify-between text-xs text-slate-400 mt-1">
+                    <span>1Ω</span><span>500Ω</span><span>1000Ω</span>
+                </div>
+            </div>
+            
+            <!-- Resultado Corriente -->
+            <div class="bg-slate-900 p-6 rounded-lg text-center border-2 border-green-500">
+                <p class="text-sm text-slate-400 mb-2">Corriente calculada (I = V / R)</p>
+                <p class="text-5xl font-heading font-bold text-green-400">
+                    <span id="corriente">0.050</span>
+                </p>
+                <p class="text-xl text-slate-300">Amperios (A)</p>
+                <p class="text-sm text-slate-400 mt-2">
+                    Equivale a <span id="corrienteMA" class="text-green-400 font-bold">50</span> miliamperios (mA)
+                </p>
+            </div>
+            
+            <!-- Fórmulas -->
+            <div class="mt-6 p-4 bg-blue-900 rounded-lg">
+                <h3 class="font-bold mb-2 text-yellow-300">📐 Fórmulas de la Ley de Ohm:</h3>
+                <ul class="space-y-1 text-sm">
+                    <li><strong>V = I × R</strong> (Voltaje)</li>
+                    <li><strong>I = V / R</strong> (Corriente)</li>
+                    <li><strong>R = V / I</strong> (Resistencia)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PANEL DE GRÁFICO -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-green-400">
+                <i class="fas fa-chart-bar mr-2"></i> Representación Visual
+            </h2>
+            <div class="bg-slate-900 p-4 rounded-lg">
+                <canvas id="grafico"></canvas>
+            </div>
+            
+            <!-- Interpretación -->
+            <div class="mt-6 p-4 bg-slate-900 rounded-lg">
+                <h3 class="font-bold mb-2 text-yellow-300">💡 Interpretación:</h3>
+                <p id="interpretacion" class="text-sm text-slate-300">
+                    Con 5V y 100Ω, la corriente es de 50mA. Este valor es seguro para la mayoría de circuitos electrónicos básicos.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- EJERCICIOS PRÁCTICOS -->
+    <section class="container mx-auto px-4 pb-16">
+        <div class="bg-slate-800 p-6 rounded-xl">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+                <i class="fas fa-tasks mr-2"></i> Ejercicios Prácticos
+            </h2>
+            <div class="space-y-4">
+                <div class="bg-slate-900 p-4 rounded-lg">
+                    <p class="font-semibold mb-2">1. Si tienes un LED de 2V y una resistencia de 100Ω, ¿cuánta corriente circula con una batería de 9V?</p>
+                    <button onclick="alert('Pista: Primero resta el voltaje del LED: 9V - 2V = 7V. Luego aplica I = V/R = 7/100 = 0.07A = 70mA')" 
+                            class="text-cyan-400 hover:text-cyan-300 text-sm">
+                        💡 Ver pista
+                    </button>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-lg">
+                    <p class="font-semibold mb-2">2. ¿Qué resistencia necesitas para limitar la corriente a 20mA con un voltaje de 5V?</p>
+                    <button onclick="alert('Pista: Despeja R = V/I = 5/0.02 = 250Ω')" 
+                            class="text-cyan-400 hover:text-cyan-300 text-sm">
+                        💡 Ver pista
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ============ ELEMENTOS DEL DOM ============
+        const voltaje = document.getElementById('voltaje');
+        const resistencia = document.getElementById('resistencia');
+        const corrienteEl = document.getElementById('corriente');
+        const vValor = document.getElementById('vValor');
+        const rValor = document.getElementById('rValor');
+        const corrienteMA = document.getElementById('corrienteMA');
+        const interpretacion = document.getElementById('interpretacion');
+        
+        const ctx = document.getElementById('grafico').getContext('2d');
+        let chart;
+
+        // ============ FUNCIÓN PRINCIPAL ============
+        function actualizar() {
+            const v = parseFloat(voltaje.value);
+            const r = parseFloat(resistencia.value);
+            const i = r > 0 ? v / r : 0;
+            
+            // Actualizar valores en pantalla
+            vValor.textContent = v.toFixed(1);
+            rValor.textContent = r;
+            corrienteEl.textContent = i.toFixed(3);
+            corrienteMA.textContent = (i * 1000).toFixed(1);
+            
+            // Actualizar interpretación
+            actualizarInterpretacion(v, r, i);
+            
+            // Actualizar gráfico
+            actualizarGrafico(v, r, i);
+        }
+
+        // ============ INTERPRETACIÓN AUTOMÁTICA ============
+        function actualizarInterpretacion(v, r, i) {
+            let texto = '';
+            const mA = i * 1000;
+            
+            if (v === 0) {
+                texto = 'No hay voltaje aplicado, por lo tanto no hay corriente.';
+            } else if (mA < 1) {
+                texto = `Corriente muy baja (${mA.toFixed(2)}mA). Ideal para sensores.`;
+            } else if (mA < 20) {
+                texto = `Corriente segura (${mA.toFixed(1)}mA). Típica para encender un LED.`;
+            } else if (mA < 100) {
+                texto = `Corriente moderada (${mA.toFixed(1)}mA). Adecuada para circuitos básicos.`;
+            } else if (mA < 500) {
+                texto = `⚠️ Corriente alta (${mA.toFixed(1)}mA). Precaución con componentes pequeños.`;
+            } else {
+                texto = `🚨 Corriente muy alta (${mA.toFixed(1)}mA). ¡Riesgo de quemar componentes!`;
+            }
+            
+            interpretacion.textContent = texto;
+        }
+
+        // ============ GRÁFICO ============
+        function actualizarGrafico(v, r, i) {
+            if (chart) chart.destroy();
+            
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Voltaje (V)', 'Corriente (mA)', 'Resistencia (Ω)'],
+                    datasets: [{
+                        label: 'Valores del circuito',
+                        data: [v, i * 1000, r],
+                        backgroundColor: ['#facc15', '#4ade80', '#22d3ee'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Valores actuales del circuito',
+                            color: '#fff',
+                            font: { size: 14 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#cbd5e1' },
+                            grid: { color: '#334155' }
+                        },
+                        x: {
+                            ticks: { color: '#cbd5e1' },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ============ EVENT LISTENERS ============
+        voltaje.addEventListener('input', actualizar);
+        resistencia.addEventListener('input', actualizar);
+        
+        // Inicializar
+        actualizar();
+    </script>
+</body>
+</html>

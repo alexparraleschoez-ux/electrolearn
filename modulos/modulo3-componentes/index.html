@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componentes Electrónicos - ElectroLearn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-900 text-white font-body min-h-screen">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-600 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="text-2xl font-heading font-bold flex items-center">
+                <i class="fas fa-bolt mr-2 text-yellow-300"></i> ElectroLearn
+            </a>
+            <a href="../../index.html" class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-slate-200 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Volver
+            </a>
+        </div>
+    </header>
+
+    <!-- TÍTULO -->
+    <section class="py-8 text-center px-4">
+        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
+            <i class="fas fa-microchip text-purple-400"></i> Componentes Electrónicos
+        </h1>
+        <p class="text-slate-300 text-lg">Aprende a identificar y calcular valores</p>
+    </section>
+
+    <!-- ============ CALCULADORA DE CÓDIGO DE COLORES ============ -->
+    <section class="container mx-auto px-4 pb-16">
+        <div class="bg-slate-800 p-6 md:p-8 rounded-xl shadow-xl max-w-4xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-heading font-bold mb-2 text-yellow-400 text-center">
+                <i class="fas fa-calculator mr-2"></i> Calculadora de Código de Colores
+            </h2>
+            <p class="text-center text-slate-300 mb-6">
+                Selecciona los colores de las bandas de tu resistencia
+            </p>
+
+            <!-- RESISTENCIA VISUAL -->
+            <div class="bg-slate-900 p-6 rounded-lg mb-6">
+                <div class="flex items-center justify-center">
+                    <!-- Cable izquierdo -->
+                    <div class="w-12 h-1 bg-gray-400"></div>
+                    <!-- Cuerpo de la resistencia -->
+                    <div class="bg-amber-700 w-64 h-16 rounded-lg flex items-center justify-around px-4 relative">
+                        <div id="banda1Visual" class="w-4 h-12 bg-red-600 rounded-sm"></div>
+                        <div id="banda2Visual" class="w-4 h-12 bg-violet-600 rounded-sm"></div>
+                        <div id="banda3Visual" class="w-4 h-12 bg-red-600 rounded-sm"></div>
+                        <div id="banda4Visual" class="w-4 h-12 bg-yellow-500 rounded-sm absolute right-4"></div>
+                    </div>
+                    <!-- Cable derecho -->
+                    <div class="w-12 h-1 bg-gray-400"></div>
+                </div>
+            </div>
+
+            <!-- SELECTORES DE COLOR -->
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <!-- Banda 1 -->
+                <div>
+                    <label class="block mb-2 font-semibold">
+                        <span class="inline-block w-3 h-3 bg-red-600 rounded mr-2"></span>
+                        Banda 1 (1er dígito)
+                    </label>
+                    <select id="banda1" class="w-full p-3 bg-slate-700 rounded-lg border-2 border-slate-600 focus:border-yellow-400 outline-none">
+                        <option value="0" data-color="#000000">Negro (0)</option>
+                        <option value="1" data-color="#8B4513" selected>Marrón (1)</option>
+                        <option value="2" data-color="#DC2626">Rojo (2)</option>
+                        <option value="3" data-color="#EA580C">Naranja (3)</option>
+                        <option value="4" data-color="#EAB308">Amarillo (4)</option>
+                        <option value="5" data-color="#22C55E">Verde (5)</option>
+                        <option value="6" data-color="#3B82F6">Azul (6)</option>
+                        <option value="7" data-color="#9333EA">Violeta (7)</option>
+                        <option value="8" data-color="#6B7280">Gris (8)</option>
+                        <option value="9" data-color="#F3F4F6">Blanco (9)</option>
+                    </select>
+                </div>
+
+                <!-- Banda 2 -->
+                <div>
+                    <label class="block mb-2 font-semibold">
+                        <span class="inline-block w-3 h-3 bg-violet-600 rounded mr-2"></span>
+                        Banda 2 (2do dígito)
+                    </label>
+                    <select id="banda2" class="w-full p-3 bg-slate-700 rounded-lg border-2 border-slate-600 focus:border-yellow-400 outline-none">
+                        <option value="0" data-color="#000000">Negro (0)</option>
+                        <option value="1" data-color="#8B4513">Marrón (1)</option>
+                        <option value="2" data-color="#DC2626">Rojo (2)</option>
+                        <option value="3" data-color="#EA580C">Naranja (3)</option>
+                        <option value="4" data-color="#EAB308">Amarillo (4)</option>
+                        <option value="5" data-color="#22C55E">Verde (5)</option>
+                        <option value="6" data-color="#3B82F6">Azul (6)</option>
+                        <option value="7" data-color="#9333EA" selected>Violeta (7)</option>
+                        <option value="8" data-color="#6B7280">Gris (8)</option>
+                        <option value="9" data-color="#F3F4F6">Blanco (9)</option>
+                    </select>
+                </div>
+
+                <!-- Banda 3 (Multiplicador) -->
+                <div>
+                    <label class="block mb-2 font-semibold">
+                        <span class="inline-block w-3 h-3 bg-red-600 rounded mr-2"></span>
+                        Banda 3 (Multiplicador)
+                    </label>
+                    <select id="banda3" class="w-full p-3 bg-slate-700 rounded-lg border-2 border-slate-600 focus:border-yellow-400 outline-none">
+                        <option value="1" data-color="#000000">Negro (×1)</option>
+                        <option value="10" data-color="#8B4513">Marrón (×10)</option>
+                        <option value="100" data-color="#DC2626" selected>Rojo (×100)</option>
+                        <option value="1000" data-color="#EA580C">Naranja (×1K)</option>
+                        <option value="10000" data-color="#EAB308">Amarillo (×10K)</option>
+                        <option value="100000" data-color="#22C55E">Verde (×100K)</option>
+                        <option value="1000000" data-color="#3B82F6">Azul (×1M)</option>
+                        <option value="10000000" data-color="#9333EA">Violeta (×10M)</option>
+                        <option value="0.1" data-color="#D4AF37">Dorado (×0.1)</option>
+                        <option value="0.01" data-color="#C0C0C0">Plateado (×0.01)</option>
+                    </select>
+                </div>
+
+                <!-- Banda 4 (Tolerancia) -->
+                <div>
+                    <label class="block mb-2 font-semibold">
+                        <span class="inline-block w-3 h-3 bg-yellow-500 rounded mr-2"></span>
+                        Banda 4 (Tolerancia)
+                    </label>
+                    <select id="banda4" class="w-full p-3 bg-slate-700 rounded-lg border-2 border-slate-600 focus:border-yellow-400 outline-none">
+                        <option value="1" data-color="#8B4513">Marrón (±1%)</option>
+                        <option value="2" data-color="#DC2626">Rojo (±2%)</option>
+                        <option value="5" data-color="#EAB308" selected>Dorado (±5%)</option>
+                        <option value="10" data-color="#C0C0C0">Plateado (±10%)</option>
+                        <option value="20" data-color="#F5F5DC">Sin banda (±20%)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- RESULTADO -->
+            <div class="bg-gradient-to-r from-green-900 to-cyan-900 p-6 rounded-lg text-center border-2 border-green-500">
+                <p class="text-sm text-slate-300 mb-2">Valor de la resistencia:</p>
+                <p class="text-4xl md:text-5xl font-heading font-bold text-yellow-400" id="resultado">
+                    1.7 kΩ
+                </p>
+                <p class="text-lg text-slate-200 mt-2" id="rangoTolerancia">
+                    Rango: 1615 Ω - 1785 Ω
+                </p>
+                <p class="text-sm text-slate-300 mt-3" id="formula">
+                    Fórmula: (17) × 100 = 1700 Ω
+                </p>
+            </div>
+
+            <!-- TABLA DE REFERENCIA -->
+            <details class="mt-6 bg-slate-900 rounded-lg">
+                <summary class="p-4 cursor-pointer font-semibold text-cyan-400 hover:text-cyan-300">
+                    <i class="fas fa-table mr-2"></i> Ver tabla completa de colores
+                </summary>
+                <div class="p-4 overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-800">
+                            <tr>
+                                <th class="p-2">Color</th>
+                                <th class="p-2">Dígito</th>
+                                <th class="p-2">Multiplicador</th>
+                                <th class="p-2">Tolerancia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-black rounded mr-2 align-middle"></span>Negro</td><td>0</td><td>×1</td><td>-</td></tr>
+                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 rounded mr-2 align-middle" style="background:#8B4513"></span>Marrón</td><td>1</td><td>×10</td><td>±1%</td></tr>
+                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-red-600 rounded mr-2 align-middle"></span>Rojo</td><td>2</td><td>×100</td><td>±2%</td></tr>
+                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-orange-500 rounded mr-2 align-middle"></span>Naranja</td><td>3</td><td>×1K</td><td>-</td></tr>
+                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-yellow-400 rounded mr-2 align-middle"></span>Amarillo</td><td>4</td><td>×10K</td><td>-</td></tr>
+                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-green-500 rounded mr-2 align-middle"></span>Verde</td><td>5</td><td>×100K</td><td>±0.5%</td></tr>
+                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-blue-500 rounded mr-2 align-middle"></span>Azul</td><td>6</td><td>×1M</td><td>±0.25%</td></tr>
+                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-purple-600 rounded mr-2 align-middle"></span>Violeta</td><td>7</td><td>×10M</td><td>±0.1%</td></tr>
+                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-gray-500 rounded mr-2 align-middle"></span>Gris</td><td>8</td><td>-</td><td>-</td></tr>
+                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-white rounded mr-2 align-middle"></span>Blanco</td><td>9</td><td>-</td><td>-</td></tr>
+                            <tr><td class="p-2"><span class="inline-block w-4 h-4 rounded mr-2 align-middle" style="background:#D4AF37"></span>Dorado</td><td>-</td><td>×0.1</td><td>±5%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <script>
+        // ============ SELECTORES ============
+        const banda1 = document.getElementById('banda1');
+        const banda2 = document.getElementById('banda2');
+        const banda3 = document.getElementById('banda3');
+        const banda4 = document.getElementById('banda4');
+        
+        const banda1Visual = document.getElementById('banda1Visual');
+        const banda2Visual = document.getElementById('banda2Visual');
+        const banda3Visual = document.getElementById('banda3Visual');
+        const banda4Visual = document.getElementById('banda4Visual');
+        
+        const resultado = document.getElementById('resultado');
+        const rangoTolerancia = document.getElementById('rangoTolerancia');
+        const formula = document.getElementById('formula');
+
+        // ============ FUNCIÓN CALCULAR ============
+        function calcular() {
+            const digito1 = parseInt(banda1.value);
+            const digito2 = parseInt(banda2.value);
+            const multiplicador = parseFloat(banda3.value);
+            const tolerancia = parseFloat(banda4.value);
+            
+            // Calcular valor base
+            const valorBase = (digito1 * 10 + digito2) * multiplicador;
+            
+            // Actualizar bandas visuales
+            banda1Visual.style.backgroundColor = banda1.options[banda1.selectedIndex].dataset.color;
+            banda2Visual.style.backgroundColor = banda2.options[banda2.selectedIndex].dataset.color;
+            banda3Visual.style.backgroundColor = banda3.options[banda3.selectedIndex].dataset.color;
+            banda4Visual.style.backgroundColor = banda4.options[banda4.selectedIndex].dataset.color;
+            
+            // Formatear resultado
+            let valorFormateado;
+            if (valorBase >= 1000000) {
+                valorFormateado = (valorBase / 1000000).toFixed(2) + ' MΩ';
+            } else if (valorBase >= 1000) {
+                valorFormateado = (valorBase / 1000).toFixed(2) + ' kΩ';
+            } else {
+                valorFormateado = valorBase.toFixed(2) + ' Ω';
+            }
+            
+            resultado.textContent = valorFormateado;
+            
+            // Calcular rango de tolerancia
+            const minimo = valorBase * (1 - tolerancia / 100);
+            const maximo = valorBase * (1 + tolerancia / 100);
+            rangoTolerancia.textContent = `Rango: ${minimo.toFixed(0)} Ω - ${maximo.toFixed(0)} Ω (±${tolerancia}%)`;
+            
+            // Mostrar fórmula
+            formula.textContent = `Fórmula: (${digito1}${digito2}) × ${multiplicador} = ${valorBase} Ω`;
+        }
+
+        // ============ EVENT LISTENERS ============
+        banda1.addEventListener('change', calcular);
+        banda2.addEventListener('change', calcular);
+        banda3.addEventListener('change', calcular);
+        banda4.addEventListener('change', calcular);
+
+        // Calcular al iniciar
+        calcular();
+    </script>
+</body>
+</html>
