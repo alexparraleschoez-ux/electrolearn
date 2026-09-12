@@ -7,21 +7,13 @@
     <meta name="author" content="Alex Parrales Choez - Bachiller en Informática 2026">
     <title>ElectroLearn - Repositorio Digital Interactivo</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-    
-    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="css/styles.css">
     
-    <!-- Configuración de Tailwind -->
     <script>
         tailwind.config = {
             theme: {
@@ -59,7 +51,7 @@
                 <ul id="menu" class="hidden md:flex gap-6 font-semibold">
                     <li><a href="#inicio" class="hover:text-electro-yellow transition">Inicio</a></li>
                     <li><a href="#modulos" class="hover:text-electro-yellow transition">Módulos</a></li>
-                    <li><a href="#simuladores" class="hover:text-electro-yellow transition">Simuladores</a></li>
+                    <li><a href="modulos/modulo10-laboratorio/index.html" class="hover:text-electro-yellow transition">Simuladores</a></li>
                     <li><a href="#progreso" class="hover:text-electro-yellow transition">Mi Progreso</a></li>
                 </ul>
             </nav>
@@ -84,7 +76,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DE MÓDULOS -->
+    <!-- MÓDULOS -->
     <section id="modulos" class="py-16 bg-slate-800">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-4">
@@ -196,39 +188,6 @@
         </div>
     </section>
 
-    <!-- SIMULADORES EXTERNOS -->
-    <section id="simuladores" class="py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-12">
-                Laboratorio Virtual
-            </h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-slate-800 p-6 rounded-xl">
-                    <h3 class="text-xl font-bold mb-4 text-electro-cyan">
-                        <i class="fas fa-atom mr-2"></i> PhET Simulations
-                    </h3>
-                    <p class="text-slate-300 mb-4">Simulador de construcción de circuitos de la Universidad de Colorado.</p>
-                    <a href="https://phet.colorado.edu/es/simulations/circuit-construction-kit-ac" 
-                       target="_blank" 
-                       class="inline-block bg-electro-cyan text-black font-bold py-2 px-6 rounded-lg hover:bg-cyan-300 transition">
-                        Abrir Simulador <i class="fas fa-external-link-alt ml-2"></i>
-                    </a>
-                </div>
-                <div class="bg-slate-800 p-6 rounded-xl">
-                    <h3 class="text-xl font-bold mb-4 text-electro-green">
-                        <i class="fas fa-microchip mr-2"></i> Tinkercad Circuits
-                    </h3>
-                    <p class="text-slate-300 mb-4">Laboratorio virtual de electrónica y Arduino en 3D.</p>
-                    <a href="https://www.tinkercad.com/circuits" 
-                       target="_blank" 
-                       class="inline-block bg-electro-green text-black font-bold py-2 px-6 rounded-lg hover:bg-green-300 transition">
-                        Abrir Simulador <i class="fas fa-external-link-alt ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- PROGRESO -->
     <section id="progreso" class="py-16 bg-slate-800">
         <div class="container mx-auto px-4 text-center">
@@ -252,7 +211,6 @@
         <p class="text-slate-500 text-sm mt-4">Bachiller en Informática - Soporte Informático</p>
     </footer>
 
-    <!-- Script principal -->
     <script src="js/main.js"></script>
 </body>
 </html>
