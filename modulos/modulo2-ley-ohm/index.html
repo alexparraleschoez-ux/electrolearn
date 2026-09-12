@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Ley de Ohm - ElectroLearn</title>
+    <title>Módulo 2: Ley de Ohm - ElectroLearn</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <script>
@@ -21,7 +20,37 @@
         }
     </script>
     <style>
-        html { scroll-behavior: smooth; }
+        @keyframes fluirCircuito {
+            0% { left: -20px; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+        @keyframes parpadeo {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px #ef4444); }
+            50% { opacity: 0.6; filter: drop-shadow(0 0 5px #ef4444); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulso {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .electron { animation: fluirCircuito 3s linear infinite; }
+        .led-glow { animation: parpadeo 1s ease-in-out infinite; }
+        .section-animate { animation: fadeInUp 0.6s ease-out; }
+        .triangulo-ohm { animation: pulso 2s ease-in-out infinite; }
+        .teoria-card {
+            border-left: 4px solid #22d3ee;
+            transition: all 0.3s;
+        }
+        .teoria-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+        }
+        .opcion-btn:disabled { cursor: not-allowed; }
     </style>
 </head>
 <body class="bg-slate-900 text-white font-body min-h-screen">
@@ -39,216 +68,798 @@
     </header>
 
     <!-- TÍTULO -->
-    <section class="py-8 text-center px-4">
+    <section class="py-8 text-center px-4 section-animate">
         <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
-            <i class="fas fa-bolt text-yellow-400"></i> Simulador Ley de Ohm
+            <i class="fas fa-calculator text-cyan-400"></i> Módulo 2: Ley de Ohm
         </h1>
-        <p class="text-slate-300 text-lg">Experimenta con Voltaje, Corriente y Resistencia</p>
+        <p class="text-slate-300 text-lg">La relación fundamental entre Voltaje, Corriente y Resistencia</p>
     </section>
 
-    <!-- CONTENEDOR PRINCIPAL -->
-    <div class="container mx-auto px-4 pb-16 grid md:grid-cols-2 gap-6">
-        
-        <!-- PANEL DE CONTROLES -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
+    <div class="container mx-auto px-4 pb-16 space-y-8">
+
+        <!-- SECCIÓN 1: TEORÍA -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
             <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
-                <i class="fas fa-sliders-h mr-2"></i> Controles
+                <i class="fas fa-book mr-2"></i>Teoría: La Ley de Ohm
             </h2>
-            
-            <!-- Control Voltaje -->
-            <div class="mb-6">
-                <label class="block mb-2 font-semibold">
-                    <i class="fas fa-battery-full text-yellow-400 mr-2"></i>
-                    Voltaje (V): <span id="vValor" class="text-yellow-400 text-xl">5.0</span> V
-                </label>
-                <input type="range" id="voltaje" min="0" max="24" step="0.1" value="5" 
-                       class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-400">
-                <div class="flex justify-between text-xs text-slate-400 mt-1">
-                    <span>0V</span><span>12V</span><span>24V</span>
+
+            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+                    <i class="fas fa-history mr-2"></i>¿Qué es la Ley de Ohm?
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    La <strong class="text-cyan-400">Ley de Ohm</strong> es la ley fundamental de la electricidad. 
+                    Fue descubierta por el físico alemán <strong class="text-yellow-400">Georg Simon Ohm</strong> en 1827.
+                </p>
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <p class="text-sm text-slate-400 mb-2">📘 Definición:</p>
+                    <p class="text-slate-300">
+                        Establece que la <strong class="text-green-400">corriente (I)</strong> que circula por un conductor 
+                        es <strong>directamente proporcional</strong> al <strong class="text-yellow-400">voltaje (V)</strong> 
+                        aplicado e <strong>inversamente proporcional</strong> a la <strong class="text-red-400">resistencia (R)</strong>.
+                    </p>
                 </div>
             </div>
-            
-            <!-- Control Resistencia -->
-            <div class="mb-6">
-                <label class="block mb-2 font-semibold">
-                    <i class="fas fa-microchip text-cyan-400 mr-2"></i>
-                    Resistencia (R): <span id="rValor" class="text-cyan-400 text-xl">100</span> Ω
-                </label>
-                <input type="range" id="resistencia" min="1" max="1000" step="1" value="100" 
-                       class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-400">
-                <div class="flex justify-between text-xs text-slate-400 mt-1">
-                    <span>1Ω</span><span>500Ω</span><span>1000Ω</span>
+
+            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+                    <i class="fas fa-square-root-alt mr-2"></i>La Fórmula: V = I × R
+                </h3>
+                <div class="bg-blue-900 p-6 rounded-lg text-center mb-4">
+                    <p class="text-4xl font-bold text-white mb-2">V = I × R</p>
+                    <p class="text-sm text-slate-300">Voltaje = Corriente × Resistencia</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-slate-800 p-4 rounded-lg border-2 border-yellow-500">
+                        <h4 class="font-bold text-yellow-400 mb-2">Para calcular V:</h4>
+                        <p class="text-2xl font-bold text-center text-white">V = I × R</p>
+                        <p class="text-xs text-slate-400 mt-2">Voltaje (V) = Corriente (A) × Resistencia (Ω)</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg border-2 border-green-500">
+                        <h4 class="font-bold text-green-400 mb-2">Para calcular I:</h4>
+                        <p class="text-2xl font-bold text-center text-white">I = V / R</p>
+                        <p class="text-xs text-slate-400 mt-2">Corriente (A) = Voltaje (V) / Resistencia (Ω)</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg border-2 border-red-500">
+                        <h4 class="font-bold text-red-400 mb-2">Para calcular R:</h4>
+                        <p class="text-2xl font-bold text-center text-white">R = V / I</p>
+                        <p class="text-xs text-slate-400 mt-2">Resistencia (Ω) = Voltaje (V) / Corriente (A)</p>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Resultado Corriente -->
-            <div class="bg-slate-900 p-6 rounded-lg text-center border-2 border-green-500">
-                <p class="text-sm text-slate-400 mb-2">Corriente calculada (I = V / R)</p>
-                <p class="text-5xl font-heading font-bold text-green-400">
-                    <span id="corriente">0.050</span>
+
+            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+                    <i class="fas fa-play mr-2"></i>Triángulo de la Ley de Ohm
+                </h3>
+                <p class="text-slate-300 mb-4">
+                    El triángulo de Ohm es una herramienta visual para recordar las tres fórmulas. 
+                    Tapa la variable que quieres calcular:
                 </p>
-                <p class="text-xl text-slate-300">Amperios (A)</p>
-                <p class="text-sm text-slate-400 mt-2">
-                    Equivale a <span id="corrienteMA" class="text-green-400 font-bold">50</span> miliamperios (mA)
-                </p>
+                <div class="flex justify-center mb-4">
+                    <div class="triangulo-ohm relative">
+                        <svg width="200" height="180" viewBox="0 0 200 180">
+                            <!-- Triángulo -->
+                            <polygon points="100,10 10,170 190,170" fill="#1e293b" stroke="#22d3ee" stroke-width="3"/>
+                            <!-- Línea horizontal -->
+                            <line x1="55" y1="90" x2="145" y2="90" stroke="#22d3ee" stroke-width="2"/>
+                            <!-- Línea vertical -->
+                            <line x1="100" y1="90" x2="100" y2="170" stroke="#22d3ee" stroke-width="2"/>
+                            <!-- Textos -->
+                            <text x="100" y="60" text-anchor="middle" font-size="32" font-weight="bold" fill="#facc15">V</text>
+                            <text x="60" y="140" text-anchor="middle" font-size="32" font-weight="bold" fill="#4ade80">I</text>
+                            <text x="140" y="140" text-anchor="middle" font-size="32" font-weight="bold" fill="#ef4444">R</text>
+                            <!-- Símbolos -->
+                            <text x="100" y="100" text-anchor="middle" font-size="20" fill="#22d3ee">×</text>
+                            <text x="100" y="135" text-anchor="middle" font-size="20" fill="#22d3ee">÷</text>
+                        </svg>
+                    </div>
+                </div>
+                <div class="bg-purple-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Cómo usar:</strong> Tapa la letra que quieres calcular. 
+                        Las dos letras restantes te muestran la operación.
+                        <br>• Tapa <strong class="text-yellow-400">V</strong> → Ves I × R
+                        <br>• Tapa <strong class="text-green-400">I</strong> → Ves V ÷ R
+                        <br>• Tapa <strong class="text-red-400">R</strong> → Ves V ÷ I
+                    </p>
+                </div>
             </div>
-            
-            <!-- Fórmulas -->
-            <div class="mt-6 p-4 bg-blue-900 rounded-lg">
-                <h3 class="font-bold mb-2 text-yellow-300">📐 Fórmulas de la Ley de Ohm:</h3>
-                <ul class="space-y-1 text-sm">
-                    <li><strong>V = I × R</strong> (Voltaje)</li>
-                    <li><strong>I = V / R</strong> (Corriente)</li>
-                    <li><strong>R = V / I</strong> (Resistencia)</li>
-                </ul>
+
+            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+                    <i class="fas fa-balance-scale mr-2"></i>Relaciones de Proporcionalidad
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-green-900 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-400 mb-2">✓ Directamente Proporcional</h4>
+                        <p class="text-sm text-slate-300 mb-2">
+                            Si aumenta el <strong class="text-yellow-400">voltaje</strong>, aumenta la <strong class="text-green-400">corriente</strong> 
+                            (manteniendo R constante).
+                        </p>
+                        <div class="bg-slate-800 p-2 rounded text-center">
+                            <p class="text-xs text-slate-400">Ejemplo: 9V → 18V (doble voltaje) = doble corriente</p>
+                        </div>
+                    </div>
+                    <div class="bg-red-900 p-4 rounded-lg">
+                        <h4 class="font-bold text-red-400 mb-2">✗ Inversamente Proporcional</h4>
+                        <p class="text-sm text-slate-300 mb-2">
+                            Si aumenta la <strong class="text-red-400">resistencia</strong>, disminuye la <strong class="text-green-400">corriente</strong> 
+                            (manteniendo V constante).
+                        </p>
+                        <div class="bg-slate-800 p-2 rounded text-center">
+                            <p class="text-xs text-slate-400">Ejemplo: 100Ω → 200Ω (doble resistencia) = mitad de corriente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="teoria-card bg-slate-900 p-5 rounded-lg">
+                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+                    <i class="fas fa-units mr-2"></i>Unidades de Medida
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-800">
+                            <tr>
+                                <th class="p-3 text-left text-yellow-400">Variable</th>
+                                <th class="p-3 text-left text-cyan-400">Unidad</th>
+                                <th class="p-3 text-left text-slate-400">Símbolo</th>
+                                <th class="p-3 text-left text-slate-400">Instrumento</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300">
+                            <tr class="border-b border-slate-700">
+                                <td class="p-3 font-bold">Voltaje (V)</td>
+                                <td class="p-3">Voltio</td>
+                                <td class="p-3">V</td>
+                                <td class="p-3">Voltímetro</td>
+                            </tr>
+                            <tr class="border-b border-slate-700">
+                                <td class="p-3 font-bold">Corriente (I)</td>
+                                <td class="p-3">Amperio</td>
+                                <td class="p-3">A</td>
+                                <td class="p-3">Amperímetro</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold">Resistencia (R)</td>
+                                <td class="p-3">Ohmio</td>
+                                <td class="p-3">Ω</td>
+                                <td class="p-3">Ohmímetro</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <!-- PANEL DE GRÁFICO -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
-            <h2 class="text-2xl font-heading font-bold mb-6 text-green-400">
-                <i class="fas fa-chart-bar mr-2"></i> Representación Visual
+        <!-- SECCIÓN 2: SIMULADOR INTERACTIVO -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-green-400">
+                <i class="fas fa-flask mr-2"></i>Simulador Interactivo: Ley de Ohm
             </h2>
-            <div class="bg-slate-900 p-4 rounded-lg">
-                <canvas id="grafico"></canvas>
-            </div>
-            
-            <!-- Interpretación -->
-            <div class="mt-6 p-4 bg-slate-900 rounded-lg">
-                <h3 class="font-bold mb-2 text-yellow-300">💡 Interpretación:</h3>
-                <p id="interpretacion" class="text-sm text-slate-300">
-                    Con 5V y 100Ω, la corriente es de 50mA. Este valor es seguro para la mayoría de circuitos electrónicos básicos.
-                </p>
+            <p class="text-slate-300 mb-4">
+                Ajusta los valores y observa cómo cambian las variables en tiempo real.
+            </p>
+
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <!-- Sliders -->
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <label class="block mb-2 font-semibold">
+                            <i class="fas fa-battery-full text-yellow-400 mr-2"></i>
+                            Voltaje (V): <span id="voltajeDisplay" class="text-yellow-400 text-xl">9</span> V
+                        </label>
+                        <input type="range" id="voltajeSlider" min="1" max="24" step="1" value="9" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-400">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>1V</span><span>12V</span><span>24V</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block mb-2 font-semibold">
+                            <i class="fas fa-microchip text-red-400 mr-2"></i>
+                            Resistencia (R): <span id="resistenciaDisplay" class="text-red-400 text-xl">100</span> Ω
+                        </label>
+                        <input type="range" id="resistenciaSlider" min="10" max="1000" step="10" value="100" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-red-400">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>10Ω</span><span>500Ω</span><span>1000Ω</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block mb-2 font-semibold">
+                            <i class="fas fa-wave-square text-green-400 mr-2"></i>
+                            Corriente (I): <span id="corrienteDisplay" class="text-green-400 text-xl">0.090</span> A
+                        </label>
+                        <input type="range" id="corrienteSlider" min="1" max="100" step="1" value="90" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-green-400">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>1mA</span><span>50mA</span><span>100mA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualización del circuito -->
+                <div class="bg-slate-800 p-6 rounded-lg mb-4">
+                    <svg viewBox="0 0 500 200" class="w-full max-w-2xl mx-auto">
+                        <!-- Cables -->
+                        <line x1="80" y1="100" x2="180" y2="100" stroke="#22d3ee" stroke-width="4"/>
+                        <line x1="280" y1="100" x2="380" y2="100" stroke="#22d3ee" stroke-width="4"/>
+                        <line x1="80" y1="100" x2="80" y2="170" stroke="#22d3ee" stroke-width="4"/>
+                        <line x1="380" y1="100" x2="380" y2="170" stroke="#22d3ee" stroke-width="4"/>
+                        <line x1="80" y1="170" x2="380" y2="170" stroke="#22d3ee" stroke-width="4"/>
+                        
+                        <!-- Batería -->
+                        <rect x="40" y="80" width="80" height="40" fill="#facc15" rx="5"/>
+                        <text x="80" y="105" text-anchor="middle" font-size="16" font-weight="bold" fill="black" id="bateriaTexto">9V</text>
+                        
+                        <!-- Resistencia -->
+                        <rect x="180" y="85" width="100" height="30" fill="#ef4444" rx="3"/>
+                        <text x="230" y="105" text-anchor="middle" font-size="12" fill="white" font-weight="bold" id="resistenciaTexto">100Ω</text>
+                        
+                        <!-- LED -->
+                        <circle cx="380" cy="100" r="25" fill="#ef4444" id="led" class="led-glow"/>
+                        <text x="380" y="105" text-anchor="middle" font-size="12" fill="white" font-weight="bold">LED</text>
+                        
+                        <!-- Electrones animados -->
+                        <circle r="4" fill="#60a5fa">
+                            <animateMotion dur="2s" repeatCount="indefinite" 
+                                path="M 80,100 L 180,100 L 280,100 L 380,100 L 380,170 L 80,170 Z"/>
+                        </circle>
+                        <circle r="4" fill="#60a5fa">
+                            <animateMotion dur="2s" repeatCount="indefinite" begin="0.5s"
+                                path="M 80,100 L 180,100 L 280,100 L 380,100 L 380,170 L 80,170 Z"/>
+                        </circle>
+                        <circle r="4" fill="#60a5fa">
+                            <animateMotion dur="2s" repeatCount="indefinite" begin="1s"
+                                path="M 80,100 L 180,100 L 280,100 L 380,100 L 380,170 L 80,170 Z"/>
+                        </circle>
+                    </svg>
+                </div>
+
+                <!-- Resultados -->
+                <div class="bg-gradient-to-r from-green-900 to-cyan-900 p-6 rounded-lg text-center border-2 border-green-500">
+                    <p class="text-sm text-slate-300 mb-2">Fórmula aplicada: I = V / R</p>
+                    <p class="text-4xl font-bold text-green-400 mb-2">
+                        I = <span id="voltajeResultado">9</span>V / <span id="resistenciaResultado">100</span>Ω = <span id="corrienteResultado">0.090</span> A
+                    </p>
+                    <p class="text-lg text-slate-200">
+                        = <span id="corrienteMA" class="text-green-400 font-bold">90</span> mA
+                    </p>
+                    <div id="estadoLED" class="mt-4 p-3 bg-yellow-600 rounded-lg">
+                        <p class="font-bold">⚠️ Corriente alta (precaución)</p>
+                        <p class="text-sm">Para un LED estándar (20-30 mA ideal)</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-4 bg-blue-900 rounded-lg">
+                    <h3 class="font-bold mb-2 text-yellow-300">💡 Interpretación:</h3>
+                    <p id="interpretacion" class="text-sm text-slate-300"></p>
+                </div>
             </div>
         </div>
+
+        <!-- SECCIÓN 3: EJEMPLOS PRÁCTICOS -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+                <i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos: ¡Calcula Tú Mismo!
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Resuelve estos problemas usando la Ley de Ohm. Completa los 50 ejemplos.
+            </p>
+
+            <!-- Barra de progreso -->
+            <div class="bg-slate-900 p-4 rounded-lg mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm text-slate-400">Progreso:</span>
+                    <span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50 completados</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-3">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Contenedor del ejemplo actual -->
+            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500">
+                <!-- Se llena dinámicamente -->
+            </div>
+
+            <!-- Botones de navegación -->
+            <div class="flex gap-4 mt-6">
+                <button onclick="ejemploAnterior()" 
+                        id="btn-anterior"
+                        class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior
+                </button>
+                <button onclick="siguienteEjemplo()" 
+                        id="btn-siguiente"
+                        class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">
+                    Siguiente<i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+            <!-- Selector rápido -->
+            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
+                <p class="text-sm text-slate-400 mb-3">O salta a un ejemplo específico:</p>
+                <div class="flex gap-2">
+                    <input type="number" id="saltar-a" min="1" max="50" placeholder="Número (1-50)" 
+                           class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                    <button onclick="irAEjemplo()" 
+                            class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded transition">
+                        Ir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: QUIZ -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+                <i class="fas fa-question-circle mr-2"></i>Quiz: Evalúa tu Conocimiento
+            </h2>
+            <p class="text-slate-300 mb-4">
+                10 preguntas aleatorias de un banco de 30 sobre la Ley de Ohm.
+            </p>
+            
+            <div id="quiz-container" class="space-y-4 mb-6"></div>
+            
+            <button onclick="verResultados()" 
+                    class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg transition">
+                <i class="fas fa-check-circle mr-2"></i>Ver Resultados
+            </button>
+            
+            <div id="resultado-quiz" class="mt-6 hidden"></div>
+            
+            <button onclick="nuevoIntento()" 
+                    class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden"
+                    id="btn-reintentar">
+                <i class="fas fa-redo mr-2"></i>Intentar de Nuevo
+            </button>
+        </div>
+
     </div>
 
-    <!-- EJERCICIOS PRÁCTICOS -->
-    <section class="container mx-auto px-4 pb-16">
-        <div class="bg-slate-800 p-6 rounded-xl">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
-                <i class="fas fa-tasks mr-2"></i> Ejercicios Prácticos
-            </h2>
-            <div class="space-y-4">
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <p class="font-semibold mb-2">1. Si tienes un LED de 2V y una resistencia de 100Ω, ¿cuánta corriente circula con una batería de 9V?</p>
-                    <button onclick="alert('Pista: Primero resta el voltaje del LED: 9V - 2V = 7V. Luego aplica I = V/R = 7/100 = 0.07A = 70mA')" 
-                            class="text-cyan-400 hover:text-cyan-300 text-sm">
-                        💡 Ver pista
-                    </button>
-                </div>
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <p class="font-semibold mb-2">2. ¿Qué resistencia necesitas para limitar la corriente a 20mA con un voltaje de 5V?</p>
-                    <button onclick="alert('Pista: Despeja R = V/I = 5/0.02 = 250Ω')" 
-                            class="text-cyan-400 hover:text-cyan-300 text-sm">
-                        💡 Ver pista
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <script>
-        // ============ ELEMENTOS DEL DOM ============
-        const voltaje = document.getElementById('voltaje');
-        const resistencia = document.getElementById('resistencia');
-        const corrienteEl = document.getElementById('corriente');
-        const vValor = document.getElementById('vValor');
-        const rValor = document.getElementById('rValor');
+        // ============ SIMULADOR LEY DE OHM ============
+        const voltajeSlider = document.getElementById('voltajeSlider');
+        const resistenciaSlider = document.getElementById('resistenciaSlider');
+        const corrienteSlider = document.getElementById('corrienteSlider');
+        const voltajeDisplay = document.getElementById('voltajeDisplay');
+        const resistenciaDisplay = document.getElementById('resistenciaDisplay');
+        const corrienteDisplay = document.getElementById('corrienteDisplay');
+        const bateriaTexto = document.getElementById('bateriaTexto');
+        const resistenciaTexto = document.getElementById('resistenciaTexto');
+        const voltajeResultado = document.getElementById('voltajeResultado');
+        const resistenciaResultado = document.getElementById('resistenciaResultado');
+        const corrienteResultado = document.getElementById('corrienteResultado');
         const corrienteMA = document.getElementById('corrienteMA');
+        const estadoLED = document.getElementById('estadoLED');
         const interpretacion = document.getElementById('interpretacion');
-        
-        const ctx = document.getElementById('grafico').getContext('2d');
-        let chart;
+        const led = document.getElementById('led');
 
-        // ============ FUNCIÓN PRINCIPAL ============
-        function actualizar() {
-            const v = parseFloat(voltaje.value);
-            const r = parseFloat(resistencia.value);
-            const i = r > 0 ? v / r : 0;
-            
-            // Actualizar valores en pantalla
-            vValor.textContent = v.toFixed(1);
-            rValor.textContent = r;
-            corrienteEl.textContent = i.toFixed(3);
-            corrienteMA.textContent = (i * 1000).toFixed(1);
-            
-            // Actualizar interpretación
-            actualizarInterpretacion(v, r, i);
-            
-            // Actualizar gráfico
-            actualizarGrafico(v, r, i);
+        let modoCalculo = 'voltaje'; // 'voltaje', 'resistencia', 'corriente'
+
+        function actualizarSimulador() {
+            const v = parseFloat(voltajeSlider.value);
+            const r = parseFloat(resistenciaSlider.value);
+            const i = v / r;
+            const iMA = i * 1000;
+
+            voltajeDisplay.textContent = v;
+            resistenciaDisplay.textContent = r;
+            corrienteDisplay.textContent = i.toFixed(3);
+            bateriaTexto.textContent = v + 'V';
+            resistenciaTexto.textContent = r + 'Ω';
+            voltajeResultado.textContent = v;
+            resistenciaResultado.textContent = r;
+            corrienteResultado.textContent = i.toFixed(3);
+            corrienteMA.textContent = iMA.toFixed(1);
+
+            // Estado del LED
+            if (iMA < 5) {
+                estadoLED.className = 'mt-4 p-3 bg-gray-600 rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold"> LED apagado</p><p class="text-sm">Corriente muy baja</p>';
+                led.style.opacity = '0.3';
+                interpretacion.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. Muy baja para encender un LED.`;
+            } else if (iMA >= 5 && iMA <= 30) {
+                estadoLED.className = 'mt-4 p-3 bg-green-600 rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold">✅ LED encendido correctamente</p><p class="text-sm">Corriente ideal (5-30 mA)</p>';
+                led.style.opacity = '1';
+                interpretacion.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. Valor perfecto para un LED.`;
+            } else if (iMA > 30 && iMA <= 50) {
+                estadoLED.className = 'mt-4 p-3 bg-yellow-600 rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold">⚠️ LED muy brillante</p><p class="text-sm">Corriente alta, podría dañarse</p>';
+                led.style.opacity = '1';
+                interpretacion.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. Alta para un LED. Aumenta la resistencia.`;
+            } else {
+                estadoLED.className = 'mt-4 p-3 bg-red-600 rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold">🔥 LED QUEMADO</p><p class="text-sm">Corriente excesiva</p>';
+                led.style.opacity = '0.5';
+                interpretacion.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. ¡Demasiado alta! El LED se quema.`;
+            }
         }
 
-        // ============ INTERPRETACIÓN AUTOMÁTICA ============
-        function actualizarInterpretacion(v, r, i) {
-            let texto = '';
-            const mA = i * 1000;
+        voltajeSlider.addEventListener('input', actualizarSimulador);
+        resistenciaSlider.addEventListener('input', actualizarSimulador);
+
+        // ============ 50 EJEMPLOS PRÁCTICOS ============
+        const ejemplosPracticos = [
+            { titulo: "Linterna Básica", icono: "🔦", color: "yellow", tipo: "I", v: 3, r: 150, unidad: "mA" },
+            { titulo: "Cargador de Celular", icono: "📱", color: "cyan", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "LED Rojo", icono: "💡", color: "red", tipo: "R", v: 5, i: 0.02, unidad: "Ω" },
+            { titulo: "Batería de 9V", icono: "🔋", color: "yellow", tipo: "I", v: 9, r: 450, unidad: "mA" },
+            { titulo: "Motor Pequeño", icono: "⚙️", color: "blue", tipo: "V", i: 0.5, r: 24, unidad: "V" },
+            { titulo: "Resistencia para LED", icono: "", color: "green", tipo: "R", v: 12, i: 0.02, unidad: "Ω" },
+            { titulo: "Circuito de 12V", icono: "🚗", color: "red", tipo: "I", v: 12, r: 240, unidad: "mA" },
+            { titulo: "Fuente de Poder", icono: "🔌", color: "cyan", tipo: "V", i: 2, r: 6, unidad: "V" },
+            { titulo: "Resistencia Limitadora", icono: "", color: "yellow", tipo: "R", v: 9, i: 0.03, unidad: "Ω" },
+            { titulo: "Cargador USB", icono: "🔌", color: "green", tipo: "I", v: 5, r: 50, unidad: "mA" },
+            { titulo: "Batería de Auto", icono: "🚗", color: "red", tipo: "I", v: 12, r: 4, unidad: "A" },
+            { titulo: "Panel Solar", icono: "☀️", color: "yellow", tipo: "V", i: 0.5, r: 12, unidad: "V" },
+            { titulo: "Resistencia de Potencia", icono: "⚡", color: "orange", tipo: "P", v: 12, i: 0.5, unidad: "W" },
+            { titulo: "Circuito en Serie", icono: "", color: "blue", tipo: "R", v: 9, i: 0.03, unidad: "Ω" },
+            { titulo: "Circuito en Paralelo", icono: "🔀", color: "purple", tipo: "I", v: 12, r: 60, unidad: "mA" },
+            { titulo: "Divisor de Voltaje", icono: "⚖️", color: "cyan", tipo: "V", i: 0.01, r: 500, unidad: "V" },
+            { titulo: "Amplificador", icono: "🔊", color: "green", tipo: "I", v: 15, r: 300, unidad: "mA" },
+            { titulo: "Sensor de Temperatura", icono: "🌡️", color: "red", tipo: "R", v: 5, i: 0.01, unidad: "Ω" },
+            { titulo: "LED Azul", icono: "💡", color: "blue", tipo: "R", v: 5, i: 0.02, unidad: "Ω" },
+            { titulo: "Resistor de Precisión", icono: "🎯", color: "yellow", tipo: "V", i: 0.001, r: 1000, unidad: "V" },
+            { titulo: "Circuito Integrado", icono: "🔲", color: "purple", tipo: "I", v: 5, r: 250, unidad: "mA" },
+            { titulo: "Transistor NPN", icono: "🔺", color: "green", tipo: "R", v: 12, i: 0.05, unidad: "Ω" },
+            { titulo: "Diodo Zener", icono: "️", color: "red", tipo: "I", v: 5.1, r: 510, unidad: "mA" },
+            { titulo: "Capacitor Cargado", icono: "🔋", color: "cyan", tipo: "V", i: 0.1, r: 100, unidad: "V" },
+            { titulo: "Inductor", icono: "🌀", color: "blue", tipo: "R", v: 9, i: 0.09, unidad: "Ω" },
+            { titulo: "Relé", icono: "🔘", color: "yellow", tipo: "I", v: 12, r: 240, unidad: "mA" },
+            { titulo: "Transformador", icono: "⚡", color: "orange", tipo: "V", i: 1, r: 120, unidad: "V" },
+            { titulo: "Fusible", icono: "🛡️", color: "red", tipo: "R", v: 120, i: 10, unidad: "Ω" },
+            { titulo: "Breaker", icono: "🔒", color: "green", tipo: "I", v: 120, r: 12, unidad: "A" },
+            { titulo: "Potenciómetro", icono: "🎚️", color: "purple", tipo: "V", i: 0.01, r: 1000, unidad: "V" },
+            { titulo: "LDR (Sensor de Luz)", icono: "💡", color: "yellow", tipo: "R", v: 5, i: 0.005, unidad: "Ω" },
+            { titulo: "Termistor", icono: "🌡️", color: "red", tipo: "I", v: 5, r: 1000, unidad: "mA" },
+            { titulo: "Piezoeléctrico", icono: "", color: "cyan", tipo: "V", i: 0.001, r: 10000, unidad: "V" },
+            { titulo: "Motor DC", icono: "⚙️", color: "blue", tipo: "R", v: 12, i: 0.5, unidad: "Ω" },
+            { titulo: "Servo Motor", icono: "", color: "green", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Step Motor", icono: "🔄", color: "purple", tipo: "V", i: 0.3, r: 40, unidad: "V" },
+            { titulo: "Buzzer", icono: "🔊", color: "yellow", tipo: "R", v: 5, i: 0.03, unidad: "Ω" },
+            { titulo: "Display 7 Segmentos", icono: "🔢", color: "red", tipo: "I", v: 5, r: 250, unidad: "mA" },
+            { titulo: "LCD", icono: "📟", color: "cyan", tipo: "V", i: 0.05, r: 100, unidad: "V" },
+            { titulo: "OLED", icono: "📱", color: "blue", tipo: "R", v: 3.3, i: 0.01, unidad: "Ω" },
+            { titulo: "WiFi Module", icono: "📶", color: "green", tipo: "I", v: 3.3, r: 33, unidad: "mA" },
+            { titulo: "Bluetooth", icono: "📡", color: "purple", tipo: "V", i: 0.02, r: 165, unidad: "V" },
+            { titulo: "GPS Module", icono: "🛰️", color: "yellow", tipo: "R", v: 5, i: 0.05, unidad: "Ω" },
+            { titulo: "Acelerómetro", icono: "📐", color: "red", tipo: "I", v: 3.3, r: 330, unidad: "mA" },
+            { titulo: "Giroscopio", icono: "🔄", color: "cyan", tipo: "V", i: 0.01, r: 330, unidad: "V" },
+            { titulo: "Magnetómetro", icono: "🧭", color: "blue", tipo: "R", v: 3.3, i: 0.003, unidad: "Ω" },
+            { titulo: "Barómetro", icono: "🌡️", color: "green", tipo: "I", v: 3.3, r: 330, unidad: "mA" },
+            { titulo: "Sensor de Humedad", icono: "💧", color: "purple", tipo: "V", i: 0.005, r: 660, unidad: "V" },
+            { titulo: "Sensor de Gas", icono: "💨", color: "yellow", tipo: "R", v: 5, i: 0.15, unidad: "Ω" },
+            { titulo: "Sensor Ultrasónico", icono: "📡", color: "red", tipo: "I", v: 5, r: 500, unidad: "mA" }
+        ];
+
+        // ============ SISTEMA DE EJEMPLOS ============
+        let ejemploActual = 0;
+        let ejemplosCompletados = new Set();
+
+        function renderizarEjemploActual() {
+            const ej = ejemplosPracticos[ejemploActual];
+            let respuestaCorrecta, pregunta;
             
-            if (v === 0) {
-                texto = 'No hay voltaje aplicado, por lo tanto no hay corriente.';
-            } else if (mA < 1) {
-                texto = `Corriente muy baja (${mA.toFixed(2)}mA). Ideal para sensores.`;
-            } else if (mA < 20) {
-                texto = `Corriente segura (${mA.toFixed(1)}mA). Típica para encender un LED.`;
-            } else if (mA < 100) {
-                texto = `Corriente moderada (${mA.toFixed(1)}mA). Adecuada para circuitos básicos.`;
-            } else if (mA < 500) {
-                texto = `⚠️ Corriente alta (${mA.toFixed(1)}mA). Precaución con componentes pequeños.`;
+            if (ej.tipo === 'I') {
+                respuestaCorrecta = ej.unidad === 'mA' ? (ej.v / ej.r * 1000) : (ej.v / ej.r);
+                pregunta = `Voltaje: ${ej.v}V, Resistencia: ${ej.r}Ω. ¿Cuánta corriente circula?`;
+            } else if (ej.tipo === 'V') {
+                respuestaCorrecta = ej.i * ej.r;
+                pregunta = `Corriente: ${ej.i}A, Resistencia: ${ej.r}Ω. ¿Cuál es el voltaje?`;
+            } else if (ej.tipo === 'R') {
+                respuestaCorrecta = ej.v / ej.i;
+                pregunta = `Voltaje: ${ej.v}V, Corriente: ${ej.i}A. ¿Cuál es la resistencia?`;
             } else {
-                texto = `🚨 Corriente muy alta (${mA.toFixed(1)}mA). ¡Riesgo de quemar componentes!`;
+                respuestaCorrecta = ej.v * ej.i;
+                pregunta = `Voltaje: ${ej.v}V, Corriente: ${ej.i}A. ¿Cuánta potencia se disipa?`;
             }
             
-            interpretacion.textContent = texto;
+            const container = document.getElementById('ejemplo-actual');
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                </div>
+                
+                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">
+                    ${ej.icono} ${ej.titulo}
+                </h3>
+                
+                <p class="text-slate-300 mb-4">${pregunta}</p>
+                
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <p class="text-sm text-slate-400 mb-2">Tu respuesta:</p>
+                    <div class="flex gap-2">
+                        <input type="number" id="respuesta-actual" 
+                               placeholder="Ingresa la respuesta en ${ej.unidad}" 
+                               class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white text-lg"
+                               onkeypress="if(event.key==='Enter') verificarEjemploActual(${respuestaCorrecta}, '${ej.unidad}', '${ej.tipo}', ${ej.v || 0}, ${ej.r || 0}, ${ej.i || 0})">
+                        <button onclick="verificarEjemploActual(${respuestaCorrecta}, '${ej.unidad}', '${ej.tipo}', ${ej.v || 0}, ${ej.r || 0}, ${ej.i || 0})" 
+                                class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded transition">
+                            Verificar
+                        </button>
+                    </div>
+                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                </div>
+            `;
+            
+            document.getElementById('btn-anterior').disabled = ejemploActual === 0;
+            actualizarProgreso();
         }
 
-        // ============ GRÁFICO ============
-        function actualizarGrafico(v, r, i) {
-            if (chart) chart.destroy();
+        function verificarEjemploActual(correcta, unidad, tipo, v, r, i) {
+            const input = document.getElementById('respuesta-actual');
+            const respuesta = parseFloat(input.value);
+            const resultadoDiv = document.getElementById('resultado-actual');
             
-            chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Voltaje (V)', 'Corriente (mA)', 'Resistencia (Ω)'],
-                    datasets: [{
-                        label: 'Valores del circuito',
-                        data: [v, i * 1000, r],
-                        backgroundColor: ['#facc15', '#4ade80', '#22d3ee'],
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { display: false },
-                        title: {
-                            display: true,
-                            text: 'Valores actuales del circuito',
-                            color: '#fff',
-                            font: { size: 14 }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: { color: '#cbd5e1' },
-                            grid: { color: '#334155' }
-                        },
-                        x: {
-                            ticks: { color: '#cbd5e1' },
-                            grid: { display: false }
-                        }
+            if (isNaN(respuesta)) {
+                resultadoDiv.classList.remove('hidden');
+                resultadoDiv.innerHTML = `
+                    <div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded">
+                        <p class="font-bold text-yellow-400">⚠️ Ingresa un número</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const tolerancia = correcta * 0.05;
+            const esCorrecta = Math.abs(respuesta - correcta) <= tolerancia;
+            
+            resultadoDiv.classList.remove('hidden');
+            
+            if (esCorrecta) {
+                ejemplosCompletados.add(ejemploActual);
+                let formula = '';
+                if (tipo === 'I') formula = `I = V/R = ${v}V / ${r}Ω = ${correcta.toFixed(2)} ${unidad}`;
+                else if (tipo === 'V') formula = `V = I×R = ${i}A × ${r}Ω = ${correcta.toFixed(2)} ${unidad}`;
+                else if (tipo === 'R') formula = `R = V/I = ${v}V / ${i}A = ${correcta.toFixed(2)} ${unidad}`;
+                else formula = `P = V×I = ${v}V × ${i}A = ${correcta.toFixed(2)} ${unidad}`;
+                
+                resultadoDiv.innerHTML = `
+                    <div class="bg-green-900 border-2 border-green-500 p-3 rounded">
+                        <p class="font-bold text-green-400">✅ ¡Correcto!</p>
+                        <p class="text-sm text-slate-300">${formula}</p>
+                    </div>
+                `;
+                actualizarProgreso();
+                
+                setTimeout(() => {
+                    if (ejemploActual < ejemplosPracticos.length - 1) {
+                        siguienteEjemplo();
                     }
+                }, 2000);
+            } else {
+                let formula = '';
+                if (tipo === 'I') formula = `I = V/R = ${v}V / ${r}Ω`;
+                else if (tipo === 'V') formula = `V = I×R = ${i}A × ${r}Ω`;
+                else if (tipo === 'R') formula = `R = V/I = ${v}V / ${i}A`;
+                else formula = `P = V×I = ${v}V × ${i}A`;
+                
+                resultadoDiv.innerHTML = `
+                    <div class="bg-red-900 border-2 border-red-500 p-3 rounded">
+                        <p class="font-bold text-red-400">❌ Incorrecto</p>
+                        <p class="text-sm text-slate-300">La respuesta correcta es <strong>${correcta.toFixed(2)} ${unidad}</strong></p>
+                        <p class="text-xs text-slate-400 mt-1">Fórmula: ${formula} = ${correcta.toFixed(2)} ${unidad}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function siguienteEjemplo() {
+            if (ejemploActual < ejemplosPracticos.length - 1) {
+                ejemploActual++;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            }
+        }
+
+        function ejemploAnterior() {
+            if (ejemploActual > 0) {
+                ejemploActual--;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            }
+        }
+
+        function irAEjemplo() {
+            const numero = parseInt(document.getElementById('saltar-a').value);
+            if (numero >= 1 && numero <= ejemplosPracticos.length) {
+                ejemploActual = numero - 1;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            } else {
+                alert('Ingresa un número entre 1 y 50');
+            }
+        }
+
+        function actualizarProgreso() {
+            const completados = ejemplosCompletados.size;
+            const porcentaje = (completados / ejemplosPracticos.length) * 100;
+            
+            document.getElementById('progreso-texto').textContent = `${completados} de ${ejemplosPracticos.length} completados`;
+            document.getElementById('barra-progreso').style.width = porcentaje + '%';
+        }
+
+        // ============ BANCO DE 30 PREGUNTAS ============
+        const bancoPreguntas = [
+            { pregunta: "¿Quién descubrió la Ley de Ohm?", opciones: ["Isaac Newton", "Georg Simon Ohm", "Albert Einstein", "Nikola Tesla"], respuestaCorrecta: 1, explicacion: "Georg Simon Ohm la descubrió en 1827." },
+            { pregunta: "¿Cuál es la fórmula de la Ley de Ohm?", opciones: ["V = I + R", "V = I × R", "V = I - R", "V = I / R"], respuestaCorrecta: 1, explicacion: "V = I × R (Voltaje = Corriente × Resistencia)." },
+            { pregunta: "¿Qué significa V en la Ley de Ohm?", opciones: ["Velocidad", "Voltaje", "Volumen", "Vector"], respuestaCorrecta: 1, explicacion: "V representa el Voltaje medido en Voltios." },
+            { pregunta: "¿Qué significa I en la Ley de Ohm?", opciones: ["Intensidad de corriente", "Impedancia", "Inductancia", "Ion"], respuestaCorrecta: 0, explicacion: "I representa la Intensidad de corriente (Amperios)." },
+            { pregunta: "¿Qué significa R en la Ley de Ohm?", opciones: ["Reactancia", "Resistencia", "Reluctancia", "Radiación"], respuestaCorrecta: 1, explicacion: "R representa la Resistencia medida en Ohmios (Ω)." },
+            { pregunta: "¿En qué unidad se mide el voltaje?", opciones: ["Amperios", "Ohmios", "Voltios", "Watts"], respuestaCorrecta: 2, explicacion: "El voltaje se mide en Voltios (V)." },
+            { pregunta: "¿En qué unidad se mide la corriente?", opciones: ["Voltios", "Amperios", "Ohmios", "Joules"], respuestaCorrecta: 1, explicacion: "La corriente se mide en Amperios (A)." },
+            { pregunta: "¿En qué unidad se mide la resistencia?", opciones: ["Voltios", "Amperios", "Ohmios", "Faradios"], respuestaCorrecta: 2, explicacion: "La resistencia se mide en Ohmios (Ω)." },
+            { pregunta: "Si V=12V y R=4Ω, ¿cuánto es I?", opciones: ["2A", "3A", "4A", "48A"], respuestaCorrecta: 1, explicacion: "I = V/R = 12/4 = 3A" },
+            { pregunta: "Si I=2A y R=5Ω, ¿cuánto es V?", opciones: ["2.5V", "7V", "10V", "0.4V"], respuestaCorrecta: 2, explicacion: "V = I×R = 2×5 = 10V" },
+            { pregunta: "Si V=9V e I=3A, ¿cuánto es R?", opciones: ["3Ω", "12Ω", "27Ω", "0.33Ω"], respuestaCorrecta: 0, explicacion: "R = V/I = 9/3 = 3Ω" },
+            { pregunta: "¿Qué pasa con I si aumenta V (R constante)?", opciones: ["Disminuye", "Aumenta", "No cambia", "Se duplica"], respuestaCorrecta: 1, explicacion: "I es directamente proporcional a V." },
+            { pregunta: "¿Qué pasa con I si aumenta R (V constante)?", opciones: ["Aumenta", "Disminuye", "No cambia", "Se duplica"], respuestaCorrecta: 1, explicacion: "I es inversamente proporcional a R." },
+            { pregunta: "¿Qué instrumento mide el voltaje?", opciones: ["Amperímetro", "Ohmímetro", "Voltímetro", "Wattímetro"], respuestaCorrecta: 2, explicacion: "El voltímetro mide el voltaje." },
+            { pregunta: "¿Qué instrumento mide la corriente?", opciones: ["Voltímetro", "Amperímetro", "Ohmímetro", "Multímetro"], respuestaCorrecta: 1, explicacion: "El amperímetro mide la corriente." },
+            { pregunta: "¿Qué instrumento mide la resistencia?", opciones: ["Voltímetro", "Amperímetro", "Ohmímetro", "Frecuencímetro"], respuestaCorrecta: 2, explicacion: "El ohmímetro mide la resistencia." },
+            { pregunta: "¿Cuántos mA hay en 1A?", opciones: ["10", "100", "1000", "10000"], respuestaCorrecta: 2, explicacion: "1A = 1000 mA" },
+            { pregunta: "¿Cuántos kΩ hay en 1000Ω?", opciones: ["0.1", "1", "10", "100"], respuestaCorrecta: 1, explicacion: "1000Ω = 1kΩ" },
+            { pregunta: "Si un LED necesita 20mA y tienes 5V, ¿qué resistencia necesitas?", opciones: ["100Ω", "200Ω", "250Ω", "500Ω"], respuestaCorrecta: 2, explicacion: "R = V/I = 5/0.02 = 250Ω" },
+            { pregunta: "¿Qué es directamente proporcional a V?", opciones: ["R", "I", "P", "T"], respuestaCorrecta: 1, explicacion: "I es directamente proporcional a V." },
+            { pregunta: "¿Qué es inversamente proporcional a I?", opciones: ["V", "R", "P", "Q"], respuestaCorrecta: 1, explicacion: "R es inversamente proporcional a I." },
+            { pregunta: "¿Cuál es la fórmula para calcular R?", opciones: ["R = V × I", "R = V / I", "R = I / V", "R = V + I"], respuestaCorrecta: 1, explicacion: "R = V / I" },
+            { pregunta: "¿Cuál es la fórmula para calcular I?", opciones: ["I = V × R", "I = V / R", "I = R / V", "I = V + R"], respuestaCorrecta: 1, explicacion: "I = V / R" },
+            { pregunta: "¿Cuál es la fórmula para calcular V?", opciones: ["V = I / R", "V = R / I", "V = I × R", "V = I + R"], respuestaCorrecta: 2, explicacion: "V = I × R" },
+            { pregunta: "Si duplicas el voltaje, ¿qué pasa con la corriente?", opciones: ["Se reduce a la mitad", "Se duplica", "No cambia", "Se cuadruplica"], respuestaCorrecta: 1, explicacion: "I es directamente proporcional a V." },
+            { pregunta: "Si duplicas la resistencia, ¿qué pasa con la corriente?", opciones: ["Se duplica", "Se reduce a la mitad", "No cambia", "Se cuadruplica"], respuestaCorrecta: 1, explicacion: "I es inversamente proporcional a R." },
+            { pregunta: "¿Qué es un cortocircuito?", opciones: ["Alta resistencia", "Resistencia casi cero", "Alto voltaje", "Baja corriente"], respuestaCorrecta: 1, explicacion: "Un cortocircuito tiene resistencia casi cero, causando corriente muy alta." },
+            { pregunta: "¿Qué protege contra sobrecorriente?", opciones: ["Resistencia", "Capacitor", "Fusible", "Inductor"], respuestaCorrecta: 2, explicacion: "El fusible se quema cuando hay sobrecorriente." },
+            { pregunta: "¿Cuántos voltios tiene una pila AA?", opciones: ["1.5V", "3V", "5V", "9V"], respuestaCorrecta: 0, explicacion: "Una pila AA tiene 1.5V." },
+            { pregunta: "¿Cuántos voltios tiene una batería de auto?", opciones: ["6V", "9V", "12V", "24V"], respuestaCorrecta: 2, explicacion: "Una batería de auto tiene 12V." }
+        ];
+
+        // ============ QUIZ ============
+        let preguntasActuales = [];
+        let respuestasSeleccionadas = {};
+        let respondidas = 0;
+        let correctas = 0;
+
+        function mezclarArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function cargarQuiz() {
+            const mezcladas = mezclarArray(bancoPreguntas);
+            preguntasActuales = mezcladas.slice(0, 10);
+            respuestasSeleccionadas = {};
+            respondidas = 0;
+            correctas = 0;
+            
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            
+            preguntasActuales.forEach((pregunta, index) => {
+                const opcionesConIndice = pregunta.opciones.map((op, i) => ({ 
+                    texto: op, 
+                    esCorrecta: i === pregunta.respuestaCorrecta 
+                }));
+                const opcionesMezcladas = mezclarArray(opcionesConIndice);
+                
+                const preguntaHTML = `
+                    <div class="bg-slate-900 p-4 rounded-lg" data-pregunta="${index}">
+                        <p class="font-semibold mb-3">${index + 1}. ${pregunta.pregunta}</p>
+                        <div class="space-y-2">
+                            ${opcionesMezcladas.map((opcion, opIndex) => `
+                                <button onclick="seleccionarRespuesta(${index}, this)" 
+                                        data-es-correcta="${opcion.esCorrecta}"
+                                        class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition opcion-btn">
+                                    ${opcion.texto}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += preguntaHTML;
+            });
+            
+            document.getElementById('resultado-quiz').classList.add('hidden');
+            document.getElementById('btn-reintentar').classList.add('hidden');
+        }
+
+        function seleccionarRespuesta(preguntaIndex, boton) {
+            const preguntaDiv = document.querySelector(`[data-pregunta="${preguntaIndex}"]`);
+            const botones = preguntaDiv.querySelectorAll('.opcion-btn');
+            
+            if (preguntaDiv.dataset.respondida === 'true') return;
+            
+            preguntaDiv.dataset.respondida = 'true';
+            respondidas++;
+            
+            const esCorrecta = boton.dataset.esCorrecta === 'true';
+            respuestasSeleccionadas[preguntaIndex] = esCorrecta;
+            
+            botones.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+                if (btn.dataset.esCorrecta === 'true') {
+                    btn.classList.remove('bg-slate-700', 'opacity-50');
+                    btn.classList.add('bg-green-600');
                 }
             });
+            
+            if (esCorrecta) {
+                correctas++;
+                boton.classList.remove('bg-slate-700', 'opacity-50');
+                boton.classList.add('bg-green-600');
+            } else {
+                boton.classList.remove('bg-slate-700', 'opacity-50');
+                boton.classList.add('bg-red-600');
+            }
         }
 
-        // ============ EVENT LISTENERS ============
-        voltaje.addEventListener('input', actualizar);
-        resistencia.addEventListener('input', actualizar);
-        
-        // Inicializar
-        actualizar();
+        function verResultados() {
+            if (respondidas < 10) {
+                alert(`Has respondido ${respondidas} de 10 preguntas. Responde todas.`);
+                return;
+            }
+            
+            const porcentaje = Math.round((correctas / 10) * 100);
+            const resultadoDiv = document.getElementById('resultado-quiz');
+            
+            let mensaje, color, emoji;
+            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas la Ley de Ohm'; color = 'green'; emoji = '🏆'; }
+            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'blue'; emoji = '👍'; }
+            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar'; color = 'orange'; emoji = '📚'; }
+            else { mensaje = 'Estudia nuevamente el módulo'; color = 'red'; emoji = '⚠️'; }
+            
+            let explicacionesHTML = preguntasActuales.map((p, i) => {
+                const esCorrecta = respuestasSeleccionadas[i];
+                return `
+                    <div class="bg-slate-900 p-3 rounded mb-2 ${esCorrecta ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}">
+                        <p class="font-semibold text-sm">${i + 1}. ${p.pregunta}</p>
+                        <p class="text-xs mt-1 ${esCorrecta ? 'text-green-400' : 'text-red-400'}">
+                            ${esCorrecta ? '✓ Correcta' : '✗ Incorrecta'}
+                        </p>
+                        <p class="text-xs text-slate-400 mt-1"><em>${p.explicacion}</em></p>
+                    </div>
+                `;
+            }).join('');
+            
+            resultadoDiv.innerHTML = `
+                <div class="bg-${color}-900 border-2 border-${color}-500 p-6 rounded-lg text-center mb-4">
+                    <p class="text-4xl mb-2">${emoji}</p>
+                    <h3 class="text-2xl font-bold text-${color}-400 mb-2">${mensaje}</h3>
+                    <p class="text-3xl font-bold text-white">${correctas} de 10 (${porcentaje}%)</p>
+                </div>
+                <div class="mt-4">
+                    <h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión de Respuestas:</h3>
+                    ${explicacionesHTML}
+                </div>
+            `;
+            
+            resultadoDiv.classList.remove('hidden');
+            document.getElementById('btn-reintentar').classList.remove('hidden');
+            resultadoDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function nuevoIntento() {
+            cargarQuiz();
+            window.scrollTo({ top: document.getElementById('quiz-container').offsetTop - 100, behavior: 'smooth' });
+        }
+
+        // ============ INICIALIZAR ============
+        renderizarEjemploActual();
+        cargarQuiz();
+        actualizarSimulador();
     </script>
 </body>
 </html>

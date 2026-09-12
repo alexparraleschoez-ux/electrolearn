@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 6: Componentes Avanzados - ElectroLearn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes carga {
+            0% { height: 0%; background-color: #ef4444; }
+            100% { height: 100%; background-color: #22c55e; }
+        }
+        @keyframes descarga {
+            0% { height: 100%; background-color: #22c55e; }
+            100% { height: 0%; background-color: #ef4444; }
+        }
+        @keyframes parpadeo {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .section-animate { animation: fadeInUp 0.6s ease-out; }
+        .componente-card {
+            border-left: 4px solid #22d3ee;
+            transition: all 0.3s;
+        }
+        .componente-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+        }
+        .opcion-btn:disabled { cursor: not-allowed; }
+        
+        /* Calculadora */
+        .calc-btn {
+            transition: all 0.1s;
+            user-select: none;
+        }
+        .calc-btn:active { transform: scale(0.95); }
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .calc-display {
+            font-family: 'Courier New', monospace;
+            font-size: 2rem;
+            text-align: right;
+            padding: 1rem;
+            background: #0f172a;
+            border: 2px solid #22d3ee;
+            border-radius: 0.5rem;
+            color: #22d3ee;
+            min-height: 80px;
+            overflow-x: auto;
+        }
+
+        /* Simulador RC */
+        .capacitor-bar {
+            transition: height 0.1s linear;
+        }
+        .led-sim {
+            animation: parpadeo 1s ease-in-out infinite;
+        }
+        
+        /* Tabs */
+        .tab-btn {
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            background-color: #22d3ee;
+            color: #0f172a;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-body min-h-screen">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-600 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="text-2xl font-heading font-bold flex items-center">
+                <i class="fas fa-bolt mr-2 text-yellow-300"></i> ElectroLearn
+            </a>
+            <a href="../../index.html" class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-slate-200 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Volver
+            </a>
+        </div>
+    </header>
+
+    <!-- TÍTULO -->
+    <section class="py-8 text-center px-4 section-animate">
+        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
+            <i class="fas fa-microchip text-purple-400"></i> Módulo 6: Componentes Avanzados
+        </h1>
+        <p class="text-slate-300 text-lg">Capacitores, diodos especiales, transistores y circuitos integrados</p>
+    </section>
+
+    <div class="container mx-auto px-4 pb-16 space-y-8">
+
+        <!-- SECCIÓN 1: TEORÍA -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
+                <i class="fas fa-book mr-2"></i>Teoría: Componentes Avanzados
+            </h2>
+
+            <!-- Capacitores -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-green-400">
+                    <i class="fas fa-battery-half mr-2"></i>Capacitores en Profundidad
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Los <strong class="text-green-400">capacitores</strong> almacenan energía en un campo eléctrico. 
+                    Su capacidad se mide en <strong>Faradios (F)</strong>.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">📏 Tipos principales:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ <strong>Cerámicos</strong>: Pequeños, sin polaridad (pF-nF)</li>
+                            <li>✓ <strong>Electrolíticos</strong>: Grandes, con polaridad (μF-mF)</li>
+                            <li>✓ <strong>Tantalio</strong>: Estables, polarizados</li>
+                            <li>✓ <strong>Poliéster</strong>: Precisión, audio</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2"> Fórmulas importantes:</h4>
+                        <div class="space-y-2">
+                            <div class="bg-slate-900 p-2 rounded">
+                                <p class="text-green-400 font-mono text-sm">Q = C × V</p>
+                                <p class="text-xs text-slate-400">Carga = Capacitancia × Voltaje</p>
+                            </div>
+                            <div class="bg-slate-900 p-2 rounded">
+                                <p class="text-green-400 font-mono text-sm">E = ½ × C × V²</p>
+                                <p class="text-xs text-slate-400">Energía almacenada</p>
+                            </div>
+                            <div class="bg-slate-900 p-2 rounded">
+                                <p class="text-green-400 font-mono text-sm">τ = R × C</p>
+                                <p class="text-xs text-slate-400">Constante de tiempo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-green-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Constante de tiempo (τ):</strong> Tiempo que tarda un capacitor en cargarse al 63.2% de su valor máximo. 
+                        Después de 5τ está completamente cargado (99.3%).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Diodos Especiales -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-red-400">
+                    <i class="fas fa-arrow-right mr-2"></i>Diodos Especiales
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Además del diodo rectificador estándar, existen tipos especializados para diferentes aplicaciones.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-red-400 mb-2">🔴 Diodo Zener:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Regula voltaje en polarización inversa</li>
+                            <li>✓ Voltajes: 2.4V a 200V</li>
+                            <li>✓ Usos: Reguladores, protección</li>
+                            <li>✓ Símbolo: Diodo con línea en Z</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-yellow-400 mb-2">💡 LED (Diodo Emisor de Luz):</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Emite luz en polarización directa</li>
+                            <li>✓ Voltaje: 1.8V-3.4V según color</li>
+                            <li>✓ Corriente: 20-30 mA típico</li>
+                            <li>✓ Requiere resistencia limitadora</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2"> Diodo Schottky:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Caída de voltaje baja: 0.2-0.3V</li>
+                            <li>✓ Conmutación rápida</li>
+                            <li>✓ Usos: Fuentes switching, RF</li>
+                            <li>✓ Menor pérdida de energía</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-blue-400 mb-2">📡 Fotodiodo:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Detecta luz (sensor óptico)</li>
+                            <li>✓ Opera en polarización inversa</li>
+                            <li>✓ Usos: Sensores, comunicaciones</li>
+                            <li>✓ Respuesta rápida a la luz</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transistores -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-blue-400">
+                    <i class="fas fa-project-diagram mr-2"></i>Transistores
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Los <strong class="text-blue-400">transistores</strong> son semiconductores que amplifican señales o actúan como interruptores. 
+                    Son la base de la electrónica moderna.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-blue-400 mb-2">🔺 BJT (Bipolar Junction Transistor):</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ <strong>NPN</strong>: Más común (2N2222, BC547)</li>
+                            <li>✓ <strong>PNP</strong>: Complementario (2N2907, BC557)</li>
+                            <li>✓ 3 terminales: Base (B), Colector (C), Emisor (E)</li>
+                            <li>✓ Controlado por corriente de base</li>
+                            <li>✓ Ganancia: β (hFE) = 100-300 típico</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2">⚡ MOSFET:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ <strong>N-Channel</strong>: IRF520, 2N7000</li>
+                            <li>✓ <strong>P-Channel</strong>: IRF9520</li>
+                            <li>✓ 3 terminales: Gate (G), Drain (D), Source (S)</li>
+                            <li>✓ Controlado por voltaje de gate</li>
+                            <li>✓ Alta impedancia de entrada</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-blue-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Aplicaciones:</strong> Amplificadores de audio, interruptores electrónicos, 
+                        control de motores, fuentes de poder, circuitos lógicos.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Circuitos Integrados -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-purple-400">
+                    <i class="fas fa-microchip mr-2"></i>Circuitos Integrados (IC)
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Los <strong class="text-purple-400">circuitos integrados</strong> contienen múltiples componentes 
+                    en un solo chip. Son la base de la electrónica moderna.
+                </p>
+                <div class="grid md:grid-cols-3 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-yellow-400 mb-2">⏱️ Timer 555:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Genera pulsos y oscilaciones</li>
+                            <li>✓ Modos: Monoestable, Astable</li>
+                            <li>✓ Frecuencia: f = 1.44/((R1+2R2)×C)</li>
+                            <li>✓ Usos: Timers, PWM, osciladores</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-green-400 mb-2"> Op-Amp (741):</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Amplificador operacional</li>
+                            <li>✓ Alta ganancia (100,000x)</li>
+                            <li>✓ Comparadores, filtros, amplificadores</li>
+                            <li>✓ Realimentación negativa</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">⚡ Regulador 7805:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Regula voltaje a 5V fijos</li>
+                            <li>✓ Entrada: 7V-35V</li>
+                            <li>✓ Corriente: hasta 1A</li>
+                            <li>✓ Protección térmica</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-purple-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Importante:</strong> Los IC tienen una muesca o punto que indica el pin 1. 
+                        Siempre verifica el datasheet antes de conectar.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Comparación -->
+            <div class="bg-slate-900 p-5 rounded-lg">
+                <h3 class="text-xl font-bold mb-3 text-cyan-400">
+                    <i class="fas fa-balance-scale mr-2"></i>Comparación: BJT vs MOSFET
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-800">
+                            <tr>
+                                <th class="p-3 text-left text-cyan-400">Característica</th>
+                                <th class="p-3 text-center text-blue-400">BJT</th>
+                                <th class="p-3 text-center text-purple-400">MOSFET</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300">
+                            <tr class="border-b border-slate-700">
+                                <td class="p-3 font-bold">Control</td>
+                                <td class="p-3 text-center">Corriente de base</td>
+                                <td class="p-3 text-center">Voltaje de gate</td>
+                            </tr>
+                            <tr class="border-b border-slate-700">
+                                <td class="p-3 font-bold">Impedancia entrada</td>
+                                <td class="p-3 text-center">Baja</td>
+                                <td class="p-3 text-center">Muy alta</td>
+                            </tr>
+                            <tr class="border-b border-slate-700">
+                                <td class="p-3 font-bold">Velocidad</td>
+                                <td class="p-3 text-center">Media</td>
+                                <td class="p-3 text-center">Alta</td>
+                            </tr>
+                            <tr class="border-b border-slate-700">
+                                <td class="p-3 font-bold">Aplicación</td>
+                                <td class="p-3 text-center">Amplificación</td>
+                                <td class="p-3 text-center">Conmutación</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold">Ejemplo</td>
+                                <td class="p-3 text-center">2N2222, BC547</td>
+                                <td class="p-3 text-center">IRF520, 2N7000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: SIMULADOR RC -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-green-400">
+                <i class="fas fa-battery-half mr-2"></i>Simulador: Circuito RC (Carga/Descarga)
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Observa cómo se carga y descarga un capacitor. Ajusta R y C para ver el efecto en la constante de tiempo.
+            </p>
+
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <!-- Controles -->
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block mb-2 font-semibold">
+                            <i class="fas fa-microchip text-red-400 mr-2"></i>
+                            Resistencia (R): <span id="r-rc-display" class="text-red-400">1000</span> Ω
+                        </label>
+                        <input type="range" id="r-rc" min="100" max="10000" step="100" value="1000" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-red-400"
+                               oninput="actualizarRC()">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold">
+                            <i class="fas fa-battery-half text-green-400 mr-2"></i>
+                            Capacitancia (C): <span id="c-rc-display" class="text-green-400">100</span> μF
+                        </label>
+                        <input type="range" id="c-rc" min="10" max="1000" step="10" value="100" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-green-400"
+                               oninput="actualizarRC()">
+                    </div>
+                </div>
+
+                <!-- Visualización del capacitor -->
+                <div class="bg-slate-800 p-4 rounded-lg mb-4">
+                    <div class="flex items-center justify-center gap-8">
+                        <div class="text-center">
+                            <div class="w-20 h-40 bg-slate-700 rounded-lg relative overflow-hidden border-2 border-slate-600">
+                                <div id="capacitor-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-red-500 to-green-500 capacitor-bar" style="height: 0%"></div>
+                            </div>
+                            <p class="text-sm text-slate-400 mt-2">Capacitor</p>
+                            <p class="text-xs text-cyan-400" id="capacitor-voltage">0.0V</p>
+                        </div>
+                        <div class="text-center">
+                            <div id="led-sim" class="w-16 h-16 bg-slate-700 rounded-full border-4 border-slate-600 flex items-center justify-center">
+                                <div class="w-8 h-8 bg-slate-500 rounded-full"></div>
+                            </div>
+                            <p class="text-sm text-slate-400 mt-2">LED</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones de control -->
+                <div class="flex gap-4 mb-4">
+                    <button onclick="cargarCapacitor()" class="flex-1 bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition">
+                        <i class="fas fa-bolt mr-2"></i>Cargar
+                    </button>
+                    <button onclick="descargarCapacitor()" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-lg transition">
+                        <i class="fas fa-power-off mr-2"></i>Descargar
+                    </button>
+                    <button onclick="resetRC()" class="flex-1 bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 rounded-lg transition">
+                        <i class="fas fa-redo mr-2"></i>Reset
+                    </button>
+                </div>
+
+                <!-- Información -->
+                <div class="bg-gradient-to-r from-green-900 to-cyan-900 p-4 rounded-lg text-center border-2 border-green-500">
+                    <p class="text-sm text-slate-300 mb-2">Constante de tiempo (τ = R × C):</p>
+                    <p class="text-3xl font-bold text-green-400 mb-2" id="tau-display">0.10 s</p>
+                    <p class="text-sm text-slate-300">
+                        Tiempo de carga completa (5τ): <span id="tiempo-total" class="text-cyan-400 font-bold">0.50 s</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: CALCULADORA 555 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+                <i class="fas fa-calculator mr-2"></i>Calculadora: Temporizador 555
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Calcula la frecuencia y duty cycle de un circuito 555 en modo astable.
+            </p>
+
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <!-- Entradas -->
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label class="block mb-2 font-semibold text-sm">
+                            <i class="fas fa-microchip text-red-400 mr-2"></i>
+                            R1 (Ω):
+                        </label>
+                        <input type="number" id="r1-555" value="1000" 
+                               class="w-full p-3 bg-slate-700 rounded border border-slate-600 text-white"
+                               oninput="calcular555()">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold text-sm">
+                            <i class="fas fa-microchip text-orange-400 mr-2"></i>
+                            R2 (Ω):
+                        </label>
+                        <input type="number" id="r2-555" value="1000" 
+                               class="w-full p-3 bg-slate-700 rounded border border-slate-600 text-white"
+                               oninput="calcular555()">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold text-sm">
+                            <i class="fas fa-battery-half text-green-400 mr-2"></i>
+                            C (μF):
+                        </label>
+                        <input type="number" id="c-555" value="10" 
+                               class="w-full p-3 bg-slate-700 rounded border border-slate-600 text-white"
+                               oninput="calcular555()">
+                    </div>
+                </div>
+
+                <!-- Resultados -->
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-slate-800 p-4 rounded-lg text-center">
+                        <p class="text-sm text-slate-400 mb-2">Frecuencia:</p>
+                        <p class="text-2xl font-bold text-cyan-400" id="freq-555">0 Hz</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg text-center">
+                        <p class="text-sm text-slate-400 mb-2">Período:</p>
+                        <p class="text-2xl font-bold text-green-400" id="periodo-555">0 s</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg text-center">
+                        <p class="text-sm text-slate-400 mb-2">Duty Cycle:</p>
+                        <p class="text-2xl font-bold text-yellow-400" id="duty-555">0%</p>
+                    </div>
+                </div>
+
+                <!-- Fórmula -->
+                <div class="mt-4 bg-slate-800 p-3 rounded-lg">
+                    <p class="text-sm text-slate-400 mb-2">Fórmula aplicada:</p>
+                    <p class="text-lg font-mono text-white text-center" id="formula-555">
+                        f = 1.44 / ((R1 + 2×R2) × C)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: CALCULADORA CIENTÍFICA -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
+                <i class="fas fa-calculator mr-2"></i>Calculadora para Estudiantes
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Practica tus cálculos de electrónica con esta calculadora interactiva.
+            </p>
+
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <div class="mb-4">
+                    <div class="calc-display" id="calc-display">0</div>
+                </div>
+
+                <div class="grid grid-cols-4 gap-2 mb-4">
+                    <button onclick="calcClear()" class="calc-btn bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-lg">C</button>
+                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg">⌫</button>
+                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">%</button>
+                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">÷</button>
+
+                    <button onclick="calcNumber('7')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">7</button>
+                    <button onclick="calcNumber('8')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">8</button>
+                    <button onclick="calcNumber('9')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">9</button>
+                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">×</button>
+
+                    <button onclick="calcNumber('4')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">4</button>
+                    <button onclick="calcNumber('5')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">5</button>
+                    <button onclick="calcNumber('6')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">6</button>
+                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">−</button>
+
+                    <button onclick="calcNumber('1')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">1</button>
+                    <button onclick="calcNumber('2')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">2</button>
+                    <button onclick="calcNumber('3')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">3</button>
+                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">+</button>
+
+                    <button onclick="calcNumber('0')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg col-span-2">0</button>
+                    <button onclick="calcDecimal()" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">.</button>
+                    <button onclick="calcEquals()" class="calc-btn bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-lg">=</button>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 mb-4">
+                    <button onclick="calcConvert('ohm-kohm')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">Ω → kΩ</button>
+                    <button onclick="calcConvert('kohm-mohm')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">kΩ → MΩ</button>
+                    <button onclick="calcConvert('ma-a')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">mA → A</button>
+                </div>
+
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <h3 class="font-bold text-yellow-400 mb-3"> Fórmulas Rápidas:</h3>
+                    <div class="grid md:grid-cols-2 gap-2 text-sm">
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-green-400 font-mono text-xs">τ = R × C</p>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-green-400 font-mono text-xs">Q = C × V</p>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-yellow-400 font-mono text-xs">f = 1.44/((R1+2R2)×C)</p>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-cyan-400 font-mono text-xs">V = I × R</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 5: EJEMPLOS PRÁCTICOS -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+                <i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos: ¡Calcula Tú Mismo!
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Resuelve estos problemas sobre componentes avanzados. Completa los 50 ejemplos.
+            </p>
+
+            <div class="bg-slate-900 p-4 rounded-lg mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm text-slate-400">Progreso:</span>
+                    <span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50 completados</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-3">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500"></div>
+
+            <div class="flex gap-4 mt-6">
+                <button onclick="ejemploAnterior()" id="btn-anterior"
+                        class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior
+                </button>
+                <button onclick="siguienteEjemplo()" id="btn-siguiente"
+                        class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">
+                    Siguiente<i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
+                <p class="text-sm text-slate-400 mb-3">O salta a un ejemplo específico:</p>
+                <div class="flex gap-2">
+                    <input type="number" id="saltar-a" min="1" max="50" placeholder="Número (1-50)" 
+                           class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                    <button onclick="irAEjemplo()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded transition">Ir</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 6: QUIZ -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+                <i class="fas fa-question-circle mr-2"></i>Quiz: Evalúa tu Conocimiento
+            </h2>
+            <p class="text-slate-300 mb-4">
+                10 preguntas aleatorias de un banco de 30 sobre componentes avanzados.
+            </p>
+            
+            <div id="quiz-container" class="space-y-4 mb-6"></div>
+            
+            <button onclick="verResultados()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg transition">
+                <i class="fas fa-check-circle mr-2"></i>Ver Resultados
+            </button>
+            
+            <div id="resultado-quiz" class="mt-6 hidden"></div>
+            
+            <button onclick="nuevoIntento()" class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden" id="btn-reintentar">
+                <i class="fas fa-redo mr-2"></i>Intentar de Nuevo
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // ============ SIMULADOR RC ============
+        let capacitorCargado = 0;
+        let intervaloRC = null;
+
+        function actualizarRC() {
+            const r = parseInt(document.getElementById('r-rc').value);
+            const c = parseInt(document.getElementById('c-rc').value);
+            
+            document.getElementById('r-rc-display').textContent = r;
+            document.getElementById('c-rc-display').textContent = c;
+            
+            const tau = (r * c) / 1000000; // en segundos
+            const tiempoTotal = tau * 5;
+            
+            document.getElementById('tau-display').textContent = tau.toFixed(2) + ' s';
+            document.getElementById('tiempo-total').textContent = tiempoTotal.toFixed(2) + ' s';
+        }
+
+        function cargarCapacitor() {
+            if (intervaloRC) clearInterval(intervaloRC);
+            
+            const r = parseInt(document.getElementById('r-rc').value);
+            const c = parseInt(document.getElementById('c-rc').value);
+            const tau = (r * c) / 1000000;
+            const voltajeMax = 5;
+            const voltajeActual = capacitorCargado;
+            
+            let tiempo = 0;
+            const paso = 0.05; // 50ms
+            
+            intervaloRC = setInterval(() => {
+                tiempo += paso;
+                const voltaje = voltajeMax * (1 - Math.exp(-tiempo / tau));
+                capacitorCargado = voltaje;
+                
+                const porcentaje = (voltaje / voltajeMax) * 100;
+                document.getElementById('capacitor-fill').style.height = porcentaje + '%';
+                document.getElementById('capacitor-voltage').textContent = voltaje.toFixed(2) + 'V';
+                
+                // Actualizar LED
+                const led = document.getElementById('led-sim');
+                const brillo = Math.min(porcentaje / 100, 1);
+                led.style.backgroundColor = `rgba(34, 197, 94, ${brillo})`;
+                led.querySelector('div').style.backgroundColor = `rgba(255, 255, 255, ${brillo})`;
+                
+                if (tiempo >= tau * 5) {
+                    clearInterval(intervaloRC);
+                }
+            }, 50);
+        }
+
+        function descargarCapacitor() {
+            if (intervaloRC) clearInterval(intervaloRC);
+            
+            const r = parseInt(document.getElementById('r-rc').value);
+            const c = parseInt(document.getElementById('c-rc').value);
+            const tau = (r * c) / 1000000;
+            const voltajeInicial = capacitorCargado;
+            
+            let tiempo = 0;
+            const paso = 0.05;
+            
+            intervaloRC = setInterval(() => {
+                tiempo += paso;
+                const voltaje = voltajeInicial * Math.exp(-tiempo / tau);
+                capacitorCargado = voltaje;
+                
+                const porcentaje = (voltaje / 5) * 100;
+                document.getElementById('capacitor-fill').style.height = porcentaje + '%';
+                document.getElementById('capacitor-voltage').textContent = voltaje.toFixed(2) + 'V';
+                
+                // Actualizar LED
+                const led = document.getElementById('led-sim');
+                const brillo = Math.min(porcentaje / 100, 1);
+                led.style.backgroundColor = `rgba(34, 197, 94, ${brillo})`;
+                led.querySelector('div').style.backgroundColor = `rgba(255, 255, 255, ${brillo})`;
+                
+                if (tiempo >= tau * 5) {
+                    clearInterval(intervaloRC);
+                }
+            }, 50);
+        }
+
+        function resetRC() {
+            if (intervaloRC) clearInterval(intervaloRC);
+            capacitorCargado = 0;
+            document.getElementById('capacitor-fill').style.height = '0%';
+            document.getElementById('capacitor-voltage').textContent = '0.0V';
+            const led = document.getElementById('led-sim');
+            led.style.backgroundColor = 'rgb(51, 65, 85)';
+            led.querySelector('div').style.backgroundColor = 'rgb(100, 116, 139)';
+        }
+
+        // ============ CALCULADORA 555 ============
+        function calcular555() {
+            const r1 = parseFloat(document.getElementById('r1-555').value);
+            const r2 = parseFloat(document.getElementById('r2-555').value);
+            const c = parseFloat(document.getElementById('c-555').value) / 1000000; // convertir a Faradios
+            
+            if (isNaN(r1) || isNaN(r2) || isNaN(c) || r1 <= 0 || r2 <= 0 || c <= 0) {
+                return;
+            }
+            
+            const frecuencia = 1.44 / ((r1 + 2 * r2) * c);
+            const periodo = 1 / frecuencia;
+            const dutyCycle = ((r1 + r2) / (r1 + 2 * r2)) * 100;
+            
+            document.getElementById('freq-555').textContent = frecuencia.toFixed(2) + ' Hz';
+            document.getElementById('periodo-555').textContent = periodo.toFixed(4) + ' s';
+            document.getElementById('duty-555').textContent = dutyCycle.toFixed(1) + '%';
+            
+            document.getElementById('formula-555').textContent = 
+                `f = 1.44 / ((${r1} + 2×${r2}) × ${c*1000000}μF) = ${frecuencia.toFixed(2)} Hz`;
+        }
+
+        // ============ CALCULADORA CIENTÍFICA ============
+        let calcExpression = '';
+        let calcDisplay = document.getElementById('calc-display');
+
+        function calcNumber(num) {
+            calcExpression += num;
+            calcDisplay.textContent = calcExpression;
+        }
+
+        function calcOperator(op) {
+            calcExpression += op;
+            calcDisplay.textContent = calcExpression;
+        }
+
+        function calcDecimal() {
+            if (!calcExpression.includes('.')) {
+                calcExpression += '.';
+                calcDisplay.textContent = calcExpression;
+            }
+        }
+
+        function calcClear() {
+            calcExpression = '';
+            calcDisplay.textContent = '0';
+        }
+
+        function calcBackspace() {
+            calcExpression = calcExpression.slice(0, -1);
+            calcDisplay.textContent = calcExpression || '0';
+        }
+
+        function calcEquals() {
+            try {
+                const result = eval(calcExpression);
+                calcDisplay.textContent = result;
+                calcExpression = result.toString();
+            } catch (error) {
+                calcDisplay.textContent = 'Error';
+                calcExpression = '';
+            }
+        }
+
+        function calcConvert(type) {
+            const currentValue = parseFloat(calcExpression);
+            if (isNaN(currentValue)) {
+                calcDisplay.textContent = 'Error';
+                return;
+            }
+
+            let result;
+            switch(type) {
+                case 'ohm-kohm':
+                    result = currentValue / 1000;
+                    calcDisplay.textContent = result + ' kΩ';
+                    break;
+                case 'kohm-mohm':
+                    result = currentValue / 1000;
+                    calcDisplay.textContent = result + ' MΩ';
+                    break;
+                case 'ma-a':
+                    result = currentValue / 1000;
+                    calcDisplay.textContent = result + ' A';
+                    break;
+            }
+            calcExpression = result.toString();
+        }
+
+        // ============ 50 EJEMPLOS PRÁCTICOS ============
+        const ejemplosPracticos = [
+            { titulo: "Constante de tiempo RC básica", icono: "⏱️", color: "green", tipo: "tau", r: 1000, c: 100, unidad: "s" },
+            { titulo: "Carga de capacitor 10μF", icono: "🔋", color: "green", tipo: "tau", r: 10000, c: 10, unidad: "s" },
+            { titulo: "Filtro pasa-bajos RC", icono: "", color: "cyan", tipo: "tau", r: 1000, c: 1000, unidad: "s" },
+            { titulo: "Temporizador 555 básico", icono: "⏱️", color: "yellow", tipo: "555", r1: 1000, r2: 1000, c: 10, unidad: "Hz" },
+            { titulo: "Oscilador 555 1kHz", icono: "〰️", color: "purple", tipo: "555", r1: 1000, r2: 500, c: 0.1, unidad: "Hz" },
+            { titulo: "LED con resistencia 220Ω", icono: "", color: "red", tipo: "R", v: 5, i: 0.015, unidad: "Ω" },
+            { titulo: "Diodo Zener 5.1V", icono: "", color: "yellow", tipo: "V", v: 5.1, r: 0, i: 0, unidad: "V" },
+            { titulo: "Transistor NPN ganancia", icono: "🔺", color: "blue", tipo: "beta", ib: 0.001, ic: 0.1, unidad: "x" },
+            { titulo: "MOSFET voltaje gate", icono: "⚡", color: "purple", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Op-Amp ganancia inversora", icono: "🔊", color: "green", tipo: "ganancia", r1: 1000, r2: 10000, unidad: "x" },
+            { titulo: "Regulador 7805 entrada", icono: "", color: "cyan", tipo: "V", v: 12, r: 0, i: 0, unidad: "V" },
+            { titulo: "Capacitor electrolítico 1000μF", icono: "", color: "green", tipo: "C", c: 1000, unidad: "μF" },
+            { titulo: "Capacitor cerámico 100nF", icono: "🔋", color: "blue", tipo: "C", c: 0.1, unidad: "μF" },
+            { titulo: "Frecuencia de corte RC", icono: "📊", color: "purple", tipo: "fc", r: 1000, c: 0.000001, unidad: "Hz" },
+            { titulo: "Energía en capacitor", icono: "⚡", color: "yellow", tipo: "energia", c: 0.0001, v: 12, unidad: "J" },
+            { titulo: "Carga almacenada", icono: "🔋", color: "green", tipo: "carga", c: 0.0001, v: 5, unidad: "C" },
+            { titulo: "Diodo Schottky caída", icono: "➡️", color: "red", tipo: "V", v: 0.3, r: 0, i: 0, unidad: "V" },
+            { titulo: "LED azul voltaje", icono: "", color: "blue", tipo: "V", v: 3.2, r: 0, i: 0, unidad: "V" },
+            { titulo: "Fotodiodo corriente", icono: "📡", color: "purple", tipo: "I", v: 5, r: 10000, i: 0, unidad: "mA" },
+            { titulo: "Transistor saturación", icono: "🔺", color: "cyan", tipo: "V", v: 0.2, r: 0, i: 0, unidad: "V" },
+            { titulo: "MOSFET resistencia ON", icono: "⚡", color: "green", tipo: "R", r: 0.1, unidad: "Ω" },
+            { titulo: "Op-Amp voltaje salida", icono: "🔊", color: "yellow", tipo: "V", v: 15, r: 0, i: 0, unidad: "V" },
+            { titulo: "555 monoestable tiempo", icono: "⏱️", color: "orange", tipo: "tiempo", r: 100000, c: 0.00001, unidad: "s" },
+            { titulo: "Capacitor en paralelo", icono: "🔋", color: "green", tipo: "cp", c1: 100, c2: 100, unidad: "μF" },
+            { titulo: "Capacitor en serie", icono: "🔋", color: "blue", tipo: "cs", c1: 100, c2: 100, unidad: "μF" },
+            { titulo: "Diodo rectificador 1N4007", icono: "➡️", color: "red", tipo: "V", v: 0.7, r: 0, i: 0, unidad: "V" },
+            { titulo: "LED corriente máxima", icono: "💡", color: "yellow", tipo: "I", v: 0, r: 0, i: 0.03, unidad: "A" },
+            { titulo: "Transistor potencia disipada", icono: "🔥", color: "orange", tipo: "P", v: 12, i: 0.5, unidad: "W" },
+            { titulo: "MOSFET corriente drain", icono: "⚡", color: "purple", tipo: "I", v: 12, r: 24, i: 0, unidad: "A" },
+            { titulo: "Op-Amp impedancia entrada", icono: "🔊", color: "cyan", tipo: "R", r: 1000000, unidad: "Ω" },
+            { titulo: "7805 corriente máxima", icono: "", color: "green", tipo: "I", v: 0, r: 0, i: 1, unidad: "A" },
+            { titulo: "Capacitor voltaje máximo", icono: "🔋", color: "red", tipo: "V", v: 50, r: 0, i: 0, unidad: "V" },
+            { titulo: "Diodo Zener corriente", icono: "⚡", color: "yellow", tipo: "I", v: 12, r: 1000, i: 0, unidad: "mA" },
+            { titulo: "Transistor base resistencia", icono: "🔺", color: "blue", tipo: "R", v: 5, i: 0.001, unidad: "Ω" },
+            { titulo: "MOSFET gate capacitancia", icono: "⚡", color: "purple", tipo: "C", c: 1000, unidad: "pF" },
+            { titulo: "Op-Amp ancho de banda", icono: "", color: "green", tipo: "f", f: 1000000, unidad: "Hz" },
+            { titulo: "555 duty cycle 50%", icono: "⏱️", color: "cyan", tipo: "duty", r1: 1000, r2: 1000, unidad: "%" },
+            { titulo: "Capacitor ESR", icono: "🔋", color: "orange", tipo: "R", r: 0.5, unidad: "Ω" },
+            { titulo: "Diodo corriente máxima", icono: "➡️", color: "red", tipo: "I", v: 0, r: 0, i: 1, unidad: "A" },
+            { titulo: "LED eficiencia lumínica", icono: "💡", color: "yellow", tipo: "lm", lm: 100, unidad: "lm/W" },
+            { titulo: "Transistor frecuencia corte", icono: "📊", color: "blue", tipo: "f", f: 100000000, unidad: "Hz" },
+            { titulo: "MOSFET voltaje threshold", icono: "⚡", color: "purple", tipo: "V", v: 2.5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Op-Amp slew rate", icono: "", color: "green", tipo: "sr", sr: 0.5, unidad: "V/μs" },
+            { titulo: "7805 disipación potencia", icono: "🔥", color: "red", tipo: "P", v: 7, i: 0.5, unidad: "W" },
+            { titulo: "Capacitor ripple current", icono: "🔋", color: "cyan", tipo: "I", v: 0, r: 0, i: 2, unidad: "A" },
+            { titulo: "Diodo tiempo recuperación", icono: "⏱️", color: "orange", tipo: "t", t: 0.00000005, unidad: "s" },
+            { titulo: "Transistor hFE mínimo", icono: "🔺", color: "blue", tipo: "beta", ib: 0, ic: 0, beta: 100, unidad: "x" },
+            { titulo: "MOSFET RDS(on)", icono: "⚡", color: "purple", tipo: "R", r: 0.05, unidad: "Ω" },
+            { titulo: "Op-Amp CMRR", icono: "", color: "green", tipo: "db", db: 90, unidad: "dB" },
+            { titulo: "555 consumo corriente", icono: "⏱️", color: "yellow", tipo: "I", v: 5, r: 0, i: 0.01, unidad: "A" }
+        ];
+
+        // ============ SISTEMA DE EJEMPLOS ============
+        let ejemploActual = 0;
+        let ejemplosCompletados = new Set();
+
+        function renderizarEjemploActual() {
+            const ej = ejemplosPracticos[ejemploActual];
+            let respuestaCorrecta, pregunta, formula;
+            
+            if (ej.tipo === 'tau') {
+                respuestaCorrecta = (ej.r * ej.c) / 1000000;
+                pregunta = `R = ${ej.r}Ω, C = ${ej.c}μF. ¿Cuál es la constante de tiempo τ?`;
+                formula = `τ = R × C = ${ej.r} × ${ej.c}μF = ${respuestaCorrecta.toFixed(4)} s`;
+            } else if (ej.tipo === '555') {
+                const cFaradios = ej.c / 1000000;
+                respuestaCorrecta = 1.44 / ((ej.r1 + 2 * ej.r2) * cFaradios);
+                pregunta = `R1 = ${ej.r1}Ω, R2 = ${ej.r2}Ω, C = ${ej.c}μF. ¿Cuál es la frecuencia?`;
+                formula = `f = 1.44/((R1+2R2)×C) = ${respuestaCorrecta.toFixed(2)} Hz`;
+            } else if (ej.tipo === 'R') {
+                respuestaCorrecta = ej.v / ej.i;
+                pregunta = `V = ${ej.v}V, I = ${ej.i}A. ¿Cuál es la resistencia?`;
+                formula = `R = V/I = ${ej.v}/${ej.i} = ${respuestaCorrecta.toFixed(2)} Ω`;
+            } else if (ej.tipo === 'V') {
+                respuestaCorrecta = ej.v;
+                pregunta = `¿Cuál es el voltaje especificado?`;
+                formula = `V = ${ej.v}V`;
+            } else if (ej.tipo === 'I') {
+                if (ej.r > 0) {
+                    respuestaCorrecta = ej.unidad === 'mA' ? (ej.v / ej.r * 1000) : (ej.v / ej.r);
+                    pregunta = `V = ${ej.v}V, R = ${ej.r}Ω. ¿Cuánta corriente?`;
+                    formula = `I = V/R = ${respuestaCorrecta.toFixed(2)} ${ej.unidad}`;
+                } else {
+                    respuestaCorrecta = ej.i;
+                    pregunta = `¿Cuál es la corriente especificada?`;
+                    formula = `I = ${ej.i}${ej.unidad}`;
+                }
+            } else if (ej.tipo === 'beta') {
+                if (ej.beta) {
+                    respuestaCorrecta = ej.beta;
+                    pregunta = `¿Cuál es la ganancia hFE del transistor?`;
+                    formula = `β = ${ej.beta}`;
+                } else {
+                    respuestaCorrecta = ej.ic / ej.ib;
+                    pregunta = `Ib = ${ej.ib}A, Ic = ${ej.ic}A. ¿Cuál es la ganancia β?`;
+                    formula = `β = Ic/Ib = ${respuestaCorrecta.toFixed(0)}x`;
+                }
+            } else if (ej.tipo === 'ganancia') {
+                respuestaCorrecta = ej.r2 / ej.r1;
+                pregunta = `R1 = ${ej.r1}Ω, R2 = ${ej.r2}Ω. ¿Cuál es la ganancia del op-amp inversor?`;
+                formula = `G = -R2/R1 = ${respuestaCorrecta.toFixed(1)}x`;
+            } else if (ej.tipo === 'C') {
+                respuestaCorrecta = ej.c;
+                pregunta = `¿Cuál es el valor del capacitor?`;
+                formula = `C = ${ej.c}${ej.unidad}`;
+            } else if (ej.tipo === 'fc') {
+                respuestaCorrecta = 1 / (2 * Math.PI * ej.r * ej.c);
+                pregunta = `R = ${ej.r}Ω, C = ${ej.c*1000000}μF. ¿Cuál es la frecuencia de corte?`;
+                formula = `fc = 1/(2πRC) = ${respuestaCorrecta.toFixed(2)} Hz`;
+            } else if (ej.tipo === 'energia') {
+                respuestaCorrecta = 0.5 * ej.c * ej.v * ej.v;
+                pregunta = `C = ${ej.c*1000000}μF, V = ${ej.v}V. ¿Cuánta energía almacena?`;
+                formula = `E = ½CV² = ${respuestaCorrecta.toFixed(4)} J`;
+            } else if (ej.tipo === 'carga') {
+                respuestaCorrecta = ej.c * ej.v;
+                pregunta = `C = ${ej.c*1000000}μF, V = ${ej.v}V. ¿Cuánta carga almacena?`;
+                formula = `Q = C×V = ${respuestaCorrecta.toFixed(4)} C`;
+            } else if (ej.tipo === 'P') {
+                respuestaCorrecta = ej.v * ej.i;
+                pregunta = `V = ${ej.v}V, I = ${ej.i}A. ¿Cuánta potencia disipa?`;
+                formula = `P = V×I = ${respuestaCorrecta.toFixed(2)} W`;
+            } else if (ej.tipo === 'cp') {
+                respuestaCorrecta = ej.c1 + ej.c2;
+                pregunta = `C1 = ${ej.c1}μF, C2 = ${ej.c2}μF en paralelo. ¿Capacitancia total?`;
+                formula = `Ct = C1+C2 = ${respuestaCorrecta} μF`;
+            } else if (ej.tipo === 'cs') {
+                respuestaCorrecta = (ej.c1 * ej.c2) / (ej.c1 + ej.c2);
+                pregunta = `C1 = ${ej.c1}μF, C2 = ${ej.c2}μF en serie. ¿Capacitancia total?`;
+                formula = `Ct = (C1×C2)/(C1+C2) = ${respuestaCorrecta.toFixed(1)} μF`;
+            } else if (ej.tipo === 'tiempo') {
+                respuestaCorrecta = 1.1 * ej.r * ej.c;
+                pregunta = `R = ${ej.r}Ω, C = ${ej.c*1000000}μF. ¿Tiempo en modo monoestable?`;
+                formula = `t = 1.1×R×C = ${respuestaCorrecta.toFixed(3)} s`;
+            } else if (ej.tipo === 'duty') {
+                respuestaCorrecta = ((ej.r1 + ej.r2) / (ej.r1 + 2 * ej.r2)) * 100;
+                pregunta = `R1 = ${ej.r1}Ω, R2 = ${ej.r2}Ω. ¿Cuál es el duty cycle?`;
+                formula = `D = (R1+R2)/(R1+2R2) = ${respuestaCorrecta.toFixed(1)}%`;
+            } else if (ej.tipo === 'f') {
+                respuestaCorrecta = ej.f;
+                pregunta = `¿Cuál es la frecuencia especificada?`;
+                formula = `f = ${ej.f} Hz`;
+            } else if (ej.tipo === 'lm') {
+                respuestaCorrecta = ej.lm;
+                pregunta = `¿Cuál es la eficiencia lumínica?`;
+                formula = `E = ${ej.lm} lm/W`;
+            } else if (ej.tipo === 'sr') {
+                respuestaCorrecta = ej.sr;
+                pregunta = `¿Cuál es el slew rate del op-amp?`;
+                formula = `SR = ${ej.sr} V/μs`;
+            } else if (ej.tipo === 'db') {
+                respuestaCorrecta = ej.db;
+                pregunta = `¿Cuál es el CMRR del op-amp?`;
+                formula = `CMRR = ${ej.db} dB`;
+            } else if (ej.tipo === 't') {
+                respuestaCorrecta = ej.t;
+                pregunta = `¿Cuál es el tiempo de recuperación?`;
+                formula = `t = ${ej.t} s`;
+            } else {
+                respuestaCorrecta = ej.r || ej.c || ej.v || ej.i;
+                pregunta = `¿Cuál es el valor especificado?`;
+                formula = `Valor = ${respuestaCorrecta} ${ej.unidad}`;
+            }
+            
+            const container = document.getElementById('ejemplo-actual');
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                </div>
+                
+                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">
+                    ${ej.icono} ${ej.titulo}
+                </h3>
+                
+                <p class="text-slate-300 mb-4">${pregunta}</p>
+                
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <p class="text-sm text-slate-400 mb-2">Tu respuesta:</p>
+                    <div class="flex gap-2">
+                        <input type="number" id="respuesta-actual" step="0.0001"
+                               placeholder="Ingresa la respuesta en ${ej.unidad}" 
+                               class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white text-lg"
+                               onkeypress="if(event.key==='Enter') verificarEjemploActual()">
+                        <button onclick="verificarEjemploActual()" 
+                                class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded transition">
+                            Verificar
+                        </button>
+                    </div>
+                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                </div>
+            `;
+            
+            window.ejemploActualData = { correcta: respuestaCorrecta, unidad: ej.unidad, formula: formula };
+            
+            document.getElementById('btn-anterior').disabled = ejemploActual === 0;
+            actualizarProgreso();
+        }
+
+        function verificarEjemploActual() {
+            const { correcta, unidad, formula } = window.ejemploActualData;
+            const input = document.getElementById('respuesta-actual');
+            const respuesta = parseFloat(input.value);
+            const resultadoDiv = document.getElementById('resultado-actual');
+            
+            if (isNaN(respuesta)) {
+                resultadoDiv.classList.remove('hidden');
+                resultadoDiv.innerHTML = `
+                    <div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded">
+                        <p class="font-bold text-yellow-400">️ Ingresa un número</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const tolerancia = Math.max(correcta * 0.05, 0.001);
+            const esCorrecta = Math.abs(respuesta - correcta) <= tolerancia;
+            
+            resultadoDiv.classList.remove('hidden');
+            
+            if (esCorrecta) {
+                ejemplosCompletados.add(ejemploActual);
+                resultadoDiv.innerHTML = `
+                    <div class="bg-green-900 border-2 border-green-500 p-3 rounded">
+                        <p class="font-bold text-green-400">✅ ¡Correcto!</p>
+                        <p class="text-sm text-slate-300">${formula}</p>
+                    </div>
+                `;
+                actualizarProgreso();
+                
+                setTimeout(() => {
+                    if (ejemploActual < ejemplosPracticos.length - 1) {
+                        siguienteEjemplo();
+                    }
+                }, 2000);
+            } else {
+                resultadoDiv.innerHTML = `
+                    <div class="bg-red-900 border-2 border-red-500 p-3 rounded">
+                        <p class="font-bold text-red-400">❌ Incorrecto</p>
+                        <p class="text-sm text-slate-300">La respuesta correcta es <strong>${correcta.toFixed(4)} ${unidad}</strong></p>
+                        <p class="text-xs text-slate-400 mt-1">${formula}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function siguienteEjemplo() {
+            if (ejemploActual < ejemplosPracticos.length - 1) {
+                ejemploActual++;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            }
+        }
+
+        function ejemploAnterior() {
+            if (ejemploActual > 0) {
+                ejemploActual--;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            }
+        }
+
+        function irAEjemplo() {
+            const numero = parseInt(document.getElementById('saltar-a').value);
+            if (numero >= 1 && numero <= ejemplosPracticos.length) {
+                ejemploActual = numero - 1;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            } else {
+                alert('Ingresa un número entre 1 y 50');
+            }
+        }
+
+        function actualizarProgreso() {
+            const completados = ejemplosCompletados.size;
+            const porcentaje = (completados / ejemplosPracticos.length) * 100;
+            
+            document.getElementById('progreso-texto').textContent = `${completados} de ${ejemplosPracticos.length} completados`;
+            document.getElementById('barra-progreso').style.width = porcentaje + '%';
+        }
+
+        // ============ BANCO DE 30 PREGUNTAS ============
+        const bancoPreguntas = [
+            { pregunta: "¿Qué es la constante de tiempo τ en un circuito RC?", opciones: ["R + C", "R × C", "R / C", "C / R"], respuestaCorrecta: 1, explicacion: "τ = R × C (segundos)." },
+            { pregunta: "¿Cuánto tarda un capacitor en cargarse completamente?", opciones: ["1τ", "3τ", "5τ", "10τ"], respuestaCorrecta: 2, explicacion: "Después de 5τ está cargado al 99.3%." },
+            { pregunta: "¿Qué diodo regula voltaje en inversa?", opciones: ["Rectificador", "Zener", "Schottky", "LED"], respuestaCorrecta: 1, explicacion: "El diodo Zener regula en polarización inversa." },
+            { pregunta: "¿Cuál es la caída de voltaje de un diodo Schottky?", opciones: ["0.7V", "0.3V", "1.5V", "3.3V"], respuestaCorrecta: 1, explicacion: "Schottky: 0.2-0.3V." },
+            { pregunta: "¿Qué transistor es controlado por corriente?", opciones: ["MOSFET", "BJT", "JFET", "IGBT"], respuestaCorrecta: 1, explicacion: "El BJT es controlado por corriente de base." },
+            { pregunta: "¿Qué transistor es controlado por voltaje?", opciones: ["BJT", "MOSFET", "Darlington", "UJT"], respuestaCorrecta: 1, explicacion: "El MOSFET es controlado por voltaje de gate." },
+            { pregunta: "¿Cuáles son las terminales de un BJT?", opciones: ["G, D, S", "B, C, E", "A, K, G", "P, N, J"], respuestaCorrecta: 1, explicacion: "Base, Colector, Emisor." },
+            { pregunta: "¿Cuáles son las terminales de un MOSFET?", opciones: ["B, C, E", "G, D, S", "A, K, G", "+, -, GND"], respuestaCorrecta: 1, explicacion: "Gate, Drain, Source." },
+            { pregunta: "¿Qué IC es un temporizador?", opciones: ["741", "555", "7805", "386"], respuestaCorrecta: 1, explicacion: "El 555 es un temporizador/oscilador." },
+            { pregunta: "¿Qué IC es un regulador de 5V?", opciones: ["555", "741", "7805", "LM386"], respuestaCorrecta: 2, explicacion: "El 7805 regula a 5V fijos." },
+            { pregunta: "¿Qué IC es un amplificador operacional?", opciones: ["555", "7805", "741", "NE555"], respuestaCorrecta: 2, explicacion: "El 741 es un op-amp clásico." },
+            { pregunta: "¿Fórmula de frecuencia del 555 astable?", opciones: ["f = 1/(RC)", "f = 1.44/((R1+2R2)C)", "f = R/C", "f = 2πRC"], respuestaCorrecta: 1, explicacion: "f = 1.44/((R1+2R2)×C)" },
+            { pregunta: "¿Qué capacitor tiene polaridad?", opciones: ["Cerámico", "Electrolítico", "Poliéster", "Mica"], respuestaCorrecta: 1, explicacion: "Los electrolíticos tienen polaridad." },
+            { pregunta: "¿Qué mide la unidad Faradio?", opciones: ["Resistencia", "Capacitancia", "Inductancia", "Frecuencia"], respuestaCorrecta: 1, explicacion: "El Faradio mide capacitancia." },
+            { pregunta: "¿Qué es 1μF en Faradios?", opciones: ["0.001 F", "0.000001 F", "0.000000001 F", "1000 F"], respuestaCorrecta: 1, explicacion: "1μF = 0.000001 F." },
+            { pregunta: "¿Fórmula de energía en capacitor?", opciones: ["E = CV", "E = ½CV²", "E = C/V", "E = V/C"], respuestaCorrecta: 1, explicacion: "E = ½ × C × V²" },
+            { pregunta: "¿Fórmula de carga en capacitor?", opciones: ["Q = C/V", "Q = V/C", "Q = C×V", "Q = C+V"], respuestaCorrecta: 2, explicacion: "Q = C × V" },
+            { pregunta: "¿Qué diodo emite luz?", opciones: ["Zener", "Schottky", "LED", "Fotodiodo"], respuestaCorrecta: 2, explicacion: "LED = Light Emitting Diode." },
+            { pregunta: "¿Qué diodo detecta luz?", opciones: ["LED", "Zener", "Fotodiodo", "Schottky"], respuestaCorrecta: 2, explicacion: "El fotodiodo detecta luz." },
+            { pregunta: "¿Ganancia típica de BJT (hFE)?", opciones: ["10-50", "100-300", "1000-3000", "10000+"], respuestaCorrecta: 1, explicacion: "hFE típico: 100-300." },
+            { pregunta: "¿Qué op-amp configuración invierte la señal?", opciones: ["No inversora", "Inversora", "Seguidor", "Comparador"], respuestaCorrecta: 1, explicacion: "La configuración inversora invierte la señal." },
+            { pregunta: "¿Ganancia de op-amp inversor?", opciones: ["R1/R2", "R2/R1", "R1+R2", "R1-R2"], respuestaCorrecta: 1, explicacion: "G = -R2/R1" },
+            { pregunta: "¿Voltaje entrada típico 7805?", opciones: ["3-5V", "7-35V", "50-100V", "100-200V"], respuestaCorrecta: 1, explicacion: "El 7805 acepta 7-35V de entrada." },
+            { pregunta: "¿Corriente máxima 7805?", opciones: ["100mA", "500mA", "1A", "5A"], respuestaCorrecta: 2, explicacion: "El 7805 soporta hasta 1A." },
+            { pregunta: "¿Capacitores en paralelo se...?", opciones: ["Dividen", "Suman", "Restan", "Multiplican"], respuestaCorrecta: 1, explicacion: "En paralelo: Ct = C1 + C2 + ..." },
+            { pregunta: "¿Capacitores en serie se...?", opciones: ["Suman", "Restan", "Calculan como resistencias en paralelo", "Multiplican"], respuestaCorrecta: 2, explicacion: "En serie: 1/Ct = 1/C1 + 1/C2 + ..." },
+            { pregunta: "¿Frecuencia de corte de filtro RC?", opciones: ["f = RC", "f = 1/(2πRC)", "f = 2πRC", "f = R/C"], respuestaCorrecta: 1, explicacion: "fc = 1/(2πRC)" },
+            { pregunta: "¿Qué modo del 555 genera pulsos continuos?", opciones: ["Monoestable", "Astable", "Bi-estable", "Temporal"], respuestaCorrecta: 1, explicacion: "El modo astable genera oscilaciones continuas." },
+            { pregunta: "¿Qué modo del 555 genera un solo pulso?", opciones: ["Astable", "Monoestable", "Bi-estable", "Continuo"], respuestaCorrecta: 1, explicacion: "El modo monoestable genera un solo pulso." },
+            { pregunta: "¿Qué componente almacena energía en campo eléctrico?", opciones: ["Resistencia", "Inductor", "Capacitor", "Diodo"], respuestaCorrecta: 2, explicacion: "El capacitor almacena energía en campo eléctrico." }
+        ];
+
+        // ============ QUIZ ============
+        let preguntasActuales = [];
+        let respuestasSeleccionadas = {};
+        let respondidas = 0;
+        let correctas = 0;
+
+        function mezclarArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function cargarQuiz() {
+            const mezcladas = mezclarArray(bancoPreguntas);
+            preguntasActuales = mezcladas.slice(0, 10);
+            respuestasSeleccionadas = {};
+            respondidas = 0;
+            correctas = 0;
+            
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            
+            preguntasActuales.forEach((pregunta, index) => {
+                const opcionesConIndice = pregunta.opciones.map((op, i) => ({ 
+                    texto: op, 
+                    esCorrecta: i === pregunta.respuestaCorrecta 
+                }));
+                const opcionesMezcladas = mezclarArray(opcionesConIndice);
+                
+                const preguntaHTML = `
+                    <div class="bg-slate-900 p-4 rounded-lg" data-pregunta="${index}">
+                        <p class="font-semibold mb-3">${index + 1}. ${pregunta.pregunta}</p>
+                        <div class="space-y-2">
+                            ${opcionesMezcladas.map((opcion, opIndex) => `
+                                <button onclick="seleccionarRespuesta(${index}, this)" 
+                                        data-es-correcta="${opcion.esCorrecta}"
+                                        class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition opcion-btn">
+                                    ${opcion.texto}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += preguntaHTML;
+            });
+            
+            document.getElementById('resultado-quiz').classList.add('hidden');
+            document.getElementById('btn-reintentar').classList.add('hidden');
+        }
+
+        function seleccionarRespuesta(preguntaIndex, boton) {
+            const preguntaDiv = document.querySelector(`[data-pregunta="${preguntaIndex}"]`);
+            const botones = preguntaDiv.querySelectorAll('.opcion-btn');
+            
+            if (preguntaDiv.dataset.respondida === 'true') return;
+            
+            preguntaDiv.dataset.respondida = 'true';
+            respondidas++;
+            
+            const esCorrecta = boton.dataset.esCorrecta === 'true';
+            respuestasSeleccionadas[preguntaIndex] = esCorrecta;
+            
+            botones.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+                if (btn.dataset.esCorrecta === 'true') {
+                    btn.classList.remove('bg-slate-700', 'opacity-50');
+                    btn.classList.add('bg-green-600');
+                }
+            });
+            
+            if (esCorrecta) {
+                correctas++;
+                boton.classList.remove('bg-slate-700', 'opacity-50');
+                boton.classList.add('bg-green-600');
+            } else {
+                boton.classList.remove('bg-slate-700', 'opacity-50');
+                boton.classList.add('bg-red-600');
+            }
+        }
+
+        function verResultados() {
+            if (respondidas < 10) {
+                alert(`Has respondido ${respondidas} de 10 preguntas. Responde todas.`);
+                return;
+            }
+            
+            const porcentaje = Math.round((correctas / 10) * 100);
+            const resultadoDiv = document.getElementById('resultado-quiz');
+            
+            let mensaje, color, emoji;
+            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas los componentes avanzados'; color = 'green'; emoji = '🏆'; }
+            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'blue'; emoji = '👍'; }
+            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar'; color = 'orange'; emoji = '📚'; }
+            else { mensaje = 'Estudia nuevamente el módulo'; color = 'red'; emoji = '⚠️'; }
+            
+            let explicacionesHTML = preguntasActuales.map((p, i) => {
+                const esCorrecta = respuestasSeleccionadas[i];
+                return `
+                    <div class="bg-slate-900 p-3 rounded mb-2 ${esCorrecta ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}">
+                        <p class="font-semibold text-sm">${i + 1}. ${p.pregunta}</p>
+                        <p class="text-xs mt-1 ${esCorrecta ? 'text-green-400' : 'text-red-400'}">
+                            ${esCorrecta ? '✓ Correcta' : '✗ Incorrecta'}
+                        </p>
+                        <p class="text-xs text-slate-400 mt-1"><em>${p.explicacion}</em></p>
+                    </div>
+                `;
+            }).join('');
+            
+            resultadoDiv.innerHTML = `
+                <div class="bg-${color}-900 border-2 border-${color}-500 p-6 rounded-lg text-center mb-4">
+                    <p class="text-4xl mb-2">${emoji}</p>
+                    <h3 class="text-2xl font-bold text-${color}-400 mb-2">${mensaje}</h3>
+                    <p class="text-3xl font-bold text-white">${correctas} de 10 (${porcentaje}%)</p>
+                </div>
+                <div class="mt-4">
+                    <h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión de Respuestas:</h3>
+                    ${explicacionesHTML}
+                </div>
+            `;
+            
+            resultadoDiv.classList.remove('hidden');
+            document.getElementById('btn-reintentar').classList.remove('hidden');
+            resultadoDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function nuevoIntento() {
+            cargarQuiz();
+            window.scrollTo({ top: document.getElementById('quiz-container').offsetTop - 100, behavior: 'smooth' });
+        }
+
+        // ============ INICIALIZAR ============
+        renderizarEjemploActual();
+        cargarQuiz();
+        actualizarRC();
+        calcular555();
+    </script>
+</body>
+</html>

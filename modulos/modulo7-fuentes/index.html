@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 7: Fuentes de Poder - ElectroLearn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-animate { animation: fadeInUp 0.6s ease-out; }
+        .componente-card {
+            border-left: 4px solid #22d3ee;
+            transition: all 0.3s;
+        }
+        .componente-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+        }
+        .opcion-btn:disabled { cursor: not-allowed; }
+        .calc-btn { transition: all 0.1s; user-select: none; }
+        .calc-btn:active { transform: scale(0.95); }
+        .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        .calc-display {
+            font-family: 'Courier New', monospace;
+            font-size: 2rem;
+            text-align: right;
+            padding: 1rem;
+            background: #0f172a;
+            border: 2px solid #22d3ee;
+            border-radius: 0.5rem;
+            color: #22d3ee;
+            min-height: 80px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-body min-h-screen">
+
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-600 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="text-2xl font-heading font-bold flex items-center">
+                <i class="fas fa-bolt mr-2 text-yellow-300"></i> ElectroLearn
+            </a>
+            <a href="../../index.html" class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-slate-200 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Volver
+            </a>
+        </div>
+    </header>
+
+    <section class="py-8 text-center px-4 section-animate">
+        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
+            <i class="fas fa-bolt text-yellow-400"></i> Módulo 7: Fuentes de Poder
+        </h1>
+        <p class="text-slate-300 text-lg">Transformadores, rectificadores, reguladores y fuentes switching</p>
+    </section>
+
+    <div class="container mx-auto px-4 pb-16 space-y-8">
+
+        <!-- TEORÍA -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
+                <i class="fas fa-book mr-2"></i>Teoría: Fuentes de Poder
+            </h2>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+                    <i class="fas fa-plug mr-2"></i>¿Qué es una Fuente de Poder?
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Una <strong class="text-yellow-400">fuente de poder</strong> es un dispositivo que convierte la 
+                    electricidad de la red (AC) en voltaje DC regulado para alimentar circuitos electrónicos.
+                </p>
+                <div class="bg-yellow-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Proceso completo:</strong> AC (120V/220V) → Transformador → Rectificador → Filtro → Regulador → DC (5V, 12V, etc.)
+                    </p>
+                </div>
+            </div>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-blue-400">
+                    <i class="fas fa-circle-notch mr-2"></i>Transformador
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    El <strong class="text-blue-400">transformador</strong> reduce o aumenta el voltaje AC usando inducción electromagnética.
+                </p>
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <p class="text-green-400 font-mono text-center text-xl mb-2">Vp/Vs = Np/Ns</p>
+                    <p class="text-sm text-slate-400 text-center">Donde V = voltaje, N = número de espiras</p>
+                </div>
+            </div>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-red-400">
+                    <i class="fas fa-wave-square mr-2"></i>Rectificador
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    El <strong class="text-red-400">rectificador</strong> convierte AC en DC usando diodos.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">Media Onda:</h4>
+                        <p class="text-sm text-slate-300">Usa 1 diodo. Solo pasa medio ciclo. Vdc = Vp/π</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">Onda Completa:</h4>
+                        <p class="text-sm text-slate-300">Usa 4 diodos (puente). Pasa ambos ciclos. Vdc = 2Vp/π</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-green-400">
+                    <i class="fas fa-filter mr-2"></i>Filtro (Capacitor)
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    El <strong class="text-green-400">capacitor de filtro</strong> suaviza el voltaje rectificado, reduciendo el ripple.
+                </p>
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <p class="text-green-400 font-mono text-center text-xl mb-2">C = I / (f × Vripple)</p>
+                    <p class="text-sm text-slate-400 text-center">Capacitancia necesaria según corriente y ripple</p>
+                </div>
+            </div>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-purple-400">
+                    <i class="fas fa-sliders-h mr-2"></i>Regulador de Voltaje
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    El <strong class="text-purple-400">regulador</strong> mantiene el voltaje de salida constante sin importar variaciones de entrada o carga.
+                </p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-yellow-400 mb-2">7805</h4>
+                        <p class="text-sm text-slate-300">Salida: +5V fijos</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-yellow-400 mb-2">7812</h4>
+                        <p class="text-sm text-slate-300">Salida: +12V fijos</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-yellow-400 mb-2">LM317</h4>
+                        <p class="text-sm text-slate-300">Salida: 1.25V-37V ajustable</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg">
+                <h3 class="text-xl font-bold mb-3 text-cyan-400">
+                    <i class="fas fa-bolt mr-2"></i>Fuente Switching
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Las <strong class="text-cyan-400">fuentes switching</strong> son más eficientes (80-95%) que las lineales (40-60%).
+                </p>
+                <div class="bg-cyan-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Ventajas:</strong> Menor tamaño, menor peso, mayor eficiencia, menor calor.
+                        <br><strong>Desventajas:</strong> Más complejas, generan ruido electromagnético.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIMULADOR DE FUENTE -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+                <i class="fas fa-bolt mr-2"></i>Simulador: Fuente de Poder
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Simula el proceso completo de una fuente de poder lineal.
+            </p>
+
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block mb-2 font-semibold">
+                            <i class="fas fa-plug text-yellow-400 mr-2"></i>
+                            Voltaje de entrada (AC): <span id="vin-display" class="text-yellow-400">120</span> V
+                        </label>
+                        <input type="range" id="vin" min="100" max="240" step="10" value="120" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-400"
+                               oninput="actualizarFuente()">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold">
+                            <i class="fas fa-circle-notch text-blue-400 mr-2"></i>
+                            Relación del transformador: <span id="ratio-display" class="text-blue-400">10:1</span>
+                        </label>
+                        <input type="range" id="ratio" min="5" max="20" step="1" value="10" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-400"
+                               oninput="actualizarFuente()">
+                    </div>
+                </div>
+
+                <!-- Diagrama del proceso -->
+                <div class="bg-slate-800 p-4 rounded-lg mb-4">
+                    <div class="grid grid-cols-5 gap-2 text-center text-sm">
+                        <div class="bg-yellow-900 p-3 rounded">
+                            <p class="font-bold text-yellow-400">AC Entrada</p>
+                            <p id="val-ac" class="text-xl font-bold">120V</p>
+                        </div>
+                        <div class="bg-blue-900 p-3 rounded">
+                            <p class="font-bold text-blue-400">Transformador</p>
+                            <p id="val-trans" class="text-xl font-bold">12V</p>
+                        </div>
+                        <div class="bg-red-900 p-3 rounded">
+                            <p class="font-bold text-red-400">Rectificador</p>
+                            <p id="val-rect" class="text-xl font-bold">10.8V</p>
+                        </div>
+                        <div class="bg-green-900 p-3 rounded">
+                            <p class="font-bold text-green-400">Filtro</p>
+                            <p id="val-filtro" class="text-xl font-bold">12V</p>
+                        </div>
+                        <div class="bg-purple-900 p-3 rounded">
+                            <p class="font-bold text-purple-400">Regulador</p>
+                            <p id="val-reg" class="text-xl font-bold">5V</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regulador -->
+                <div class="mb-4">
+                    <label class="block mb-2 font-semibold">
+                        <i class="fas fa-sliders-h text-purple-400 mr-2"></i>
+                        Tipo de regulador:
+                    </label>
+                    <select id="regulador" onchange="actualizarFuente()" class="w-full p-3 bg-slate-700 rounded border border-slate-600 text-white">
+                        <option value="5">7805 - Salida 5V</option>
+                        <option value="9">7809 - Salida 9V</option>
+                        <option value="12" selected>7812 - Salida 12V</option>
+                        <option value="15">7815 - Salida 15V</option>
+                    </select>
+                </div>
+
+                <!-- Resultado -->
+                <div class="bg-gradient-to-r from-green-900 to-cyan-900 p-6 rounded-lg text-center border-2 border-green-500">
+                    <p class="text-sm text-slate-300 mb-2">Voltaje de salida DC regulado:</p>
+                    <p class="text-4xl font-bold text-green-400 mb-2" id="vout-display">12 V DC</p>
+                    <p class="text-sm text-slate-300">
+                        Eficiencia estimada: <span id="eficiencia" class="text-cyan-400 font-bold">60%</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CALCULADORA -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
+                <i class="fas fa-calculator mr-2"></i>Calculadora
+            </h2>
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <div class="mb-4">
+                    <div class="calc-display" id="calc-display">0</div>
+                </div>
+                <div class="grid grid-cols-4 gap-2 mb-4">
+                    <button onclick="calcClear()" class="calc-btn bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-lg">C</button>
+                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg">⌫</button>
+                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">%</button>
+                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">÷</button>
+                    <button onclick="calcNumber('7')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">7</button>
+                    <button onclick="calcNumber('8')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">8</button>
+                    <button onclick="calcNumber('9')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">9</button>
+                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">×</button>
+                    <button onclick="calcNumber('4')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">4</button>
+                    <button onclick="calcNumber('5')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">5</button>
+                    <button onclick="calcNumber('6')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">6</button>
+                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">−</button>
+                    <button onclick="calcNumber('1')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">1</button>
+                    <button onclick="calcNumber('2')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">2</button>
+                    <button onclick="calcNumber('3')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">3</button>
+                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">+</button>
+                    <button onclick="calcNumber('0')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg col-span-2">0</button>
+                    <button onclick="calcDecimal()" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">.</button>
+                    <button onclick="calcEquals()" class="calc-btn bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-lg">=</button>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="calcConvert('v-w')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">V×A = W</button>
+                    <button onclick="calcConvert('w-v')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">W/A = V</button>
+                    <button onclick="calcConvert('v-a')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">W/V = A</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJEMPLOS -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+                <i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos
+            </h2>
+            <div class="bg-slate-900 p-4 rounded-lg mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm text-slate-400">Progreso:</span>
+                    <span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50 completados</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-3">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500"></div>
+            <div class="flex gap-4 mt-6">
+                <button onclick="ejemploAnterior()" id="btn-anterior" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior
+                </button>
+                <button onclick="siguienteEjemplo()" id="btn-siguiente" class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">
+                    Siguiente<i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
+                <p class="text-sm text-slate-400 mb-3">O salta a un ejemplo específico:</p>
+                <div class="flex gap-2">
+                    <input type="number" id="saltar-a" min="1" max="50" placeholder="Número (1-50)" class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                    <button onclick="irAEjemplo()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded transition">Ir</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+                <i class="fas fa-question-circle mr-2"></i>Quiz
+            </h2>
+            <div id="quiz-container" class="space-y-4 mb-6"></div>
+            <button onclick="verResultados()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg transition">
+                <i class="fas fa-check-circle mr-2"></i>Ver Resultados
+            </button>
+            <div id="resultado-quiz" class="mt-6 hidden"></div>
+            <button onclick="nuevoIntento()" class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden" id="btn-reintentar">
+                <i class="fas fa-redo mr-2"></i>Intentar de Nuevo
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // ============ SIMULADOR DE FUENTE ============
+        function actualizarFuente() {
+            const vin = parseInt(document.getElementById('vin').value);
+            const ratio = parseInt(document.getElementById('ratio').value);
+            const vreg = parseInt(document.getElementById('regulador').value);
+            
+            document.getElementById('vin-display').textContent = vin;
+            document.getElementById('ratio-display').textContent = ratio + ':1';
+            
+            const vsec = vin / ratio;
+            const vrect = vsec * 0.9; // después del puente (con caída de diodos)
+            const vfiltro = vsec * 1.414; // pico después del capacitor
+            const vout = vreg;
+            
+            document.getElementById('val-ac').textContent = vin + 'V AC';
+            document.getElementById('val-trans').textContent = vsec.toFixed(1) + 'V AC';
+            document.getElementById('val-rect').textContent = vrect.toFixed(1) + 'V DC';
+            document.getElementById('val-filtro').textContent = vfiltro.toFixed(1) + 'V DC';
+            document.getElementById('val-reg').textContent = vout + 'V DC';
+            document.getElementById('vout-display').textContent = vout + ' V DC';
+            
+            // Eficiencia estimada
+            const eficiencia = Math.round((vout / vin) * 100 * 5); // aproximación
+            document.getElementById('eficiencia').textContent = Math.min(eficiencia, 70) + '%';
+        }
+
+        // ============ CALCULADORA ============
+        let calcExpression = '';
+        let calcDisplay = document.getElementById('calc-display');
+        function calcNumber(n) { calcExpression += n; calcDisplay.textContent = calcExpression; }
+        function calcOperator(op) { calcExpression += op; calcDisplay.textContent = calcExpression; }
+        function calcDecimal() { if (!calcExpression.includes('.')) { calcExpression += '.'; calcDisplay.textContent = calcExpression; } }
+        function calcClear() { calcExpression = ''; calcDisplay.textContent = '0'; }
+        function calcBackspace() { calcExpression = calcExpression.slice(0, -1); calcDisplay.textContent = calcExpression || '0'; }
+        function calcEquals() { try { const r = eval(calcExpression); calcDisplay.textContent = r; calcExpression = r.toString(); } catch { calcDisplay.textContent = 'Error'; calcExpression = ''; } }
+        function calcConvert(type) {
+            const v = parseFloat(calcExpression);
+            if (isNaN(v)) { calcDisplay.textContent = 'Error'; return; }
+            if (type === 'v-w') { calcDisplay.textContent = 'Ingresa A después de ×'; calcExpression = v + '*'; }
+            else if (type === 'w-v') { calcDisplay.textContent = 'Ingresa A después de /'; calcExpression = v + '/'; }
+            else if (type === 'v-a') { calcDisplay.textContent = 'Ingresa V después de /'; calcExpression = v + '/'; }
+        }
+
+        // ============ 50 EJEMPLOS ============
+        const ejemplosPracticos = Array.from({length: 50}, (_, i) => {
+            const tipos = ['transformador', 'rectificador', 'filtro', 'regulador', 'potencia', 'eficiencia'];
+            const tipo = tipos[i % tipos.length];
+            const valores = {
+                transformador: { vin: 120, ratio: 10, vout: 12 },
+                rectificador: { vin: 12, vout: 10.8 },
+                filtro: { i: 1, f: 60, vripple: 1, c: 16667 },
+                regulador: { vin: 15, vout: 5, pd: 10 },
+                potencia: { v: 12, i: 2, p: 24 },
+                eficiencia: { pin: 100, pout: 70, eff: 70 }
+            };
+            return { titulo: `Ejemplo ${i+1}: ${tipo}`, tipo, ...valores[tipo], color: ['yellow','blue','green','purple','red','cyan'][i%6], icono: ['🔌','⚡','','🎚️','','📊'][i%6] };
+        });
+
+        let ejemploActual = 0;
+        let ejemplosCompletados = new Set();
+
+        function renderizarEjemploActual() {
+            const ej = ejemplosPracticos[ejemploActual];
+            let pregunta, respuesta, formula;
+            
+            if (ej.tipo === 'transformador') {
+                respuesta = ej.vin / ej.ratio;
+                pregunta = `Transformador ${ej.ratio}:1 con entrada ${ej.vin}V AC. ¿Voltaje de salida?`;
+                formula = `Vs = Vin/ratio = ${ej.vin}/${ej.ratio} = ${respuesta.toFixed(1)}V`;
+            } else if (ej.tipo === 'rectificador') {
+                respuesta = ej.vin * 0.9;
+                pregunta = `Voltaje ${ej.vin}V después de rectificador de puente. ¿Voltaje DC?`;
+                formula = `Vdc = V × 0.9 = ${respuesta.toFixed(1)}V`;
+            } else if (ej.tipo === 'filtro') {
+                respuesta = (ej.i / (ej.f * ej.vripple)) * 1000000;
+                pregunta = `I=${ej.i}A, f=${ej.f}Hz, Vripple=${ej.vripple}V. ¿Capacitancia en μF?`;
+                formula = `C = I/(f×Vr) = ${respuesta.toFixed(0)} μF`;
+            } else if (ej.tipo === 'regulador') {
+                respuesta = (ej.vin - ej.vout) * 2;
+                pregunta = `Regulador 7805: entrada ${ej.vin}V, salida ${ej.vout}V, I=2A. ¿Potencia disipada?`;
+                formula = `Pd = (Vin-Vout)×I = ${respuesta}W`;
+            } else if (ej.tipo === 'potencia') {
+                respuesta = ej.v * ej.i;
+                pregunta = `V=${ej.v}V, I=${ej.i}A. ¿Potencia?`;
+                formula = `P = V×I = ${respuesta}W`;
+            } else {
+                respuesta = (ej.pout / ej.pin) * 100;
+                pregunta = `Pin=${ej.pin}W, Pout=${ej.pout}W. ¿Eficiencia?`;
+                formula = `η = (Pout/Pin)×100 = ${respuesta}%`;
+            }
+            
+            const container = document.getElementById('ejemplo-actual');
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">${ej.icono} ${ej.titulo}</h3>
+                <p class="text-slate-300 mb-4">${pregunta}</p>
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <p class="text-sm text-slate-400 mb-2">Tu respuesta:</p>
+                    <div class="flex gap-2">
+                        <input type="number" id="respuesta-actual" step="0.01" placeholder="Respuesta" class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white" onkeypress="if(event.key==='Enter') verificarEjemplo()">
+                        <button onclick="verificarEjemplo()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded">Verificar</button>
+                    </div>
+                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                </div>
+            `;
+            window.ejemploData = { correcta: respuesta, formula };
+            document.getElementById('btn-anterior').disabled = ejemploActual === 0;
+            actualizarProgreso();
+        }
+
+        function verificarEjemplo() {
+            const { correcta, formula } = window.ejemploData;
+            const respuesta = parseFloat(document.getElementById('respuesta-actual').value);
+            const div = document.getElementById('resultado-actual');
+            if (isNaN(respuesta)) { div.classList.remove('hidden'); div.innerHTML = '<div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded"><p class="font-bold text-yellow-400">️ Ingresa un número</p></div>'; return; }
+            const esCorrecta = Math.abs(respuesta - correcta) <= correcta * 0.05;
+            div.classList.remove('hidden');
+            if (esCorrecta) {
+                ejemplosCompletados.add(ejemploActual);
+                div.innerHTML = `<div class="bg-green-900 border-2 border-green-500 p-3 rounded"><p class="font-bold text-green-400">✅ ¡Correcto!</p><p class="text-sm text-slate-300">${formula}</p></div>`;
+                actualizarProgreso();
+                setTimeout(() => { if (ejemploActual < ejemplosPracticos.length - 1) siguienteEjemplo(); }, 2000);
+            } else {
+                div.innerHTML = `<div class="bg-red-900 border-2 border-red-500 p-3 rounded"><p class="font-bold text-red-400">❌ Incorrecto</p><p class="text-sm text-slate-300">Respuesta: <strong>${correcta.toFixed(2)}</strong></p><p class="text-xs text-slate-400 mt-1">${formula}</p></div>`;
+            }
+        }
+
+        function siguienteEjemplo() { if (ejemploActual < ejemplosPracticos.length - 1) { ejemploActual++; renderizarEjemploActual(); window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' }); } }
+        function ejemploAnterior() { if (ejemploActual > 0) { ejemploActual--; renderizarEjemploActual(); window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' }); } }
+        function irAEjemplo() { const n = parseInt(document.getElementById('saltar-a').value); if (n >= 1 && n <= ejemplosPracticos.length) { ejemploActual = n - 1; renderizarEjemploActual(); window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' }); } else alert('Número entre 1 y 50'); }
+        function actualizarProgreso() { const p = (ejemplosCompletados.size / ejemplosPracticos.length) * 100; document.getElementById('progreso-texto').textContent = `${ejemplosCompletados.size} de ${ejemplosPracticos.length} completados`; document.getElementById('barra-progreso').style.width = p + '%'; }
+
+        // ============ QUIZ ============
+        const bancoPreguntas = [
+            { p: "¿Qué convierte AC en DC?", o: ["Transformador", "Rectificador", "Filtro", "Regulador"], r: 1, e: "El rectificador convierte AC en DC." },
+            { p: "¿Qué reduce el voltaje AC?", o: ["Rectificador", "Filtro", "Transformador", "Regulador"], r: 2, e: "El transformador reduce/aumenta voltaje AC." },
+            { p: "¿Qué regula el voltaje DC?", o: ["Transformador", "Rectificador", "Filtro", "Regulador"], r: 3, e: "El regulador mantiene voltaje constante." },
+            { p: "¿Qué suaviza el voltaje rectificado?", o: ["Transformador", "Rectificador", "Capacitor de filtro", "Regulador"], r: 2, e: "El capacitor filtra el ripple." },
+            { p: "¿Salida del 7805?", o: ["3.3V", "5V", "9V", "12V"], r: 1, e: "7805 = 5V fijos." },
+            { p: "¿Salida del 7812?", o: ["5V", "9V", "12V", "15V"], r: 2, e: "7812 = 12V fijos." },
+            { p: "¿Eficiencia típica fuente lineal?", o: ["20-30%", "40-60%", "80-95%", "100%"], r: 1, e: "Lineales: 40-60% eficiencia." },
+            { p: "¿Eficiencia típica fuente switching?", o: ["20-30%", "40-60%", "80-95%", "100%"], r: 2, e: "Switching: 80-95% eficiencia." },
+            { p: "¿Cuántos diodos usa un puente rectificador?", o: ["1", "2", "4", "6"], r: 2, e: "El puente usa 4 diodos." },
+            { p: "¿Fórmula del transformador?", o: ["Vp/Vs = Np/Ns", "V = IR", "P = VI", "f = 1/T"], r: 0, e: "Vp/Vs = Np/Ns (relación de espiras)." },
+            { p: "¿Qué es el ripple?", o: ["Voltaje DC puro", "Variación residual en DC", "Frecuencia AC", "Corriente máxima"], r: 1, e: "Ripple es la variación residual en DC." },
+            { p: "¿Voltaje entrada mínimo 7805?", o: ["3V", "5V", "7V", "12V"], r: 2, e: "Necesita al menos 7V (2V dropout)." },
+            { p: "¿Corriente máxima 7805?", o: ["100mA", "500mA", "1A", "5A"], r: 2, e: "7805 soporta hasta 1A." },
+            { p: "¿Qué IC es regulador ajustable?", o: ["7805", "7812", "LM317", "555"], r: 2, e: "LM317 es regulador ajustable." },
+            { p: "¿Fórmula de potencia?", o: ["P = V/I", "P = V×I", "P = I/V", "P = V+I"], r: 1, e: "P = V × I" },
+            { p: "¿Fórmula de eficiencia?", o: ["η = Pin/Pout", "η = Pout/Pin", "η = Pout+Pin", "η = Pout-Pin"], r: 1, e: "η = (Pout/Pin) × 100%" },
+            { p: "¿Rectificador de media onda usa?", o: ["1 diodo", "2 diodos", "4 diodos", "6 diodos"], r: 0, e: "Media onda usa 1 diodo." },
+            { p: "¿Ventaja de fuente switching?", o: ["Simple", "Barata", "Alta eficiencia", "Sin ruido"], r: 2, e: "Alta eficiencia es su principal ventaja." },
+            { p: "¿Desventaja de fuente switching?", o: ["Tamaño", "Peso", "Ruido EMI", "Eficiencia"], r: 2, e: "Genera ruido electromagnético." },
+            { p: "¿Qué es dropout en regulador?", o: ["Voltaje de salida", "Voltaje mínimo entrada-salida", "Corriente máxima", "Temperatura"], r: 1, e: "Dropout es el voltaje mínimo entre entrada y salida." },
+            { p: "¿Voltaje pico después de capacitor?", o: ["Vrms", "Vrms×1.414", "Vrms/2", "Vrms×2"], r: 1, e: "Vpico = Vrms × √2 ≈ Vrms × 1.414" },
+            { p: "¿Fórmula capacitancia de filtro?", o: ["C = I×f×V", "C = I/(f×V)", "C = f/(I×V)", "C = V/(I×f)"], r: 1, e: "C = I / (f × Vripple)" },
+            { p: "¿7805 es regulador...?", o: ["Ajustable", "Fijo positivo", "Fijo negativo", "Switching"], r: 1, e: "7805 es regulador fijo positivo." },
+            { p: "¿7912 es regulador...?", o: ["Positivo", "Negativo", "Ajustable", "Switching"], r: 1, e: "79xx son reguladores negativos." },
+            { p: "¿Qué disipa más calor?", o: ["Switching", "Lineal", "Ambas igual", "Ninguna"], r: 1, e: "Las lineales disipan más calor." },
+            { p: "¿Transformador step-down...?", o: ["Aumenta voltaje", "Reduce voltaje", "No cambia", "Invierte"], r: 1, e: "Step-down reduce el voltaje." },
+            { p: "¿Transformador step-up...?", o: ["Reduce voltaje", "Aumenta voltaje", "No cambia", "Invierte"], r: 1, e: "Step-up aumenta el voltaje." },
+            { p: "¿Frecuencia red en América?", o: ["50 Hz", "60 Hz", "100 Hz", "120 Hz"], r: 1, e: "América: 60 Hz." },
+            { p: "¿Frecuencia red en Europa?", o: ["50 Hz", "60 Hz", "100 Hz", "120 Hz"], r: 0, e: "Europa: 50 Hz." },
+            { p: "¿Qué protege contra sobrecorriente en fuente?", o: ["Capacitor", "Fusible", "Diodo", "Resistencia"], r: 1, e: "El fusible protege contra sobrecorriente." }
+        ];
+
+        let preguntasActuales = [], respuestasSeleccionadas = {}, respondidas = 0, correctas = 0;
+        function mezclarArray(a) { const arr = [...a]; for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+        function cargarQuiz() {
+            const m = mezclarArray(bancoPreguntas); preguntasActuales = m.slice(0, 10); respuestasSeleccionadas = {}; respondidas = 0; correctas = 0;
+            const c = document.getElementById('quiz-container'); c.innerHTML = '';
+            preguntasActuales.forEach((p, i) => {
+                const oc = p.o.map((op, j) => ({ texto: op, esCorrecta: j === p.r }));
+                const om = mezclarArray(oc);
+                c.innerHTML += `<div class="bg-slate-900 p-4 rounded-lg" data-p="${i}"><p class="font-semibold mb-3">${i+1}. ${p.p}</p><div class="space-y-2">${om.map((o, j) => `<button onclick="selR(${i}, this)" data-c="${o.esCorrecta}" class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition ob">${o.texto}</button>`).join('')}</div></div>`;
+            });
+            document.getElementById('resultado-quiz').classList.add('hidden');
+            document.getElementById('btn-reintentar').classList.add('hidden');
+        }
+        function selR(i, b) { const d = document.querySelector(`[data-p="${i}"]`); if (d.dataset.r === 't') return; d.dataset.r = 't'; respondidas++; const c = b.dataset.c === 'true'; respuestasSeleccionadas[i] = c; d.querySelectorAll('.ob').forEach(btn => { btn.disabled = true; btn.classList.add('opacity-50'); if (btn.dataset.c === 'true') { btn.classList.remove('bg-slate-700', 'opacity-50'); btn.classList.add('bg-green-600'); } }); if (c) { correctas++; b.classList.remove('bg-slate-700', 'opacity-50'); b.classList.add('bg-green-600'); } else { b.classList.remove('bg-slate-700', 'opacity-50'); b.classList.add('bg-red-600'); } }
+        function verResultados() {
+            if (respondidas < 10) { alert(`Responde ${respondidas} de 10`); return; }
+            const p = Math.round((correctas/10)*100); const r = document.getElementById('resultado-quiz');
+            let m, co, e; if (p >= 90) { m = '¡Excelente!'; co = 'green'; e = '🏆'; } else if (p >= 70) { m = '¡Bien!'; co = 'blue'; e = '👍'; } else if (p >= 50) { m = 'Repasa'; co = 'orange'; e = ''; } else { m = 'Estudia más'; co = 'red'; e = '⚠️'; }
+            const h = preguntasActuales.map((q, i) => `<div class="bg-slate-900 p-3 rounded mb-2 ${respuestasSeleccionadas[i] ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}"><p class="font-semibold text-sm">${i+1}. ${q.p}</p><p class="text-xs mt-1 ${respuestasSeleccionadas[i] ? 'text-green-400' : 'text-red-400'}">${respuestasSeleccionadas[i] ? '✓' : '✗'}</p><p class="text-xs text-slate-400 mt-1"><em>${q.e}</em></p></div>`).join('');
+            r.innerHTML = `<div class="bg-${co}-900 border-2 border-${co}-500 p-6 rounded-lg text-center mb-4"><p class="text-4xl mb-2">${e}</p><h3 class="text-2xl font-bold text-${co}-400 mb-2">${m}</h3><p class="text-3xl font-bold text-white">${correctas}/10 (${p}%)</p></div><div class="mt-4"><h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión:</h3>${h}</div>`;
+            r.classList.remove('hidden'); document.getElementById('btn-reintentar').classList.remove('hidden'); r.scrollIntoView({ behavior: 'smooth' });
+        }
+        function nuevoIntento() { cargarQuiz(); window.scrollTo({ top: document.getElementById('quiz-container').offsetTop - 100, behavior: 'smooth' }); }
+
+        renderizarEjemploActual();
+        cargarQuiz();
+        actualizarFuente();
+    </script>
+</body>
+</html>

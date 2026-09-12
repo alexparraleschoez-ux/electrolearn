@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Componentes Electrónicos - ElectroLearn</title>
+    <title>Módulo 3: Componentes Electrónicos - ElectroLearn</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
@@ -19,6 +19,78 @@
             }
         }
     </script>
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulso {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes brillo {
+            0%, 100% { filter: drop-shadow(0 0 5px currentColor); }
+            50% { filter: drop-shadow(0 0 15px currentColor); }
+        }
+        .section-animate { animation: fadeInUp 0.6s ease-out; }
+        .componente-card {
+            border-left: 4px solid #22d3ee;
+            transition: all 0.3s;
+        }
+        .componente-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+        }
+        .banda-resistencia {
+            transition: all 0.3s;
+        }
+        .banda-resistencia:hover {
+            transform: scale(1.1);
+        }
+        .led-animado {
+            animation: brillo 1s ease-in-out infinite;
+        }
+        .opcion-btn:disabled { cursor: not-allowed; }
+        
+        /* Colores de bandas */
+        .banda-negro { background-color: #000000; }
+        .banda-marron { background-color: #8B4513; }
+        .banda-rojo { background-color: #ef4444; }
+        .banda-naranja { background-color: #f97316; }
+        .banda-amarillo { background-color: #eab308; }
+        .banda-verde { background-color: #22c55e; }
+        .banda-azul { background-color: #3b82f6; }
+        .banda-violeta { background-color: #a855f7; }
+        .banda-gris { background-color: #6b7280; }
+        .banda-blanco { background-color: #f9fafb; }
+        .banda-dorado { background-color: #fbbf24; }
+        .banda-plateado { background-color: #9ca3af; }
+
+        /* Estilos de la calculadora */
+        .calc-btn {
+            transition: all 0.1s;
+            user-select: none;
+        }
+        .calc-btn:active {
+            transform: scale(0.95);
+        }
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .calc-display {
+            font-family: 'Courier New', monospace;
+            font-size: 2rem;
+            text-align: right;
+            padding: 1rem;
+            background: #0f172a;
+            border: 2px solid #22d3ee;
+            border-radius: 0.5rem;
+            color: #22d3ee;
+            min-height: 80px;
+            overflow-x: auto;
+        }
+    </style>
 </head>
 <body class="bg-slate-900 text-white font-body min-h-screen">
 
@@ -35,227 +107,1079 @@
     </header>
 
     <!-- TÍTULO -->
-    <section class="py-8 text-center px-4">
+    <section class="py-8 text-center px-4 section-animate">
         <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
-            <i class="fas fa-microchip text-purple-400"></i> Componentes Electrónicos
+            <i class="fas fa-microchip text-purple-400"></i> Módulo 3: Componentes Electrónicos
         </h1>
-        <p class="text-slate-300 text-lg">Aprende a identificar y calcular valores</p>
+        <p class="text-slate-300 text-lg">Resistencias, capacitores, diodos, LEDs y transistores explicados</p>
     </section>
 
-    <!-- ============ CALCULADORA DE CÓDIGO DE COLORES ============ -->
-    <section class="container mx-auto px-4 pb-16">
-        <div class="bg-slate-800 p-6 md:p-8 rounded-xl shadow-xl max-w-4xl mx-auto">
-            <h2 class="text-2xl md:text-3xl font-heading font-bold mb-2 text-yellow-400 text-center">
-                <i class="fas fa-calculator mr-2"></i> Calculadora de Código de Colores
+    <div class="container mx-auto px-4 pb-16 space-y-8">
+
+        <!-- SECCIÓN 1: TEORÍA -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
+                <i class="fas fa-book mr-2"></i>Teoría: Componentes Electrónicos Básicos
             </h2>
-            <p class="text-center text-slate-300 mb-6">
-                Selecciona los colores de las bandas de tu resistencia
+
+            <!-- Resistencias -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+                    <i class="fas fa-minus mr-2"></i>Resistencias
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Las <strong class="text-yellow-400">resistencias</strong> son componentes que <strong>limitan el flujo de corriente</strong> 
+                    en un circuito. Son los componentes más comunes en electrónica.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">📏 Características:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Se miden en <strong>Ohmios (Ω)</strong></li>
+                            <li>✓ Tienen bandas de colores</li>
+                            <li>✓ Disipan energía en forma de calor</li>
+                            <li>✓ No tienen polaridad</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">🎯 Usos comunes:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Limitar corriente en LEDs</li>
+                            <li>✓ Divisores de voltaje</li>
+                            <li>✓ Pull-up y pull-down</li>
+                            <li>✓ Filtros de señal</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-yellow-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Dato importante:</strong> El valor de una resistencia se lee mediante el 
+                        <strong class="text-yellow-400">código de colores</strong> de sus bandas.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Capacitores -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-green-400">
+                    <i class="fas fa-battery-half mr-2"></i>Capacitores (Condensadores)
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Los <strong class="text-green-400">capacitores</strong> son componentes que <strong>almacenan energía eléctrica</strong> 
+                    en un campo eléctrico. Funcionan como baterías temporales de carga rápida.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">📏 Características:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Se miden en <strong>Faradios (F)</strong></li>
+                            <li>✓ Común: μF, nF, pF</li>
+                            <li>✓ Algunos tienen polaridad (+/-)</li>
+                            <li>✓ Se cargan y descargan</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">🎯 Usos comunes:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Filtrar ruido en circuitos</li>
+                            <li>✓ Almacenar energía temporal</li>
+                            <li>✓ Acoplar señales AC</li>
+                            <li>✓ Temporizadores</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-green-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Tipos:</strong> Cerámicos (sin polaridad), Electrolíticos (con polaridad), 
+                        Tantalio, Poliéster.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Diodos -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-red-400">
+                    <i class="fas fa-arrow-right mr-2"></i>Diodos
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Los <strong class="text-red-400">diodos</strong> son componentes que permiten el flujo de corriente 
+                    en <strong>una sola dirección</strong>. Actúan como válvulas unidireccionales.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">📏 Características:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Tienen <strong>polaridad</strong> (Ánodo/Cátodo)</li>
+                            <li>✓ Caída de voltaje: ~0.7V (Silicio)</li>
+                            <li>✓ Conducen en polarización directa</li>
+                            <li>✓ Bloquean en polarización inversa</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2"> Usos comunes:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Rectificación (CA a CC)</li>
+                            <li>✓ Protección de circuitos</li>
+                            <li>✓ Diodo Zener (regulación)</li>
+                            <li>✓ Diodo LED (emite luz)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-red-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        ⚠️ <strong>Polaridad:</strong> La pata larga es el <strong class="text-green-400">Ánodo (+)</strong>, 
+                        la pata corta es el <strong class="text-red-400">Cátodo (-)</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- LEDs -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-pink-400">
+                    <i class="fas fa-lightbulb mr-2"></i>LEDs (Diodos Emisores de Luz)
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Los <strong class="text-pink-400">LEDs</strong> son diodos especiales que <strong>emiten luz</strong> 
+                    cuando circula corriente en polarización directa.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">📏 Características:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Requieren <strong>resistencia limitadora</strong></li>
+                            <li>✓ Corriente típica: 20-30 mA</li>
+                            <li>✓ Voltaje según color (1.8V-3.3V)</li>
+                            <li>✓ Muy eficientes energéticamente</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2"> Colores y voltajes:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>🔴 Rojo: ~1.8V-2.2V</li>
+                            <li>🟢 Verde: ~2.0V-2.4V</li>
+                            <li>🔵 Azul: ~3.0V-3.4V</li>
+                            <li> Blanco: ~3.0V-3.4V</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-pink-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        ⚠️ <strong>IMPORTANTE:</strong> Siempre usa una resistencia en serie con un LED 
+                        para limitar la corriente y evitar que se queme.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Transistores -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg">
+                <h3 class="text-xl font-bold mb-3 text-blue-400">
+                    <i class="fas fa-project-diagram mr-2"></i>Transistores
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    Los <strong class="text-blue-400">transistores</strong> son componentes semiconductores que pueden 
+                    <strong>amplificar señales</strong> o actuar como <strong>interruptores electrónicos</strong>.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">📏 Tipos principales:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ <strong>NPN</strong>: Más común</li>
+                            <li>✓ <strong>PNP</strong>: Complementario</li>
+                            <li>✓ <strong>MOSFET</strong>: Alta eficiencia</li>
+                            <li>✓ 3 terminales: Base, Colector, Emisor</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">🎯 Usos comunes:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Amplificación de señales</li>
+                            <li>✓ Interruptores electrónicos</li>
+                            <li>✓ Control de motores</li>
+                            <li>✓ Circuitos lógicos</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-blue-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Funcionamiento:</strong> Una pequeña corriente en la Base controla 
+                        una corriente mayor entre Colector y Emisor.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: CALCULADORA DE CÓDIGO DE COLORES -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+                <i class="fas fa-calculator mr-2"></i>Calculadora de Código de Colores
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Selecciona los colores de las bandas de tu resistencia y obtén el valor automáticamente.
             </p>
 
-            <!-- RESISTENCIA VISUAL -->
-            <div class="bg-slate-900 p-6 rounded-lg mb-6">
-                <div class="flex items-center justify-center">
-                    <!-- Cable izquierdo -->
-                    <div class="w-12 h-1 bg-gray-400"></div>
-                    <!-- Cuerpo de la resistencia -->
-                    <div class="bg-amber-700 w-64 h-16 rounded-lg flex items-center justify-around px-4 relative">
-                        <div id="banda1Visual" class="w-4 h-12 bg-red-600 rounded-sm"></div>
-                        <div id="banda2Visual" class="w-4 h-12 bg-violet-600 rounded-sm"></div>
-                        <div id="banda3Visual" class="w-4 h-12 bg-red-600 rounded-sm"></div>
-                        <div id="banda4Visual" class="w-4 h-12 bg-yellow-500 rounded-sm absolute right-4"></div>
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <!-- Visualización de la resistencia -->
+                <div class="flex justify-center mb-6">
+                    <div class="relative">
+                        <!-- Cuerpo de la resistencia -->
+                        <div class="w-64 h-16 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 rounded-lg relative flex items-center justify-around px-4 shadow-lg">
+                            <!-- Bandas -->
+                            <div id="banda1-visual" class="banda-resistencia w-4 h-12 bg-red-500 rounded"></div>
+                            <div id="banda2-visual" class="banda-resistencia w-4 h-12 bg-violet-500 rounded"></div>
+                            <div id="banda3-visual" class="banda-resistencia w-4 h-12 bg-red-500 rounded"></div>
+                            <div id="banda4-visual" class="banda-resistencia w-4 h-12 bg-yellow-500 rounded"></div>
+                        </div>
+                        <!-- Patillas -->
+                        <div class="absolute top-1/2 -left-8 w-8 h-2 bg-gray-400 transform -translate-y-1/2"></div>
+                        <div class="absolute top-1/2 -right-8 w-8 h-2 bg-gray-400 transform -translate-y-1/2"></div>
                     </div>
-                    <!-- Cable derecho -->
-                    <div class="w-12 h-1 bg-gray-400"></div>
+                </div>
+
+                <!-- Selectores de bandas -->
+                <div class="grid md:grid-cols-4 gap-4 mb-6">
+                    <div>
+                        <label class="block mb-2 font-semibold text-sm">
+                            <span class="inline-block w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            Banda 1 (1er dígito)
+                        </label>
+                        <select id="banda1" onchange="calcularResistencia()" class="w-full p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                            <option value="0">Negro (0)</option>
+                            <option value="1" selected>Marrón (1)</option>
+                            <option value="2">Rojo (2)</option>
+                            <option value="3">Naranja (3)</option>
+                            <option value="4">Amarillo (4)</option>
+                            <option value="5">Verde (5)</option>
+                            <option value="6">Azul (6)</option>
+                            <option value="7">Violeta (7)</option>
+                            <option value="8">Gris (8)</option>
+                            <option value="9">Blanco (9)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold text-sm">
+                            <span class="inline-block w-3 h-3 rounded-full bg-violet-500 mr-2"></span>
+                            Banda 2 (2do dígito)
+                        </label>
+                        <select id="banda2" onchange="calcularResistencia()" class="w-full p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                            <option value="0">Negro (0)</option>
+                            <option value="1">Marrón (1)</option>
+                            <option value="2">Rojo (2)</option>
+                            <option value="3">Naranja (3)</option>
+                            <option value="4">Amarillo (4)</option>
+                            <option value="5">Verde (5)</option>
+                            <option value="6">Azul (6)</option>
+                            <option value="7" selected>Violeta (7)</option>
+                            <option value="8">Gris (8)</option>
+                            <option value="9">Blanco (9)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold text-sm">
+                            <span class="inline-block w-3 h-3 rounded-full bg-red-500 mr-2"></span>
+                            Banda 3 (Multiplicador)
+                        </label>
+                        <select id="banda3" onchange="calcularResistencia()" class="w-full p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                            <option value="1">Negro (×1)</option>
+                            <option value="10">Marrón (×10)</option>
+                            <option value="100" selected>Rojo (×100)</option>
+                            <option value="1000">Naranja (×1K)</option>
+                            <option value="10000">Amarillo (×10K)</option>
+                            <option value="100000">Verde (×100K)</option>
+                            <option value="1000000">Azul (×1M)</option>
+                            <option value="10000000">Violeta (×10M)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold text-sm">
+                            <span class="inline-block w-3 h-3 rounded-full bg-yellow-500 mr-2"></span>
+                            Banda 4 (Tolerancia)
+                        </label>
+                        <select id="banda4" onchange="calcularResistencia()" class="w-full p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                            <option value="1">Marrón (±1%)</option>
+                            <option value="2">Rojo (±2%)</option>
+                            <option value="5" selected>Dorado (±5%)</option>
+                            <option value="10">Plateado (±10%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Resultado -->
+                <div class="bg-gradient-to-r from-green-900 to-cyan-900 p-6 rounded-lg text-center border-2 border-green-500">
+                    <p class="text-sm text-slate-300 mb-2">Valor de la resistencia:</p>
+                    <p class="text-4xl font-bold text-green-400 mb-2" id="valor-resistencia">1.70 kΩ</p>
+                    <p class="text-lg text-slate-200 mb-4">
+                        Rango: <span id="rango-min" class="text-green-400 font-bold">1.615 kΩ</span> - 
+                        <span id="rango-max" class="text-green-400 font-bold">1.785 kΩ</span>
+                    </p>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <p class="text-sm text-slate-400">Fórmula:</p>
+                        <p class="text-lg font-mono text-white" id="formula-resistencia">(17) × 100 = 1700 Ω = 1.70 kΩ</p>
+                    </div>
                 </div>
             </div>
-
-            <!-- SELECTORES DE COLOR -->
-            <div class="grid md:grid-cols-2 gap-4 mb-6">
-                <!-- Banda 1 -->
-                <div>
-                    <label class="block mb-2 font-semibold">
-                        <span class="inline-block w-3 h-3 bg-red-600 rounded mr-2"></span>
-                        Banda 1 (1er dígito)
-                    </label>
-                    <select id="banda1" class="w-full p-3 bg-slate-700 rounded-lg border-2 border-slate-600 focus:border-yellow-400 outline-none">
-                        <option value="0" data-color="#000000">Negro (0)</option>
-                        <option value="1" data-color="#8B4513" selected>Marrón (1)</option>
-                        <option value="2" data-color="#DC2626">Rojo (2)</option>
-                        <option value="3" data-color="#EA580C">Naranja (3)</option>
-                        <option value="4" data-color="#EAB308">Amarillo (4)</option>
-                        <option value="5" data-color="#22C55E">Verde (5)</option>
-                        <option value="6" data-color="#3B82F6">Azul (6)</option>
-                        <option value="7" data-color="#9333EA">Violeta (7)</option>
-                        <option value="8" data-color="#6B7280">Gris (8)</option>
-                        <option value="9" data-color="#F3F4F6">Blanco (9)</option>
-                    </select>
-                </div>
-
-                <!-- Banda 2 -->
-                <div>
-                    <label class="block mb-2 font-semibold">
-                        <span class="inline-block w-3 h-3 bg-violet-600 rounded mr-2"></span>
-                        Banda 2 (2do dígito)
-                    </label>
-                    <select id="banda2" class="w-full p-3 bg-slate-700 rounded-lg border-2 border-slate-600 focus:border-yellow-400 outline-none">
-                        <option value="0" data-color="#000000">Negro (0)</option>
-                        <option value="1" data-color="#8B4513">Marrón (1)</option>
-                        <option value="2" data-color="#DC2626">Rojo (2)</option>
-                        <option value="3" data-color="#EA580C">Naranja (3)</option>
-                        <option value="4" data-color="#EAB308">Amarillo (4)</option>
-                        <option value="5" data-color="#22C55E">Verde (5)</option>
-                        <option value="6" data-color="#3B82F6">Azul (6)</option>
-                        <option value="7" data-color="#9333EA" selected>Violeta (7)</option>
-                        <option value="8" data-color="#6B7280">Gris (8)</option>
-                        <option value="9" data-color="#F3F4F6">Blanco (9)</option>
-                    </select>
-                </div>
-
-                <!-- Banda 3 (Multiplicador) -->
-                <div>
-                    <label class="block mb-2 font-semibold">
-                        <span class="inline-block w-3 h-3 bg-red-600 rounded mr-2"></span>
-                        Banda 3 (Multiplicador)
-                    </label>
-                    <select id="banda3" class="w-full p-3 bg-slate-700 rounded-lg border-2 border-slate-600 focus:border-yellow-400 outline-none">
-                        <option value="1" data-color="#000000">Negro (×1)</option>
-                        <option value="10" data-color="#8B4513">Marrón (×10)</option>
-                        <option value="100" data-color="#DC2626" selected>Rojo (×100)</option>
-                        <option value="1000" data-color="#EA580C">Naranja (×1K)</option>
-                        <option value="10000" data-color="#EAB308">Amarillo (×10K)</option>
-                        <option value="100000" data-color="#22C55E">Verde (×100K)</option>
-                        <option value="1000000" data-color="#3B82F6">Azul (×1M)</option>
-                        <option value="10000000" data-color="#9333EA">Violeta (×10M)</option>
-                        <option value="0.1" data-color="#D4AF37">Dorado (×0.1)</option>
-                        <option value="0.01" data-color="#C0C0C0">Plateado (×0.01)</option>
-                    </select>
-                </div>
-
-                <!-- Banda 4 (Tolerancia) -->
-                <div>
-                    <label class="block mb-2 font-semibold">
-                        <span class="inline-block w-3 h-3 bg-yellow-500 rounded mr-2"></span>
-                        Banda 4 (Tolerancia)
-                    </label>
-                    <select id="banda4" class="w-full p-3 bg-slate-700 rounded-lg border-2 border-slate-600 focus:border-yellow-400 outline-none">
-                        <option value="1" data-color="#8B4513">Marrón (±1%)</option>
-                        <option value="2" data-color="#DC2626">Rojo (±2%)</option>
-                        <option value="5" data-color="#EAB308" selected>Dorado (±5%)</option>
-                        <option value="10" data-color="#C0C0C0">Plateado (±10%)</option>
-                        <option value="20" data-color="#F5F5DC">Sin banda (±20%)</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- RESULTADO -->
-            <div class="bg-gradient-to-r from-green-900 to-cyan-900 p-6 rounded-lg text-center border-2 border-green-500">
-                <p class="text-sm text-slate-300 mb-2">Valor de la resistencia:</p>
-                <p class="text-4xl md:text-5xl font-heading font-bold text-yellow-400" id="resultado">
-                    1.7 kΩ
-                </p>
-                <p class="text-lg text-slate-200 mt-2" id="rangoTolerancia">
-                    Rango: 1615 Ω - 1785 Ω
-                </p>
-                <p class="text-sm text-slate-300 mt-3" id="formula">
-                    Fórmula: (17) × 100 = 1700 Ω
-                </p>
-            </div>
-
-            <!-- TABLA DE REFERENCIA -->
-            <details class="mt-6 bg-slate-900 rounded-lg">
-                <summary class="p-4 cursor-pointer font-semibold text-cyan-400 hover:text-cyan-300">
-                    <i class="fas fa-table mr-2"></i> Ver tabla completa de colores
-                </summary>
-                <div class="p-4 overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead class="bg-slate-800">
-                            <tr>
-                                <th class="p-2">Color</th>
-                                <th class="p-2">Dígito</th>
-                                <th class="p-2">Multiplicador</th>
-                                <th class="p-2">Tolerancia</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-black rounded mr-2 align-middle"></span>Negro</td><td>0</td><td>×1</td><td>-</td></tr>
-                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 rounded mr-2 align-middle" style="background:#8B4513"></span>Marrón</td><td>1</td><td>×10</td><td>±1%</td></tr>
-                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-red-600 rounded mr-2 align-middle"></span>Rojo</td><td>2</td><td>×100</td><td>±2%</td></tr>
-                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-orange-500 rounded mr-2 align-middle"></span>Naranja</td><td>3</td><td>×1K</td><td>-</td></tr>
-                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-yellow-400 rounded mr-2 align-middle"></span>Amarillo</td><td>4</td><td>×10K</td><td>-</td></tr>
-                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-green-500 rounded mr-2 align-middle"></span>Verde</td><td>5</td><td>×100K</td><td>±0.5%</td></tr>
-                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-blue-500 rounded mr-2 align-middle"></span>Azul</td><td>6</td><td>×1M</td><td>±0.25%</td></tr>
-                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-purple-600 rounded mr-2 align-middle"></span>Violeta</td><td>7</td><td>×10M</td><td>±0.1%</td></tr>
-                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-gray-500 rounded mr-2 align-middle"></span>Gris</td><td>8</td><td>-</td><td>-</td></tr>
-                            <tr class="border-b border-slate-700"><td class="p-2"><span class="inline-block w-4 h-4 bg-white rounded mr-2 align-middle"></span>Blanco</td><td>9</td><td>-</td><td>-</td></tr>
-                            <tr><td class="p-2"><span class="inline-block w-4 h-4 rounded mr-2 align-middle" style="background:#D4AF37"></span>Dorado</td><td>-</td><td>×0.1</td><td>±5%</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </details>
         </div>
-    </section>
+
+        <!-- SECCIÓN 3: CALCULADORA CIENTÍFICA PARA ESTUDIANTES -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
+                <i class="fas fa-calculator mr-2"></i>Calculadora para Estudiantes
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Practica tus cálculos de electrónica con esta calculadora interactiva.
+            </p>
+
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <!-- Pantalla de la calculadora -->
+                <div class="mb-4">
+                    <div class="calc-display" id="calc-display">0</div>
+                </div>
+
+                <!-- Botones de la calculadora -->
+                <div class="grid grid-cols-4 gap-2 mb-4">
+                    <!-- Fila 1 -->
+                    <button onclick="calcClear()" class="calc-btn bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-lg">C</button>
+                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg">⌫</button>
+                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">%</button>
+                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">÷</button>
+
+                    <!-- Fila 2 -->
+                    <button onclick="calcNumber('7')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">7</button>
+                    <button onclick="calcNumber('8')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">8</button>
+                    <button onclick="calcNumber('9')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">9</button>
+                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">×</button>
+
+                    <!-- Fila 3 -->
+                    <button onclick="calcNumber('4')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">4</button>
+                    <button onclick="calcNumber('5')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">5</button>
+                    <button onclick="calcNumber('6')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">6</button>
+                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">−</button>
+
+                    <!-- Fila 4 -->
+                    <button onclick="calcNumber('1')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">1</button>
+                    <button onclick="calcNumber('2')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">2</button>
+                    <button onclick="calcNumber('3')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">3</button>
+                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">+</button>
+
+                    <!-- Fila 5 -->
+                    <button onclick="calcNumber('0')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg col-span-2">0</button>
+                    <button onclick="calcDecimal()" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">.</button>
+                    <button onclick="calcEquals()" class="calc-btn bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-lg">=</button>
+                </div>
+
+                <!-- Botones especiales para electrónica -->
+                <div class="grid grid-cols-3 gap-2 mb-4">
+                    <button onclick="calcConvert('ohm-kohm')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">
+                        Ω → kΩ
+                    </button>
+                    <button onclick="calcConvert('kohm-mohm')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">
+                        kΩ → MΩ
+                    </button>
+                    <button onclick="calcConvert('ma-a')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">
+                        mA → A
+                    </button>
+                </div>
+
+                <!-- Fórmulas rápidas -->
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <h3 class="font-bold text-yellow-400 mb-3">⚡ Fórmulas Rápidas:</h3>
+                    <div class="grid md:grid-cols-2 gap-2 text-sm">
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-cyan-400 font-mono">V = I × R</p>
+                            <p class="text-slate-400 text-xs">Voltaje = Corriente × Resistencia</p>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-cyan-400 font-mono">I = V / R</p>
+                            <p class="text-slate-400 text-xs">Corriente = Voltaje / Resistencia</p>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-cyan-400 font-mono">R = V / I</p>
+                            <p class="text-slate-400 text-xs">Resistencia = Voltaje / Corriente</p>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-cyan-400 font-mono">P = V × I</p>
+                            <p class="text-slate-400 text-xs">Potencia = Voltaje × Corriente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: TABLA DE CÓDIGO DE COLORES -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
+                <i class="fas fa-table mr-2"></i>Tabla de Código de Colores
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-900">
+                        <tr>
+                            <th class="p-3 text-left text-cyan-400">Color</th>
+                            <th class="p-3 text-center text-yellow-400">Dígito</th>
+                            <th class="p-3 text-center text-green-400">Multiplicador</th>
+                            <th class="p-3 text-center text-red-400">Tolerancia</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-300">
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-black mr-2"></span>Negro</td>
+                            <td class="p-3 text-center">0</td>
+                            <td class="p-3 text-center">×1</td>
+                            <td class="p-3 text-center">-</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-amber-800 mr-2"></span>Marrón</td>
+                            <td class="p-3 text-center">1</td>
+                            <td class="p-3 text-center">×10</td>
+                            <td class="p-3 text-center">±1%</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-red-500 mr-2"></span>Rojo</td>
+                            <td class="p-3 text-center">2</td>
+                            <td class="p-3 text-center">×100</td>
+                            <td class="p-3 text-center">±2%</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-orange-500 mr-2"></span>Naranja</td>
+                            <td class="p-3 text-center">3</td>
+                            <td class="p-3 text-center">×1K</td>
+                            <td class="p-3 text-center">-</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-yellow-400 mr-2"></span>Amarillo</td>
+                            <td class="p-3 text-center">4</td>
+                            <td class="p-3 text-center">×10K</td>
+                            <td class="p-3 text-center">-</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-green-500 mr-2"></span>Verde</td>
+                            <td class="p-3 text-center">5</td>
+                            <td class="p-3 text-center">×100K</td>
+                            <td class="p-3 text-center">±0.5%</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-blue-500 mr-2"></span>Azul</td>
+                            <td class="p-3 text-center">6</td>
+                            <td class="p-3 text-center">×1M</td>
+                            <td class="p-3 text-center">±0.25%</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-purple-500 mr-2"></span>Violeta</td>
+                            <td class="p-3 text-center">7</td>
+                            <td class="p-3 text-center">×10M</td>
+                            <td class="p-3 text-center">±0.1%</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-gray-500 mr-2"></span>Gris</td>
+                            <td class="p-3 text-center">8</td>
+                            <td class="p-3 text-center">-</td>
+                            <td class="p-3 text-center">-</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-white mr-2"></span>Blanco</td>
+                            <td class="p-3 text-center">9</td>
+                            <td class="p-3 text-center">-</td>
+                            <td class="p-3 text-center">-</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-yellow-500 mr-2"></span>Dorado</td>
+                            <td class="p-3 text-center">-</td>
+                            <td class="p-3 text-center">×0.1</td>
+                            <td class="p-3 text-center">±5%</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><span class="inline-block w-4 h-4 rounded bg-gray-400 mr-2"></span>Plateado</td>
+                            <td class="p-3 text-center">-</td>
+                            <td class="p-3 text-center">×0.01</td>
+                            <td class="p-3 text-center">±10%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 5: EJEMPLOS PRÁCTICOS -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+                <i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos: ¡Calcula Tú Mismo!
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Resuelve estos problemas sobre componentes electrónicos. Completa los 50 ejemplos.
+            </p>
+
+            <!-- Barra de progreso -->
+            <div class="bg-slate-900 p-4 rounded-lg mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm text-slate-400">Progreso:</span>
+                    <span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50 completados</span>
+                </div>
+                <div class="w-full bg-slate-700 rounded-full h-3">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Contenedor del ejemplo actual -->
+            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500">
+                <!-- Se llena dinámicamente -->
+            </div>
+
+            <!-- Botones de navegación -->
+            <div class="flex gap-4 mt-6">
+                <button onclick="ejemploAnterior()" 
+                        id="btn-anterior"
+                        class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior
+                </button>
+                <button onclick="siguienteEjemplo()" 
+                        id="btn-siguiente"
+                        class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">
+                    Siguiente<i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+            <!-- Selector rápido -->
+            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
+                <p class="text-sm text-slate-400 mb-3">O salta a un ejemplo específico:</p>
+                <div class="flex gap-2">
+                    <input type="number" id="saltar-a" min="1" max="50" placeholder="Número (1-50)" 
+                           class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                    <button onclick="irAEjemplo()" 
+                            class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded transition">
+                        Ir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 6: QUIZ -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+                <i class="fas fa-question-circle mr-2"></i>Quiz: Evalúa tu Conocimiento
+            </h2>
+            <p class="text-slate-300 mb-4">
+                10 preguntas aleatorias de un banco de 30 sobre componentes electrónicos.
+            </p>
+            
+            <div id="quiz-container" class="space-y-4 mb-6"></div>
+            
+            <button onclick="verResultados()" 
+                    class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg transition">
+                <i class="fas fa-check-circle mr-2"></i>Ver Resultados
+            </button>
+            
+            <div id="resultado-quiz" class="mt-6 hidden"></div>
+            
+            <button onclick="nuevoIntento()" 
+                    class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden"
+                    id="btn-reintentar">
+                <i class="fas fa-redo mr-2"></i>Intentar de Nuevo
+            </button>
+        </div>
+
+    </div>
 
     <script>
-        // ============ SELECTORES ============
-        const banda1 = document.getElementById('banda1');
-        const banda2 = document.getElementById('banda2');
-        const banda3 = document.getElementById('banda3');
-        const banda4 = document.getElementById('banda4');
-        
-        const banda1Visual = document.getElementById('banda1Visual');
-        const banda2Visual = document.getElementById('banda2Visual');
-        const banda3Visual = document.getElementById('banda3Visual');
-        const banda4Visual = document.getElementById('banda4Visual');
-        
-        const resultado = document.getElementById('resultado');
-        const rangoTolerancia = document.getElementById('rangoTolerancia');
-        const formula = document.getElementById('formula');
+        // ============ CALCULADORA DE CÓDIGO DE COLORES ============
+        const coloresBandas = {
+            '0': 'negro', '1': 'marron', '2': 'rojo', '3': 'naranja', '4': 'amarillo',
+            '5': 'verde', '6': 'azul', '7': 'violeta', '8': 'gris', '9': 'blanco',
+            '10': 'marron', '100': 'rojo', '1000': 'naranja', '10000': 'amarillo',
+            '100000': 'verde', '1000000': 'azul', '10000000': 'violeta',
+            '1': 'marron', '2': 'rojo', '5': 'dorado', '10': 'plateado'
+        };
 
-        // ============ FUNCIÓN CALCULAR ============
-        function calcular() {
-            const digito1 = parseInt(banda1.value);
-            const digito2 = parseInt(banda2.value);
-            const multiplicador = parseFloat(banda3.value);
-            const tolerancia = parseFloat(banda4.value);
-            
-            // Calcular valor base
-            const valorBase = (digito1 * 10 + digito2) * multiplicador;
-            
-            // Actualizar bandas visuales
-            banda1Visual.style.backgroundColor = banda1.options[banda1.selectedIndex].dataset.color;
-            banda2Visual.style.backgroundColor = banda2.options[banda2.selectedIndex].dataset.color;
-            banda3Visual.style.backgroundColor = banda3.options[banda3.selectedIndex].dataset.color;
-            banda4Visual.style.backgroundColor = banda4.options[banda4.selectedIndex].dataset.color;
-            
-            // Formatear resultado
+        function calcularResistencia() {
+            const banda1 = document.getElementById('banda1').value;
+            const banda2 = document.getElementById('banda2').value;
+            const banda3 = document.getElementById('banda3').value;
+            const banda4 = document.getElementById('banda4').value;
+
+            // Actualizar visualización
+            document.getElementById('banda1-visual').className = `banda-resistencia w-4 h-12 rounded banda-${coloresBandas[banda1]}`;
+            document.getElementById('banda2-visual').className = `banda-resistencia w-4 h-12 rounded banda-${coloresBandas[banda2]}`;
+            document.getElementById('banda3-visual').className = `banda-resistencia w-4 h-12 rounded banda-${coloresBandas[banda3]}`;
+            document.getElementById('banda4-visual').className = `banda-resistencia w-4 h-12 rounded banda-${coloresBandas[banda4]}`;
+
+            // Calcular valor
+            const digitos = parseInt(banda1 + banda2);
+            const multiplicador = parseInt(banda3);
+            const tolerancia = parseInt(banda4);
+            const valor = digitos * multiplicador;
+
+            // Formatear valor
             let valorFormateado;
-            if (valorBase >= 1000000) {
-                valorFormateado = (valorBase / 1000000).toFixed(2) + ' MΩ';
-            } else if (valorBase >= 1000) {
-                valorFormateado = (valorBase / 1000).toFixed(2) + ' kΩ';
+            if (valor >= 1000000) {
+                valorFormateado = (valor / 1000000).toFixed(2) + ' MΩ';
+            } else if (valor >= 1000) {
+                valorFormateado = (valor / 1000).toFixed(2) + ' kΩ';
             } else {
-                valorFormateado = valorBase.toFixed(2) + ' Ω';
+                valorFormateado = valor + ' Ω';
             }
-            
-            resultado.textContent = valorFormateado;
-            
-            // Calcular rango de tolerancia
-            const minimo = valorBase * (1 - tolerancia / 100);
-            const maximo = valorBase * (1 + tolerancia / 100);
-            rangoTolerancia.textContent = `Rango: ${minimo.toFixed(0)} Ω - ${maximo.toFixed(0)} Ω (±${tolerancia}%)`;
-            
-            // Mostrar fórmula
-            formula.textContent = `Fórmula: (${digito1}${digito2}) × ${multiplicador} = ${valorBase} Ω`;
+
+            // Calcular rango
+            const rangoMin = valor * (1 - tolerancia / 100);
+            const rangoMax = valor * (1 + tolerancia / 100);
+
+            let rangoMinFormateado, rangoMaxFormateado;
+            if (valor >= 1000000) {
+                rangoMinFormateado = (rangoMin / 1000000).toFixed(3) + ' MΩ';
+                rangoMaxFormateado = (rangoMax / 1000000).toFixed(3) + ' MΩ';
+            } else if (valor >= 1000) {
+                rangoMinFormateado = (rangoMin / 1000).toFixed(3) + ' kΩ';
+                rangoMaxFormateado = (rangoMax / 1000).toFixed(3) + ' kΩ';
+            } else {
+                rangoMinFormateado = rangoMin.toFixed(1) + ' Ω';
+                rangoMaxFormateado = rangoMax.toFixed(1) + ' Ω';
+            }
+
+            // Actualizar display
+            document.getElementById('valor-resistencia').textContent = valorFormateado;
+            document.getElementById('rango-min').textContent = rangoMinFormateado;
+            document.getElementById('rango-max').textContent = rangoMaxFormateado;
+            document.getElementById('formula-resistencia').textContent = 
+                `(${digitos}) × ${multiplicador} = ${valor} Ω = ${valorFormateado}`;
         }
 
-        // ============ EVENT LISTENERS ============
-        banda1.addEventListener('change', calcular);
-        banda2.addEventListener('change', calcular);
-        banda3.addEventListener('change', calcular);
-        banda4.addEventListener('change', calcular);
+        // ============ CALCULADORA CIENTÍFICA ============
+        let calcExpression = '';
+        let calcDisplay = document.getElementById('calc-display');
 
-        // Calcular al iniciar
-        calcular();
+        function calcNumber(num) {
+            calcExpression += num;
+            calcDisplay.textContent = calcExpression;
+        }
+
+        function calcOperator(op) {
+            calcExpression += op;
+            calcDisplay.textContent = calcExpression;
+        }
+
+        function calcDecimal() {
+            if (!calcExpression.includes('.')) {
+                calcExpression += '.';
+                calcDisplay.textContent = calcExpression;
+            }
+        }
+
+        function calcClear() {
+            calcExpression = '';
+            calcDisplay.textContent = '0';
+        }
+
+        function calcBackspace() {
+            calcExpression = calcExpression.slice(0, -1);
+            calcDisplay.textContent = calcExpression || '0';
+        }
+
+        function calcEquals() {
+            try {
+                const result = eval(calcExpression);
+                calcDisplay.textContent = result;
+                calcExpression = result.toString();
+            } catch (error) {
+                calcDisplay.textContent = 'Error';
+                calcExpression = '';
+            }
+        }
+
+        function calcConvert(type) {
+            const currentValue = parseFloat(calcExpression);
+            if (isNaN(currentValue)) {
+                calcDisplay.textContent = 'Error';
+                return;
+            }
+
+            let result;
+            switch(type) {
+                case 'ohm-kohm':
+                    result = currentValue / 1000;
+                    calcDisplay.textContent = result + ' kΩ';
+                    break;
+                case 'kohm-mohm':
+                    result = currentValue / 1000;
+                    calcDisplay.textContent = result + ' MΩ';
+                    break;
+                case 'ma-a':
+                    result = currentValue / 1000;
+                    calcDisplay.textContent = result + ' A';
+                    break;
+            }
+            calcExpression = result.toString();
+        }
+
+        // ============ 50 EJEMPLOS PRÁCTICOS ============
+        const ejemplosPracticos = [
+            { titulo: "Resistencia para LED Rojo", icono: "🔴", color: "red", tipo: "R", v: 5, i: 0.02, unidad: "Ω" },
+            { titulo: "Resistencia para LED Verde", icono: "🟢", color: "green", tipo: "R", v: 5, i: 0.02, unidad: "Ω" },
+            { titulo: "Resistencia para LED Azul", icono: "🔵", color: "blue", tipo: "R", v: 5, i: 0.02, unidad: "Ω" },
+            { titulo: "Divisor de Voltaje", icono: "⚖️", color: "yellow", tipo: "V", i: 0.01, r: 1000, unidad: "V" },
+            { titulo: "Pull-up Resistor", icono: "️", color: "cyan", tipo: "I", v: 5, r: 10000, unidad: "mA" },
+            { titulo: "Pull-down Resistor", icono: "⬇️", color: "purple", tipo: "I", v: 5, r: 10000, unidad: "mA" },
+            { titulo: "Capacitor de Filtro", icono: "🔋", color: "green", tipo: "C", v: 12, r: 100, unidad: "μF" },
+            { titulo: "Capacitor de Acople", icono: "🔌", color: "blue", tipo: "C", v: 5, r: 1000, unidad: "μF" },
+            { titulo: "Diodo Rectificador", icono: "➡️", color: "red", tipo: "V", i: 1, r: 0.7, unidad: "V" },
+            { titulo: "Diodo Zener 5.1V", icono: "⚡", color: "yellow", tipo: "R", v: 12, i: 0.02, unidad: "Ω" },
+            { titulo: "Transistor NPN Base", icono: "🔺", color: "blue", tipo: "R", v: 5, i: 0.001, unidad: "Ω" },
+            { titulo: "Transistor como Interruptor", icono: "🔘", color: "green", tipo: "I", v: 12, r: 1000, unidad: "mA" },
+            { titulo: "LED con Batería 9V", icono: "", color: "yellow", tipo: "R", v: 9, i: 0.02, unidad: "Ω" },
+            { titulo: "LED con Batería 12V", icono: "🔋", color: "red", tipo: "R", v: 12, i: 0.02, unidad: "Ω" },
+            { titulo: "Sensor LDR", icono: "💡", color: "yellow", tipo: "V", i: 0.001, r: 10000, unidad: "V" },
+            { titulo: "Termistor NTC", icono: "🌡️", color: "orange", tipo: "R", v: 5, i: 0.005, unidad: "Ω" },
+            { titulo: "Potenciómetro al 50%", icono: "🎚️", color: "purple", tipo: "V", i: 0.01, r: 5000, unidad: "V" },
+            { titulo: "Buzzer con Arduino", icono: "🔊", color: "cyan", tipo: "R", v: 5, i: 0.03, unidad: "Ω" },
+            { titulo: "Relé 5V", icono: "🔘", color: "blue", tipo: "I", v: 5, r: 70, unidad: "mA" },
+            { titulo: "Relé 12V", icono: "🔘", color: "red", tipo: "I", v: 12, r: 240, unidad: "mA" },
+            { titulo: "Motor DC Pequeño", icono: "⚙️", color: "green", tipo: "R", v: 6, i: 0.5, unidad: "Ω" },
+            { titulo: "Servo Motor", icono: "", color: "blue", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Display 7 Segmentos", icono: "🔢", color: "red", tipo: "R", v: 5, i: 0.015, unidad: "Ω" },
+            { titulo: "LCD 16x2", icono: "📟", color: "green", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Módulo WiFi ESP8266", icono: "📶", color: "cyan", tipo: "I", v: 3.3, r: 33, unidad: "mA" },
+            { titulo: "Módulo Bluetooth HC-05", icono: "📡", color: "blue", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Sensor Ultrasónico", icono: "📏", color: "yellow", tipo: "I", v: 5, r: 500, unidad: "mA" },
+            { titulo: "Sensor de Movimiento PIR", icono: "🏃", color: "red", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Sensor de Humedad", icono: "💧", color: "blue", tipo: "V", i: 0.01, r: 100, unidad: "V" },
+            { titulo: "Sensor de Gas MQ-2", icono: "💨", color: "orange", tipo: "R", v: 5, i: 0.15, unidad: "Ω" },
+            { titulo: "Acelerómetro ADXL345", icono: "📐", color: "green", tipo: "I", v: 3.3, r: 330, unidad: "mA" },
+            { titulo: "Giroscopio MPU6050", icono: "🔄", color: "purple", tipo: "I", v: 3.3, r: 100, unidad: "mA" },
+            { titulo: "Magnetómetro HMC5883L", icono: "🧭", color: "cyan", tipo: "I", v: 3.3, r: 100, unidad: "mA" },
+            { titulo: "Barómetro BMP180", icono: "️", color: "blue", tipo: "I", v: 3.3, r: 100, unidad: "mA" },
+            { titulo: "GPS Module NEO-6M", icono: "🛰️", color: "yellow", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "RTC DS3231", icono: "⏰", color: "red", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "SD Card Module", icono: "💾", color: "green", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Ethernet Shield", icono: "", color: "blue", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "OLED Display", icono: "📱", color: "cyan", tipo: "I", v: 3.3, r: 100, unidad: "mA" },
+            { titulo: "TFT Display", icono: "🖥️", color: "purple", tipo: "I", v: 5, r: 200, unidad: "mA" },
+            { titulo: "Cámara OV7670", icono: "📷", color: "yellow", tipo: "I", v: 3.3, r: 100, unidad: "mA" },
+            { titulo: "Módulo RF 433MHz", icono: "📻", color: "red", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Módulo RF 315MHz", icono: "", color: "orange", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "NFC Module RC522", icono: "💳", color: "blue", tipo: "I", v: 3.3, r: 100, unidad: "mA" },
+            { titulo: "Fingerprint Sensor", icono: "👆", color: "green", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Keypad 4x4", icono: "⌨️", color: "purple", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Encoder Rotativo", icono: "🔄", color: "cyan", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Joystick Module", icono: "🕹️", color: "yellow", tipo: "V", i: 0.01, r: 10000, unidad: "V" },
+            { titulo: "Botón Pulsador", icono: "🔘", color: "red", tipo: "I", v: 5, r: 10000, unidad: "mA" },
+            { titulo: "Switch Toggle", icono: "🔀", color: "blue", tipo: "I", v: 12, r: 1000, unidad: "mA" }
+        ];
+
+        // ============ SISTEMA DE EJEMPLOS ============
+        let ejemploActual = 0;
+        let ejemplosCompletados = new Set();
+
+        function renderizarEjemploActual() {
+            const ej = ejemplosPracticos[ejemploActual];
+            let respuestaCorrecta, pregunta;
+            
+            if (ej.tipo === 'I') {
+                respuestaCorrecta = ej.unidad === 'mA' ? (ej.v / ej.r * 1000) : (ej.v / ej.r);
+                pregunta = `Voltaje: ${ej.v}V, Resistencia: ${ej.r}Ω. ¿Cuánta corriente circula?`;
+            } else if (ej.tipo === 'V') {
+                respuestaCorrecta = ej.i * ej.r;
+                pregunta = `Corriente: ${ej.i}A, Resistencia: ${ej.r}Ω. ¿Cuál es el voltaje?`;
+            } else if (ej.tipo === 'R') {
+                respuestaCorrecta = ej.v / ej.i;
+                pregunta = `Voltaje: ${ej.v}V, Corriente: ${ej.i}A. ¿Cuál es la resistencia necesaria?`;
+            } else {
+                respuestaCorrecta = ej.v * 1000000 / (2 * Math.PI * ej.r);
+                pregunta = `Voltaje: ${ej.v}V, Resistencia: ${ej.r}Ω. ¿Capacitancia para filtro? (aproximado)`;
+            }
+            
+            const container = document.getElementById('ejemplo-actual');
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                </div>
+                
+                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">
+                    ${ej.icono} ${ej.titulo}
+                </h3>
+                
+                <p class="text-slate-300 mb-4">${pregunta}</p>
+                
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <p class="text-sm text-slate-400 mb-2">Tu respuesta:</p>
+                    <div class="flex gap-2">
+                        <input type="number" id="respuesta-actual" 
+                               placeholder="Ingresa la respuesta en ${ej.unidad}" 
+                               class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white text-lg"
+                               onkeypress="if(event.key==='Enter') verificarEjemploActual(${respuestaCorrecta}, '${ej.unidad}', '${ej.tipo}', ${ej.v || 0}, ${ej.r || 0}, ${ej.i || 0})">
+                        <button onclick="verificarEjemploActual(${respuestaCorrecta}, '${ej.unidad}', '${ej.tipo}', ${ej.v || 0}, ${ej.r || 0}, ${ej.i || 0})" 
+                                class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded transition">
+                            Verificar
+                        </button>
+                    </div>
+                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                </div>
+            `;
+            
+            document.getElementById('btn-anterior').disabled = ejemploActual === 0;
+            actualizarProgreso();
+        }
+
+        function verificarEjemploActual(correcta, unidad, tipo, v, r, i) {
+            const input = document.getElementById('respuesta-actual');
+            const respuesta = parseFloat(input.value);
+            const resultadoDiv = document.getElementById('resultado-actual');
+            
+            if (isNaN(respuesta)) {
+                resultadoDiv.classList.remove('hidden');
+                resultadoDiv.innerHTML = `
+                    <div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded">
+                        <p class="font-bold text-yellow-400">️ Ingresa un número</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const tolerancia = correcta * 0.05;
+            const esCorrecta = Math.abs(respuesta - correcta) <= tolerancia;
+            
+            resultadoDiv.classList.remove('hidden');
+            
+            if (esCorrecta) {
+                ejemplosCompletados.add(ejemploActual);
+                let formula = '';
+                if (tipo === 'I') formula = `I = V/R = ${v}V / ${r}Ω = ${correcta.toFixed(2)} ${unidad}`;
+                else if (tipo === 'V') formula = `V = I×R = ${i}A × ${r}Ω = ${correcta.toFixed(2)} ${unidad}`;
+                else if (tipo === 'R') formula = `R = V/I = ${v}V / ${i}A = ${correcta.toFixed(2)} ${unidad}`;
+                else formula = `C ≈ ${correcta.toFixed(2)} ${unidad}`;
+                
+                resultadoDiv.innerHTML = `
+                    <div class="bg-green-900 border-2 border-green-500 p-3 rounded">
+                        <p class="font-bold text-green-400">✅ ¡Correcto!</p>
+                        <p class="text-sm text-slate-300">${formula}</p>
+                    </div>
+                `;
+                actualizarProgreso();
+                
+                setTimeout(() => {
+                    if (ejemploActual < ejemplosPracticos.length - 1) {
+                        siguienteEjemplo();
+                    }
+                }, 2000);
+            } else {
+                let formula = '';
+                if (tipo === 'I') formula = `I = V/R = ${v}V / ${r}Ω`;
+                else if (tipo === 'V') formula = `V = I×R = ${i}A × ${r}Ω`;
+                else if (tipo === 'R') formula = `R = V/I = ${v}V / ${i}A`;
+                else formula = `C ≈`;
+                
+                resultadoDiv.innerHTML = `
+                    <div class="bg-red-900 border-2 border-red-500 p-3 rounded">
+                        <p class="font-bold text-red-400">❌ Incorrecto</p>
+                        <p class="text-sm text-slate-300">La respuesta correcta es <strong>${correcta.toFixed(2)} ${unidad}</strong></p>
+                        <p class="text-xs text-slate-400 mt-1">Fórmula: ${formula} = ${correcta.toFixed(2)} ${unidad}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function siguienteEjemplo() {
+            if (ejemploActual < ejemplosPracticos.length - 1) {
+                ejemploActual++;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            }
+        }
+
+        function ejemploAnterior() {
+            if (ejemploActual > 0) {
+                ejemploActual--;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            }
+        }
+
+        function irAEjemplo() {
+            const numero = parseInt(document.getElementById('saltar-a').value);
+            if (numero >= 1 && numero <= ejemplosPracticos.length) {
+                ejemploActual = numero - 1;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            } else {
+                alert('Ingresa un número entre 1 y 50');
+            }
+        }
+
+        function actualizarProgreso() {
+            const completados = ejemplosCompletados.size;
+            const porcentaje = (completados / ejemplosPracticos.length) * 100;
+            
+            document.getElementById('progreso-texto').textContent = `${completados} de ${ejemplosPracticos.length} completados`;
+            document.getElementById('barra-progreso').style.width = porcentaje + '%';
+        }
+
+        // ============ BANCO DE 30 PREGUNTAS ============
+        const bancoPreguntas = [
+            { pregunta: "¿Qué componente limita el flujo de corriente?", opciones: ["Capacitor", "Resistencia", "Diodo", "Transistor"], respuestaCorrecta: 1, explicacion: "La resistencia limita el flujo de corriente." },
+            { pregunta: "¿En qué unidad se miden las resistencias?", opciones: ["Faradios", "Henrios", "Ohmios", "Voltios"], respuestaCorrecta: 2, explicacion: "Las resistencias se miden en Ohmios (Ω)." },
+            { pregunta: "¿Qué componente almacena energía eléctrica?", opciones: ["Resistencia", "Capacitor", "Diodo", "LED"], respuestaCorrecta: 1, explicacion: "El capacitor almacena energía en un campo eléctrico." },
+            { pregunta: "¿Qué componente permite el flujo en una sola dirección?", opciones: ["Resistencia", "Capacitor", "Diodo", "Transistor"], respuestaCorrecta: 2, explicacion: "El diodo permite el flujo unidireccional." },
+            { pregunta: "¿Qué es un LED?", opciones: ["Diodo Emisor de Luz", "Diodo de Energía Lumínica", "Lámpara Eléctrica Digital", "Luz Electrónica Direccional"], respuestaCorrecta: 0, explicacion: "LED = Light Emitting Diode (Diodo Emisor de Luz)." },
+            { pregunta: "¿Qué corriente típica necesita un LED?", opciones: ["1-5 mA", "20-30 mA", "100-200 mA", "1-2 A"], respuestaCorrecta: 1, explicacion: "Un LED típico necesita 20-30 mA." },
+            { pregunta: "¿Qué pasa si conectas un LED sin resistencia?", opciones: ["Funciona mejor", "Se quema", "No enciende", "Parpadea"], respuestaCorrecta: 1, explicacion: "Sin resistencia, el LED se quema por exceso de corriente." },
+            { pregunta: "¿Cuál es la pata larga de un LED?", opciones: ["Cátodo (-)", "Ánodo (+)", "Base", "Emisor"], respuestaCorrecta: 1, explicacion: "La pata larga es el Ánodo (+)." },
+            { pregunta: "¿Qué componente puede amplificar señales?", opciones: ["Resistencia", "Capacitor", "Diodo", "Transistor"], respuestaCorrecta: 3, explicacion: "El transistor amplifica señales eléctricas." },
+            { pregunta: "¿Cuántas terminales tiene un transistor BJT?", opciones: ["2", "3", "4", "5"], respuestaCorrecta: 1, explicacion: "Tiene 3: Base, Colector y Emisor." },
+            { pregunta: "¿Qué tipo de transistor es más común?", opciones: ["PNP", "NPN", "MOSFET", "JFET"], respuestaCorrecta: 1, explicacion: "El NPN es el más común." },
+            { pregunta: "¿Qué significa la primera banda de una resistencia?", opciones: ["Multiplicador", "Tolerancia", "Primer dígito", "Segundo dígito"], respuestaCorrecta: 2, explicacion: "La primera banda es el primer dígito." },
+            { pregunta: "¿Qué color representa el número 5 en resistencias?", opciones: ["Azul", "Verde", "Violeta", "Gris"], respuestaCorrecta: 1, explicacion: "Verde = 5." },
+            { pregunta: "¿Qué color representa el multiplicador ×100?", opciones: ["Marrón", "Rojo", "Naranja", "Amarillo"], respuestaCorrecta: 1, explicacion: "Rojo = ×100." },
+            { pregunta: "¿Qué indica la banda dorada en una resistencia?", opciones: ["Multiplicador ×0.1", "Tolerancia ±5%", "Valor 0", "Nada"], respuestaCorrecta: 1, explicacion: "Dorado = Tolerancia ±5%." },
+            { pregunta: "¿Cuál es el voltaje típico de un LED rojo?", opciones: ["1.2V", "1.8V-2.2V", "3.3V", "5V"], respuestaCorrecta: 1, explicacion: "LED rojo: 1.8V-2.2V." },
+            { pregunta: "¿Cuál es el voltaje típico de un LED azul?", opciones: ["1.8V", "2.2V", "3.0V-3.4V", "5V"], respuestaCorrecta: 2, explicacion: "LED azul: 3.0V-3.4V." },
+            { pregunta: "¿Qué tipo de capacitor tiene polaridad?", opciones: ["Cerámico", "Electrolítico", "Poliéster", "Tantalio"], respuestaCorrecta: 1, explicacion: "Los electrolíticos tienen polaridad." },
+            { pregunta: "¿En qué unidad se miden los capacitores?", opciones: ["Ohmios", "Henrios", "Faradios", "Voltios"], respuestaCorrecta: 2, explicacion: "Los capacitores se miden en Faradios." },
+            { pregunta: "¿Qué es 1μF en Faradios?", opciones: ["0.001 F", "0.000001 F", "0.000000001 F", "1000 F"], respuestaCorrecta: 1, explicacion: "1μF = 0.000001 F." },
+            { pregunta: "¿Qué componente se usa para filtrar ruido?", opciones: ["Resistencia", "Capacitor", "Diodo", "LED"], respuestaCorrecta: 1, explicacion: "Los capacitores filtran ruido." },
+            { pregunta: "¿Qué diodo se usa para regular voltaje?", opciones: ["Rectificador", "Zener", "Schottky", "LED"], respuestaCorrecta: 1, explicacion: "El diodo Zener regula voltaje." },
+            { pregunta: "¿Cuál es la caída de voltaje típica de un diodo de silicio?", opciones: ["0.3V", "0.7V", "1.5V", "3.3V"], respuestaCorrecta: 1, explicacion: "Diodo de silicio: ~0.7V." },
+            { pregunta: "¿Qué componente actúa como interruptor electrónico?", opciones: ["Resistencia", "Capacitor", "Diodo", "Transistor"], respuestaCorrecta: 3, explicacion: "El transistor puede actuar como interruptor." },
+            { pregunta: "¿Qué terminal del transistor controla la corriente?", opciones: ["Colector", "Emisor", "Base", "Puerta"], respuestaCorrecta: 2, explicacion: "La Base controla la corriente." },
+            { pregunta: "¿Qué resistencia necesitas para un LED con 5V y 20mA?", opciones: ["100Ω", "150Ω", "250Ω", "500Ω"], respuestaCorrecta: 2, explicacion: "R = V/I = 5/0.02 = 250Ω." },
+            { pregunta: "¿Qué pasa si conectas un diodo al revés?", opciones: ["Conduce normal", "No conduce", "Se quema", "Explota"], respuestaCorrecta: 1, explicacion: "En polarización inversa, el diodo no conduce." },
+            { pregunta: "¿Qué componente se usa en divisores de voltaje?", opciones: ["Capacitores", "Resistencias", "Diodos", "LEDs"], respuestaCorrecta: 1, explicacion: "Las resistencias forman divisores de voltaje." },
+            { pregunta: "¿Cuál es el símbolo del Ohmio?", opciones: ["Ω", "Φ", "Δ", "Ψ"], respuestaCorrecta: 0, explicacion: "El símbolo del Ohmio es Ω." },
+            { pregunta: "¿Qué componente es esencial para proteger un LED?", opciones: ["Capacitor", "Resistencia", "Diodo", "Transistor"], respuestaCorrecta: 1, explicacion: "La resistencia limita la corriente del LED." }
+        ];
+
+        // ============ QUIZ ============
+        let preguntasActuales = [];
+        let respuestasSeleccionadas = {};
+        let respondidas = 0;
+        let correctas = 0;
+
+        function mezclarArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function cargarQuiz() {
+            const mezcladas = mezclarArray(bancoPreguntas);
+            preguntasActuales = mezcladas.slice(0, 10);
+            respuestasSeleccionadas = {};
+            respondidas = 0;
+            correctas = 0;
+            
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            
+            preguntasActuales.forEach((pregunta, index) => {
+                const opcionesConIndice = pregunta.opciones.map((op, i) => ({ 
+                    texto: op, 
+                    esCorrecta: i === pregunta.respuestaCorrecta 
+                }));
+                const opcionesMezcladas = mezclarArray(opcionesConIndice);
+                
+                const preguntaHTML = `
+                    <div class="bg-slate-900 p-4 rounded-lg" data-pregunta="${index}">
+                        <p class="font-semibold mb-3">${index + 1}. ${pregunta.pregunta}</p>
+                        <div class="space-y-2">
+                            ${opcionesMezcladas.map((opcion, opIndex) => `
+                                <button onclick="seleccionarRespuesta(${index}, this)" 
+                                        data-es-correcta="${opcion.esCorrecta}"
+                                        class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition opcion-btn">
+                                    ${opcion.texto}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += preguntaHTML;
+            });
+            
+            document.getElementById('resultado-quiz').classList.add('hidden');
+            document.getElementById('btn-reintentar').classList.add('hidden');
+        }
+
+        function seleccionarRespuesta(preguntaIndex, boton) {
+            const preguntaDiv = document.querySelector(`[data-pregunta="${preguntaIndex}"]`);
+            const botones = preguntaDiv.querySelectorAll('.opcion-btn');
+            
+            if (preguntaDiv.dataset.respondida === 'true') return;
+            
+            preguntaDiv.dataset.respondida = 'true';
+            respondidas++;
+            
+            const esCorrecta = boton.dataset.esCorrecta === 'true';
+            respuestasSeleccionadas[preguntaIndex] = esCorrecta;
+            
+            botones.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+                if (btn.dataset.esCorrecta === 'true') {
+                    btn.classList.remove('bg-slate-700', 'opacity-50');
+                    btn.classList.add('bg-green-600');
+                }
+            });
+            
+            if (esCorrecta) {
+                correctas++;
+                boton.classList.remove('bg-slate-700', 'opacity-50');
+                boton.classList.add('bg-green-600');
+            } else {
+                boton.classList.remove('bg-slate-700', 'opacity-50');
+                boton.classList.add('bg-red-600');
+            }
+        }
+
+        function verResultados() {
+            if (respondidas < 10) {
+                alert(`Has respondido ${respondidas} de 10 preguntas. Responde todas.`);
+                return;
+            }
+            
+            const porcentaje = Math.round((correctas / 10) * 100);
+            const resultadoDiv = document.getElementById('resultado-quiz');
+            
+            let mensaje, color, emoji;
+            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas los componentes'; color = 'green'; emoji = '🏆'; }
+            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'blue'; emoji = '👍'; }
+            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar'; color = 'orange'; emoji = '📚'; }
+            else { mensaje = 'Estudia nuevamente el módulo'; color = 'red'; emoji = '⚠️'; }
+            
+            let explicacionesHTML = preguntasActuales.map((p, i) => {
+                const esCorrecta = respuestasSeleccionadas[i];
+                return `
+                    <div class="bg-slate-900 p-3 rounded mb-2 ${esCorrecta ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}">
+                        <p class="font-semibold text-sm">${i + 1}. ${p.pregunta}</p>
+                        <p class="text-xs mt-1 ${esCorrecta ? 'text-green-400' : 'text-red-400'}">
+                            ${esCorrecta ? '✓ Correcta' : ' Incorrecta'}
+                        </p>
+                        <p class="text-xs text-slate-400 mt-1"><em>${p.explicacion}</em></p>
+                    </div>
+                `;
+            }).join('');
+            
+            resultadoDiv.innerHTML = `
+                <div class="bg-${color}-900 border-2 border-${color}-500 p-6 rounded-lg text-center mb-4">
+                    <p class="text-4xl mb-2">${emoji}</p>
+                    <h3 class="text-2xl font-bold text-${color}-400 mb-2">${mensaje}</h3>
+                    <p class="text-3xl font-bold text-white">${correctas} de 10 (${porcentaje}%)</p>
+                </div>
+                <div class="mt-4">
+                    <h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión de Respuestas:</h3>
+                    ${explicacionesHTML}
+                </div>
+            `;
+            
+            resultadoDiv.classList.remove('hidden');
+            document.getElementById('btn-reintentar').classList.remove('hidden');
+            resultadoDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function nuevoIntento() {
+            cargarQuiz();
+            window.scrollTo({ top: document.getElementById('quiz-container').offsetTop - 100, behavior: 'smooth' });
+        }
+
+        // ============ INICIALIZAR ============
+        renderizarEjemploActual();
+        cargarQuiz();
+        calcularResistencia();
     </script>
 </body>
 </html>

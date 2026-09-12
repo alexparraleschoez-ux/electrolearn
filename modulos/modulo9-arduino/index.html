@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 9: Arduino Básico - ElectroLearn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { 'heading': ['Poppins', 'sans-serif'], 'body': ['Inter', 'sans-serif'], 'code': ['JetBrains Mono', 'monospace'] } } } }
+    </script>
+    <style>
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .section-animate { animation: fadeInUp 0.6s ease-out; }
+        .componente-card { border-left: 4px solid #22d3ee; transition: all 0.3s; }
+        .componente-card:hover { transform: translateX(5px); box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3); }
+        .opcion-btn:disabled { cursor: not-allowed; }
+        .calc-btn { transition: all 0.1s; user-select: none; }
+        .calc-btn:active { transform: scale(0.95); }
+        .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        .calc-display { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; text-align: left; padding: 1rem; background: #1e1e1e; border: 2px solid #22d3ee; border-radius: 0.5rem; color: #d4d4d4; min-height: 150px; overflow: auto; white-space: pre-wrap; }
+        .led-blink { animation: blink 1s ease-in-out infinite; }
+        .pin-activo { background-color: #22c55e !important; box-shadow: 0 0 10px #22c55e; }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-body min-h-screen">
+
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-600 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="text-2xl font-heading font-bold flex items-center"><i class="fas fa-bolt mr-2 text-yellow-300"></i> ElectroLearn</a>
+            <a href="../../index.html" class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-slate-200 transition"><i class="fas fa-arrow-left mr-2"></i> Volver</a>
+        </div>
+    </header>
+
+    <section class="py-8 text-center px-4 section-animate">
+        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2"><i class="fas fa-robot text-teal-400"></i> Módulo 9: Arduino Básico</h1>
+        <p class="text-slate-300 text-lg">Programación, pines, sensores y primeros proyectos</p>
+    </section>
+
+    <div class="container mx-auto px-4 pb-16 space-y-8">
+
+        <!-- TEORÍA -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400"><i class="fas fa-book mr-2"></i>Teoría: Arduino</h2>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-teal-400"><i class="fas fa-microchip mr-2"></i>¿Qué es Arduino?</h3>
+                <p class="text-slate-300 mb-3"><strong class="text-teal-400">Arduino</strong> es una plataforma de hardware y software libre para crear proyectos electrónicos interactivos.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">🔧 Hardware:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Microcontrolador ATmega328P</li>
+                            <li>✓ 14 pines digitales (0-13)</li>
+                            <li>✓ 6 pines analógicos (A0-A5)</li>
+                            <li>✓ Voltaje: 5V (3.3V en algunos)</li>
+                            <li>✓ Corriente por pin: 20-40mA</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">💻 Software:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Arduino IDE (gratis)</li>
+                            <li>✓ Lenguaje: C/C++ simplificado</li>
+                            <li>✓ Funciones: setup() y loop()</li>
+                            <li>✓ Librerías para sensores</li>
+                            <li>✓ Código abierto</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-green-400"><i class="fas fa-code mr-2"></i>Estructura del Código</h3>
+                <div class="bg-slate-800 p-4 rounded-lg font-code text-sm">
+                    <p class="text-purple-400">void</p> <p class="text-yellow-400">setup</p><p class="text-white">() {</p>
+                    <p class="text-slate-300 ml-4">// Se ejecuta UNA vez al inicio</p>
+                    <p class="text-slate-300 ml-4">pinMode(13, OUTPUT);</p>
+                    <p class="text-white">}</p>
+                    <p class="text-purple-400 mt-2">void</p> <p class="text-yellow-400">loop</p><p class="text-white">() {</p>
+                    <p class="text-slate-300 ml-4">// Se ejecuta INFINITAMENTE</p>
+                    <p class="text-slate-300 ml-4">digitalWrite(13, HIGH);</p>
+                    <p class="text-slate-300 ml-4">delay(1000);</p>
+                    <p class="text-slate-300 ml-4">digitalWrite(13, LOW);</p>
+                    <p class="text-slate-300 ml-4">delay(1000);</p>
+                    <p class="text-white">}</p>
+                </div>
+            </div>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-yellow-400"><i class="fas fa-plug mr-2"></i>Tipos de Pines</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-green-400 mb-2">🟢 DIGITALES:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ HIGH (5V) o LOW (0V)</li>
+                            <li>✓ pinMode(pin, OUTPUT)</li>
+                            <li>✓ digitalWrite(pin, valor)</li>
+                            <li>✓ digitalRead(pin)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-blue-400 mb-2"> ANALÓGICOS:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ 0-1023 (10 bits)</li>
+                            <li>✓ analogRead(pin)</li>
+                            <li>✓ Solo entrada</li>
+                            <li>✓ A0-A5</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2"> PWM (~):</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ 0-255 (8 bits)</li>
+                            <li>✓ analogWrite(pin, valor)</li>
+                            <li>✓ Pines: 3,5,6,9,10,11</li>
+                            <li>✓ Simula salida analógica</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-red-400"><i class="fas fa-lightbulb mr-2"></i>Funciones Principales</h3>
+                <div class="bg-slate-800 p-4 rounded-lg space-y-2 font-code text-sm">
+                    <div><p class="text-yellow-400">pinMode(pin, modo)</p><p class="text-xs text-slate-400">Configura pin como INPUT o OUTPUT</p></div>
+                    <div><p class="text-yellow-400">digitalWrite(pin, valor)</p><p class="text-xs text-slate-400">Escribe HIGH o LOW en pin digital</p></div>
+                    <div><p class="text-yellow-400">digitalRead(pin)</p><p class="text-xs text-slate-400">Lee valor de pin digital</p></div>
+                    <div><p class="text-yellow-400">analogRead(pin)</p><p class="text-xs text-slate-400">Lee valor analógico (0-1023)</p></div>
+                    <div><p class="text-yellow-400">analogWrite(pin, valor)</p><p class="text-xs text-slate-400">Escribe PWM (0-255)</p></div>
+                    <div><p class="text-yellow-400">delay(ms)</p><p class="text-xs text-slate-400">Espera milisegundos</p></div>
+                    <div><p class="text-yellow-400">Serial.begin(9600)</p><p class="text-xs text-slate-400">Inicia comunicación serial</p></div>
+                    <div><p class="text-yellow-400">Serial.println(texto)</p><p class="text-xs text-slate-400">Imprime en monitor serial</p></div>
+                </div>
+            </div>
+
+            <div class="componente-card bg-slate-900 p-5 rounded-lg">
+                <h3 class="text-xl font-bold mb-3 text-cyan-400"><i class="fas fa-microchip mr-2"></i>Componentes Comunes</h3>
+                <div class="grid md:grid-cols-4 gap-3">
+                    <div class="bg-slate-800 p-3 rounded-lg text-center"><p class="text-2xl mb-1"></p><p class="font-bold text-sm">LED</p><p class="text-xs text-slate-400">Indicador</p></div>
+                    <div class="bg-slate-800 p-3 rounded-lg text-center"><p class="text-2xl mb-1"></p><p class="font-bold text-sm">Botón</p><p class="text-xs text-slate-400">Entrada digital</p></div>
+                    <div class="bg-slate-800 p-3 rounded-lg text-center"><p class="text-2xl mb-1">🌡️</p><p class="font-bold text-sm">LM35</p><p class="text-xs text-slate-400">Temperatura</p></div>
+                    <div class="bg-slate-800 p-3 rounded-lg text-center"><p class="text-2xl mb-1">💧</p><p class="font-bold text-sm">DHT11</p><p class="text-xs text-slate-400">Temp+Humedad</p></div>
+                    <div class="bg-slate-800 p-3 rounded-lg text-center"><p class="text-2xl mb-1">📏</p><p class="font-bold text-sm">HC-SR04</p><p class="text-xs text-slate-400">Ultrasonido</p></div>
+                    <div class="bg-slate-800 p-3 rounded-lg text-center"><p class="text-2xl mb-1">💡</p><p class="font-bold text-sm">LDR</p><p class="text-xs text-slate-400">Luz</p></div>
+                    <div class="bg-slate-800 p-3 rounded-lg text-center"><p class="text-2xl mb-1">🔊</p><p class="font-bold text-sm">Buzzer</p><p class="text-xs text-slate-400">Sonido</p></div>
+                    <div class="bg-slate-800 p-3 rounded-lg text-center"><p class="text-2xl mb-1">⚙️</p><p class="font-bold text-sm">Servo</p><p class="text-xs text-slate-400">Motor angular</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIMULADOR ARDUINO -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-teal-400"><i class="fas fa-code mr-2"></i>Simulador: Blink LED</h2>
+            <p class="text-slate-300 mb-4">Simula el código Blink de Arduino. Ajusta el tiempo de parpadeo.</p>
+
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block mb-2 font-semibold"><i class="fas fa-clock text-yellow-400 mr-2"></i>Tiempo encendido (ms): <span id="ton-display" class="text-yellow-400">1000</span></label>
+                        <input type="range" id="ton" min="100" max="3000" step="100" value="1000" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-400" oninput="actualizarBlink()">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-semibold"><i class="fas fa-clock text-blue-400 mr-2"></i>Tiempo apagado (ms): <span id="toff-display" class="text-blue-400">1000</span></label>
+                        <input type="range" id="toff" min="100" max="3000" step="100" value="1000" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-400" oninput="actualizarBlink()">
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-center gap-8 mb-6">
+                    <div class="text-center">
+                        <div id="arduino-board" class="w-40 h-28 bg-teal-700 rounded-lg p-2 relative">
+                            <div class="absolute top-2 left-2 text-xs text-white font-bold">ARDUINO</div>
+                            <div class="absolute top-6 left-2 w-2 h-2 bg-red-500 rounded-full"></div>
+                            <div class="absolute top-6 right-2 w-2 h-2 bg-green-500 rounded-full"></div>
+                            <div class="absolute bottom-2 left-0 right-0 flex justify-around">
+                                <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-2">Arduino Uno</p>
+                    </div>
+                    <div class="text-4xl text-slate-600">→</div>
+                    <div class="text-center">
+                        <div id="led-blink" class="w-20 h-20 bg-red-900 rounded-full border-4 border-red-700 mx-auto flex items-center justify-center">
+                            <div class="w-12 h-12 bg-red-500 rounded-full"></div>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-2">LED Pin 13</p>
+                        <p class="text-xs text-cyan-400" id="estado-led">OFF</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4 mb-4">
+                    <button onclick="iniciarBlink()" class="flex-1 bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg"><i class="fas fa-play mr-2"></i>Iniciar</button>
+                    <button onclick="detenerBlink()" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-lg"><i class="fas fa-stop mr-2"></i>Detener</button>
+                </div>
+
+                <div class="bg-slate-800 p-4 rounded-lg font-code text-xs">
+                    <p class="text-slate-400">// Código generado:</p>
+                    <p class="text-purple-400">void</p> <p class="text-yellow-400">loop</p><p class="text-white">() {</p>
+                    <p class="text-slate-300 ml-4">digitalWrite(13, HIGH);</p>
+                    <p class="text-slate-300 ml-4">delay(<span id="code-ton" class="text-yellow-400">1000</span>);</p>
+                    <p class="text-slate-300 ml-4">digitalWrite(13, LOW);</p>
+                    <p class="text-slate-300 ml-4">delay(<span id="code-toff" class="text-blue-400">1000</span>);</p>
+                    <p class="text-white">}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDITOR DE CÓDIGO -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400"><i class="fas fa-edit mr-2"></i>Editor de Código</h2>
+            <p class="text-slate-300 mb-4">Escribe tu código Arduino y observa la salida.</p>
+
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <textarea id="codigo-arduino" class="w-full h-48 bg-slate-800 text-green-400 font-code text-sm p-4 rounded-lg border border-slate-700 mb-4" placeholder="// Escribe tu código Arduino aquí&#10;void setup() {&#10;  pinMode(13, OUTPUT);&#10;}&#10;&#10;void loop() {&#10;  digitalWrite(13, HIGH);&#10;  delay(1000);&#10;  digitalWrite(13, LOW);&#10;  delay(1000);&#10;}">void setup() {
+  pinMode(13, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(13, HIGH);
+  Serial.println("LED ON");
+  delay(1000);
+  digitalWrite(13, LOW);
+  Serial.println("LED OFF");
+  delay(1000);
+}</textarea>
+                
+                <div class="flex gap-4 mb-4">
+                    <button onclick="ejecutarCodigo()" class="flex-1 bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg"><i class="fas fa-play mr-2"></i>Ejecutar</button>
+                    <button onclick="limpiarCodigo()" class="flex-1 bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 rounded-lg"><i class="fas fa-eraser mr-2"></i>Limpiar</button>
+                </div>
+
+                <div class="bg-black p-4 rounded-lg font-code text-sm">
+                    <p class="text-slate-400 mb-2">// Monitor Serial:</p>
+                    <div id="serial-output" class="text-green-400 min-h-20"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CALCULADORA -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400"><i class="fas fa-calculator mr-2"></i>Calculadora</h2>
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <div class="mb-4"><div class="calc-display" id="calc-display">0</div></div>
+                <div class="grid grid-cols-4 gap-2 mb-4">
+                    <button onclick="calcClear()" class="calc-btn bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-lg">C</button>
+                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg">⌫</button>
+                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">%</button>
+                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">÷</button>
+                    <button onclick="calcNumber('7')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">7</button>
+                    <button onclick="calcNumber('8')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">8</button>
+                    <button onclick="calcNumber('9')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">9</button>
+                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">×</button>
+                    <button onclick="calcNumber('4')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">4</button>
+                    <button onclick="calcNumber('5')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">5</button>
+                    <button onclick="calcNumber('6')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">6</button>
+                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">−</button>
+                    <button onclick="calcNumber('1')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">1</button>
+                    <button onclick="calcNumber('2')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">2</button>
+                    <button onclick="calcNumber('3')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">3</button>
+                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">+</button>
+                    <button onclick="calcNumber('0')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg col-span-2">0</button>
+                    <button onclick="calcDecimal()" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">.</button>
+                    <button onclick="calcEquals()" class="calc-btn bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-lg">=</button>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="calcAnalogToV()" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">0-1023 → V</button>
+                    <button onclick="calcPwmToV()" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">0-255 → V</button>
+                    <button onclick="calcVtoOhm()" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">V/I → Ω</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJEMPLOS -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400"><i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos</h2>
+            <div class="bg-slate-900 p-4 rounded-lg mb-6">
+                <div class="flex justify-between items-center mb-2"><span class="text-sm text-slate-400">Progreso:</span><span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50</span></div>
+                <div class="w-full bg-slate-700 rounded-full h-3"><div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+            </div>
+            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500"></div>
+            <div class="flex gap-4 mt-6">
+                <button onclick="ejemploAnterior()" id="btn-anterior" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"><i class="fas fa-arrow-left mr-2"></i>Anterior</button>
+                <button onclick="siguienteEjemplo()" id="btn-siguiente" class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">Siguiente<i class="fas fa-arrow-right ml-2"></i></button>
+            </div>
+            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
+                <p class="text-sm text-slate-400 mb-3">Salta a un ejemplo:</p>
+                <div class="flex gap-2"><input type="number" id="saltar-a" min="1" max="50" placeholder="1-50" class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white"><button onclick="irAEjemplo()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded">Ir</button></div>
+            </div>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400"><i class="fas fa-question-circle mr-2"></i>Quiz</h2>
+            <div id="quiz-container" class="space-y-4 mb-6"></div>
+            <button onclick="verResultados()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg"><i class="fas fa-check-circle mr-2"></i>Ver Resultados</button>
+            <div id="resultado-quiz" class="mt-6 hidden"></div>
+            <button onclick="nuevoIntento()" class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden" id="btn-reintentar"><i class="fas fa-redo mr-2"></i>Intentar de Nuevo</button>
+        </div>
+
+    </div>
+
+    <script>
+        // ============ BLINK SIMULATOR ============
+        let blinkInterval = null;
+        let ledState = false;
+
+        function actualizarBlink() {
+            const ton = parseInt(document.getElementById('ton').value);
+            const toff = parseInt(document.getElementById('toff').value);
+            document.getElementById('ton-display').textContent = ton;
+            document.getElementById('toff-display').textContent = toff;
+            document.getElementById('code-ton').textContent = ton;
+            document.getElementById('code-toff').textContent = toff;
+        }
+
+        function iniciarBlink() {
+            if (blinkInterval) clearInterval(blinkInterval);
+            const ton = parseInt(document.getElementById('ton').value);
+            const toff = parseInt(document.getElementById('toff').value);
+            const led = document.getElementById('led-blink');
+            const estado = document.getElementById('estado-led');
+            
+            let encendido = true;
+            led.style.backgroundColor = '#ef4444';
+            led.querySelector('div').style.backgroundColor = '#fca5a5';
+            estado.textContent = 'ON';
+            
+            blinkInterval = setInterval(() => {
+                encendido = !encendido;
+                if (encendido) {
+                    led.style.backgroundColor = '#ef4444';
+                    led.querySelector('div').style.backgroundColor = '#fca5a5';
+                    estado.textContent = 'ON';
+                } else {
+                    led.style.backgroundColor = '#7f1d1d';
+                    led.querySelector('div').style.backgroundColor = '#991b1b';
+                    estado.textContent = 'OFF';
+                }
+            }, encendido ? ton : toff);
+        }
+
+        function detenerBlink() {
+            if (blinkInterval) clearInterval(blinkInterval);
+            const led = document.getElementById('led-blink');
+            led.style.backgroundColor = '#7f1d1d';
+            led.querySelector('div').style.backgroundColor = '#991b1b';
+            document.getElementById('estado-led').textContent = 'OFF';
+        }
+
+        // ============ CODE EDITOR ============
+        function ejecutarCodigo() {
+            const codigo = document.getElementById('codigo-arduino').value;
+            const output = document.getElementById('serial-output');
+            output.innerHTML = '';
+            
+            // Simulación básica
+            const lines = codigo.split('\n');
+            let simulacion = '> Compilando...\n> Subiendo código...\n> Listo!\n\n';
+            
+            lines.forEach(line => {
+                if (line.includes('Serial.println')) {
+                    const match = line.match(/Serial\.println\(["'](.+?)["']\)/);
+                    if (match) {
+                        simulacion += match[1] + '\n';
+                        simulacion += match[1] + '\n';
+                    }
+                }
+            });
+            
+            if (!simulacion.includes('LED')) {
+                simulacion += '> Código ejecutado (sin salida serial)\n';
+            }
+            
+            output.textContent = simulacion;
+        }
+
+        function limpiarCodigo() {
+            document.getElementById('codigo-arduino').value = '';
+            document.getElementById('serial-output').textContent = '';
+        }
+
+        // ============ CALCULADORA ============
+        let calcExpression = '';
+        let calcDisplay = document.getElementById('calc-display');
+        function calcNumber(n) { calcExpression += n; calcDisplay.textContent = calcExpression; }
+        function calcOperator(op) { calcExpression += op; calcDisplay.textContent = calcExpression; }
+        function calcDecimal() { if (!calcExpression.includes('.')) { calcExpression += '.'; calcDisplay.textContent = calcExpression; } }
+        function calcClear() { calcExpression = ''; calcDisplay.textContent = '0'; }
+        function calcBackspace() { calcExpression = calcExpression.slice(0, -1); calcDisplay.textContent = calcExpression || '0'; }
+        function calcEquals() { try { const r = eval(calcExpression); calcDisplay.textContent = r; calcExpression = r.toString(); } catch { calcDisplay.textContent = 'Error'; calcExpression = ''; } }
+        function calcAnalogToV() { const v = parseFloat(calcExpression); if (!isNaN(v)) { calcDisplay.textContent = ((v/1023)*5).toFixed(3) + ' V'; calcExpression = ((v/1023)*5).toString(); } else calcDisplay.textContent = 'Error'; }
+        function calcPwmToV() { const v = parseFloat(calcExpression); if (!isNaN(v)) { calcDisplay.textContent = ((v/255)*5).toFixed(3) + ' V'; calcExpression = ((v/255)*5).toString(); } else calcDisplay.textContent = 'Error'; }
+        function calcVtoOhm() { calcExpression += '/'; calcDisplay.textContent = calcExpression; }
+
+        // ============ EJEMPLOS ============
+        const ejemplosPracticos = Array.from({length: 50}, (_, i) => {
+            const tipos = ['pin', 'analog', 'pwm', 'delay', 'serial', 'sensor'];
+            return { tipo: tipos[i % tipos.length], i, color: ['teal','green','blue','purple','yellow','red'][i%6], icono: ['🔌','','⚡','⏱️','💻','🌡️'][i%6] };
+        });
+        let ejemploActual = 0, ejemplosCompletados = new Set();
+
+        function renderizarEjemploActual() {
+            const ej = ejemplosPracticos[ejemploActual];
+            let pregunta, respuesta, formula;
+            const seed = ej.i + 1;
+            
+            if (ej.tipo === 'pin') {
+                respuesta = 13;
+                pregunta = `¿Qué pin usa el LED integrado en Arduino Uno?`;
+                formula = `Pin 13 (LED_BUILTIN)`;
+            } else if (ej.tipo === 'analog') {
+                const valor = seed * 50;
+                respuesta = (valor / 1023) * 5;
+                pregunta = `analogRead() = ${valor}. ¿Voltaje?`;
+                formula = `V = (valor/1023) × 5V = ${respuesta.toFixed(3)}V`;
+            } else if (ej.tipo === 'pwm') {
+                const valor = seed * 10;
+                respuesta = (valor / 255) * 5;
+                pregunta = `analogWrite() = ${valor}. ¿Voltaje promedio?`;
+                formula = `V = (valor/255) × 5V = ${respuesta.toFixed(3)}V`;
+            } else if (ej.tipo === 'delay') {
+                respuesta = seed * 100;
+                pregunta = `¿Cuántos ms son ${seed/10} segundos?`;
+                formula = `${seed/10}s × 1000 = ${respuesta}ms`;
+            } else if (ej.tipo === 'serial') {
+                respuesta = 9600;
+                pregunta = `¿Velocidad estándar del Serial Monitor?`;
+                formula = `9600 baudios`;
+            } else {
+                respuesta = 25;
+                pregunta = `¿Temperatura ambiente típica en °C?`;
+                formula = `25°C (ambiente)`;
+            }
+            
+            const container = document.getElementById('ejemplo-actual');
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual+1} de 50</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">${ej.icono} Arduino ${ej.tipo}</h3>
+                <p class="text-slate-300 mb-4">${pregunta}</p>
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <p class="text-sm text-slate-400 mb-2">Respuesta:</p>
+                    <div class="flex gap-2">
+                        <input type="number" id="respuesta-actual" step="0.001" placeholder="Respuesta" class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white" onkeypress="if(event.key==='Enter') verificarEjemplo()">
+                        <button onclick="verificarEjemplo()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded">Verificar</button>
+                    </div>
+                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                </div>
+            `;
+            window.ejemploData = { correcta: respuesta, formula };
+            document.getElementById('btn-anterior').disabled = ejemploActual === 0;
+            actualizarProgreso();
+        }
+
+        function verificarEjemplo() {
+            const { correcta, formula } = window.ejemploData;
+            const respuesta = parseFloat(document.getElementById('respuesta-actual').value);
+            const div = document.getElementById('resultado-actual');
+            if (isNaN(respuesta)) { div.classList.remove('hidden'); div.innerHTML = '<div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded"><p class="font-bold text-yellow-400">⚠️ Ingresa número</p></div>'; return; }
+            const esCorrecta = Math.abs(respuesta - correcta) <= correcta * 0.05 || Math.abs(respuesta - correcta) <= 0.1;
+            div.classList.remove('hidden');
+            if (esCorrecta) {
+                ejemplosCompletados.add(ejemploActual);
+                div.innerHTML = `<div class="bg-green-900 border-2 border-green-500 p-3 rounded"><p class="font-bold text-green-400">✅ ¡Correcto!</p><p class="text-sm text-slate-300">${formula}</p></div>`;
+                actualizarProgreso();
+                setTimeout(() => { if (ejemploActual < 49) siguienteEjemplo(); }, 2000);
+            } else {
+                div.innerHTML = `<div class="bg-red-900 border-2 border-red-500 p-3 rounded"><p class="font-bold text-red-400">❌ Incorrecto</p><p class="text-sm">Correcto: <strong>${correcta}</strong></p><p class="text-xs text-slate-400 mt-1">${formula}</p></div>`;
+            }
+        }
+
+        function siguienteEjemplo() { if (ejemploActual < 49) { ejemploActual++; renderizarEjemploActual(); window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' }); } }
+        function ejemploAnterior() { if (ejemploActual > 0) { ejemploActual--; renderizarEjemploActual(); window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' }); } }
+        function irAEjemplo() { const n = parseInt(document.getElementById('saltar-a').value); if (n >= 1 && n <= 50) { ejemploActual = n - 1; renderizarEjemploActual(); window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' }); } else alert('1-50'); }
+        function actualizarProgreso() { const p = (ejemplosCompletados.size / 50) * 100; document.getElementById('progreso-texto').textContent = `${ejemplosCompletados.size} de 50`; document.getElementById('barra-progreso').style.width = p + '%'; }
+
+        // ============ QUIZ ============
+        const bancoPreguntas = [
+            { p: "¿Qué es Arduino?", o: ["Un lenguaje", "Plataforma hardware/software", "Un sensor", "Un cable"], r: 1, e: "Arduino es plataforma de hardware y software." },
+            { p: "¿Microcontrolador de Arduino Uno?", o: ["ATmega2560", "ATmega328P", "ESP32", "PIC16F"], r: 1, e: "Arduino Uno usa ATmega328P." },
+            { p: "¿Cuántos pines digitales tiene Uno?", o: ["8", "14", "20", "30"], r: 1, e: "Arduino Uno tiene 14 pines digitales (0-13)." },
+            { p: "¿Cuántos pines analógicos tiene Uno?", o: ["4", "6", "8", "10"], r: 1, e: "Tiene 6 pines analógicos (A0-A5)." },
+            { p: "¿Voltaje de operación Uno?", o: ["3.3V", "5V", "9V", "12V"], r: 1, e: "Arduino Uno opera a 5V." },
+            { p: "¿Función que se ejecuta una vez?", o: ["loop()", "setup()", "init()", "start()"], r: 1, e: "setup() se ejecuta una vez al inicio." },
+            { p: "¿Función que se ejecuta infinitamente?", o: ["setup()", "loop()", "run()", "main()"], r: 1, e: "loop() se ejecuta en bucle infinito." },
+            { p: "¿Función para configurar pin?", o: ["digitalWrite()", "pinMode()", "analogRead()", "setup()"], r: 1, e: "pinMode() configura el pin." },
+            { p: "¿Función para escribir en pin digital?", o: ["pinMode()", "digitalRead()", "digitalWrite()", "analogWrite()"], r: 2, e: "digitalWrite() escribe HIGH o LOW." },
+            { p: "¿Función para leer pin analógico?", o: ["digitalRead()", "analogRead()", "analogWrite()", "read()"], r: 1, e: "analogRead() lee valor 0-1023." },
+            { p: "¿Rango de analogRead()?", o: ["0-255", "0-1023", "0-5000", "0-100"], r: 1, e: "analogRead() retorna 0-1023 (10 bits)." },
+            { p: "¿Rango de analogWrite() (PWM)?", o: ["0-100", "0-255", "0-1023", "0-5000"], r: 1, e: "PWM usa 0-255 (8 bits)." },
+            { p: "¿Pines PWM en Uno?", o: ["0-13", "3,5,6,9,10,11", "A0-A5", "Todos"], r: 1, e: "Pines PWM: 3, 5, 6, 9, 10, 11." },
+            { p: "¿Función para esperar tiempo?", o: ["wait()", "pause()", "delay()", "sleep()"], r: 2, e: "delay(ms) espera milisegundos." },
+            { p: "¿1 segundo en delay()?", o: ["1", "100", "1000", "10000"], r: 2, e: "delay(1000) = 1 segundo." },
+            { p: "¿Función para iniciar Serial?", o: ["Serial.start()", "Serial.begin()", "Serial.init()", "Serial.open()"], r: 1, e: "Serial.begin(9600) inicia comunicación." },
+            { p: "¿Velocidad estándar Serial?", o: ["1200", "4800", "9600", "115200"], r: 2, e: "9600 baudios es el estándar." },
+            { p: "¿Función para imprimir en Serial?", o: ["Serial.print()", "Serial.write()", "Serial.send()", "Serial.output()"], r: 0, e: "Serial.println() imprime con salto de línea." },
+            { p: "¿LED integrado en pin?", o: ["0", "1", "13", "A0"], r: 2, e: "LED_BUILTIN = pin 13." },
+            { p: "¿Corriente máxima por pin?", o: ["10mA", "20-40mA", "100mA", "500mA"], r: 1, e: "20mA recomendado, 40mA máximo." },
+            { p: "¿Sensor de temperatura analógico?", o: ["DHT11", "LM35", "HC-SR04", "LDR"], r: 1, e: "LM35 es sensor analógico de temperatura." },
+            { p: "¿Sensor de distancia ultrasónico?", o: ["LM35", "DHT11", "HC-SR04", "LDR"], r: 2, e: "HC-SR04 es sensor ultrasónico." },
+            { p: "¿Sensor de luz?", o: ["LM35", "DHT11", "HC-SR04", "LDR"], r: 3, e: "LDR (Light Dependent Resistor) detecta luz." },
+            { p: "¿DHT11 mide...?", o: ["Solo temperatura", "Temperatura y humedad", "Solo humedad", "Luz"], r: 1, e: "DHT11 mide temperatura y humedad." },
+            { p: "¿Qué hace un buzzer?", o: ["Mide temperatura", "Emite sonido", "Detecta luz", "Mide distancia"], r: 1, e: "El buzzer emite sonido." },
+            { p: "¿Servo motor controla...?", o: ["Velocidad", "Posición angular", "Corriente", "Voltaje"], r: 1, e: "El servo controla posición angular (0-180°)." },
+            { p: "¿HIGH en digital es...?", o: ["0V", "5V", "3.3V", "12V"], r: 1, e: "HIGH = 5V en Arduino Uno." },
+            { p: "¿LOW en digital es...?", o: ["5V", "0V", "3.3V", "-5V"], r: 1, e: "LOW = 0V (GND)." },
+            { p: "¿INPUT en pinMode es para...?", o: ["Salida", "Entrada", "Ambos", "Ninguno"], r: 1, e: "INPUT configura el pin como entrada." },
+            { p: "¿OUTPUT en pinMode es para...?", o: ["Entrada", "Salida", "Ambos", "Ninguno"], r: 1, e: "OUTPUT configura el pin como salida." }
+        ];
+
+        let preguntasActuales = [], respuestasSeleccionadas = {}, respondidas = 0, correctas = 0;
+        function mezclarArray(a) { const arr = [...a]; for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+        function cargarQuiz() {
+            const m = mezclarArray(bancoPreguntas); preguntasActuales = m.slice(0, 10); respuestasSeleccionadas = {}; respondidas = 0; correctas = 0;
+            const c = document.getElementById('quiz-container'); c.innerHTML = '';
+            preguntasActuales.forEach((p, i) => {
+                const oc = p.o.map((op, j) => ({ texto: op, esCorrecta: j === p.r }));
+                const om = mezclarArray(oc);
+                c.innerHTML += `<div class="bg-slate-900 p-4 rounded-lg" data-p="${i}"><p class="font-semibold mb-3">${i+1}. ${p.p}</p><div class="space-y-2">${om.map((o, j) => `<button onclick="selR(${i}, this)" data-c="${o.esCorrecta}" class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition ob">${o.texto}</button>`).join('')}</div></div>`;
+            });
+            document.getElementById('resultado-quiz').classList.add('hidden');
+            document.getElementById('btn-reintentar').classList.add('hidden');
+        }
+        function selR(i, b) { const d = document.querySelector(`[data-p="${i}"]`); if (d.dataset.r === 't') return; d.dataset.r = 't'; respondidas++; const c = b.dataset.c === 'true'; respuestasSeleccionadas[i] = c; d.querySelectorAll('.ob').forEach(btn => { btn.disabled = true; btn.classList.add('opacity-50'); if (btn.dataset.c === 'true') { btn.classList.remove('bg-slate-700', 'opacity-50'); btn.classList.add('bg-green-600'); } }); if (c) { correctas++; b.classList.remove('bg-slate-700', 'opacity-50'); b.classList.add('bg-green-600'); } else { b.classList.remove('bg-slate-700', 'opacity-50'); b.classList.add('bg-red-600'); } }
+        function verResultados() {
+            if (respondidas < 10) { alert(`Responde ${respondidas} de 10`); return; }
+            const p = Math.round((correctas/10)*100); const r = document.getElementById('resultado-quiz');
+            let m, co, e; if (p >= 90) { m = '¡Excelente!'; co = 'green'; e = '🏆'; } else if (p >= 70) { m = '¡Bien!'; co = 'blue'; e = ''; } else if (p >= 50) { m = 'Repasa'; co = 'orange'; e = '📚'; } else { m = 'Estudia más'; co = 'red'; e = '⚠️'; }
+            const h = preguntasActuales.map((q, i) => `<div class="bg-slate-900 p-3 rounded mb-2 ${respuestasSeleccionadas[i] ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}"><p class="font-semibold text-sm">${i+1}. ${q.p}</p><p class="text-xs mt-1 ${respuestasSeleccionadas[i] ? 'text-green-400' : 'text-red-400'}">${respuestasSeleccionadas[i] ? '✓' : '✗'}</p><p class="text-xs text-slate-400 mt-1"><em>${q.e}</em></p></div>`).join('');
+            r.innerHTML = `<div class="bg-${co}-900 border-2 border-${co}-500 p-6 rounded-lg text-center mb-4"><p class="text-4xl mb-2">${e}</p><h3 class="text-2xl font-bold text-${co}-400 mb-2">${m}</h3><p class="text-3xl font-bold text-white">${correctas}/10 (${p}%)</p></div><div class="mt-4"><h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión:</h3>${h}</div>`;
+            r.classList.remove('hidden'); document.getElementById('btn-reintentar').classList.remove('hidden'); r.scrollIntoView({ behavior: 'smooth' });
+        }
+        function nuevoIntento() { cargarQuiz(); window.scrollTo({ top: document.getElementById('quiz-container').offsetTop - 100, behavior: 'smooth' }); }
+
+        renderizarEjemploActual();
+        cargarQuiz();
+        actualizarBlink();
+    </script>
+</body>
+</html>

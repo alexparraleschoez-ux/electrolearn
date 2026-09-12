@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herramientas de Medición - ElectroLearn</title>
+    <title>Módulo 5: Herramientas de Medición - ElectroLearn</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
@@ -20,14 +20,94 @@
         }
     </script>
     <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes parpadeo {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .section-animate { animation: fadeInUp 0.6s ease-out; }
+        .componente-card {
+            border-left: 4px solid #22d3ee;
+            transition: all 0.3s;
+        }
+        .componente-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+        }
+        .opcion-btn:disabled { cursor: not-allowed; }
+        
+        /* Calculadora */
+        .calc-btn {
+            transition: all 0.1s;
+            user-select: none;
+        }
+        .calc-btn:active { transform: scale(0.95); }
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .calc-display {
+            font-family: 'Courier New', monospace;
+            font-size: 2rem;
+            text-align: right;
+            padding: 1rem;
+            background: #0f172a;
+            border: 2px solid #22d3ee;
+            border-radius: 0.5rem;
+            color: #22d3ee;
+            min-height: 80px;
+            overflow-x: auto;
+        }
+
+        /* Protoboard */
+        .proto-point {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .proto-point:hover {
+            transform: scale(1.5);
+            box-shadow: 0 0 8px currentColor;
+        }
+        .proto-point.active {
+            background-color: #22d3ee !important;
+            box-shadow: 0 0 10px #22d3ee;
+        }
+        .proto-point.rail {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Multímetro */
         .multimetro-display {
             font-family: 'Courier New', monospace;
-            background: #1a2332;
-            color: #4ade80;
-            text-shadow: 0 0 10px #4ade80;
+            background: #000;
+            color: #00ff00;
+            padding: 1rem;
+            border: 3px solid #333;
+            border-radius: 0.5rem;
+            font-size: 2.5rem;
+            text-align: right;
+            min-height: 80px;
+            text-shadow: 0 0 10px #00ff00;
+            letter-spacing: 2px;
         }
-        .selector-knob {
-            transition: transform 0.3s ease;
+        .multimetro-display.off {
+            color: #333;
+            text-shadow: none;
+        }
+        .modo-btn {
+            transition: all 0.2s;
+        }
+        .modo-btn.active {
+            background-color: #22d3ee !important;
+            color: #0f172a !important;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -46,294 +126,1154 @@
     </header>
 
     <!-- TÍTULO -->
-    <section class="py-8 text-center px-4">
+    <section class="py-8 text-center px-4 section-animate">
         <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
-            <i class="fas fa-tools text-orange-400"></i> Herramientas de Medición
+            <i class="fas fa-tools text-orange-400"></i> Módulo 5: Herramientas de Medición
         </h1>
-        <p class="text-slate-300 text-lg">Multímetro, soldador y protoboard</p>
+        <p class="text-slate-300 text-lg">Multímetro, soldador, protoboard y herramientas esenciales</p>
     </section>
 
     <div class="container mx-auto px-4 pb-16 space-y-8">
 
-        <!-- MULTÍMETRO VIRTUAL -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
-                <i class="fas fa-tachometer-alt mr-2"></i> Multímetro Virtual
+        <!-- SECCIÓN 1: TEORÍA -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
+                <i class="fas fa-book mr-2"></i>Teoría: Herramientas Esenciales
+            </h2>
+
+            <!-- Multímetro -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+                    <i class="fas fa-tachometer-alt mr-2"></i>Multímetro Digital
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    El <strong class="text-yellow-400">multímetro</strong> es la herramienta más importante en electrónica. 
+                    Permite medir <strong>voltaje</strong>, <strong>corriente</strong> y <strong>resistencia</strong> en un solo dispositivo.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">📏 Modos de medición:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ <strong>Voltaje DC (V⎓)</strong>: Baterías, circuitos DC</li>
+                            <li>✓ <strong>Voltaje AC (V~)</strong>: Electricidad doméstica</li>
+                            <li>✓ <strong>Resistencia (Ω)</strong>: Resistencias, continuidad</li>
+                            <li>✓ <strong>Corriente (A)</strong>: Consumo de circuitos</li>
+                            <li>✓ <strong>Continuidad (🔊)</strong>: Verificar conexiones</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2"> Partes del multímetro:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ <strong>Display LCD</strong>: Muestra la medición</li>
+                            <li>✓ <strong>Selector</strong>: Elige el modo y rango</li>
+                            <li>✓ <strong>Terminal COM</strong>: Sonda negra (común)</li>
+                            <li>✓ <strong>Terminal VΩmA</strong>: Sonda roja (medición)</li>
+                            <li>✓ <strong>Terminal 10A</strong>: Corrientes altas</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-yellow-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        ⚠️ <strong>Seguridad:</strong> Siempre conecta la sonda negra en COM y la roja en el terminal correcto. 
+                        Nunca midas resistencia en un circuito energizado.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Protoboard -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-green-400">
+                    <i class="fas fa-th mr-2"></i>Protoboard (Breadboard)
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    El <strong class="text-green-400">protoboard</strong> es una placa para construir circuitos 
+                    <strong>sin soldar</strong>. Permite probar circuitos rápidamente.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">📏 Estructura:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ <strong>Rieles de alimentación</strong> (rojo/azul): Laterales</li>
+                            <li>✓ <strong>Área central</strong>: Filas de 5 puntos conectados</li>
+                            <li>✓ <strong>Canal central</strong>: Separa los dos lados</li>
+                            <li>✓ <strong>Pasos de 2.54mm</strong>: Estándar para componentes</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">🎯 Cómo usar:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Inserta componentes en los agujeros</li>
+                            <li>✓ Conecta con cables jumper</li>
+                            <li>✓ Los puntos en la misma fila están conectados</li>
+                            <li>✓ Los rieles laterales son para VCC y GND</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-green-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Tip:</strong> Usa cables de colores: <strong class="text-red-400">rojo</strong> para positivo, 
+                        <strong class="text-slate-400">negro</strong> para negativo/GND.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Soldador -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-red-400">
+                    <i class="fas fa-fire mr-2"></i>Soldador (Cautín)
+                </h3>
+                <p class="text-slate-300 mb-3">
+                    El <strong class="text-red-400">soldador</strong> une componentes metálicos usando 
+                    <strong>estaño fundido</strong>. Es esencial para circuitos permanentes.
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">🌡️ Temperaturas:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ <strong>300-350°C</strong>: Soldadura estándar</li>
+                            <li>✓ <strong>350-400°C</strong>: Componentes grandes</li>
+                            <li>✓ <strong>250-300°C</strong>: Componentes SMD delicados</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-cyan-400 mb-2">⚠️ Seguridad:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Usa <strong>gafas de protección</strong></li>
+                            <li>✓ Trabaja en área <strong>ventilada</strong></li>
+                            <li>✓ Nunca toques la punta</li>
+                            <li>✓ Desconecta cuando no uses</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-red-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        ⚠️ <strong>Importante:</strong> Usa <strong>flux</strong> para mejores soldaduras y 
+                        limpia la punta con esponja húmeda regularmente.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Otras herramientas -->
+            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 text-purple-400">
+                    <i class="fas fa-toolbox mr-2"></i>Otras Herramientas Esenciales
+                </h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2">✂️ Pinzas de Corte</h4>
+                        <p class="text-sm text-slate-300">Cortan alambres y patillas de componentes con precisión.</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2">🔧 Destornilladores</h4>
+                        <p class="text-sm text-slate-300">Planos y de cruz para ajustar tornillos de componentes.</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2"> Lupa</h4>
+                        <p class="text-sm text-slate-300">Inspeccionar soldaduras y componentes pequeños (SMD).</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2">🧲 Extractor de Estaño</h4>
+                        <p class="text-sm text-slate-300">Elimina exceso de estaño en soldaduras defectuosas.</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2">📏 Regla/Calibrador</h4>
+                        <p class="text-sm text-slate-300">Medir distancias entre pines y componentes.</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg">
+                        <h4 class="font-bold text-purple-400 mb-2">🔦 Fuente de Poder</h4>
+                        <p class="text-sm text-slate-300">Alimenta circuitos con voltaje regulable (3.3V, 5V, 12V).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Normas de seguridad -->
+            <div class="bg-slate-900 p-5 rounded-lg">
+                <h3 class="text-xl font-bold mb-3 text-red-400">
+                    <i class="fas fa-shield-alt mr-2"></i>Normas de Seguridad
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-green-900 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-400 mb-2">✅ SÍ HACER:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✓ Usar gafas de protección al soldar</li>
+                            <li>✓ Trabajar en área ventilada</li>
+                            <li>✓ Desconectar energía antes de medir</li>
+                            <li>✓ Verificar polaridad antes de conectar</li>
+                            <li>✓ Usar guantes térmicos con el soldador</li>
+                            <li>✓ Mantener el área de trabajo ordenada</li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-900 p-4 rounded-lg">
+                        <h4 class="font-bold text-red-400 mb-2">❌ NO HACER:</h4>
+                        <ul class="text-sm text-slate-300 space-y-1">
+                            <li>✗ Tocar componentes calientes</li>
+                            <li> Medir resistencia con circuito energizado</li>
+                            <li>✗ Usar herramientas dañadas</li>
+                            <li>✗ Dejar el soldador encendido sin supervisión</li>
+                            <li>✗ Trabajar con las manos mojadas</li>
+                            <li> Sobrecargar los circuitos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: MULTÍMETRO VIRTUAL -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+                <i class="fas fa-tachometer-alt mr-2"></i>Multímetro Virtual Interactivo
             </h2>
             <p class="text-slate-300 mb-4">
-                Simula el uso de un multímetro digital. Selecciona el modo de medición e ingresa los valores.
+                Simula el uso de un multímetro digital. Selecciona el modo y ajusta los valores para ver mediciones.
             </p>
-            
+
             <div class="bg-slate-900 p-6 rounded-lg">
-                <!-- Display del multímetro -->
-                <div class="multimetro-display p-6 rounded-lg text-center mb-6 border-4 border-slate-700">
-                    <p class="text-xs text-slate-400 mb-2" id="modo-actual">MODO: VOLTAJE DC</p>
-                    <p class="text-5xl font-bold" id="display-valor">0.00</p>
-                    <p class="text-lg mt-2" id="unidad-actual">V</p>
-                </div>
+                <!-- Cuerpo del multímetro -->
+                <div class="max-w-2xl mx-auto bg-gradient-to-b from-slate-700 to-slate-800 p-6 rounded-2xl shadow-2xl border-4 border-slate-600">
+                    
+                    <!-- Display -->
+                    <div class="mb-6">
+                        <div class="multimetro-display" id="multimetro-display">0.000</div>
+                        <div class="flex justify-between mt-2 text-xs text-slate-400">
+                            <span id="modo-actual">Modo: OFF</span>
+                            <span id="unidad-actual">-</span>
+                        </div>
+                    </div>
 
-                <!-- Selector de modo -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
-                    <button onclick="cambiarModo('vdc')" id="btn-vdc" 
-                            class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 rounded transition">
-                        <i class="fas fa-battery-full block mb-1"></i>
-                        Voltaje DC
-                    </button>
-                    <button onclick="cambiarModo('vac')" id="btn-vac" 
-                            class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded transition">
-                        <i class="fas fa-wave-square block mb-1"></i>
-                        Voltaje AC
-                    </button>
-                    <button onclick="cambiarModo('resistencia')" id="btn-resistencia" 
-                            class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded transition">
-                        <i class="fas fa-microchip block mb-1"></i>
-                        Resistencia
-                    </button>
-                    <button onclick="cambiarModo('continuidad')" id="btn-continuidad" 
-                            class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded transition">
-                        <i class="fas fa-volume-up block mb-1"></i>
-                        Continuidad
-                    </button>
-                </div>
+                    <!-- Selector de modo -->
+                    <div class="mb-6">
+                        <h4 class="font-bold text-cyan-400 mb-3 text-center">Selector de Modo:</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
+                            <button onclick="setModo('vdc')" class="modo-btn bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 rounded-lg text-sm" id="modo-vdc">
+                                <i class="fas fa-bolt mr-1"></i>V DC
+                            </button>
+                            <button onclick="setModo('vac')" class="modo-btn bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 rounded-lg text-sm" id="modo-vac">
+                                <i class="fas fa-wave-square mr-1"></i>V AC
+                            </button>
+                            <button onclick="setModo('ohm')" class="modo-btn bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 rounded-lg text-sm" id="modo-ohm">
+                                <i class="fas fa-omega mr-1"></i>Ω
+                            </button>
+                            <button onclick="setModo('cont')" class="modo-btn bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 rounded-lg text-sm" id="modo-cont">
+                                <i class="fas fa-volume-up mr-1"></i>Continuidad
+                            </button>
+                            <button onclick="setModo('off')" class="modo-btn bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-lg text-sm" id="modo-off">
+                                <i class="fas fa-power-off mr-1"></i>OFF
+                            </button>
+                        </div>
+                    </div>
 
-                <!-- Entrada de valores -->
-                <div id="entrada-valores" class="space-y-3">
-                    <div>
-                        <label class="block mb-2 font-semibold">
-                            <i class="fas fa-battery-full text-yellow-400 mr-2"></i>
-                            Voltaje de la fuente (V):
-                        </label>
-                        <input type="range" id="voltaje-fuente" min="0" max="24" step="0.1" value="9" 
-                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-400">
-                        <p class="text-center text-yellow-400 font-bold mt-1">
-                            <span id="voltaje-valor">9.0</span> V
-                        </p>
+                    <!-- Controles según modo -->
+                    <div id="controles-multimetro" class="space-y-4">
+                        <p class="text-center text-slate-400">Selecciona un modo para comenzar</p>
+                    </div>
+
+                    <!-- Sondas visuales -->
+                    <div class="mt-6 flex justify-center gap-8">
+                        <div class="text-center">
+                            <div class="w-8 h-8 bg-black rounded-full border-2 border-slate-600 mx-auto"></div>
+                            <p class="text-xs text-slate-400 mt-1">COM (Negro)</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-8 h-8 bg-red-600 rounded-full border-2 border-red-400 mx-auto"></div>
+                            <p class="text-xs text-slate-400 mt-1">VΩmA (Rojo)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: PROTOBOARD INTERACTIVO -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-green-400">
+                <i class="fas fa-th mr-2"></i>Protoboard Interactivo
+            </h2>
+            <p class="text-slate-300 mb-4">
+                Haz clic en los puntos para marcar conexiones. Simula el armado de un circuito en el protoboard.
+            </p>
+
+            <div class="bg-slate-900 p-6 rounded-lg">
+                <!-- Controles -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <button onclick="setModoProto('conectar')" id="btn-conectar" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded text-sm">
+                        <i class="fas fa-link mr-1"></i>Modo Conectar
+                    </button>
+                    <button onclick="setModoProto('borrar')" id="btn-borrar" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded text-sm">
+                        <i class="fas fa-eraser mr-1"></i>Modo Borrar
+                    </button>
+                    <button onclick="limpiarProtoboard()" class="bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded text-sm">
+                        <i class="fas fa-trash mr-1"></i>Limpiar Todo
+                    </button>
+                    <button onclick="cargarEjemploProto()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded text-sm">
+                        <i class="fas fa-lightbulb mr-1"></i>Cargar Ejemplo
+                    </button>
+                    <div class="flex items-center gap-2 ml-auto">
+                        <span class="text-sm text-slate-400">Puntos conectados:</span>
+                        <span class="text-cyan-400 font-bold" id="contador-puntos">0</span>
                     </div>
                 </div>
 
-                <!-- Resultado de medición -->
-                <div class="mt-6 p-4 bg-blue-900 rounded-lg">
-                    <h3 class="font-bold mb-2 text-yellow-300">📖 ¿Cómo usar el multímetro real?</h3>
-                    <ol class="text-sm text-slate-300 space-y-1 list-decimal list-inside">
-                        <li>Conecta la sonda negra al puerto COM</li>
-                        <li>Conecta la sonda roja al puerto correspondiente</li>
-                        <li>Selecciona el modo y rango adecuado</li>
-                        <li>Toca los puntos de medición</li>
-                        <li>Lee el valor en la pantalla</li>
-                    </ol>
+                <!-- Leyenda -->
+                <div class="flex flex-wrap gap-4 mb-4 text-xs">
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 rounded-full bg-red-500"></div>
+                        <span class="text-slate-300">Rail Positivo (+)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 rounded-full bg-blue-500"></div>
+                        <span class="text-slate-300">Rail Negativo (-)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 rounded-full bg-slate-500"></div>
+                        <span class="text-slate-300">Punto normal</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 rounded-full bg-cyan-400"></div>
+                        <span class="text-slate-300">Conectado</span>
+                    </div>
+                </div>
+
+                <!-- Protoboard -->
+                <div class="bg-slate-800 p-4 rounded-lg overflow-x-auto">
+                    <div id="protoboard" class="inline-block">
+                        <!-- Se genera dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Info -->
+                <div class="mt-4 bg-blue-900 p-3 rounded-lg">
+                    <p class="text-sm text-slate-300">
+                        💡 <strong>Instrucciones:</strong> Selecciona "Modo Conectar" y haz clic en los puntos para marcarlos como conectados. 
+                        Los puntos en la misma fila del área central están conectados entre sí (como en un protoboard real).
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- GALERÍA DE HERRAMIENTAS -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-orange-400">
-                <i class="fas fa-toolbox mr-2"></i> Herramientas Esenciales
-            </h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                
-                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
-                    <i class="fas fa-fire text-4xl text-red-400 mb-3"></i>
-                    <h3 class="font-bold text-lg mb-2">Cautín/Soldador</h3>
-                    <p class="text-sm text-slate-300">
-                        Herramienta para unir componentes mediante soldadura de estaño.
-                        Temperatura típica: 300-400°C.
-                    </p>
-                </div>
-
-                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
-                    <i class="fas fa-th text-4xl text-green-400 mb-3"></i>
-                    <h3 class="font-bold text-lg mb-2">Protoboard</h3>
-                    <p class="text-sm text-slate-300">
-                        Tablero de pruebas para armar circuitos sin soldar.
-                        Los agujeros están conectados internamente.
-                    </p>
-                </div>
-
-                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
-                    <i class="fas fa-cut text-4xl text-blue-400 mb-3"></i>
-                    <h3 class="font-bold text-lg mb-2">Pinzas de corte</h3>
-                    <p class="text-sm text-slate-300">
-                        Para cortar cables y patillas de componentes.
-                        Esenciales para trabajos de precisión.
-                    </p>
-                </div>
-
-                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
-                    <i class="fas fa-search text-4xl text-purple-400 mb-3"></i>
-                    <h3 class="font-bold text-lg mb-2">Lupa</h3>
-                    <p class="text-sm text-slate-300">
-                        Para inspeccionar soldaduras y componentes pequeños.
-                        Muy útil en trabajos SMD.
-                    </p>
-                </div>
-
-                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
-                    <i class="fas fa-wind text-4xl text-cyan-400 mb-3"></i>
-                    <h3 class="font-bold text-lg mb-2">Extractor de estaño</h3>
-                    <p class="text-sm text-slate-300">
-                        Para remover soldadura excedente o corregir errores.
-                        Funciona como una jeringa de succión.
-                    </p>
-                </div>
-
-                <div class="bg-slate-900 p-4 rounded-lg hover:scale-105 transition">
-                    <i class="fas fa-lightbulb text-4xl text-yellow-400 mb-3"></i>
-                    <h3 class="font-bold text-lg mb-2">Fuente de poder</h3>
-                    <p class="text-sm text-slate-300">
-                        Suministra voltaje regulable para probar circuitos.
-                        Más segura que usar baterías sueltas.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- PROTOBOARD INTERACTIVO -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-green-400">
-                <i class="fas fa-th-large mr-2"></i> ¿Cómo funciona la Protoboard?
+        <!-- SECCIÓN 4: CALCULADORA -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
+                <i class="fas fa-calculator mr-2"></i>Calculadora para Estudiantes
             </h2>
             <p class="text-slate-300 mb-4">
-                Haz clic en las filas para ver cómo están conectadas internamente.
+                Practica tus cálculos de electrónica con esta calculadora interactiva.
             </p>
-            
+
             <div class="bg-slate-900 p-6 rounded-lg">
-                <div class="grid grid-cols-10 gap-1 max-w-2xl mx-auto" id="protoboard">
-                    <!-- Se genera con JavaScript -->
+                <div class="mb-4">
+                    <div class="calc-display" id="calc-display">0</div>
                 </div>
-                <p class="text-center text-sm text-slate-400 mt-4">
-                    <span class="inline-block w-4 h-4 bg-red-500 rounded mr-2"></span>Fila positiva
-                    <span class="inline-block w-4 h-4 bg-blue-500 rounded ml-4 mr-2"></span>Fila negativa
-                    <span class="inline-block w-4 h-4 bg-slate-600 rounded ml-4 mr-2"></span>Puntos de conexión
-                </p>
+
+                <div class="grid grid-cols-4 gap-2 mb-4">
+                    <button onclick="calcClear()" class="calc-btn bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-lg">C</button>
+                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg">⌫</button>
+                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">%</button>
+                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">÷</button>
+
+                    <button onclick="calcNumber('7')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">7</button>
+                    <button onclick="calcNumber('8')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">8</button>
+                    <button onclick="calcNumber('9')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">9</button>
+                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">×</button>
+
+                    <button onclick="calcNumber('4')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">4</button>
+                    <button onclick="calcNumber('5')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">5</button>
+                    <button onclick="calcNumber('6')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">6</button>
+                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">−</button>
+
+                    <button onclick="calcNumber('1')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">1</button>
+                    <button onclick="calcNumber('2')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">2</button>
+                    <button onclick="calcNumber('3')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">3</button>
+                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">+</button>
+
+                    <button onclick="calcNumber('0')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg col-span-2">0</button>
+                    <button onclick="calcDecimal()" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">.</button>
+                    <button onclick="calcEquals()" class="calc-btn bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-lg">=</button>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 mb-4">
+                    <button onclick="calcConvert('ohm-kohm')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">Ω → kΩ</button>
+                    <button onclick="calcConvert('kohm-mohm')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">kΩ → MΩ</button>
+                    <button onclick="calcConvert('ma-a')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">mA → A</button>
+                </div>
+
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <h3 class="font-bold text-yellow-400 mb-3">⚡ Fórmulas Rápidas:</h3>
+                    <div class="grid md:grid-cols-2 gap-2 text-sm">
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-cyan-400 font-mono text-xs">V = I × R</p>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-cyan-400 font-mono text-xs">I = V / R</p>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-cyan-400 font-mono text-xs">R = V / I</p>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded">
+                            <p class="text-cyan-400 font-mono text-xs">P = V × I</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- SEGURIDAD -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl border-2 border-red-500">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-red-400">
-                <i class="fas fa-exclamation-triangle mr-2"></i> Normas de Seguridad
+        <!-- SECCIÓN 5: EJEMPLOS PRÁCTICOS -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+                <i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos: ¡Calcula Tú Mismo!
             </h2>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <h3 class="font-bold text-green-400 mb-2"><i class="fas fa-check mr-2"></i>SÍ hacer:</h3>
-                    <ul class="text-sm text-slate-300 space-y-1 list-disc list-inside">
-                        <li>Usar gafas de protección al soldar</li>
-                        <li>Trabajar en área ventilada</li>
-                        <li>Desconectar energía antes de medir</li>
-                        <li>Verificar polaridad antes de conectar</li>
-                        <li>Usar guantes térmicos con el soldador</li>
-                    </ul>
+            <p class="text-slate-300 mb-4">
+                Resuelve estos problemas sobre herramientas y mediciones. Completa los 50 ejemplos.
+            </p>
+
+            <div class="bg-slate-900 p-4 rounded-lg mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm text-slate-400">Progreso:</span>
+                    <span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50 completados</span>
                 </div>
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <h3 class="font-bold text-red-400 mb-2"><i class="fas fa-times mr-2"></i>NO hacer:</h3>
-                    <ul class="text-sm text-slate-300 space-y-1 list-disc list-inside">
-                        <li>Tocar componentes calientes</li>
-                        <li>Medir resistencia con circuito energizado</li>
-                        <li>Usar herramientas dañadas</li>
-                        <li>Dejar el soldador encendido sin supervisión</li>
-                        <li>Trabajar con las manos mojadas</li>
-                    </ul>
+                <div class="w-full bg-slate-700 rounded-full h-3">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
+
+            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500"></div>
+
+            <div class="flex gap-4 mt-6">
+                <button onclick="ejemploAnterior()" id="btn-anterior"
+                        class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior
+                </button>
+                <button onclick="siguienteEjemplo()" id="btn-siguiente"
+                        class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">
+                    Siguiente<i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
+                <p class="text-sm text-slate-400 mb-3">O salta a un ejemplo específico:</p>
+                <div class="flex gap-2">
+                    <input type="number" id="saltar-a" min="1" max="50" placeholder="Número (1-50)" 
+                           class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                    <button onclick="irAEjemplo()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded transition">Ir</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 6: QUIZ -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+                <i class="fas fa-question-circle mr-2"></i>Quiz: Evalúa tu Conocimiento
+            </h2>
+            <p class="text-slate-300 mb-4">
+                10 preguntas aleatorias de un banco de 30 sobre herramientas de medición.
+            </p>
+            
+            <div id="quiz-container" class="space-y-4 mb-6"></div>
+            
+            <button onclick="verResultados()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg transition">
+                <i class="fas fa-check-circle mr-2"></i>Ver Resultados
+            </button>
+            
+            <div id="resultado-quiz" class="mt-6 hidden"></div>
+            
+            <button onclick="nuevoIntento()" class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden" id="btn-reintentar">
+                <i class="fas fa-redo mr-2"></i>Intentar de Nuevo
+            </button>
         </div>
 
     </div>
 
     <script>
         // ============ MULTÍMETRO VIRTUAL ============
-        let modoActual = 'vdc';
-        const voltajeFuente = document.getElementById('voltaje-fuente');
-        const voltajeValor = document.getElementById('voltaje-valor');
-        const displayValor = document.getElementById('display-valor');
-        const unidadActual = document.getElementById('unidad-actual');
-        const modoActualEl = document.getElementById('modo-actual');
+        let modoMultimetro = 'off';
+        let valorSimulado = 0;
 
-        const modos = {
-            'vdc': { nombre: 'VOLTAJE DC', unidad: 'V', color: '#facc15' },
-            'vac': { nombre: 'VOLTAJE AC', unidad: 'V~', color: '#facc15' },
-            'resistencia': { nombre: 'RESISTENCIA', unidad: 'Ω', color: '#22d3ee' },
-            'continuidad': { nombre: 'CONTINUIDAD', unidad: 'BEEP', color: '#4ade80' }
-        };
-
-        function cambiarModo(nuevoModo) {
-            modoActual = nuevoModo;
+        function setModo(modo) {
+            modoMultimetro = modo;
             
             // Actualizar botones
-            document.querySelectorAll('#btn-vdc, #btn-vac, #btn-resistencia, #btn-continuidad').forEach(btn => {
-                btn.classList.remove('bg-yellow-600');
+            document.querySelectorAll('.modo-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`modo-${modo}`).classList.add('active');
+            
+            const display = document.getElementById('multimetro-display');
+            const modoActual = document.getElementById('modo-actual');
+            const unidadActual = document.getElementById('unidad-actual');
+            const controles = document.getElementById('controles-multimetro');
+            
+            if (modo === 'off') {
+                display.textContent = '';
+                display.classList.add('off');
+                modoActual.textContent = 'Modo: OFF';
+                unidadActual.textContent = '-';
+                controles.innerHTML = '<p class="text-center text-slate-400">Multímetro apagado. Selecciona un modo.</p>';
+                return;
+            }
+            
+            display.classList.remove('off');
+            
+            if (modo === 'vdc') {
+                modoActual.textContent = 'Modo: Voltaje DC';
+                unidadActual.textContent = 'V DC';
+                controles.innerHTML = `
+                    <div>
+                        <label class="block mb-2 font-semibold text-sm">
+                            <i class="fas fa-battery-full text-yellow-400 mr-2"></i>
+                            Voltaje de la batería: <span id="vdc-valor" class="text-yellow-400">9</span> V
+                        </label>
+                        <input type="range" id="vdc-slider" min="0" max="24" step="0.1" value="9" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-400"
+                               oninput="actualizarVDC(this.value)">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>0V</span><span>12V</span><span>24V</span>
+                        </div>
+                    </div>
+                `;
+                actualizarVDC(9);
+            } else if (modo === 'vac') {
+                modoActual.textContent = 'Modo: Voltaje AC';
+                unidadActual.textContent = 'V AC';
+                controles.innerHTML = `
+                    <div>
+                        <label class="block mb-2 font-semibold text-sm">
+                            <i class="fas fa-wave-square text-purple-400 mr-2"></i>
+                            Voltaje de la red: <span id="vac-valor" class="text-purple-400">120</span> V
+                        </label>
+                        <input type="range" id="vac-slider" min="0" max="240" step="1" value="120" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-purple-400"
+                               oninput="actualizarVAC(this.value)">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>0V</span><span>120V</span><span>240V</span>
+                        </div>
+                    </div>
+                `;
+                actualizarVAC(120);
+            } else if (modo === 'ohm') {
+                modoActual.textContent = 'Modo: Resistencia';
+                unidadActual.textContent = 'Ω';
+                controles.innerHTML = `
+                    <div>
+                        <label class="block mb-2 font-semibold text-sm">
+                            <i class="fas fa-microchip text-red-400 mr-2"></i>
+                            Resistencia a medir: <span id="ohm-valor" class="text-red-400">1000</span> Ω
+                        </label>
+                        <input type="range" id="ohm-slider" min="0" max="10000" step="10" value="1000" 
+                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-red-400"
+                               oninput="actualizarOhm(this.value)">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>0Ω</span><span>5000Ω</span><span>10000Ω</span>
+                        </div>
+                    </div>
+                `;
+                actualizarOhm(1000);
+            } else if (modo === 'cont') {
+                modoActual.textContent = 'Modo: Continuidad';
+                unidadActual.textContent = 'Continuidad';
+                controles.innerHTML = `
+                    <div class="text-center">
+                        <p class="text-slate-300 mb-4">Simula la prueba de continuidad:</p>
+                        <button onclick="toggleContinuidad()" id="btn-continuidad" 
+                                class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-8 rounded-lg text-lg">
+                            <i class="fas fa-plug mr-2"></i>Simular Conexión
+                        </button>
+                        <div id="estado-continuidad" class="mt-4 p-4 bg-slate-800 rounded-lg">
+                            <p class="text-slate-400">Estado: Circuito abierto (sin conexión)</p>
+                        </div>
+                    </div>
+                `;
+                display.textContent = 'OL';
+            }
+        }
+
+        function actualizarVDC(valor) {
+            document.getElementById('vdc-valor').textContent = parseFloat(valor).toFixed(1);
+            document.getElementById('multimetro-display').textContent = parseFloat(valor).toFixed(3);
+        }
+
+        function actualizarVAC(valor) {
+            document.getElementById('vac-valor').textContent = valor;
+            // Simular fluctuación de AC
+            const fluctuacion = (Math.random() - 0.5) * 2;
+            const valorMostrado = parseFloat(valor) + fluctuacion;
+            document.getElementById('multimetro-display').textContent = valorMostrado.toFixed(1);
+        }
+
+        function actualizarOhm(valor) {
+            document.getElementById('ohm-valor').textContent = valor;
+            let display;
+            if (valor >= 1000000) display = (valor / 1000000).toFixed(2) + ' M';
+            else if (valor >= 1000) display = (valor / 1000).toFixed(2) + ' k';
+            else display = valor;
+            document.getElementById('multimetro-display').textContent = display;
+        }
+
+        let continuidadActiva = false;
+        function toggleContinuidad() {
+            continuidadActiva = !continuidadActiva;
+            const display = document.getElementById('multimetro-display');
+            const estado = document.getElementById('estado-continuidad');
+            const btn = document.getElementById('btn-continuidad');
+            
+            if (continuidadActiva) {
+                display.textContent = '0.000';
+                display.style.color = '#00ff00';
+                estado.innerHTML = '<p class="text-green-400 font-bold"><i class="fas fa-check-circle mr-2"></i>¡Continuidad detectada! Circuito cerrado.</p>';
+                btn.innerHTML = '<i class="fas fa-unlink mr-2"></i>Desconectar';
+                btn.classList.remove('bg-slate-700');
+                btn.classList.add('bg-green-600');
+            } else {
+                display.textContent = 'OL';
+                display.style.color = '#00ff00';
+                estado.innerHTML = '<p class="text-slate-400">Estado: Circuito abierto (sin conexión)</p>';
+                btn.innerHTML = '<i class="fas fa-plug mr-2"></i>Simular Conexión';
+                btn.classList.remove('bg-green-600');
                 btn.classList.add('bg-slate-700');
-            });
-            document.getElementById('btn-' + nuevoModo).classList.remove('bg-slate-700');
-            document.getElementById('btn-' + nuevoModo).classList.add('bg-yellow-600');
-            
-            // Actualizar display
-            modoActualEl.textContent = 'MODO: ' + modos[nuevoModo].nombre;
-            unidadActual.textContent = modos[nuevoModo].unidad;
-            displayValor.style.color = modos[nuevoModo].color;
-            
-            actualizarMedicion();
-        }
-
-        function actualizarMedicion() {
-            const v = parseFloat(voltajeFuente.value);
-            voltajeValor.textContent = v.toFixed(1);
-            
-            switch(modoActual) {
-                case 'vdc':
-                case 'vac':
-                    displayValor.textContent = v.toFixed(2);
-                    break;
-                case 'resistencia':
-                    // Simular medición de resistencia basada en voltaje
-                    const r = v * 100;
-                    displayValor.textContent = r.toFixed(0);
-                    break;
-                case 'continuidad':
-                    if (v > 0) {
-                        displayValor.textContent = '0.00';
-                        displayValor.style.color = '#4ade80';
-                    } else {
-                        displayValor.textContent = 'OL';
-                        displayValor.style.color = '#f87171';
-                    }
-                    break;
             }
         }
 
-        voltajeFuente.addEventListener('input', actualizarMedicion);
+        // ============ PROTOBOARD INTERACTIVO ============
+        let modoProto = 'conectar';
+        let puntosConectados = new Set();
+        const FILAS = 10;
+        const COLS = 20;
 
-        // ============ PROTOBOARD INTERACTIVA ============
-        const protoboard = document.getElementById('protoboard');
-        
-        for (let fila = 0; fila < 30; fila++) {
-            for (let col = 0; col < 10; col++) {
-                const celda = document.createElement('div');
-                celda.className = 'h-6 rounded cursor-pointer transition hover:scale-110';
-                
-                if (fila === 0) {
-                    celda.classList.add('bg-red-500');
-                    celda.title = 'Fila positiva (+)';
-                } else if (fila === 29) {
-                    celda.classList.add('bg-blue-500');
-                    celda.title = 'Fila negativa (-)';
-                } else {
-                    celda.classList.add('bg-slate-600');
-                    celda.title = `Fila ${fila + 1}, Columna ${col + 1}`;
+        function initProtoboard() {
+            const proto = document.getElementById('protoboard');
+            let html = '<div class="flex flex-col gap-1">';
+            
+            // Rail superior positivo (rojo)
+            html += '<div class="flex gap-1 mb-2 justify-center">';
+            for (let c = 0; c < COLS; c++) {
+                html += `<div class="proto-point rail bg-red-500" data-tipo="rail+" data-row="0" data-col="${c}" onclick="toggleProto(this)"></div>`;
+            }
+            html += '</div>';
+            
+            // Área central
+            for (let r = 0; r < FILAS; r++) {
+                html += '<div class="flex gap-1 justify-center">';
+                for (let c = 0; c < COLS; c++) {
+                    const esMitad = r === Math.floor(FILAS/2);
+                    const color = esMitad ? 'bg-slate-700' : 'bg-slate-500';
+                    html += `<div class="proto-point ${color}" data-tipo="normal" data-row="${r}" data-col="${c}" onclick="toggleProto(this)"></div>`;
                 }
-                
-                celda.addEventListener('click', () => {
-                    celda.classList.toggle('bg-yellow-400');
-                    celda.classList.toggle('bg-slate-600');
-                });
-                
-                protoboard.appendChild(celda);
+                html += '</div>';
+                if (r === Math.floor(FILAS/2) - 1) {
+                    html += '<div class="h-2"></div>'; // Canal central
+                }
+            }
+            
+            // Rail inferior negativo (azul)
+            html += '<div class="flex gap-1 mt-2 justify-center">';
+            for (let c = 0; c < COLS; c++) {
+                html += `<div class="proto-point rail bg-blue-500" data-tipo="rail-" data-row="${FILAS+1}" data-col="${c}" onclick="toggleProto(this)"></div>`;
+            }
+            html += '</div>';
+            
+            html += '</div>';
+            proto.innerHTML = html;
+        }
+
+        function setModoProto(modo) {
+            modoProto = modo;
+            document.getElementById('btn-conectar').className = modo === 'conectar' 
+                ? 'bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2 px-4 rounded text-sm'
+                : 'bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded text-sm';
+            document.getElementById('btn-borrar').className = modo === 'borrar'
+                ? 'bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded text-sm'
+                : 'bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded text-sm';
+        }
+
+        function toggleProto(elemento) {
+            const key = `${elemento.dataset.row}-${elemento.dataset.col}`;
+            
+            if (modoProto === 'conectar') {
+                if (puntosConectados.has(key)) {
+                    puntosConectados.delete(key);
+                    elemento.classList.remove('active');
+                } else {
+                    puntosConectados.add(key);
+                    elemento.classList.add('active');
+                }
+            } else {
+                puntosConectados.delete(key);
+                elemento.classList.remove('active');
+            }
+            
+            document.getElementById('contador-puntos').textContent = puntosConectados.size;
+        }
+
+        function limpiarProtoboard() {
+            puntosConectados.clear();
+            document.querySelectorAll('.proto-point').forEach(p => p.classList.remove('active'));
+            document.getElementById('contador-puntos').textContent = '0';
+        }
+
+        function cargarEjemploProto() {
+            limpiarProtoboard();
+            // Simular un circuito simple: batería + resistencia + LED
+            const ejemplo = [
+                '0-2', '0-3', '0-4', '0-5', // Rail positivo
+                '2-2', '2-3', '2-4', '2-5', // Fila de batería
+                '2-8', '2-9', '2-10', '2-11', // Fila de resistencia
+                '2-15', '2-16', '2-17', '2-18', // Fila de LED
+                '11-2', '11-3', '11-4', '11-5', // Rail negativo
+                '11-15', '11-16', '11-17', '11-18'
+            ];
+            
+            ejemplo.forEach(key => {
+                puntosConectados.add(key);
+                const [row, col] = key.split('-');
+                const punto = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                if (punto) punto.classList.add('active');
+            });
+            
+            document.getElementById('contador-puntos').textContent = puntosConectados.size;
+        }
+
+        // ============ CALCULADORA ============
+        let calcExpression = '';
+        let calcDisplay = document.getElementById('calc-display');
+
+        function calcNumber(num) {
+            calcExpression += num;
+            calcDisplay.textContent = calcExpression;
+        }
+
+        function calcOperator(op) {
+            calcExpression += op;
+            calcDisplay.textContent = calcExpression;
+        }
+
+        function calcDecimal() {
+            if (!calcExpression.includes('.')) {
+                calcExpression += '.';
+                calcDisplay.textContent = calcExpression;
             }
         }
 
-        // Inicializar
-        actualizarMedicion();
+        function calcClear() {
+            calcExpression = '';
+            calcDisplay.textContent = '0';
+        }
+
+        function calcBackspace() {
+            calcExpression = calcExpression.slice(0, -1);
+            calcDisplay.textContent = calcExpression || '0';
+        }
+
+        function calcEquals() {
+            try {
+                const result = eval(calcExpression);
+                calcDisplay.textContent = result;
+                calcExpression = result.toString();
+            } catch (error) {
+                calcDisplay.textContent = 'Error';
+                calcExpression = '';
+            }
+        }
+
+        function calcConvert(type) {
+            const currentValue = parseFloat(calcExpression);
+            if (isNaN(currentValue)) {
+                calcDisplay.textContent = 'Error';
+                return;
+            }
+
+            let result;
+            switch(type) {
+                case 'ohm-kohm':
+                    result = currentValue / 1000;
+                    calcDisplay.textContent = result + ' kΩ';
+                    break;
+                case 'kohm-mohm':
+                    result = currentValue / 1000;
+                    calcDisplay.textContent = result + ' MΩ';
+                    break;
+                case 'ma-a':
+                    result = currentValue / 1000;
+                    calcDisplay.textContent = result + ' A';
+                    break;
+            }
+            calcExpression = result.toString();
+        }
+
+        // ============ 50 EJEMPLOS PRÁCTICOS ============
+        const ejemplosPracticos = [
+            { titulo: "Medir batería AA", icono: "🔋", color: "yellow", tipo: "V", v: 1.5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Medir batería 9V", icono: "🔋", color: "yellow", tipo: "V", v: 9, r: 0, i: 0, unidad: "V" },
+            { titulo: "Medir batería de auto", icono: "🚗", color: "red", tipo: "V", v: 12, r: 0, i: 0, unidad: "V" },
+            { titulo: "Medir voltaje USB", icono: "🔌", color: "cyan", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Medir voltaje doméstico", icono: "🏠", color: "purple", tipo: "V", v: 120, r: 0, i: 0, unidad: "V" },
+            { titulo: "Resistencia de 100Ω", icono: "", color: "red", tipo: "R", v: 0, r: 100, i: 0, unidad: "Ω" },
+            { titulo: "Resistencia de 1kΩ", icono: "", color: "orange", tipo: "R", v: 0, r: 1000, i: 0, unidad: "Ω" },
+            { titulo: "Resistencia de 10kΩ", icono: "", color: "yellow", tipo: "R", v: 0, r: 10000, i: 0, unidad: "Ω" },
+            { titulo: "Corriente de LED", icono: "💡", color: "green", tipo: "I", v: 5, r: 220, i: 0, unidad: "mA" },
+            { titulo: "Corriente de motor pequeño", icono: "️", color: "blue", tipo: "I", v: 6, r: 12, i: 0, unidad: "A" },
+            { titulo: "Continuidad de cable", icono: "🔌", color: "cyan", tipo: "cont", v: 0, r: 0, i: 0, unidad: "Ω" },
+            { titulo: "Prueba de fusible", icono: "🛡️", color: "red", tipo: "cont", v: 0, r: 0, i: 0, unidad: "Ω" },
+            { titulo: "Temperatura de soldador", icono: "🔥", color: "orange", tipo: "temp", v: 350, r: 0, i: 0, unidad: "°C" },
+            { titulo: "Capacitor de 100μF", icono: "🔋", color: "green", tipo: "cap", v: 0, r: 0, i: 0, unidad: "μF" },
+            { titulo: "Capacitor de 1000μF", icono: "", color: "blue", tipo: "cap", v: 0, r: 0, i: 0, unidad: "μF" },
+            { titulo: "Diodo en polarización directa", icono: "➡️", color: "red", tipo: "V", v: 0.7, r: 0, i: 0, unidad: "V" },
+            { titulo: "LED rojo voltaje", icono: "🔴", color: "red", tipo: "V", v: 2.0, r: 0, i: 0, unidad: "V" },
+            { titulo: "LED azul voltaje", icono: "🔵", color: "blue", tipo: "V", v: 3.2, r: 0, i: 0, unidad: "V" },
+            { titulo: "Transistor NPN prueba", icono: "🔺", color: "green", tipo: "cont", v: 0, r: 0, i: 0, unidad: "Ω" },
+            { titulo: "Sensor LDR luz", icono: "💡", color: "yellow", tipo: "R", v: 0, r: 10000, i: 0, unidad: "Ω" },
+            { titulo: "Termistor NTC", icono: "🌡️", color: "orange", tipo: "R", v: 0, r: 10000, i: 0, unidad: "Ω" },
+            { titulo: "Potenciómetro al 50%", icono: "🎚️", color: "purple", tipo: "R", v: 0, r: 5000, i: 0, unidad: "Ω" },
+            { titulo: "Buzzer 5V", icono: "", color: "cyan", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Relé 5V bobina", icono: "🔘", color: "blue", tipo: "R", v: 0, r: 70, i: 0, unidad: "Ω" },
+            { titulo: "Motor DC 12V", icono: "⚙️", color: "green", tipo: "I", v: 12, r: 24, i: 0, unidad: "A" },
+            { titulo: "Servo motor corriente", icono: "", color: "purple", tipo: "I", v: 5, r: 100, i: 0, unidad: "mA" },
+            { titulo: "Display 7 segmentos", icono: "🔢", color: "red", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "LCD 16x2 voltaje", icono: "📟", color: "green", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "ESP8266 corriente", icono: "", color: "cyan", tipo: "I", v: 3.3, r: 33, i: 0, unidad: "mA" },
+            { titulo: "HC-05 Bluetooth", icono: "📡", color: "blue", tipo: "I", v: 5, r: 100, i: 0, unidad: "mA" },
+            { titulo: "Sensor ultrasónico", icono: "📏", color: "yellow", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Sensor PIR", icono: "🏃", color: "red", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Sensor de humedad", icono: "💧", color: "blue", tipo: "R", v: 0, r: 100000, i: 0, unidad: "Ω" },
+            { titulo: "Sensor de gas MQ-2", icono: "💨", color: "orange", tipo: "R", v: 0, r: 33, i: 0, unidad: "Ω" },
+            { titulo: "Acelerómetro ADXL345", icono: "📐", color: "green", tipo: "V", v: 3.3, r: 0, i: 0, unidad: "V" },
+            { titulo: "Giroscopio MPU6050", icono: "🔄", color: "purple", tipo: "V", v: 3.3, r: 0, i: 0, unidad: "V" },
+            { titulo: "Módulo GPS", icono: "🛰️", color: "cyan", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "RTC DS3231", icono: "⏰", color: "red", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Módulo SD", icono: "💾", color: "green", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Ethernet Shield", icono: "🌐", color: "blue", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "OLED Display", icono: "📱", color: "purple", tipo: "V", v: 3.3, r: 0, i: 0, unidad: "V" },
+            { titulo: "Cámara OV7670", icono: "📷", color: "yellow", tipo: "V", v: 3.3, r: 0, i: 0, unidad: "V" },
+            { titulo: "Módulo RF 433MHz", icono: "📻", color: "red", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "NFC RC522", icono: "💳", color: "cyan", tipo: "V", v: 3.3, r: 0, i: 0, unidad: "V" },
+            { titulo: "Sensor de huella", icono: "", color: "green", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Keypad 4x4", icono: "⌨️", color: "blue", tipo: "cont", v: 0, r: 0, i: 0, unidad: "Ω" },
+            { titulo: "Encoder rotativo", icono: "🔄", color: "purple", tipo: "cont", v: 0, r: 0, i: 0, unidad: "Ω" },
+            { titulo: "Joystick módulo", icono: "🕹️", color: "yellow", tipo: "V", v: 2.5, r: 0, i: 0, unidad: "V" },
+            { titulo: "Botón pulsador", icono: "🔘", color: "red", tipo: "cont", v: 0, r: 0, i: 0, unidad: "Ω" },
+            { titulo: "Switch toggle", icono: "🔀", color: "orange", tipo: "cont", v: 0, r: 0, i: 0, unidad: "Ω" }
+        ];
+
+        // ============ SISTEMA DE EJEMPLOS ============
+        let ejemploActual = 0;
+        let ejemplosCompletados = new Set();
+
+        function renderizarEjemploActual() {
+            const ej = ejemplosPracticos[ejemploActual];
+            let respuestaCorrecta, pregunta, formula;
+            
+            if (ej.tipo === 'V') {
+                respuestaCorrecta = ej.v;
+                pregunta = `¿Qué voltaje mide el multímetro en modo V DC?`;
+                formula = `V = ${ej.v}V`;
+            } else if (ej.tipo === 'R') {
+                respuestaCorrecta = ej.r;
+                pregunta = `¿Qué resistencia mide el multímetro en modo Ω?`;
+                formula = `R = ${ej.r}Ω`;
+            } else if (ej.tipo === 'I') {
+                respuestaCorrecta = ej.unidad === 'mA' ? (ej.v / ej.r * 1000) : (ej.v / ej.r);
+                pregunta = `Voltaje: ${ej.v}V, Resistencia: ${ej.r}Ω. ¿Cuánta corriente mide?`;
+                formula = `I = V/R = ${ej.v}V / ${ej.r}Ω = ${respuestaCorrecta.toFixed(2)} ${ej.unidad}`;
+            } else if (ej.tipo === 'cont') {
+                respuestaCorrecta = 0;
+                pregunta = `¿Qué valor muestra el multímetro en modo continuidad si hay conexión? (0 = conectado, 999 = abierto)`;
+                formula = `Continuidad = 0Ω (conectado)`;
+            } else if (ej.tipo === 'temp') {
+                respuestaCorrecta = ej.v;
+                pregunta = `¿A qué temperatura debe estar el soldador para soldadura estándar?`;
+                formula = `T = ${ej.v}°C`;
+            } else if (ej.tipo === 'cap') {
+                respuestaCorrecta = ej.unidad === 'μF' ? ej.r : 0;
+                // Usar un valor fijo para capacitores
+                respuestaCorrecta = ej.titulo.includes('100μF') ? 100 : 1000;
+                pregunta = `¿Cuál es el valor del capacitor en μF?`;
+                formula = `C = ${respuestaCorrecta}μF`;
+            }
+            
+            const container = document.getElementById('ejemplo-actual');
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                </div>
+                
+                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">
+                    ${ej.icono} ${ej.titulo}
+                </h3>
+                
+                <p class="text-slate-300 mb-4">${pregunta}</p>
+                
+                <div class="bg-slate-800 p-4 rounded-lg">
+                    <p class="text-sm text-slate-400 mb-2">Tu respuesta:</p>
+                    <div class="flex gap-2">
+                        <input type="number" id="respuesta-actual" step="0.01"
+                               placeholder="Ingresa la respuesta en ${ej.unidad}" 
+                               class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white text-lg"
+                               onkeypress="if(event.key==='Enter') verificarEjemploActual()">
+                        <button onclick="verificarEjemploActual()" 
+                                class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded transition">
+                            Verificar
+                        </button>
+                    </div>
+                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                </div>
+            `;
+            
+            // Guardar datos para verificación
+            window.ejemploActualData = { correcta: respuestaCorrecta, unidad: ej.unidad, formula: formula };
+            
+            document.getElementById('btn-anterior').disabled = ejemploActual === 0;
+            actualizarProgreso();
+        }
+
+        function verificarEjemploActual() {
+            const { correcta, unidad, formula } = window.ejemploActualData;
+            const input = document.getElementById('respuesta-actual');
+            const respuesta = parseFloat(input.value);
+            const resultadoDiv = document.getElementById('resultado-actual');
+            
+            if (isNaN(respuesta)) {
+                resultadoDiv.classList.remove('hidden');
+                resultadoDiv.innerHTML = `
+                    <div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded">
+                        <p class="font-bold text-yellow-400">⚠️ Ingresa un número</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const tolerancia = Math.max(correcta * 0.05, 0.1);
+            const esCorrecta = Math.abs(respuesta - correcta) <= tolerancia;
+            
+            resultadoDiv.classList.remove('hidden');
+            
+            if (esCorrecta) {
+                ejemplosCompletados.add(ejemploActual);
+                resultadoDiv.innerHTML = `
+                    <div class="bg-green-900 border-2 border-green-500 p-3 rounded">
+                        <p class="font-bold text-green-400">✅ ¡Correcto!</p>
+                        <p class="text-sm text-slate-300">${formula}</p>
+                    </div>
+                `;
+                actualizarProgreso();
+                
+                setTimeout(() => {
+                    if (ejemploActual < ejemplosPracticos.length - 1) {
+                        siguienteEjemplo();
+                    }
+                }, 2000);
+            } else {
+                resultadoDiv.innerHTML = `
+                    <div class="bg-red-900 border-2 border-red-500 p-3 rounded">
+                        <p class="font-bold text-red-400">❌ Incorrecto</p>
+                        <p class="text-sm text-slate-300">La respuesta correcta es <strong>${correcta} ${unidad}</strong></p>
+                        <p class="text-xs text-slate-400 mt-1">${formula}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function siguienteEjemplo() {
+            if (ejemploActual < ejemplosPracticos.length - 1) {
+                ejemploActual++;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            }
+        }
+
+        function ejemploAnterior() {
+            if (ejemploActual > 0) {
+                ejemploActual--;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            }
+        }
+
+        function irAEjemplo() {
+            const numero = parseInt(document.getElementById('saltar-a').value);
+            if (numero >= 1 && numero <= ejemplosPracticos.length) {
+                ejemploActual = numero - 1;
+                renderizarEjemploActual();
+                window.scrollTo({ top: document.getElementById('ejemplo-actual').offsetTop - 100, behavior: 'smooth' });
+            } else {
+                alert('Ingresa un número entre 1 y 50');
+            }
+        }
+
+        function actualizarProgreso() {
+            const completados = ejemplosCompletados.size;
+            const porcentaje = (completados / ejemplosPracticos.length) * 100;
+            
+            document.getElementById('progreso-texto').textContent = `${completados} de ${ejemplosPracticos.length} completados`;
+            document.getElementById('barra-progreso').style.width = porcentaje + '%';
+        }
+
+        // ============ BANCO DE 30 PREGUNTAS ============
+        const bancoPreguntas = [
+            { pregunta: "¿Qué instrumento mide voltaje, corriente y resistencia?", opciones: ["Osciloscopio", "Multímetro", "Generador", "Fuente"], respuestaCorrecta: 1, explicacion: "El multímetro mide V, I y R." },
+            { pregunta: "¿En qué terminal va la sonda negra?", opciones: ["VΩmA", "10A", "COM", "Cualquiera"], respuestaCorrecta: 2, explicacion: "La sonda negra siempre va en COM." },
+            { pregunta: "¿Qué modo usar para medir una batería?", opciones: ["V AC", "V DC", "Ω", "A"], respuestaCorrecta: 1, explicacion: "Las baterías son DC (corriente continua)." },
+            { pregunta: "¿Qué modo usar para medir un enchufe?", opciones: ["V DC", "V AC", "Ω", "Continuidad"], respuestaCorrecta: 1, explicacion: "La electricidad doméstica es AC." },
+            { pregunta: "¿Qué es un protoboard?", opciones: ["Un soldador", "Una placa para circuitos sin soldar", "Un multímetro", "Una fuente"], respuestaCorrecta: 1, explicacion: "El protoboard permite armar circuitos sin soldar." },
+            { pregunta: "¿Cómo están conectados los puntos en una fila del protoboard?", opciones: ["Todos separados", "5 puntos conectados", "Toda la fila", "Ninguno"], respuestaCorrecta: 1, explicacion: "En el área central, 5 puntos de cada fila están conectados." },
+            { pregunta: "¿Para qué sirven los rieles laterales del protoboard?", opciones: ["Para componentes", "Para VCC y GND", "Para decorar", "Para nada"], respuestaCorrecta: 1, explicacion: "Los rieles son para alimentación (VCC y GND)." },
+            { pregunta: "¿A qué temperatura se suelda normalmente?", opciones: ["100-150°C", "200-250°C", "300-350°C", "500-600°C"], respuestaCorrecta: 2, explicacion: "La soldadura estándar es a 300-350°C." },
+            { pregunta: "¿Qué es el flux?", opciones: ["Un tipo de soldador", "Pasta para mejorar soldaduras", "Un componente", "Un cable"], respuestaCorrecta: 1, explicacion: "El flux mejora la calidad de las soldaduras." },
+            { pregunta: "¿Qué hace la función de continuidad?", opciones: ["Mide voltaje", "Verifica si hay conexión", "Mide resistencia", "Mide corriente"], respuestaCorrecta: 1, explicacion: "La continuidad verifica si hay conexión entre dos puntos." },
+            { pregunta: "¿Qué indica 'OL' en el multímetro?", opciones: ["Over Load", "Open Loop (circuito abierto)", "Error", "Apagado"], respuestaCorrecta: 1, explicacion: "OL = Open Loop, significa circuito abierto o fuera de rango." },
+            { pregunta: "¿Qué herramienta corta alambres?", opciones: ["Destornillador", "Pinzas de corte", "Lupa", "Soldador"], respuestaCorrecta: 1, explicacion: "Las pinzas de corte cortan alambres." },
+            { pregunta: "¿Qué color de cable se usa para positivo?", opciones: ["Negro", "Azul", "Rojo", "Verde"], respuestaCorrecta: 2, explicacion: "Rojo es el estándar para positivo." },
+            { pregunta: "¿Qué color de cable se usa para GND?", opciones: ["Rojo", "Negro", "Blanco", "Amarillo"], respuestaCorrecta: 1, explicacion: "Negro es el estándar para GND/negativo." },
+            { pregunta: "¿Qué mide la unidad Ohmio (Ω)?", opciones: ["Voltaje", "Corriente", "Resistencia", "Potencia"], respuestaCorrecta: 2, explicacion: "El Ohmio mide resistencia." },
+            { pregunta: "¿Qué mide la unidad Amperio (A)?", opciones: ["Voltaje", "Corriente", "Resistencia", "Frecuencia"], respuestaCorrecta: 1, explicacion: "El Amperio mide corriente." },
+            { pregunta: "¿Qué mide la unidad Voltio (V)?", opciones: ["Voltaje", "Corriente", "Resistencia", "Potencia"], respuestaCorrecta: 0, explicacion: "El Voltio mide voltaje." },
+            { pregunta: "¿Qué es 1kΩ en ohmios?", opciones: ["100Ω", "1000Ω", "10000Ω", "100000Ω"], respuestaCorrecta: 1, explicacion: "1kΩ = 1000Ω." },
+            { pregunta: "¿Qué es 1mA en amperios?", opciones: ["0.1A", "0.01A", "0.001A", "0.0001A"], respuestaCorrecta: 2, explicacion: "1mA = 0.001A." },
+            { pregunta: "¿Qué precaución tomar al soldar?", opciones: ["Ninguna", "Usar gafas de protección", "Soldar rápido", "No usar flux"], respuestaCorrecta: 1, explicacion: "Siempre usar gafas de protección." },
+            { pregunta: "¿Qué NO hacer con el multímetro?", opciones: ["Medir voltaje", "Medir resistencia con circuito energizado", "Medir corriente", "Medir continuidad"], respuestaCorrecta: 1, explicacion: "Nunca medir resistencia con el circuito energizado." },
+            { pregunta: "¿Qué es un cable jumper?", opciones: ["Un cable largo", "Un cable para protoboard", "Un cable de poder", "Un cable coaxial"], respuestaCorrecta: 1, explicacion: "Los jumpers conectan puntos en el protoboard." },
+            { pregunta: "¿Qué herramienta inspecciona soldaduras pequeñas?", opciones: ["Regla", "Lupa", "Pinzas", "Destornillador"], respuestaCorrecta: 1, explicacion: "La lupa permite inspeccionar detalles pequeños." },
+            { pregunta: "¿Qué es el estaño?", opciones: ["Un tipo de cable", "Metal para soldar", "Un componente", "Una herramienta"], respuestaCorrecta: 1, explicacion: "El estaño es el metal usado para soldar." },
+            { pregunta: "¿Qué hace un extractor de estaño?", opciones: ["Corta cables", "Elimina exceso de estaño", "Mide voltaje", "Suelda componentes"], respuestaCorrecta: 1, explicacion: "El extractor elimina estaño en soldaduras defectuosas." },
+            { pregunta: "¿Cuál es el voltaje típico de USB?", opciones: ["3.3V", "5V", "9V", "12V"], respuestaCorrecta: 1, explicacion: "USB estándar es 5V." },
+            { pregunta: "¿Qué modo del multímetro usa para un LED?", opciones: ["V DC", "V AC", "Ω", "Continuidad"], respuestaCorrecta: 0, explicacion: "Los LEDs se miden en V DC." },
+            { pregunta: "¿Qué es una fuente de poder?", opciones: ["Un multímetro", "Dispositivo que alimenta circuitos", "Un soldador", "Un protoboard"], respuestaCorrecta: 1, explicacion: "La fuente de poder alimenta circuitos con voltaje regulable." },
+            { pregunta: "¿Qué voltaje usa Arduino Uno?", opciones: ["3.3V", "5V", "9V", "12V"], respuestaCorrecta: 1, explicacion: "Arduino Uno opera a 5V." },
+            { pregunta: "¿Qué precaución con el soldador caliente?", opciones: ["Ninguna", "No tocar la punta", "Usarlo mojado", "Dejarlo encendido"], respuestaCorrecta: 1, explicacion: "Nunca tocar la punta caliente del soldador." }
+        ];
+
+        // ============ QUIZ ============
+        let preguntasActuales = [];
+        let respuestasSeleccionadas = {};
+        let respondidas = 0;
+        let correctas = 0;
+
+        function mezclarArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function cargarQuiz() {
+            const mezcladas = mezclarArray(bancoPreguntas);
+            preguntasActuales = mezcladas.slice(0, 10);
+            respuestasSeleccionadas = {};
+            respondidas = 0;
+            correctas = 0;
+            
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            
+            preguntasActuales.forEach((pregunta, index) => {
+                const opcionesConIndice = pregunta.opciones.map((op, i) => ({ 
+                    texto: op, 
+                    esCorrecta: i === pregunta.respuestaCorrecta 
+                }));
+                const opcionesMezcladas = mezclarArray(opcionesConIndice);
+                
+                const preguntaHTML = `
+                    <div class="bg-slate-900 p-4 rounded-lg" data-pregunta="${index}">
+                        <p class="font-semibold mb-3">${index + 1}. ${pregunta.pregunta}</p>
+                        <div class="space-y-2">
+                            ${opcionesMezcladas.map((opcion, opIndex) => `
+                                <button onclick="seleccionarRespuesta(${index}, this)" 
+                                        data-es-correcta="${opcion.esCorrecta}"
+                                        class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition opcion-btn">
+                                    ${opcion.texto}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += preguntaHTML;
+            });
+            
+            document.getElementById('resultado-quiz').classList.add('hidden');
+            document.getElementById('btn-reintentar').classList.add('hidden');
+        }
+
+        function seleccionarRespuesta(preguntaIndex, boton) {
+            const preguntaDiv = document.querySelector(`[data-pregunta="${preguntaIndex}"]`);
+            const botones = preguntaDiv.querySelectorAll('.opcion-btn');
+            
+            if (preguntaDiv.dataset.respondida === 'true') return;
+            
+            preguntaDiv.dataset.respondida = 'true';
+            respondidas++;
+            
+            const esCorrecta = boton.dataset.esCorrecta === 'true';
+            respuestasSeleccionadas[preguntaIndex] = esCorrecta;
+            
+            botones.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+                if (btn.dataset.esCorrecta === 'true') {
+                    btn.classList.remove('bg-slate-700', 'opacity-50');
+                    btn.classList.add('bg-green-600');
+                }
+            });
+            
+            if (esCorrecta) {
+                correctas++;
+                boton.classList.remove('bg-slate-700', 'opacity-50');
+                boton.classList.add('bg-green-600');
+            } else {
+                boton.classList.remove('bg-slate-700', 'opacity-50');
+                boton.classList.add('bg-red-600');
+            }
+        }
+
+        function verResultados() {
+            if (respondidas < 10) {
+                alert(`Has respondido ${respondidas} de 10 preguntas. Responde todas.`);
+                return;
+            }
+            
+            const porcentaje = Math.round((correctas / 10) * 100);
+            const resultadoDiv = document.getElementById('resultado-quiz');
+            
+            let mensaje, color, emoji;
+            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas las herramientas'; color = 'green'; emoji = '🏆'; }
+            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'blue'; emoji = '👍'; }
+            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar'; color = 'orange'; emoji = '📚'; }
+            else { mensaje = 'Estudia nuevamente el módulo'; color = 'red'; emoji = '⚠️'; }
+            
+            let explicacionesHTML = preguntasActuales.map((p, i) => {
+                const esCorrecta = respuestasSeleccionadas[i];
+                return `
+                    <div class="bg-slate-900 p-3 rounded mb-2 ${esCorrecta ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}">
+                        <p class="font-semibold text-sm">${i + 1}. ${p.pregunta}</p>
+                        <p class="text-xs mt-1 ${esCorrecta ? 'text-green-400' : 'text-red-400'}">
+                            ${esCorrecta ? '✓ Correcta' : '✗ Incorrecta'}
+                        </p>
+                        <p class="text-xs text-slate-400 mt-1"><em>${p.explicacion}</em></p>
+                    </div>
+                `;
+            }).join('');
+            
+            resultadoDiv.innerHTML = `
+                <div class="bg-${color}-900 border-2 border-${color}-500 p-6 rounded-lg text-center mb-4">
+                    <p class="text-4xl mb-2">${emoji}</p>
+                    <h3 class="text-2xl font-bold text-${color}-400 mb-2">${mensaje}</h3>
+                    <p class="text-3xl font-bold text-white">${correctas} de 10 (${porcentaje}%)</p>
+                </div>
+                <div class="mt-4">
+                    <h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión de Respuestas:</h3>
+                    ${explicacionesHTML}
+                </div>
+            `;
+            
+            resultadoDiv.classList.remove('hidden');
+            document.getElementById('btn-reintentar').classList.remove('hidden');
+            resultadoDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function nuevoIntento() {
+            cargarQuiz();
+            window.scrollTo({ top: document.getElementById('quiz-container').offsetTop - 100, behavior: 'smooth' });
+        }
+
+        // ============ INICIALIZAR ============
+        initProtoboard();
+        renderizarEjemploActual();
+        cargarQuiz();
     </script>
 </body>
 </html>
