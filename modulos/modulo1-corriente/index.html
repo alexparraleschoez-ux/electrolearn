@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="../../favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -15,6 +15,15 @@
                     fontFamily: {
                         'heading': ['Poppins', 'sans-serif'],
                         'body': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'electro-dark': '#0A1628',
+                        'electro-blue': '#1E3A8A',
+                        'electro-circuit': '#1E40AF',
+                        'electro-yellow': '#FACC15',
+                        'electro-cyan': '#00D4FF',
+                        'electro-green': '#00FF88',
+                        'electro-red': '#FF4444',
                     }
                 }
             }
@@ -34,83 +43,98 @@
             75% { left: 50%; }
         }
         @keyframes parpadeo {
-            0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px #ef4444); }
-            50% { opacity: 0.6; filter: drop-shadow(0 0 5px #ef4444); }
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px #FF4444); }
+            50% { opacity: 0.6; filter: drop-shadow(0 0 5px #FF4444); }
         }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
         .electron { animation: fluirDerecha 3s linear infinite; }
         .electron-ac { animation: oscilarCA 3s ease-in-out infinite; }
         .led-glow { animation: parpadeo 1s ease-in-out infinite; }
         .section-animate { animation: fadeInUp 0.6s ease-out; }
+        .logo-float { animation: float 3s ease-in-out infinite; }
         .conductor {
-            background: linear-gradient(90deg, #475569 0%, #64748b 50%, #475569 100%);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(90deg, #1E3A8A 0%, #00D4FF 50%, #1E3A8A 100%);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 15px rgba(0, 212, 255, 0.3);
         }
         .electron-glow {
-            box-shadow: 0 0 10px #60a5fa, 0 0 20px #3b82f6;
+            box-shadow: 0 0 10px #00D4FF, 0 0 20px #00D4FF;
         }
         .teoria-card {
-            border-left: 4px solid #22d3ee;
+            border-left: 4px solid #00D4FF;
             transition: all 0.3s;
         }
         .teoria-card:hover {
             transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
         }
         .opcion-btn:disabled { cursor: not-allowed; }
+        
+        /* Glassmorphism para las tarjetas */
+        .glass-card {
+            background: rgba(30, 58, 138, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-white font-body min-h-screen">
+<body class="bg-electro-dark text-white font-body min-h-screen">
 
-    <!-- HEADER -->
-    <header class="bg-white p-3 shadow-lg">
+    <!-- HEADER FIJO CON LOGO GRANDE -->
+    <header class="bg-gradient-to-r from-electro-blue via-electro-circuit to-electro-blue p-4 shadow-2xl sticky top-0 z-50 border-b-4 border-electro-yellow">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="../../index.html" class="flex items-center">
-                <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-12 md:h-16 w-auto">
+            <a href="../../index.html" class="flex items-center logo-float">
+                <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-16 md:h-20 w-auto drop-shadow-lg">
             </a>
-            <a href="../../index.html" class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition">
-                <i class="fas fa-arrow-left mr-2"></i> Volver
+            <a href="../../index.html" class="bg-electro-yellow hover:bg-yellow-400 text-electro-dark px-6 py-3 rounded-lg font-bold hover:scale-105 transition-all shadow-lg flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Volver al Inicio
             </a>
         </div>
     </header>
 
     <!-- TÍTULO -->
-    <section class="py-8 text-center px-4 section-animate">
-        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
-            <i class="fas fa-wave-square text-cyan-400"></i> Módulo 1: Corriente Eléctrica
-        </h1>
-        <p class="text-slate-300 text-lg">Conceptos fundamentales del flujo de electrones</p>
+    <section class="py-12 text-center px-4 section-animate relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-electro-dark via-electro-blue/20 to-electro-dark opacity-50"></div>
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-6xl font-heading font-extrabold mb-4">
+                <i class="fas fa-wave-square text-electro-cyan mr-3"></i> Módulo 1: Corriente Eléctrica
+            </h1>
+            <p class="text-slate-300 text-xl max-w-2xl mx-auto">Conceptos fundamentales del flujo de electrones</p>
+        </div>
     </section>
 
     <div class="container mx-auto px-4 pb-16 space-y-8">
 
         <!-- SECCIÓN 1: TEORÍA -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-8 text-electro-cyan">
                 <i class="fas fa-book mr-2"></i>Teoría: Conceptos Fundamentales
             </h2>
 
-            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="teoria-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-atom mr-2"></i>¿Qué es la Corriente Eléctrica?
                 </h3>
-                <p class="text-slate-300 mb-3">
-                    La <strong class="text-cyan-400">corriente eléctrica</strong> es el flujo ordenado de 
+                <p class="text-slate-300 mb-4 text-lg">
+                    La <strong class="text-electro-cyan">corriente eléctrica</strong> es el flujo ordenado de 
                     <strong class="text-blue-400">electrones</strong> a través de un material conductor.
                 </p>
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-sm text-slate-400 mb-2"> Definición formal:</p>
-                    <p class="text-slate-300">
+                <div class="bg-electro-blue/40 p-5 rounded-lg border border-electro-cyan/30">
+                    <p class="text-sm text-electro-cyan mb-2 font-bold">📘 Definición formal:</p>
+                    <p class="text-slate-200 text-lg">
                         Es la cantidad de carga eléctrica (Q) que pasa por un punto del conductor 
-                        en un tiempo determinado (t). Se representa con la letra <strong class="text-green-400">I</strong>.
+                        en un tiempo determinado (t). Se representa con la letra <strong class="text-electro-green">I</strong>.
                     </p>
                 </div>
-                <div class="mt-3 bg-blue-900 p-3 rounded-lg">
-                    <p class="font-bold text-blue-300">📐 Fórmula:</p>
-                    <p class="text-2xl font-bold text-center text-white my-2">I = Q / t</p>
+                <div class="mt-4 bg-gradient-to-r from-electro-blue to-electro-circuit p-4 rounded-lg text-center border border-electro-cyan/50">
+                    <p class="font-bold text-electro-yellow text-lg mb-2">📐 Fórmula:</p>
+                    <p class="text-3xl font-extrabold text-white my-3">I = Q / t</p>
                     <p class="text-sm text-slate-300">
                         Donde: <strong>I</strong> = Corriente (Amperios), 
                         <strong>Q</strong> = Carga eléctrica (Coulombs), 
@@ -119,70 +143,70 @@
                 </div>
             </div>
 
-            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="teoria-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-bolt mr-2"></i>Unidad de Medida: El Amperio
                 </h3>
-                <p class="text-slate-300 mb-3">
-                    La corriente se mide en <strong class="text-green-400">Amperios (A)</strong>.
+                <p class="text-slate-300 mb-4 text-lg">
+                    La corriente se mide en <strong class="text-electro-green">Amperios (A)</strong>.
                 </p>
-                <div class="grid md:grid-cols-3 gap-3">
-                    <div class="bg-slate-800 p-3 rounded text-center">
-                        <p class="text-2xl font-bold text-cyan-400">1 A</p>
-                        <p class="text-xs text-slate-400">= 1 Coulomb/segundo</p>
+                <div class="grid md:grid-cols-3 gap-4 mb-4">
+                    <div class="bg-electro-blue/40 p-4 rounded-lg text-center border border-electro-cyan/30">
+                        <p class="text-3xl font-bold text-electro-cyan">1 A</p>
+                        <p class="text-sm text-slate-400 mt-1">= 1 Coulomb/segundo</p>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded text-center">
-                        <p class="text-2xl font-bold text-cyan-400">1 mA</p>
-                        <p class="text-xs text-slate-400">= 0.001 A</p>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg text-center border border-electro-cyan/30">
+                        <p class="text-3xl font-bold text-electro-cyan">1 mA</p>
+                        <p class="text-sm text-slate-400 mt-1">= 0.001 A</p>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded text-center">
-                        <p class="text-2xl font-bold text-cyan-400">1 μA</p>
-                        <p class="text-xs text-slate-400">= 0.000001 A</p>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg text-center border border-electro-cyan/30">
+                        <p class="text-3xl font-bold text-electro-cyan">1 μA</p>
+                        <p class="text-sm text-slate-400 mt-1">= 0.000001 A</p>
                     </div>
                 </div>
-                <div class="mt-3 bg-yellow-900 p-3 rounded-lg">
-                    <p class="text-sm text-slate-300">
-                        💡 <strong>Dato importante:</strong> 1 Amperio = 
-                        <strong class="text-yellow-400">6.24 × 10¹⁸ electrones/segundo</strong>
+                <div class="mt-4 bg-electro-yellow/10 border border-electro-yellow/30 p-4 rounded-lg">
+                    <p class="text-slate-200">
+                        💡 <strong class="text-electro-yellow">Dato importante:</strong> 1 Amperio = 
+                        <strong class="text-electro-yellow">6.24 × 10¹⁸ electrones/segundo</strong>
                     </p>
                 </div>
             </div>
 
-            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="teoria-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-exchange-alt mr-2"></i>Tipos de Corriente Eléctrica
                 </h3>
                 
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="bg-slate-800 p-4 rounded-lg border-2 border-yellow-500">
-                        <h4 class="font-bold text-lg mb-2 text-yellow-400">🔋 Corriente Continua (CC/DC)</h4>
-                        <ul class="text-sm text-slate-300 space-y-2">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-electro-blue/40 p-6 rounded-xl border-2 border-electro-yellow/50">
+                        <h4 class="font-bold text-xl mb-3 text-electro-yellow">🔋 Corriente Continua (CC/DC)</h4>
+                        <ul class="text-slate-300 space-y-2 mb-4">
                             <li>✓ Los electrones fluyen en <strong>una sola dirección</strong></li>
                             <li>✓ Del polo negativo al positivo</li>
                             <li>✓ Voltaje constante en el tiempo</li>
                             <li>✓ <strong>Ejemplos:</strong> Baterías, pilas, paneles solares</li>
                         </ul>
-                        <div class="mt-3 bg-slate-900 p-2 rounded text-center">
-                            <p class="text-xs text-slate-400">Gráfica: Línea recta constante</p>
-                            <div class="h-16 bg-slate-800 rounded flex items-center justify-center">
+                        <div class="bg-electro-dark/60 p-3 rounded-lg text-center">
+                            <p class="text-xs text-slate-400 mb-2">Gráfica: Línea recta constante</p>
+                            <div class="h-16 bg-electro-dark rounded flex items-center justify-center">
                                 <svg width="150" height="50">
-                                    <line x1="10" y1="25" x2="140" y2="25" stroke="#facc15" stroke-width="3"/>
+                                    <line x1="10" y1="25" x2="140" y2="25" stroke="#FACC15" stroke-width="3"/>
                                 </svg>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-slate-800 p-4 rounded-lg border-2 border-purple-500">
-                        <h4 class="font-bold text-lg mb-2 text-purple-400">🔄 Corriente Alterna (CA/AC)</h4>
-                        <ul class="text-sm text-slate-300 space-y-2">
+                    <div class="bg-electro-blue/40 p-6 rounded-xl border-2 border-purple-500/50">
+                        <h4 class="font-bold text-xl mb-3 text-purple-400">🔄 Corriente Alterna (CA/AC)</h4>
+                        <ul class="text-slate-300 space-y-2 mb-4">
                             <li>✓ Los electrones <strong>cambian de dirección</strong> periódicamente</li>
                             <li>✓ El voltaje oscila entre positivo y negativo</li>
                             <li>✓ Frecuencia medida en Hertz (Hz)</li>
                             <li>✓ <strong>Ejemplos:</strong> Electricidad doméstica, enchufes</li>
                         </ul>
-                        <div class="mt-3 bg-slate-900 p-2 rounded text-center">
-                            <p class="text-xs text-slate-400">Gráfica: Onda senoidal</p>
-                            <div class="h-16 bg-slate-800 rounded flex items-center justify-center">
+                        <div class="bg-electro-dark/60 p-3 rounded-lg text-center">
+                            <p class="text-xs text-slate-400 mb-2">Gráfica: Onda senoidal</p>
+                            <div class="h-16 bg-electro-dark rounded flex items-center justify-center">
                                 <svg width="150" height="50">
                                     <path d="M 10,25 Q 30,5 50,25 Q 70,45 90,25 Q 110,5 130,25" 
                                           stroke="#a855f7" stroke-width="3" fill="none"/>
@@ -192,73 +216,73 @@
                     </div>
                 </div>
 
-                <div class="mt-4 bg-purple-900 p-3 rounded-lg">
-                    <p class="text-sm text-slate-300">
-                        🌍 <strong>Frecuencia:</strong> América <strong class="text-purple-400">60 Hz</strong>, 
+                <div class="mt-6 bg-purple-900/30 border border-purple-500/30 p-4 rounded-lg">
+                    <p class="text-slate-200">
+                        🌍 <strong class="text-purple-400">Frecuencia:</strong> América <strong class="text-purple-400">60 Hz</strong>, 
                         Europa <strong class="text-purple-400">50 Hz</strong>.
                     </p>
                 </div>
             </div>
 
-            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="teoria-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-water mr-2"></i>Analogía Hidráulica
                 </h3>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead class="bg-slate-800">
+                    <table class="w-full text-sm md:text-base">
+                        <thead class="bg-electro-blue/60">
                             <tr>
-                                <th class="p-3 text-left text-cyan-400">Concepto Eléctrico</th>
-                                <th class="p-3 text-left text-blue-400">Analogía con Agua</th>
-                                <th class="p-3 text-left text-slate-400">Unidad</th>
+                                <th class="p-4 text-left text-electro-cyan">Concepto Eléctrico</th>
+                                <th class="p-4 text-left text-blue-300">Analogía con Agua</th>
+                                <th class="p-4 text-left text-slate-400">Unidad</th>
                             </tr>
                         </thead>
                         <tbody class="text-slate-300">
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Voltaje (V)</td>
-                                <td class="p-3">Presión del agua</td>
-                                <td class="p-3">Voltios (V)</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Voltaje (V)</td>
+                                <td class="p-4">Presión del agua</td>
+                                <td class="p-4">Voltios (V)</td>
                             </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Corriente (I)</td>
-                                <td class="p-3">Cantidad de agua que fluye</td>
-                                <td class="p-3">Amperios (A)</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Corriente (I)</td>
+                                <td class="p-4">Cantidad de agua que fluye</td>
+                                <td class="p-4">Amperios (A)</td>
                             </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Resistencia (R)</td>
-                                <td class="p-3">Estrechamiento de la tubería</td>
-                                <td class="p-3">Ohmios (Ω)</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Resistencia (R)</td>
+                                <td class="p-4">Estrechamiento de la tubería</td>
+                                <td class="p-4">Ohmios (Ω)</td>
                             </tr>
                             <tr>
-                                <td class="p-3 font-bold">Cable conductor</td>
-                                <td class="p-3">Tubería</td>
-                                <td class="p-3">-</td>
+                                <td class="p-4 font-bold">Cable conductor</td>
+                                <td class="p-4">Tubería</td>
+                                <td class="p-4">-</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="teoria-card bg-slate-900 p-5 rounded-lg">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="teoria-card bg-electro-dark/60 p-6 rounded-xl">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-shield-alt mr-2"></i>Conductores y Aislantes
                 </h3>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="bg-green-900 p-4 rounded-lg">
-                        <h4 class="font-bold text-green-400 mb-2">✅ Conductores</h4>
-                        <p class="text-sm text-slate-300 mb-2">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-electro-green/10 border border-electro-green/30 p-6 rounded-xl">
+                        <h4 class="font-bold text-electro-green mb-3 text-xl">✅ Conductores</h4>
+                        <p class="text-slate-300 mb-3">
                             Materiales que <strong>permiten</strong> el flujo de electrones.
                         </p>
-                        <p class="text-xs text-slate-400">
+                        <p class="text-sm text-slate-400">
                             <strong>Ejemplos:</strong> Cobre, aluminio, oro, plata, agua con sal
                         </p>
                     </div>
-                    <div class="bg-red-900 p-4 rounded-lg">
-                        <h4 class="font-bold text-red-400 mb-2">❌ Aislantes</h4>
-                        <p class="text-sm text-slate-300 mb-2">
+                    <div class="bg-electro-red/10 border border-electro-red/30 p-6 rounded-xl">
+                        <h4 class="font-bold text-electro-red mb-3 text-xl">❌ Aislantes</h4>
+                        <p class="text-slate-300 mb-3">
                             Materiales que <strong>no permiten</strong> el flujo de electrones.
                         </p>
-                        <p class="text-xs text-slate-400">
+                        <p class="text-sm text-slate-400">
                             <strong>Ejemplos:</strong> Plástico, goma, vidrio, madera seca, aire
                         </p>
                     </div>
@@ -267,78 +291,78 @@
         </div>
 
         <!-- SECCIÓN 2: VISUALIZACIÓN -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-cyan">
                 <i class="fas fa-play-circle mr-2"></i>Visualización: Flujo de Electrones
             </h2>
             
-            <div class="bg-slate-900 p-6 rounded-lg mb-4 relative overflow-hidden" style="height: 200px;">
+            <div class="bg-electro-dark/60 p-8 rounded-xl mb-6 relative overflow-hidden border border-electro-cyan/30" style="height: 200px;">
                 <div class="conductor absolute top-1/2 left-0 right-0 h-20 rounded-full transform -translate-y-1/2"></div>
-                <div class="electron absolute top-1/2 w-5 h-5 bg-blue-400 rounded-full electron-glow" style="animation-delay: 0s;"></div>
-                <div class="electron absolute top-1/2 w-5 h-5 bg-blue-400 rounded-full electron-glow" style="animation-delay: 0.5s;"></div>
-                <div class="electron absolute top-1/2 w-5 h-5 bg-blue-400 rounded-full electron-glow" style="animation-delay: 1s;"></div>
-                <div class="electron absolute top-1/2 w-5 h-5 bg-blue-400 rounded-full electron-glow" style="animation-delay: 1.5s;"></div>
-                <div class="electron absolute top-1/2 w-5 h-5 bg-blue-400 rounded-full electron-glow" style="animation-delay: 2s;"></div>
-                <div class="electron absolute top-1/2 w-5 h-5 bg-blue-400 rounded-full electron-glow" style="animation-delay: 2.5s;"></div>
+                <div class="electron absolute top-1/2 w-5 h-5 bg-electro-cyan rounded-full electron-glow" style="animation-delay: 0s;"></div>
+                <div class="electron absolute top-1/2 w-5 h-5 bg-electro-cyan rounded-full electron-glow" style="animation-delay: 0.5s;"></div>
+                <div class="electron absolute top-1/2 w-5 h-5 bg-electro-cyan rounded-full electron-glow" style="animation-delay: 1s;"></div>
+                <div class="electron absolute top-1/2 w-5 h-5 bg-electro-cyan rounded-full electron-glow" style="animation-delay: 1.5s;"></div>
+                <div class="electron absolute top-1/2 w-5 h-5 bg-electro-cyan rounded-full electron-glow" style="animation-delay: 2s;"></div>
+                <div class="electron absolute top-1/2 w-5 h-5 bg-electro-cyan rounded-full electron-glow" style="animation-delay: 2.5s;"></div>
                 
-                <div class="absolute top-4 left-4 text-yellow-400 font-bold text-sm">(-) Polo Negativo</div>
-                <div class="absolute top-4 right-4 text-green-400 font-bold text-sm">Polo Positivo (+)</div>
-                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-cyan-400 text-sm">
+                <div class="absolute top-4 left-4 text-electro-yellow font-bold text-sm md:text-base">(-) Polo Negativo</div>
+                <div class="absolute top-4 right-4 text-electro-green font-bold text-sm md:text-base">Polo Positivo (+)</div>
+                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-electro-cyan text-sm md:text-base">
                     <i class="fas fa-arrow-right mr-2"></i>Dirección del flujo
                 </div>
             </div>
             
-            <div class="bg-slate-900 p-4 rounded-lg">
-                <label class="block mb-2 font-semibold">
-                    <i class="fas fa-tachometer-alt mr-2 text-cyan-400"></i>
-                    Velocidad del flujo: <span id="velocidadValor" class="text-cyan-400">3.0</span> s
+            <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                <label class="block mb-3 font-semibold text-lg">
+                    <i class="fas fa-tachometer-alt mr-2 text-electro-cyan"></i>
+                    Velocidad del flujo: <span id="velocidadValor" class="text-electro-cyan text-xl">3.0</span> s
                 </label>
                 <input type="range" id="velocidad" min="0.5" max="5" step="0.1" value="3" 
-                       class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-400">
-                <p class="text-xs text-slate-400 mt-1">Menor tiempo = mayor corriente</p>
+                       class="w-full h-3 bg-electro-blue rounded-lg appearance-none cursor-pointer accent-electro-cyan">
+                <p class="text-sm text-slate-400 mt-2">Menor tiempo = mayor corriente</p>
             </div>
         </div>
 
         <!-- SECCIÓN 3: CC vs CA -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-yellow">
                 <i class="fas fa-exchange-alt mr-2"></i>Corriente Continua (CC) vs Corriente Alterna (CA)
             </h2>
             
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <h3 class="font-bold text-lg mb-3 text-yellow-400">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-yellow/30">
+                    <h3 class="font-bold text-xl mb-4 text-electro-yellow">
                         <i class="fas fa-battery-full mr-2"></i>Corriente Continua (CC/DC)
                     </h3>
-                    <p class="text-sm text-slate-300 mb-3">
+                    <p class="text-slate-300 mb-4">
                         Los electrones fluyen en <strong>una sola dirección</strong>.
                     </p>
-                    <div class="bg-slate-800 p-4 rounded relative overflow-hidden" style="height: 120px;">
+                    <div class="bg-electro-blue/30 p-6 rounded-lg relative overflow-hidden" style="height: 120px;">
                         <div class="conductor absolute top-1/2 left-0 right-0 h-12 rounded-full transform -translate-y-1/2"></div>
-                        <div class="electron absolute top-1/2 w-4 h-4 bg-yellow-400 rounded-full" style="animation-delay: 0s;"></div>
-                        <div class="electron absolute top-1/2 w-4 h-4 bg-yellow-400 rounded-full" style="animation-delay: 0.6s;"></div>
-                        <div class="electron absolute top-1/2 w-4 h-4 bg-yellow-400 rounded-full" style="animation-delay: 1.2s;"></div>
-                        <div class="electron absolute top-1/2 w-4 h-4 bg-yellow-400 rounded-full" style="animation-delay: 1.8s;"></div>
-                        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-yellow-400">
+                        <div class="electron absolute top-1/2 w-4 h-4 bg-electro-yellow rounded-full" style="animation-delay: 0s;"></div>
+                        <div class="electron absolute top-1/2 w-4 h-4 bg-electro-yellow rounded-full" style="animation-delay: 0.6s;"></div>
+                        <div class="electron absolute top-1/2 w-4 h-4 bg-electro-yellow rounded-full" style="animation-delay: 1.2s;"></div>
+                        <div class="electron absolute top-1/2 w-4 h-4 bg-electro-yellow rounded-full" style="animation-delay: 1.8s;"></div>
+                        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-electro-yellow font-bold">
                             Flujo unidireccional →
                         </div>
                     </div>
                 </div>
                 
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <h3 class="font-bold text-lg mb-3 text-purple-400">
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-purple-500/30">
+                    <h3 class="font-bold text-xl mb-4 text-purple-400">
                         <i class="fas fa-sync-alt mr-2"></i>Corriente Alterna (CA/AC)
                     </h3>
-                    <p class="text-sm text-slate-300 mb-3">
+                    <p class="text-slate-300 mb-4">
                         Los electrones <strong>cambian de dirección</strong> periódicamente.
                     </p>
-                    <div class="bg-slate-800 p-4 rounded relative overflow-hidden" style="height: 120px;">
+                    <div class="bg-electro-blue/30 p-6 rounded-lg relative overflow-hidden" style="height: 120px;">
                         <div class="conductor absolute top-1/2 left-0 right-0 h-12 rounded-full transform -translate-y-1/2"></div>
                         <div class="electron-ac absolute top-1/2 w-4 h-4 bg-purple-400 rounded-full" style="animation-delay: 0s;"></div>
                         <div class="electron-ac absolute top-1/2 w-4 h-4 bg-purple-400 rounded-full" style="animation-delay: 0.6s;"></div>
                         <div class="electron-ac absolute top-1/2 w-4 h-4 bg-purple-400 rounded-full" style="animation-delay: 1.2s;"></div>
                         <div class="electron-ac absolute top-1/2 w-4 h-4 bg-purple-400 rounded-full" style="animation-delay: 1.8s;"></div>
-                        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-purple-400">
+                        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-purple-400 font-bold">
                             ↔ Flujo oscilante
                         </div>
                     </div>
@@ -347,132 +371,132 @@
         </div>
 
         <!-- SECCIÓN 4: CIRCUITO INTERACTIVO -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-green-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-green">
                 <i class="fas fa-lightbulb mr-2"></i>Circuito Interactivo: Experimenta Tú Mismo
             </h2>
             
-            <div class="bg-slate-900 p-6 rounded-lg">
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-electro-dark/60 p-8 rounded-xl border border-electro-green/30">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
                     <div>
-                        <label class="block mb-2 font-semibold">
-                            <i class="fas fa-battery-full text-yellow-400 mr-2"></i>
-                            Voltaje: <span id="voltajeDisplay" class="text-yellow-400 text-xl">9</span> V
+                        <label class="block mb-3 font-semibold text-lg">
+                            <i class="fas fa-battery-full text-electro-yellow mr-2"></i>
+                            Voltaje: <span id="voltajeDisplay" class="text-electro-yellow text-2xl">9</span> V
                         </label>
                         <input type="range" id="voltajeControl" min="1" max="12" step="1" value="9" 
-                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-400">
+                               class="w-full h-3 bg-electro-blue rounded-lg appearance-none cursor-pointer accent-electro-yellow">
                     </div>
                     
                     <div>
-                        <label class="block mb-2 font-semibold">
-                            <i class="fas fa-microchip text-red-400 mr-2"></i>
-                            Resistencia: <span id="resistenciaDisplay" class="text-red-400 text-xl">330</span> Ω
+                        <label class="block mb-3 font-semibold text-lg">
+                            <i class="fas fa-microchip text-electro-red mr-2"></i>
+                            Resistencia: <span id="resistenciaDisplay" class="text-electro-red text-2xl">330</span> Ω
                         </label>
                         <input type="range" id="resistenciaControl" min="100" max="1000" step="50" value="330" 
-                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-red-400">
+                               class="w-full h-3 bg-electro-blue rounded-lg appearance-none cursor-pointer accent-electro-red">
                     </div>
                 </div>
 
-                <div class="bg-slate-800 p-6 rounded-lg mb-4">
+                <div class="bg-electro-blue/30 p-8 rounded-xl mb-8 border border-electro-cyan/20">
                     <svg viewBox="0 0 500 200" class="w-full max-w-2xl mx-auto">
-                        <line x1="80" y1="100" x2="180" y2="100" stroke="#22d3ee" stroke-width="4"/>
-                        <line x1="280" y1="100" x2="380" y2="100" stroke="#22d3ee" stroke-width="4"/>
-                        <line x1="80" y1="100" x2="80" y2="170" stroke="#22d3ee" stroke-width="4"/>
-                        <line x1="380" y1="100" x2="380" y2="170" stroke="#22d3ee" stroke-width="4"/>
-                        <line x1="80" y1="170" x2="380" y2="170" stroke="#22d3ee" stroke-width="4"/>
+                        <line x1="80" y1="100" x2="180" y2="100" stroke="#00D4FF" stroke-width="4"/>
+                        <line x1="280" y1="100" x2="380" y2="100" stroke="#00D4FF" stroke-width="4"/>
+                        <line x1="80" y1="100" x2="80" y2="170" stroke="#00D4FF" stroke-width="4"/>
+                        <line x1="380" y1="100" x2="380" y2="170" stroke="#00D4FF" stroke-width="4"/>
+                        <line x1="80" y1="170" x2="380" y2="170" stroke="#00D4FF" stroke-width="4"/>
                         
-                        <rect x="40" y="80" width="80" height="40" fill="#facc15" rx="5"/>
-                        <text x="80" y="105" text-anchor="middle" font-size="16" font-weight="bold" fill="black" id="bateriaTexto">9V</text>
+                        <rect x="40" y="80" width="80" height="40" fill="#FACC15" rx="5"/>
+                        <text x="80" y="105" text-anchor="middle" font-size="16" font-weight="bold" fill="#0A1628" id="bateriaTexto">9V</text>
                         
-                        <rect x="180" y="85" width="100" height="30" fill="#ef4444" rx="3"/>
+                        <rect x="180" y="85" width="100" height="30" fill="#FF4444" rx="3"/>
                         <text x="230" y="105" text-anchor="middle" font-size="12" fill="white" font-weight="bold" id="resistenciaTexto">330Ω</text>
                         
-                        <circle cx="380" cy="100" r="25" fill="#ef4444" id="led" class="led-glow"/>
+                        <circle cx="380" cy="100" r="25" fill="#FF4444" id="led" class="led-glow"/>
                         <text x="380" y="105" text-anchor="middle" font-size="12" fill="white" font-weight="bold">LED</text>
                         
-                        <circle r="4" fill="#60a5fa">
+                        <circle r="4" fill="#00D4FF">
                             <animateMotion dur="2s" repeatCount="indefinite" 
                                 path="M 80,100 L 180,100 L 280,100 L 380,100 L 380,170 L 80,170 Z"/>
                         </circle>
-                        <circle r="4" fill="#60a5fa">
+                        <circle r="4" fill="#00D4FF">
                             <animateMotion dur="2s" repeatCount="indefinite" begin="0.5s"
                                 path="M 80,100 L 180,100 L 280,100 L 380,100 L 380,170 L 80,170 Z"/>
                         </circle>
-                        <circle r="4" fill="#60a5fa">
+                        <circle r="4" fill="#00D4FF">
                             <animateMotion dur="2s" repeatCount="indefinite" begin="1s"
                                 path="M 80,100 L 180,100 L 280,100 L 380,100 L 380,170 L 80,170 Z"/>
                         </circle>
                     </svg>
                 </div>
 
-                <div class="bg-gradient-to-r from-green-900 to-cyan-900 p-6 rounded-lg text-center border-2 border-green-500">
-                    <p class="text-sm text-slate-300 mb-2">Corriente (I = V / R)</p>
-                    <p class="text-4xl font-bold text-green-400 mb-2">
+                <div class="bg-gradient-to-r from-electro-green/20 to-electro-cyan/20 p-8 rounded-xl text-center border-2 border-electro-green/50">
+                    <p class="text-sm text-slate-300 mb-2 font-bold uppercase tracking-wider">Corriente (I = V / R)</p>
+                    <p class="text-5xl font-extrabold text-electro-green mb-3">
                         <span id="corrienteResultado">0.027</span> A
                     </p>
-                    <p class="text-lg text-slate-200">
-                        = <span id="corrienteMA" class="text-green-400 font-bold">27</span> mA
+                    <p class="text-xl text-slate-200 mb-4">
+                        = <span id="corrienteMA" class="text-electro-green font-bold">27</span> mA
                     </p>
-                    <div id="estadoLED" class="mt-4 p-3 bg-green-600 rounded-lg">
-                        <p class="font-bold">✅ LED encendido correctamente</p>
+                    <div id="estadoLED" class="mt-4 p-4 bg-electro-green/20 border border-electro-green rounded-lg">
+                        <p class="font-bold text-electro-green text-lg">✅ LED encendido correctamente</p>
                     </div>
                 </div>
 
-                <div class="mt-4 p-4 bg-blue-900 rounded-lg">
-                    <h3 class="font-bold mb-2 text-yellow-300">💡 Interpretación:</h3>
-                    <p id="interpretacionCircuito" class="text-sm text-slate-300"></p>
+                <div class="mt-6 p-6 bg-electro-blue/40 rounded-xl border border-electro-cyan/30">
+                    <h3 class="font-bold mb-3 text-electro-yellow text-xl">💡 Interpretación:</h3>
+                    <p id="interpretacionCircuito" class="text-slate-200 text-lg"></p>
                 </div>
             </div>
         </div>
 
         <!-- SECCIÓN 5: EJEMPLOS PRÁCTICOS UNO A LA VEZ -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-yellow">
                 <i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos: ¡Calcula Tú Mismo!
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Resuelve estos problemas usando la Ley de Ohm (I = V / R). 
                 Completa los 50 ejemplos para dominar el tema.
             </p>
 
             <!-- Barra de progreso -->
-            <div class="bg-slate-900 p-4 rounded-lg mb-6">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-slate-400">Progreso:</span>
-                    <span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50 completados</span>
+            <div class="bg-electro-dark/60 p-6 rounded-xl mb-8 border border-electro-cyan/30">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm text-slate-400 font-bold uppercase">Progreso:</span>
+                    <span class="text-sm font-bold text-electro-cyan" id="progreso-texto">0 de 50 completados</span>
                 </div>
-                <div class="w-full bg-slate-700 rounded-full h-3">
-                    <div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                <div class="w-full bg-electro-blue rounded-full h-4 overflow-hidden">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-electro-cyan to-electro-green h-4 rounded-full transition-all duration-500 shadow-lg" style="width: 0%"></div>
                 </div>
             </div>
 
             <!-- Contenedor del ejemplo actual -->
-            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500">
+            <div id="ejemplo-actual" class="bg-electro-dark/60 p-8 rounded-xl border-2 border-electro-cyan/50">
                 <!-- Se llena dinámicamente con JavaScript -->
             </div>
 
             <!-- Botones de navegación -->
-            <div class="flex gap-4 mt-6">
+            <div class="flex gap-4 mt-8">
                 <button onclick="ejemploAnterior()" 
                         id="btn-anterior"
-                        class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="flex-1 bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed border border-electro-cyan/30">
                     <i class="fas fa-arrow-left mr-2"></i>Anterior
                 </button>
                 <button onclick="siguienteEjemplo()" 
                         id="btn-siguiente"
-                        class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">
+                        class="flex-1 bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 rounded-xl transition shadow-lg shadow-electro-cyan/20">
                     Siguiente<i class="fas fa-arrow-right ml-2"></i>
                 </button>
             </div>
 
             <!-- Selector rápido -->
-            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
-                <p class="text-sm text-slate-400 mb-3">O salta a un ejemplo específico:</p>
-                <div class="flex gap-2">
+            <div class="mt-8 bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                <p class="text-sm text-slate-400 mb-3 font-bold">O salta a un ejemplo específico:</p>
+                <div class="flex gap-3">
                     <input type="number" id="saltar-a" min="1" max="50" placeholder="Número (1-50)" 
-                           class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                           class="flex-1 p-3 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white focus:outline-none focus:border-electro-cyan">
                     <button onclick="irAEjemplo()" 
-                            class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded transition">
+                            class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-lg transition">
                         Ir
                     </button>
                 </div>
@@ -480,31 +504,37 @@
         </div>
 
         <!-- SECCIÓN 6: QUIZ -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-purple-400">
                 <i class="fas fa-question-circle mr-2"></i>Quiz: Evalúa tu Conocimiento
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 10 preguntas aleatorias de un banco de 30. Las opciones se mezclan.
             </p>
             
-            <div id="quiz-container" class="space-y-4 mb-6"></div>
+            <div id="quiz-container" class="space-y-4 mb-8"></div>
             
             <button onclick="verResultados()" 
-                    class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg transition">
+                    class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-xl transition shadow-lg mb-4">
                 <i class="fas fa-check-circle mr-2"></i>Ver Resultados
             </button>
             
             <div id="resultado-quiz" class="mt-6 hidden"></div>
             
             <button onclick="nuevoIntento()" 
-                    class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden"
+                    class="w-full mt-4 bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 rounded-xl transition hidden shadow-lg shadow-electro-cyan/20"
                     id="btn-reintentar">
                 <i class="fas fa-redo mr-2"></i>Intentar de Nuevo
             </button>
         </div>
 
     </div>
+
+    <!-- FOOTER DEL MÓDULO -->
+    <footer class="bg-electro-dark p-8 text-center border-t-4 border-electro-yellow mt-12">
+        <p class="text-lg font-bold text-white">© 2026 ElectroLearn - Proyecto de Grado</p>
+        <p class="text-electro-cyan mt-2">Desarrollado por el Grupo 3B Informática</p>
+    </footer>
 
     <script>
         // ============ CONTROL DE VELOCIDAD ============
@@ -547,23 +577,23 @@
             corrienteMA.textContent = iMA.toFixed(1);
 
             if (iMA < 5) {
-                estadoLED.className = 'mt-4 p-3 bg-gray-600 rounded-lg';
-                estadoLED.innerHTML = '<p class="font-bold">⚫ LED apagado</p><p class="text-sm">Corriente muy baja (menos de 5 mA)</p>';
+                estadoLED.className = 'mt-4 p-4 bg-slate-700 border border-slate-500 rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold text-slate-300 text-lg">⚫ LED apagado</p><p class="text-sm text-slate-400">Corriente muy baja (menos de 5 mA)</p>';
                 led.style.opacity = '0.3';
                 interpretacionCircuito.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. Muy baja para encender un LED.`;
             } else if (iMA >= 5 && iMA <= 30) {
-                estadoLED.className = 'mt-4 p-3 bg-green-600 rounded-lg';
-                estadoLED.innerHTML = '<p class="font-bold">✅ LED encendido correctamente</p><p class="text-sm">Corriente ideal (5-30 mA)</p>';
+                estadoLED.className = 'mt-4 p-4 bg-electro-green/20 border border-electro-green rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold text-electro-green text-lg">✅ LED encendido correctamente</p><p class="text-sm text-slate-300">Corriente ideal (5-30 mA)</p>';
                 led.style.opacity = '1';
                 interpretacionCircuito.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. Valor perfecto para un LED.`;
             } else if (iMA > 30 && iMA <= 50) {
-                estadoLED.className = 'mt-4 p-3 bg-yellow-600 rounded-lg';
-                estadoLED.innerHTML = '<p class="font-bold">⚠️ LED muy brillante (precaución)</p><p class="text-sm">Corriente alta, podría dañarse</p>';
+                estadoLED.className = 'mt-4 p-4 bg-electro-yellow/20 border border-electro-yellow rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold text-electro-yellow text-lg">⚠️ LED muy brillante (precaución)</p><p class="text-sm text-slate-300">Corriente alta, podría dañarse</p>';
                 led.style.opacity = '1';
                 interpretacionCircuito.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. Alta para un LED. Aumenta la resistencia.`;
             } else {
-                estadoLED.className = 'mt-4 p-3 bg-red-600 rounded-lg';
-                estadoLED.innerHTML = '<p class="font-bold">🔥 LED QUEMADO</p><p class="text-sm">Corriente excesiva</p>';
+                estadoLED.className = 'mt-4 p-4 bg-electro-red/20 border border-electro-red rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold text-electro-red text-lg">🔥 LED QUEMADO</p><p class="text-sm text-slate-300">Corriente excesiva</p>';
                 led.style.opacity = '0.5';
                 interpretacionCircuito.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. ¡Demasiado alta! El LED se quema.`;
             }
@@ -574,55 +604,55 @@
 
         // ============ 50 EJEMPLOS PRÁCTICOS ============
         const ejemplosPracticos = [
-            { titulo: "Tu Celular", icono: "", color: "yellow", v: 3.7, r: 100, unidad: "mA" },
-            { titulo: "Electricidad Doméstica", icono: "", color: "purple", v: 120, r: 240, unidad: "A" },
-            { titulo: "Linterna", icono: "🔦", color: "green", v: 1.5, r: 50, unidad: "mA" },
-            { titulo: "Batería de Auto", icono: "🚗", color: "red", v: 12, r: 4, unidad: "A" },
-            { titulo: "Cargador USB", icono: "🔌", color: "cyan", v: 5, r: 10, unidad: "mA" },
-            { titulo: "Panel Solar Pequeño", icono: "☀️", color: "yellow", v: 6, r: 120, unidad: "mA" },
+            { titulo: "Tu Celular", icono: "📱", color: "electro-yellow", v: 3.7, r: 100, unidad: "mA" },
+            { titulo: "Electricidad Doméstica", icono: "🏠", color: "purple", v: 120, r: 240, unidad: "A" },
+            { titulo: "Linterna", icono: "🔦", color: "electro-green", v: 1.5, r: 50, unidad: "mA" },
+            { titulo: "Batería de Auto", icono: "🚗", color: "electro-red", v: 12, r: 4, unidad: "A" },
+            { titulo: "Cargador USB", icono: "🔌", color: "electro-cyan", v: 5, r: 10, unidad: "mA" },
+            { titulo: "Panel Solar Pequeño", icono: "☀️", color: "electro-yellow", v: 6, r: 120, unidad: "mA" },
             { titulo: "Motor de Juguete", icono: "🎮", color: "blue", v: 9, r: 30, unidad: "mA" },
             { titulo: "Bocina Bluetooth", icono: "🔊", color: "purple", v: 3.7, r: 74, unidad: "mA" },
-            { titulo: "Lámpara LED", icono: "💡", color: "yellow", v: 12, r: 600, unidad: "mA" },
-            { titulo: "Computadora Portátil", icono: "💻", color: "cyan", v: 19, r: 95, unidad: "A" },
-            { titulo: "Reloj Digital", icono: "⌚", color: "green", v: 1.5, r: 1500, unidad: "mA" },
-            { titulo: "Radio Portátil", icono: "📻", color: "red", v: 9, r: 180, unidad: "mA" },
+            { titulo: "Lámpara LED", icono: "💡", color: "electro-yellow", v: 12, r: 600, unidad: "mA" },
+            { titulo: "Computadora Portátil", icono: "💻", color: "electro-cyan", v: 19, r: 95, unidad: "A" },
+            { titulo: "Reloj Digital", icono: "⌚", color: "electro-green", v: 1.5, r: 1500, unidad: "mA" },
+            { titulo: "Radio Portátil", icono: "📻", color: "electro-red", v: 9, r: 180, unidad: "mA" },
             { titulo: "Ventilador USB", icono: "🌀", color: "blue", v: 5, r: 25, unidad: "mA" },
             { titulo: "Cámara Digital", icono: "📷", color: "purple", v: 7.4, r: 148, unidad: "mA" },
-            { titulo: "Tablet", icono: "📱", color: "cyan", v: 5, r: 25, unidad: "A" },
-            { titulo: "Consola de Videojuegos", icono: "", color: "red", v: 12, r: 24, unidad: "A" },
+            { titulo: "Tablet", icono: "📱", color: "electro-cyan", v: 5, r: 25, unidad: "A" },
+            { titulo: "Consola de Videojuegos", icono: "🎮", color: "electro-red", v: 12, r: 24, unidad: "A" },
             { titulo: "Impresora", icono: "🖨️", color: "blue", v: 24, r: 48, unidad: "A" },
-            { titulo: "Monitor LED", icono: "️", color: "green", v: 12, r: 60, unidad: "A" },
-            { titulo: "Teclado Inalámbrico", icono: "⌨️", color: "yellow", v: 3, r: 300, unidad: "mA" },
+            { titulo: "Monitor LED", icono: "🖥️", color: "electro-green", v: 12, r: 60, unidad: "A" },
+            { titulo: "Teclado Inalámbrico", icono: "⌨️", color: "electro-yellow", v: 3, r: 300, unidad: "mA" },
             { titulo: "Mouse Inalámbrico", icono: "🖱️", color: "purple", v: 3, r: 600, unidad: "mA" },
-            { titulo: "Audífonos Bluetooth", icono: "🎧", color: "cyan", v: 3.7, r: 74, unidad: "mA" },
-            { titulo: "Smartwatch", icono: "⌚", color: "green", v: 3.7, r: 370, unidad: "mA" },
-            { titulo: "Drone Pequeño", icono: "", color: "red", v: 11.1, r: 37, unidad: "A" },
-            { titulo: "Aspiradora Robot", icono: "", color: "blue", v: 14.4, r: 48, unidad: "A" },
-            { titulo: "Cafetera Eléctrica", icono: "☕", color: "yellow", v: 120, r: 1200, unidad: "A" },
-            { titulo: "Microondas", icono: "📡", color: "red", v: 120, r: 120, unidad: "A" },
-            { titulo: "Refrigerador", icono: "", color: "cyan", v: 120, r: 400, unidad: "A" },
+            { titulo: "Audífonos Bluetooth", icono: "🎧", color: "electro-cyan", v: 3.7, r: 74, unidad: "mA" },
+            { titulo: "Smartwatch", icono: "⌚", color: "electro-green", v: 3.7, r: 370, unidad: "mA" },
+            { titulo: "Drone Pequeño", icono: "🚁", color: "electro-red", v: 11.1, r: 37, unidad: "A" },
+            { titulo: "Aspiradora Robot", icono: "🤖", color: "blue", v: 14.4, r: 48, unidad: "A" },
+            { titulo: "Cafetera Eléctrica", icono: "☕", color: "electro-yellow", v: 120, r: 1200, unidad: "A" },
+            { titulo: "Microondas", icono: "📡", color: "electro-red", v: 120, r: 120, unidad: "A" },
+            { titulo: "Refrigerador", icono: "🧊", color: "electro-cyan", v: 120, r: 400, unidad: "A" },
             { titulo: "Lavadora", icono: "👕", color: "purple", v: 120, r: 240, unidad: "A" },
-            { titulo: "Secadora de Pelo", icono: "💨", color: "red", v: 120, r: 120, unidad: "A" },
-            { titulo: "Plancha de Ropa", icono: "👔", color: "yellow", v: 120, r: 120, unidad: "A" },
+            { titulo: "Secadora de Pelo", icono: "💨", color: "electro-red", v: 120, r: 120, unidad: "A" },
+            { titulo: "Plancha de Ropa", icono: "👔", color: "electro-yellow", v: 120, r: 120, unidad: "A" },
             { titulo: "Tostadora", icono: "🍞", color: "orange", v: 120, r: 120, unidad: "A" },
-            { titulo: "Licuadora", icono: "", color: "green", v: 120, r: 240, unidad: "A" },
+            { titulo: "Licuadora", icono: "🥤", color: "electro-green", v: 120, r: 240, unidad: "A" },
             { titulo: "Ventilador de Techo", icono: "🌀", color: "blue", v: 120, r: 480, unidad: "A" },
-            { titulo: "Aire Acondicionado", icono: "❄️", color: "cyan", v: 220, r: 220, unidad: "A" },
+            { titulo: "Aire Acondicionado", icono: "❄️", color: "electro-cyan", v: 220, r: 220, unidad: "A" },
             { titulo: "Televisor LED", icono: "📺", color: "purple", v: 120, r: 600, unidad: "A" },
-            { titulo: "Router WiFi", icono: "", color: "green", v: 12, r: 24, unidad: "A" },
-            { titulo: "Modem de Internet", icono: "🌐", color: "cyan", v: 12, r: 24, unidad: "A" },
-            { titulo: "Cargador de Laptop", icono: "🔋", color: "yellow", v: 19, r: 95, unidad: "A" },
-            { titulo: "Power Bank", icono: "", color: "green", v: 5, r: 10, unidad: "A" },
-            { titulo: "Lámpara de Escritorio", icono: "💡", color: "yellow", v: 12, r: 240, unidad: "mA" },
+            { titulo: "Router WiFi", icono: "📶", color: "electro-green", v: 12, r: 24, unidad: "A" },
+            { titulo: "Modem de Internet", icono: "🌐", color: "electro-cyan", v: 12, r: 24, unidad: "A" },
+            { titulo: "Cargador de Laptop", icono: "🔋", color: "electro-yellow", v: 19, r: 95, unidad: "A" },
+            { titulo: "Power Bank", icono: "🔋", color: "electro-green", v: 5, r: 10, unidad: "A" },
+            { titulo: "Lámpara de Escritorio", icono: "💡", color: "electro-yellow", v: 12, r: 240, unidad: "mA" },
             { titulo: "Tira LED", icono: "✨", color: "purple", v: 12, r: 60, unidad: "mA" },
-            { titulo: "Sensor de Movimiento", icono: "📡", color: "red", v: 5, r: 1000, unidad: "mA" },
-            { titulo: "Alarma de Seguridad", icono: "", color: "red", v: 12, r: 120, unidad: "mA" },
+            { titulo: "Sensor de Movimiento", icono: "📡", color: "electro-red", v: 5, r: 1000, unidad: "mA" },
+            { titulo: "Alarma de Seguridad", icono: "🚨", color: "electro-red", v: 12, r: 120, unidad: "mA" },
             { titulo: "Cámara de Seguridad", icono: "📹", color: "blue", v: 12, r: 120, unidad: "mA" },
-            { titulo: "Timbre Eléctrico", icono: "", color: "yellow", v: 12, r: 240, unidad: "mA" },
-            { titulo: "Puerta Eléctrica", icono: "🚪", color: "green", v: 24, r: 48, unidad: "A" },
-            { titulo: "Motor de Ventana", icono: "🪟", color: "cyan", v: 12, r: 24, unidad: "A" },
+            { titulo: "Timbre Eléctrico", icono: "🔔", color: "electro-yellow", v: 12, r: 240, unidad: "mA" },
+            { titulo: "Puerta Eléctrica", icono: "🚪", color: "electro-green", v: 24, r: 48, unidad: "A" },
+            { titulo: "Motor de Ventana", icono: "🪟", color: "electro-cyan", v: 12, r: 24, unidad: "A" },
             { titulo: "Bomba de Agua", icono: "💧", color: "blue", v: 12, r: 6, unidad: "A" },
-            { titulo: "Compresor de Aire", icono: "💨", color: "red", v: 120, r: 240, unidad: "A" },
+            { titulo: "Compresor de Aire", icono: "💨", color: "electro-red", v: 120, r: 240, unidad: "A" },
             { titulo: "Soldador Eléctrico", icono: "🔧", color: "orange", v: 120, r: 600, unidad: "A" }
         ];
 
@@ -637,34 +667,34 @@
             
             const container = document.getElementById('ejemplo-actual');
             container.innerHTML = `
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
-                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-sm text-slate-400 font-bold">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-electro-green text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
                 </div>
                 
-                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">
+                <h3 class="text-2xl font-bold mb-4 text-${ej.color}">
                     ${ej.icono} ${ej.titulo}
                 </h3>
                 
-                <p class="text-slate-300 mb-4">
-                    Voltaje: <strong class="text-yellow-400">${ej.v}V</strong>, 
-                    Resistencia: <strong class="text-red-400">${ej.r}Ω</strong>. 
+                <p class="text-slate-300 mb-6 text-lg">
+                    Voltaje: <strong class="text-electro-yellow">${ej.v}V</strong>, 
+                    Resistencia: <strong class="text-electro-red">${ej.r}Ω</strong>. 
                     ¿Cuánta corriente circula?
                 </p>
                 
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-sm text-slate-400 mb-2">Tu respuesta:</p>
-                    <div class="flex gap-2">
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <p class="text-sm text-slate-400 mb-3 font-bold">Tu respuesta:</p>
+                    <div class="flex gap-3">
                         <input type="number" id="respuesta-actual" 
                                placeholder="Ingresa la corriente en ${ej.unidad}" 
-                               class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white text-lg"
+                               class="flex-1 p-4 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white text-lg focus:outline-none focus:border-electro-cyan"
                                onkeypress="if(event.key==='Enter') verificarEjemploActual(${respuestaCorrecta}, '${ej.unidad}', ${ej.v}, ${ej.r})">
                         <button onclick="verificarEjemploActual(${respuestaCorrecta}, '${ej.unidad}', ${ej.v}, ${ej.r})" 
-                                class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded transition">
+                                class="bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 px-8 rounded-lg transition shadow-lg shadow-electro-cyan/20">
                             Verificar
                         </button>
                     </div>
-                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                    <div id="resultado-actual" class="mt-4 hidden"></div>
                 </div>
             `;
             
@@ -680,8 +710,8 @@
             if (isNaN(respuesta)) {
                 resultadoDiv.classList.remove('hidden');
                 resultadoDiv.innerHTML = `
-                    <div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded">
-                        <p class="font-bold text-yellow-400">⚠️ Ingresa un número</p>
+                    <div class="bg-electro-yellow/20 border-2 border-electro-yellow p-4 rounded-lg">
+                        <p class="font-bold text-electro-yellow text-lg">⚠️ Ingresa un número</p>
                     </div>
                 `;
                 return;
@@ -695,9 +725,9 @@
             if (esCorrecta) {
                 ejemplosCompletados.add(ejemploActual);
                 resultadoDiv.innerHTML = `
-                    <div class="bg-green-900 border-2 border-green-500 p-3 rounded">
-                        <p class="font-bold text-green-400">✅ ¡Correcto!</p>
-                        <p class="text-sm text-slate-300">I = V/R = ${v}V / ${r}Ω = ${(v/r).toFixed(4)}A = ${correcta.toFixed(2)} ${unidad}</p>
+                    <div class="bg-electro-green/20 border-2 border-electro-green p-4 rounded-lg">
+                        <p class="font-bold text-electro-green text-lg">✅ ¡Correcto!</p>
+                        <p class="text-slate-200 mt-2">I = V/R = ${v}V / ${r}Ω = ${(v/r).toFixed(4)}A = ${correcta.toFixed(2)} ${unidad}</p>
                     </div>
                 `;
                 actualizarProgreso();
@@ -709,10 +739,10 @@
                 }, 2000);
             } else {
                 resultadoDiv.innerHTML = `
-                    <div class="bg-red-900 border-2 border-red-500 p-3 rounded">
-                        <p class="font-bold text-red-400">❌ Incorrecto</p>
-                        <p class="text-sm text-slate-300">La respuesta correcta es <strong>${correcta.toFixed(2)} ${unidad}</strong></p>
-                        <p class="text-xs text-slate-400 mt-1">Fórmula: I = V/R = ${v}V / ${r}Ω = ${(v/r).toFixed(4)}A = ${correcta.toFixed(2)} ${unidad}</p>
+                    <div class="bg-electro-red/20 border-2 border-electro-red p-4 rounded-lg">
+                        <p class="font-bold text-electro-red text-lg">❌ Incorrecto</p>
+                        <p class="text-slate-200 mt-2">La respuesta correcta es <strong>${correcta.toFixed(2)} ${unidad}</strong></p>
+                        <p class="text-sm text-slate-400 mt-2">Fórmula: I = V/R = ${v}V / ${r}Ω = ${(v/r).toFixed(4)}A = ${correcta.toFixed(2)} ${unidad}</p>
                     </div>
                 `;
             }
@@ -775,7 +805,7 @@
             { pregunta: "¿Qué necesita un circuito?", opciones: ["Solo cables", "Fuente, conductor y carga", "Solo batería", "Solo interruptor"], respuestaCorrecta: 1, explicacion: "Necesita fuente, conductor y carga." },
             { pregunta: "¿Qué hace un interruptor?", opciones: ["Genera electricidad", "Abre o cierra el circuito", "Almacena energía", "Mide corriente"], respuestaCorrecta: 1, explicacion: "El interruptor abre o cierra el circuito." },
             { pregunta: "¿Qué es la intensidad?", opciones: ["Fuerza del voltaje", "Electrones que fluyen por segundo", "Resistencia", "Potencia"], respuestaCorrecta: 1, explicacion: "La intensidad mide electrones por segundo." },
-            { pregunta: "¿1 Amperio en electrones?", opciones: ["1 electrón", "100 electrones", "6.24 × 10¹⁸ electrones", "1000 electrones"], respuestaCorrecta: 2, explicacion: "1A = 6.24 × 10¹ electrones/seg." },
+            { pregunta: "¿1 Amperio en electrones?", opciones: ["1 electrón", "100 electrones", "6.24 × 10¹⁸ electrones", "1000 electrones"], respuestaCorrecta: 2, explicacion: "1A = 6.24 × 10¹⁸ electrones/seg." },
             { pregunta: "¿Más peligroso: 120V CA o 12V CC?", opciones: ["12V CC", "120V CA", "Iguales", "Ninguno"], respuestaCorrecta: 1, explicacion: "120V CA puede causar fibrilación cardíaca." },
             { pregunta: "¿Corriente de un panel solar?", opciones: ["Alterna", "Continua", "Ambas", "Ninguna"], respuestaCorrecta: 1, explicacion: "Los paneles generan CC." },
             { pregunta: "¿Qué es un electrón?", opciones: ["Carga positiva", "Carga negativa", "Sin carga", "Tipo de átomo"], respuestaCorrecta: 1, explicacion: "El electrón tiene carga negativa." },
@@ -820,13 +850,13 @@
                 const opcionesMezcladas = mezclarArray(opcionesConIndice);
                 
                 const preguntaHTML = `
-                    <div class="bg-slate-900 p-4 rounded-lg" data-pregunta="${index}">
-                        <p class="font-semibold mb-3">${index + 1}. ${pregunta.pregunta}</p>
-                        <div class="space-y-2">
+                    <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/20" data-pregunta="${index}">
+                        <p class="font-semibold mb-4 text-lg">${index + 1}. ${pregunta.pregunta}</p>
+                        <div class="space-y-3">
                             ${opcionesMezcladas.map((opcion, opIndex) => `
                                 <button onclick="seleccionarRespuesta(${index}, this)" 
                                         data-es-correcta="${opcion.esCorrecta}"
-                                        class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition opcion-btn">
+                                        class="w-full text-left p-4 bg-electro-blue/40 rounded-lg hover:bg-electro-blue border border-electro-cyan/20 transition opcion-btn text-slate-200">
                                     ${opcion.texto}
                                 </button>
                             `).join('')}
@@ -856,18 +886,18 @@
                 btn.disabled = true;
                 btn.classList.add('opacity-50');
                 if (btn.dataset.esCorrecta === 'true') {
-                    btn.classList.remove('bg-slate-700', 'opacity-50');
-                    btn.classList.add('bg-green-600');
+                    btn.classList.remove('bg-electro-blue/40', 'opacity-50');
+                    btn.classList.add('bg-electro-green/30', 'border-electro-green');
                 }
             });
             
             if (esCorrecta) {
                 correctas++;
-                boton.classList.remove('bg-slate-700', 'opacity-50');
-                boton.classList.add('bg-green-600');
+                boton.classList.remove('bg-electro-blue/40', 'opacity-50');
+                boton.classList.add('bg-electro-green/30', 'border-electro-green');
             } else {
-                boton.classList.remove('bg-slate-700', 'opacity-50');
-                boton.classList.add('bg-red-600');
+                boton.classList.remove('bg-electro-blue/40', 'opacity-50');
+                boton.classList.add('bg-electro-red/30', 'border-electro-red');
             }
         }
 
@@ -881,32 +911,32 @@
             const resultadoDiv = document.getElementById('resultado-quiz');
             
             let mensaje, color, emoji;
-            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas el tema'; color = 'green'; emoji = '🏆'; }
-            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'blue'; emoji = ''; }
-            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar algunos conceptos'; color = 'orange'; emoji = ''; }
-            else { mensaje = 'Te recomendamos estudiar nuevamente'; color = 'red'; emoji = '⚠️'; }
+            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas el tema'; color = 'electro-green'; emoji = '🏆'; }
+            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'electro-cyan'; emoji = '👍'; }
+            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar algunos conceptos'; color = 'electro-yellow'; emoji = '📚'; }
+            else { mensaje = 'Te recomendamos estudiar nuevamente'; color = 'electro-red'; emoji = '⚠️'; }
             
             let explicacionesHTML = preguntasActuales.map((p, i) => {
                 const esCorrecta = respuestasSeleccionadas[i];
                 return `
-                    <div class="bg-slate-900 p-3 rounded mb-2 ${esCorrecta ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}">
-                        <p class="font-semibold text-sm">${i + 1}. ${p.pregunta}</p>
-                        <p class="text-xs mt-1 ${esCorrecta ? 'text-green-400' : 'text-red-400'}">
+                    <div class="bg-electro-dark/60 p-4 rounded-lg mb-3 ${esCorrecta ? 'border-l-4 border-electro-green' : 'border-l-4 border-electro-red'}">
+                        <p class="font-semibold text-sm mb-1">${i + 1}. ${p.pregunta}</p>
+                        <p class="text-xs ${esCorrecta ? 'text-electro-green' : 'text-electro-red'} font-bold">
                             ${esCorrecta ? '✓ Correcta' : '✗ Incorrecta'}
                         </p>
-                        <p class="text-xs text-slate-400 mt-1"><em>${p.explicacion}</em></p>
+                        <p class="text-xs text-slate-400 mt-2"><em>${p.explicacion}</em></p>
                     </div>
                 `;
             }).join('');
             
             resultadoDiv.innerHTML = `
-                <div class="bg-${color}-900 border-2 border-${color}-500 p-6 rounded-lg text-center mb-4">
-                    <p class="text-4xl mb-2">${emoji}</p>
-                    <h3 class="text-2xl font-bold text-${color}-400 mb-2">${mensaje}</h3>
-                    <p class="text-3xl font-bold text-white">${correctas} de 10 (${porcentaje}%)</p>
+                <div class="bg-${color}/20 border-2 border-${color} p-8 rounded-2xl text-center mb-6">
+                    <p class="text-5xl mb-3">${emoji}</p>
+                    <h3 class="text-3xl font-bold text-${color} mb-2">${mensaje}</h3>
+                    <p class="text-4xl font-extrabold text-white">${correctas} de 10 (${porcentaje}%)</p>
                 </div>
-                <div class="mt-4">
-                    <h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión de Respuestas:</h3>
+                <div class="mt-6">
+                    <h3 class="font-bold text-xl mb-4 text-electro-cyan">Revisión de Respuestas:</h3>
                     ${explicacionesHTML}
                 </div>
             `;

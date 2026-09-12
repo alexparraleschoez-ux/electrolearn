@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="../../favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -15,6 +15,15 @@
                     fontFamily: {
                         'heading': ['Poppins', 'sans-serif'],
                         'body': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'electro-dark': '#0A1628',
+                        'electro-blue': '#1E3A8A',
+                        'electro-circuit': '#1E40AF',
+                        'electro-yellow': '#FACC15',
+                        'electro-cyan': '#00D4FF',
+                        'electro-green': '#00FF88',
+                        'electro-red': '#FF4444',
                     }
                 }
             }
@@ -32,21 +41,26 @@
             100% { left: 100%; opacity: 0; }
         }
         @keyframes parpadeo {
-            0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px #ef4444); }
-            50% { opacity: 0.6; filter: drop-shadow(0 0 5px #ef4444); }
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px #FF4444); }
+            50% { opacity: 0.6; filter: drop-shadow(0 0 5px #FF4444); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
         .section-animate { animation: fadeInUp 0.6s ease-out; }
         .componente-card {
-            border-left: 4px solid #22d3ee;
+            border-left: 4px solid #00D4FF;
             transition: all 0.3s;
         }
         .componente-card:hover {
             transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
         }
         .electron { animation: fluirCircuito 3s linear infinite; }
         .led-glow { animation: parpadeo 1s ease-in-out infinite; }
         .opcion-btn:disabled { cursor: not-allowed; }
+        .logo-float { animation: float 3s ease-in-out infinite; }
         
         /* Estilos de la calculadora */
         .calc-btn {
@@ -65,57 +79,66 @@
             font-size: 2rem;
             text-align: right;
             padding: 1rem;
-            background: #0f172a;
-            border: 2px solid #22d3ee;
+            background: #0A1628;
+            border: 2px solid #00D4FF;
             border-radius: 0.5rem;
-            color: #22d3ee;
+            color: #00D4FF;
             min-height: 80px;
             overflow-x: auto;
         }
+
+        .glass-card {
+            background: rgba(30, 58, 138, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-white font-body min-h-screen">
+<body class="bg-electro-dark text-white font-body min-h-screen">
 
-    <!-- HEADER -->
-        <header class="bg-white p-3 shadow-lg">
-            <div class="container mx-auto flex justify-between items-center">
-                <a href="../../index.html" class="flex items-center">
-                    <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-12 md:h-16 w-auto">
-                </a>
-                <a href="../../index.html" class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition">
-                    <i class="fas fa-arrow-left mr-2"></i> Volver
-                </a>
-            </div>
-        </header>
+    <!-- HEADER FIJO CON LOGO GRANDE -->
+    <header class="bg-gradient-to-r from-electro-blue via-electro-circuit to-electro-blue p-4 shadow-2xl sticky top-0 z-50 border-b-4 border-electro-yellow">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="flex items-center logo-float">
+                <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-16 md:h-20 w-auto drop-shadow-lg">
+            </a>
+            <a href="../../index.html" class="bg-electro-yellow hover:bg-yellow-400 text-electro-dark px-6 py-3 rounded-lg font-bold hover:scale-105 transition-all shadow-lg flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Volver al Inicio
+            </a>
+        </div>
+    </header>
 
     <!-- TÍTULO -->
-    <section class="py-8 text-center px-4 section-animate">
-        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
-            <i class="fas fa-project-diagram text-cyan-400"></i> Módulo 4: Circuitos Eléctricos
-        </h1>
-        <p class="text-slate-300 text-lg">Circuitos en serie, paralelo y mixtos con simulaciones</p>
+    <section class="py-12 text-center px-4 section-animate relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-electro-dark via-electro-blue/20 to-electro-dark opacity-50"></div>
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-6xl font-heading font-extrabold mb-4">
+                <i class="fas fa-project-diagram text-electro-cyan mr-3"></i> Módulo 4: Circuitos Eléctricos
+            </h1>
+            <p class="text-slate-300 text-xl max-w-2xl mx-auto">Circuitos en serie, paralelo y mixtos con simulaciones</p>
+        </div>
     </section>
 
     <div class="container mx-auto px-4 pb-16 space-y-8">
 
         <!-- SECCIÓN 1: TEORÍA -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-8 text-electro-cyan">
                 <i class="fas fa-book mr-2"></i>Teoría: Tipos de Circuitos
             </h2>
 
             <!-- Circuito en Serie -->
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-link mr-2"></i>Circuito en Serie
                 </h3>
-                <p class="text-slate-300 mb-3">
-                    En un <strong class="text-yellow-400">circuito en serie</strong>, los componentes están conectados 
+                <p class="text-slate-300 mb-4 text-lg">
+                    En un <strong class="text-electro-yellow">circuito en serie</strong>, los componentes están conectados 
                     <strong>uno después del otro</strong>, formando un solo camino para la corriente.
                 </p>
                 <div class="grid md:grid-cols-2 gap-4 mb-4">
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2">📏 Características:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">📏 Características:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ <strong>Una sola ruta</strong> para la corriente</li>
                             <li>✓ La <strong>corriente es igual</strong> en todos los componentes</li>
@@ -123,43 +146,43 @@
                             <li>✓ Si un componente falla, <strong>todo se detiene</strong></li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2">📐 Fórmulas:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">📐 Fórmulas:</h4>
                         <div class="space-y-2">
-                            <div class="bg-slate-900 p-2 rounded">
-                                <p class="text-yellow-400 font-mono text-sm">Rt = R1 + R2 + R3 + ...</p>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-yellow font-mono text-sm font-bold">Rt = R1 + R2 + R3 + ...</p>
                                 <p class="text-xs text-slate-400">Resistencia total = suma de todas</p>
                             </div>
-                            <div class="bg-slate-900 p-2 rounded">
-                                <p class="text-yellow-400 font-mono text-sm">It = I1 = I2 = I3 = ...</p>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-yellow font-mono text-sm font-bold">It = I1 = I2 = I3 = ...</p>
                                 <p class="text-xs text-slate-400">Corriente igual en todos</p>
                             </div>
-                            <div class="bg-slate-900 p-2 rounded">
-                                <p class="text-yellow-400 font-mono text-sm">Vt = V1 + V2 + V3 + ...</p>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-yellow font-mono text-sm font-bold">Vt = V1 + V2 + V3 + ...</p>
                                 <p class="text-xs text-slate-400">Voltaje total = suma de voltajes</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-yellow-900 p-3 rounded-lg">
-                    <p class="text-sm text-slate-300">
-                        💡 <strong>Ejemplo real:</strong> Luces navideñas antiguas. Si una se quema, todas se apagan.
+                <div class="bg-electro-yellow/10 border border-electro-yellow/30 p-4 rounded-lg">
+                    <p class="text-slate-200">
+                        💡 <strong class="text-electro-yellow">Ejemplo real:</strong> Luces navideñas antiguas. Si una se quema, todas se apagan.
                     </p>
                 </div>
             </div>
 
             <!-- Circuito en Paralelo -->
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-green-400">
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-green">
                     <i class="fas fa-code-branch mr-2"></i>Circuito en Paralelo
                 </h3>
-                <p class="text-slate-300 mb-3">
-                    En un <strong class="text-green-400">circuito en paralelo</strong>, los componentes están conectados 
+                <p class="text-slate-300 mb-4 text-lg">
+                    En un <strong class="text-electro-green">circuito en paralelo</strong>, los componentes están conectados 
                     en <strong>ramas separadas</strong>, formando múltiples caminos para la corriente.
                 </p>
                 <div class="grid md:grid-cols-2 gap-4 mb-4">
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2"> Características:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2"> Características:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ <strong>Múltiples rutas</strong> para la corriente</li>
                             <li>✓ El <strong>voltaje es igual</strong> en todas las ramas</li>
@@ -167,101 +190,101 @@
                             <li>✓ Si una rama falla, <strong>las demás siguen</strong></li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2">📐 Fórmulas:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">📐 Fórmulas:</h4>
                         <div class="space-y-2">
-                            <div class="bg-slate-900 p-2 rounded">
-                                <p class="text-green-400 font-mono text-sm">1/Rt = 1/R1 + 1/R2 + 1/R3 + ...</p>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-green font-mono text-sm font-bold">1/Rt = 1/R1 + 1/R2 + 1/R3 + ...</p>
                                 <p class="text-xs text-slate-400">Resistencia total (inversa)</p>
                             </div>
-                            <div class="bg-slate-900 p-2 rounded">
-                                <p class="text-green-400 font-mono text-sm">Vt = V1 = V2 = V3 = ...</p>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-green font-mono text-sm font-bold">Vt = V1 = V2 = V3 = ...</p>
                                 <p class="text-xs text-slate-400">Voltaje igual en todas las ramas</p>
                             </div>
-                            <div class="bg-slate-900 p-2 rounded">
-                                <p class="text-green-400 font-mono text-sm">It = I1 + I2 + I3 + ...</p>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-green font-mono text-sm font-bold">It = I1 + I2 + I3 + ...</p>
                                 <p class="text-xs text-slate-400">Corriente total = suma de corrientes</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-green-900 p-3 rounded-lg">
-                    <p class="text-sm text-slate-300">
-                        💡 <strong>Ejemplo real:</strong> Instalación eléctrica de tu casa. Si se funde un foco, los demás siguen funcionando.
+                <div class="bg-electro-green/10 border border-electro-green/30 p-4 rounded-lg">
+                    <p class="text-slate-200">
+                        💡 <strong class="text-electro-green">Ejemplo real:</strong> Instalación eléctrica de tu casa. Si se funde un foco, los demás siguen funcionando.
                     </p>
                 </div>
             </div>
 
             <!-- Circuito Mixto -->
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-purple-400">
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-purple-400">
                     <i class="fas fa-random mr-2"></i>Circuito Mixto
                 </h3>
-                <p class="text-slate-300 mb-3">
+                <p class="text-slate-300 mb-4 text-lg">
                     Un <strong class="text-purple-400">circuito mixto</strong> combina conexiones en <strong>serie y paralelo</strong> 
                     en el mismo circuito. Es el más común en aplicaciones reales.
                 </p>
-                <div class="bg-slate-800 p-4 rounded-lg mb-4">
-                    <h4 class="font-bold text-cyan-400 mb-2"> Método de resolución:</h4>
+                <div class="bg-electro-blue/40 p-5 rounded-lg border border-electro-cyan/30 mb-4">
+                    <h4 class="font-bold text-electro-cyan mb-3 text-lg"> Método de resolución:</h4>
                     <ol class="text-sm text-slate-300 space-y-2 list-decimal list-inside">
-                        <li>Identifica las partes en <strong class="text-yellow-400">serie</strong> y <strong class="text-green-400">paralelo</strong></li>
-                        <li>Calcula primero las resistencias en <strong class="text-green-400">paralelo</strong></li>
+                        <li>Identifica las partes en <strong class="text-electro-yellow">serie</strong> y <strong class="text-electro-green">paralelo</strong></li>
+                        <li>Calcula primero las resistencias en <strong class="text-electro-green">paralelo</strong></li>
                         <li>Sustituye por su resistencia equivalente</li>
-                        <li>Calcula las resistencias en <strong class="text-yellow-400">serie</strong> restantes</li>
+                        <li>Calcula las resistencias en <strong class="text-electro-yellow">serie</strong> restantes</li>
                         <li>Obtén la <strong class="text-purple-400">resistencia total</strong></li>
                     </ol>
                 </div>
-                <div class="bg-purple-900 p-3 rounded-lg">
-                    <p class="text-sm text-slate-300">
-                        💡 <strong>Ejemplo real:</strong> Circuitos de computadoras, televisores, automóviles.
+                <div class="bg-purple-900/30 border border-purple-500/30 p-4 rounded-lg">
+                    <p class="text-slate-200">
+                        💡 <strong class="text-purple-400">Ejemplo real:</strong> Circuitos de computadoras, televisores, automóviles.
                     </p>
                 </div>
             </div>
 
             <!-- Comparación -->
-            <div class="bg-slate-900 p-5 rounded-lg">
-                <h3 class="text-xl font-bold mb-3 text-cyan-400">
+            <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                <h3 class="text-2xl font-bold mb-4 text-electro-cyan">
                     <i class="fas fa-balance-scale mr-2"></i>Comparación: Serie vs Paralelo
                 </h3>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead class="bg-slate-800">
+                    <table class="w-full text-sm md:text-base">
+                        <thead class="bg-electro-blue/60">
                             <tr>
-                                <th class="p-3 text-left text-cyan-400">Característica</th>
-                                <th class="p-3 text-center text-yellow-400">Serie</th>
-                                <th class="p-3 text-center text-green-400">Paralelo</th>
+                                <th class="p-4 text-left text-electro-cyan">Característica</th>
+                                <th class="p-4 text-center text-electro-yellow">Serie</th>
+                                <th class="p-4 text-center text-electro-green">Paralelo</th>
                             </tr>
                         </thead>
                         <tbody class="text-slate-300">
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Rutas de corriente</td>
-                                <td class="p-3 text-center">Una sola</td>
-                                <td class="p-3 text-center">Múltiples</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Rutas de corriente</td>
+                                <td class="p-4 text-center">Una sola</td>
+                                <td class="p-4 text-center">Múltiples</td>
                             </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Corriente</td>
-                                <td class="p-3 text-center">Igual en todos</td>
-                                <td class="p-3 text-center">Se divide</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Corriente</td>
+                                <td class="p-4 text-center">Igual en todos</td>
+                                <td class="p-4 text-center">Se divide</td>
                             </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Voltaje</td>
-                                <td class="p-3 text-center">Se divide</td>
-                                <td class="p-3 text-center">Igual en todos</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Voltaje</td>
+                                <td class="p-4 text-center">Se divide</td>
+                                <td class="p-4 text-center">Igual en todos</td>
                             </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Resistencia total</td>
-                                <td class="p-3 text-center">Mayor que la mayor</td>
-                                <td class="p-3 text-center">Menor que la menor</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Resistencia total</td>
+                                <td class="p-4 text-center">Mayor que la mayor</td>
+                                <td class="p-4 text-center">Menor que la menor</td>
                             </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Si falla un componente</td>
-                                <td class="p-3 text-center text-red-400">Todo se detiene</td>
-                                <td class="p-3 text-center text-green-400">Los demás siguen</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Si falla un componente</td>
+                                <td class="p-4 text-center text-electro-red font-bold">Todo se detiene</td>
+                                <td class="p-4 text-center text-electro-green font-bold">Los demás siguen</td>
                             </tr>
                             <tr>
-                                <td class="p-3 font-bold">Ejemplo</td>
-                                <td class="p-3 text-center">Luces navideñas</td>
-                                <td class="p-3 text-center">Casa eléctrica</td>
+                                <td class="p-4 font-bold">Ejemplo</td>
+                                <td class="p-4 text-center">Luces navideñas</td>
+                                <td class="p-4 text-center">Casa eléctrica</td>
                             </tr>
                         </tbody>
                     </table>
@@ -270,142 +293,144 @@
         </div>
 
         <!-- SECCIÓN 2: SIMULADOR DE CIRCUITOS -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-cyan">
                 <i class="fas fa-flask mr-2"></i>Simulador de Circuitos
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Agrega resistencias y calcula la resistencia total en serie o paralelo.
             </p>
 
-            <!-- Tipo de circuito -->
-            <div class="bg-slate-900 p-4 rounded-lg mb-6">
-                <h3 class="font-bold text-lg mb-3">Tipo de circuito:</h3>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <button onclick="setTipoCircuito('serie')" id="btn-serie" 
-                            class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg transition border-2 border-yellow-400">
-                        <i class="fas fa-link mr-2"></i>Serie
+            <div class="bg-electro-dark/60 p-8 rounded-xl border border-electro-cyan/30">
+                <!-- Tipo de circuito -->
+                <div class="mb-8">
+                    <h3 class="font-bold text-lg mb-4 text-slate-200">Tipo de circuito:</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <button onclick="setTipoCircuito('serie')" id="btn-serie" 
+                                class="bg-electro-yellow hover:bg-yellow-400 text-electro-dark font-bold py-4 rounded-xl transition border-2 border-electro-yellow shadow-lg shadow-electro-yellow/20">
+                            <i class="fas fa-link mr-2"></i>Serie
+                        </button>
+                        <button onclick="setTipoCircuito('paralelo')" id="btn-paralelo" 
+                                class="bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-xl transition border-2 border-electro-cyan/30">
+                            <i class="fas fa-code-branch mr-2"></i>Paralelo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Agregar resistencias -->
+                <div class="mb-8">
+                    <h3 class="font-bold text-lg mb-4 text-slate-200">Agregar resistencias:</h3>
+                    <div class="flex gap-3 mb-4">
+                        <input type="number" id="nueva-resistencia" placeholder="Valor en Ω" 
+                               class="flex-1 p-4 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white focus:outline-none focus:border-electro-cyan text-lg"
+                               onkeypress="if(event.key==='Enter') agregarResistencia()">
+                        <button onclick="agregarResistencia()" 
+                                class="bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 px-8 rounded-lg transition shadow-lg shadow-electro-cyan/20">
+                            <i class="fas fa-plus mr-2"></i>Agregar
+                        </button>
+                    </div>
+
+                    <!-- Lista de resistencias -->
+                    <div id="lista-resistencias" class="space-y-3 mb-4">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+
+                    <button onclick="limpiarResistencias()" 
+                            class="w-full bg-electro-red/20 hover:bg-electro-red/40 text-electro-red font-bold py-3 rounded-lg transition border border-electro-red/30">
+                        <i class="fas fa-trash mr-2"></i>Limpiar todas
                     </button>
-                    <button onclick="setTipoCircuito('paralelo')" id="btn-paralelo" 
-                            class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition border-2 border-slate-600">
-                        <i class="fas fa-code-branch mr-2"></i>Paralelo
-                    </button>
-                </div>
-            </div>
-
-            <!-- Agregar resistencias -->
-            <div class="bg-slate-900 p-4 rounded-lg mb-6">
-                <h3 class="font-bold text-lg mb-3">Agregar resistencias:</h3>
-                <div class="flex gap-2 mb-4">
-                    <input type="number" id="nueva-resistencia" placeholder="Valor en Ω" 
-                           class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white"
-                           onkeypress="if(event.key==='Enter') agregarResistencia()">
-                    <button onclick="agregarResistencia()" 
-                            class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded transition">
-                        <i class="fas fa-plus mr-2"></i>Agregar
-                    </button>
                 </div>
 
-                <!-- Lista de resistencias -->
-                <div id="lista-resistencias" class="space-y-2 mb-4">
-                    <!-- Se llena dinámicamente -->
+                <!-- Diagrama del circuito -->
+                <div class="mb-8">
+                    <h3 class="font-bold text-lg mb-4 text-center text-slate-200">Diagrama del circuito:</h3>
+                    <div id="diagrama-circuito" class="bg-electro-blue/30 p-6 rounded-xl border border-electro-cyan/20 min-h-48 flex items-center justify-center">
+                        <p class="text-slate-400">Agrega resistencias para ver el diagrama</p>
+                    </div>
                 </div>
 
-                <button onclick="limpiarResistencias()" 
-                        class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-2 rounded transition">
-                    <i class="fas fa-trash mr-2"></i>Limpiar todas
-                </button>
-            </div>
-
-            <!-- Diagrama del circuito -->
-            <div class="bg-slate-900 p-6 rounded-lg mb-6">
-                <h3 class="font-bold text-lg mb-4 text-center">Diagrama del circuito:</h3>
-                <div id="diagrama-circuito" class="bg-slate-800 p-4 rounded-lg min-h-48 flex items-center justify-center">
-                    <p class="text-slate-400">Agrega resistencias para ver el diagrama</p>
-                </div>
-            </div>
-
-            <!-- Resultado -->
-            <div class="bg-gradient-to-r from-green-900 to-cyan-900 p-6 rounded-lg text-center border-2 border-green-500">
-                <p class="text-sm text-slate-300 mb-2">Resistencia total del circuito:</p>
-                <p class="text-4xl font-bold text-green-400 mb-2" id="resistencia-total">0 Ω</p>
-                <div class="bg-slate-800 p-3 rounded-lg mt-4">
-                    <p class="text-sm text-slate-400">Fórmula aplicada:</p>
-                    <p class="text-lg font-mono text-white" id="formula-aplicada">Agrega resistencias para ver la fórmula</p>
+                <!-- Resultado -->
+                <div class="bg-gradient-to-r from-electro-green/20 to-electro-cyan/20 p-8 rounded-xl text-center border-2 border-electro-green/50">
+                    <p class="text-sm text-slate-300 mb-2 font-bold uppercase tracking-wider">Resistencia total del circuito:</p>
+                    <p class="text-4xl md:text-5xl font-extrabold text-electro-green mb-4" id="resistencia-total">0 Ω</p>
+                    <div class="bg-electro-dark/60 p-4 rounded-lg border border-electro-cyan/30">
+                        <p class="text-sm text-slate-400 mb-1">Fórmula aplicada:</p>
+                        <p class="text-lg font-mono text-white" id="formula-aplicada">Agrega resistencias para ver la fórmula</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- SECCIÓN 3: CALCULADORA CIENTÍFICA -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-cyan">
                 <i class="fas fa-calculator mr-2"></i>Calculadora para Estudiantes
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Practica tus cálculos de circuitos con esta calculadora interactiva.
             </p>
 
-            <div class="bg-slate-900 p-6 rounded-lg">
+            <div class="bg-electro-dark/60 p-8 rounded-xl border border-electro-cyan/30">
                 <!-- Pantalla -->
-                <div class="mb-4">
+                <div class="mb-6">
                     <div class="calc-display" id="calc-display">0</div>
                 </div>
 
                 <!-- Botones -->
-                <div class="grid grid-cols-4 gap-2 mb-4">
-                    <button onclick="calcClear()" class="calc-btn bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-lg">C</button>
-                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg">⌫</button>
-                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">%</button>
-                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">÷</button>
+                <div class="grid grid-cols-4 gap-3 mb-6">
+                    <button onclick="calcClear()" class="calc-btn bg-electro-red hover:bg-red-600 text-white font-bold py-4 rounded-lg text-xl">C</button>
+                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg text-xl">⌫</button>
+                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">%</button>
+                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">÷</button>
 
-                    <button onclick="calcNumber('7')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">7</button>
-                    <button onclick="calcNumber('8')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">8</button>
-                    <button onclick="calcNumber('9')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">9</button>
-                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">×</button>
+                    <button onclick="calcNumber('7')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">7</button>
+                    <button onclick="calcNumber('8')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">8</button>
+                    <button onclick="calcNumber('9')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">9</button>
+                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">×</button>
 
-                    <button onclick="calcNumber('4')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">4</button>
-                    <button onclick="calcNumber('5')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">5</button>
-                    <button onclick="calcNumber('6')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">6</button>
-                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">−</button>
+                    <button onclick="calcNumber('4')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">4</button>
+                    <button onclick="calcNumber('5')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">5</button>
+                    <button onclick="calcNumber('6')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">6</button>
+                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">−</button>
 
-                    <button onclick="calcNumber('1')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">1</button>
-                    <button onclick="calcNumber('2')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">2</button>
-                    <button onclick="calcNumber('3')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">3</button>
-                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">+</button>
+                    <button onclick="calcNumber('1')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">1</button>
+                    <button onclick="calcNumber('2')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">2</button>
+                    <button onclick="calcNumber('3')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">3</button>
+                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">+</button>
 
-                    <button onclick="calcNumber('0')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg col-span-2">0</button>
-                    <button onclick="calcDecimal()" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">.</button>
-                    <button onclick="calcEquals()" class="calc-btn bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-lg">=</button>
+                    <button onclick="calcNumber('0')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl col-span-2">0</button>
+                    <button onclick="calcDecimal()" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">.</button>
+                    <button onclick="calcEquals()" class="calc-btn bg-electro-green hover:bg-green-400 text-electro-dark font-bold py-4 rounded-lg text-xl shadow-lg shadow-electro-green/20">=</button>
                 </div>
 
                 <!-- Botones especiales -->
-                <div class="grid grid-cols-3 gap-2 mb-4">
-                    <button onclick="calcConvert('ohm-kohm')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">
+                <div class="grid grid-cols-3 gap-3 mb-6">
+                    <button onclick="calcConvert('ohm-kohm')" class="calc-btn bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-3 rounded-lg text-sm shadow-lg shadow-electro-cyan/20">
                         Ω → kΩ
                     </button>
-                    <button onclick="calcConvert('kohm-mohm')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">
+                    <button onclick="calcConvert('kohm-mohm')" class="calc-btn bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-3 rounded-lg text-sm shadow-lg shadow-electro-cyan/20">
                         kΩ → MΩ
                     </button>
-                    <button onclick="calcConvert('ma-a')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">
+                    <button onclick="calcConvert('ma-a')" class="calc-btn bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-3 rounded-lg text-sm shadow-lg shadow-electro-cyan/20">
                         mA → A
                     </button>
                 </div>
 
                 <!-- Fórmulas rápidas -->
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <h3 class="font-bold text-yellow-400 mb-3">⚡ Fórmulas Rápidas:</h3>
-                    <div class="grid md:grid-cols-2 gap-2 text-sm">
-                        <div class="bg-slate-900 p-2 rounded">
-                            <p class="text-yellow-400 font-mono text-xs">Serie: Rt = R1+R2+R3</p>
+                <div class="bg-electro-blue/40 p-6 rounded-xl border border-electro-cyan/30">
+                    <h3 class="font-bold text-electro-yellow mb-4 text-xl">⚡ Fórmulas Rápidas:</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-yellow font-mono font-bold">Serie: Rt = R1+R2+R3</p>
                         </div>
-                        <div class="bg-slate-900 p-2 rounded">
-                            <p class="text-green-400 font-mono text-xs">Paralelo: 1/Rt = 1/R1+1/R2</p>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-green font-mono font-bold">Paralelo: 1/Rt = 1/R1+1/R2</p>
                         </div>
-                        <div class="bg-slate-900 p-2 rounded">
-                            <p class="text-cyan-400 font-mono text-xs">V = I × R</p>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-cyan font-mono font-bold">V = I × R</p>
                         </div>
-                        <div class="bg-slate-900 p-2 rounded">
-                            <p class="text-cyan-400 font-mono text-xs">I = V / R</p>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-cyan font-mono font-bold">I = V / R</p>
                         </div>
                     </div>
                 </div>
@@ -413,52 +438,52 @@
         </div>
 
         <!-- SECCIÓN 4: EJEMPLOS PRÁCTICOS -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-yellow">
                 <i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos: ¡Calcula Tú Mismo!
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Resuelve estos problemas sobre circuitos. Completa los 50 ejemplos.
             </p>
 
             <!-- Barra de progreso -->
-            <div class="bg-slate-900 p-4 rounded-lg mb-6">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-slate-400">Progreso:</span>
-                    <span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50 completados</span>
+            <div class="bg-electro-dark/60 p-6 rounded-xl mb-8 border border-electro-cyan/30">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm text-slate-400 font-bold uppercase">Progreso:</span>
+                    <span class="text-sm font-bold text-electro-cyan" id="progreso-texto">0 de 50 completados</span>
                 </div>
-                <div class="w-full bg-slate-700 rounded-full h-3">
-                    <div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                <div class="w-full bg-electro-blue rounded-full h-4 overflow-hidden">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-electro-cyan to-electro-green h-4 rounded-full transition-all duration-500 shadow-lg" style="width: 0%"></div>
                 </div>
             </div>
 
             <!-- Contenedor del ejemplo actual -->
-            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500">
+            <div id="ejemplo-actual" class="bg-electro-dark/60 p-8 rounded-xl border-2 border-electro-cyan/50">
                 <!-- Se llena dinámicamente -->
             </div>
 
             <!-- Botones de navegación -->
-            <div class="flex gap-4 mt-6">
+            <div class="flex gap-4 mt-8">
                 <button onclick="ejemploAnterior()" 
                         id="btn-anterior"
-                        class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="flex-1 bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed border border-electro-cyan/30">
                     <i class="fas fa-arrow-left mr-2"></i>Anterior
                 </button>
                 <button onclick="siguienteEjemplo()" 
                         id="btn-siguiente"
-                        class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">
+                        class="flex-1 bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 rounded-xl transition shadow-lg shadow-electro-cyan/20">
                     Siguiente<i class="fas fa-arrow-right ml-2"></i>
                 </button>
             </div>
 
             <!-- Selector rápido -->
-            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
-                <p class="text-sm text-slate-400 mb-3">O salta a un ejemplo específico:</p>
-                <div class="flex gap-2">
+            <div class="mt-8 bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                <p class="text-sm text-slate-400 mb-3 font-bold">O salta a un ejemplo específico:</p>
+                <div class="flex gap-3">
                     <input type="number" id="saltar-a" min="1" max="50" placeholder="Número (1-50)" 
-                           class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                           class="flex-1 p-3 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white focus:outline-none focus:border-electro-cyan">
                     <button onclick="irAEjemplo()" 
-                            class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded transition">
+                            class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-lg transition">
                         Ir
                     </button>
                 </div>
@@ -466,31 +491,37 @@
         </div>
 
         <!-- SECCIÓN 5: QUIZ -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-purple-400">
                 <i class="fas fa-question-circle mr-2"></i>Quiz: Evalúa tu Conocimiento
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 10 preguntas aleatorias de un banco de 30 sobre circuitos eléctricos.
             </p>
             
-            <div id="quiz-container" class="space-y-4 mb-6"></div>
+            <div id="quiz-container" class="space-y-4 mb-8"></div>
             
             <button onclick="verResultados()" 
-                    class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg transition">
+                    class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-xl transition shadow-lg mb-4">
                 <i class="fas fa-check-circle mr-2"></i>Ver Resultados
             </button>
             
             <div id="resultado-quiz" class="mt-6 hidden"></div>
             
             <button onclick="nuevoIntento()" 
-                    class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden"
+                    class="w-full mt-4 bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 rounded-xl transition hidden shadow-lg shadow-electro-cyan/20"
                     id="btn-reintentar">
                 <i class="fas fa-redo mr-2"></i>Intentar de Nuevo
             </button>
         </div>
 
     </div>
+
+    <!-- FOOTER DEL MÓDULO -->
+    <footer class="bg-electro-dark p-8 text-center border-t-4 border-electro-yellow mt-12">
+        <p class="text-lg font-bold text-white">© 2026 ElectroLearn - Proyecto de Grado</p>
+        <p class="text-electro-cyan mt-2">Desarrollado por el Grupo 3B Informática</p>
+    </footer>
 
     <script>
         // ============ SIMULADOR DE CIRCUITOS ============
@@ -500,11 +531,11 @@
         function setTipoCircuito(tipo) {
             tipoCircuito = tipo;
             document.getElementById('btn-serie').className = tipo === 'serie' 
-                ? 'bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg transition border-2 border-yellow-400'
-                : 'bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition border-2 border-slate-600';
+                ? 'bg-electro-yellow hover:bg-yellow-400 text-electro-dark font-bold py-4 rounded-xl transition border-2 border-electro-yellow shadow-lg shadow-electro-yellow/20'
+                : 'bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-xl transition border-2 border-electro-cyan/30';
             document.getElementById('btn-paralelo').className = tipo === 'paralelo'
-                ? 'bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition border-2 border-green-400'
-                : 'bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition border-2 border-slate-600';
+                ? 'bg-electro-green hover:bg-green-400 text-electro-dark font-bold py-4 rounded-xl transition border-2 border-electro-green shadow-lg shadow-electro-green/20'
+                : 'bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-xl transition border-2 border-electro-cyan/30';
             calcularResistenciaTotal();
         }
 
@@ -546,10 +577,10 @@
             }
             
             lista.innerHTML = resistencias.map((r, i) => `
-                <div class="flex justify-between items-center bg-slate-800 p-3 rounded-lg">
-                    <span class="font-bold text-cyan-400">R${i+1}: ${r} Ω</span>
-                    <button onclick="eliminarResistencia(${i})" class="text-red-400 hover:text-red-300">
-                        <i class="fas fa-times"></i>
+                <div class="flex justify-between items-center bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/20">
+                    <span class="font-bold text-electro-cyan text-lg">R${i+1}: ${r} Ω</span>
+                    <button onclick="eliminarResistencia(${i})" class="text-electro-red hover:text-red-400 transition p-2">
+                        <i class="fas fa-times text-xl"></i>
                     </button>
                 </div>
             `).join('');
@@ -598,33 +629,33 @@
 
             if (tipoCircuito === 'serie') {
                 let svg = '<svg viewBox="0 0 600 100" class="w-full">';
-                svg += '<line x1="20" y1="50" x2="60" y2="50" stroke="#22d3ee" stroke-width="3"/>';
+                svg += '<line x1="20" y1="50" x2="60" y2="50" stroke="#00D4FF" stroke-width="4"/>';
                 
                 resistencias.forEach((r, i) => {
                     const x = 60 + i * 120;
-                    svg += `<rect x="${x}" y="35" width="80" height="30" fill="#ef4444" rx="3"/>`;
-                    svg += `<text x="${x+40}" y="55" text-anchor="middle" font-size="12" fill="white" font-weight="bold">${r}Ω</text>`;
+                    svg += `<rect x="${x}" y="35" width="80" height="30" fill="#FF4444" rx="3"/>`;
+                    svg += `<text x="${x+40}" y="55" text-anchor="middle" font-size="14" fill="white" font-weight="bold">${r}Ω</text>`;
                     if (i < resistencias.length - 1) {
-                        svg += `<line x1="${x+80}" y1="50" x2="${x+120}" y2="50" stroke="#22d3ee" stroke-width="3"/>`;
+                        svg += `<line x1="${x+80}" y1="50" x2="${x+120}" y2="50" stroke="#00D4FF" stroke-width="4"/>`;
                     }
                 });
                 
                 const lastX = 60 + (resistencias.length - 1) * 120 + 80;
-                svg += `<line x1="${lastX}" y1="50" x2="${lastX+40}" y2="50" stroke="#22d3ee" stroke-width="3"/>`;
+                svg += `<line x1="${lastX}" y1="50" x2="${lastX+40}" y2="50" stroke="#00D4FF" stroke-width="4"/>`;
                 svg += '</svg>';
                 diagrama.innerHTML = svg;
             } else {
                 const altura = 60 + resistencias.length * 40;
                 let svg = `<svg viewBox="0 0 400 ${altura}" class="w-full">`;
-                svg += `<line x1="50" y1="20" x2="50" y2="${altura-20}" stroke="#22d3ee" stroke-width="3"/>`;
-                svg += `<line x1="350" y1="20" x2="350" y2="${altura-20}" stroke="#22d3ee" stroke-width="3"/>`;
+                svg += `<line x1="50" y1="20" x2="50" y2="${altura-20}" stroke="#00D4FF" stroke-width="4"/>`;
+                svg += `<line x1="350" y1="20" x2="350" y2="${altura-20}" stroke="#00D4FF" stroke-width="4"/>`;
                 
                 resistencias.forEach((r, i) => {
                     const y = 40 + i * 40;
-                    svg += `<line x1="50" y1="${y}" x2="150" y2="${y}" stroke="#22d3ee" stroke-width="3"/>`;
-                    svg += `<rect x="150" y="${y-15}" width="100" height="30" fill="#ef4444" rx="3"/>`;
-                    svg += `<text x="200" y="${y+5}" text-anchor="middle" font-size="12" fill="white" font-weight="bold">${r}Ω</text>`;
-                    svg += `<line x1="250" y1="${y}" x2="350" y2="${y}" stroke="#22d3ee" stroke-width="3"/>`;
+                    svg += `<line x1="50" y1="${y}" x2="150" y2="${y}" stroke="#00D4FF" stroke-width="4"/>`;
+                    svg += `<rect x="150" y="${y-15}" width="100" height="30" fill="#FF4444" rx="3"/>`;
+                    svg += `<text x="200" y="${y+5}" text-anchor="middle" font-size="14" fill="white" font-weight="bold">${r}Ω</text>`;
+                    svg += `<line x1="250" y1="${y}" x2="350" y2="${y}" stroke="#00D4FF" stroke-width="4"/>`;
                 });
                 
                 svg += '</svg>';
@@ -701,55 +732,55 @@
 
         // ============ 50 EJEMPLOS PRÁCTICOS ============
         const ejemplosPracticos = [
-            { titulo: "Dos resistencias en serie", icono: "🔗", color: "yellow", tipo: "serie", r: [100, 200], unidad: "Ω" },
-            { titulo: "Tres resistencias en serie", icono: "🔗", color: "yellow", tipo: "serie", r: [100, 200, 300], unidad: "Ω" },
-            { titulo: "Dos resistencias en paralelo", icono: "🔀", color: "green", tipo: "paralelo", r: [100, 100], unidad: "Ω" },
-            { titulo: "Tres resistencias en paralelo", icono: "🔀", color: "green", tipo: "paralelo", r: [100, 200, 300], unidad: "Ω" },
+            { titulo: "Dos resistencias en serie", icono: "🔗", color: "electro-yellow", tipo: "serie", r: [100, 200], unidad: "Ω" },
+            { titulo: "Tres resistencias en serie", icono: "🔗", color: "electro-yellow", tipo: "serie", r: [100, 200, 300], unidad: "Ω" },
+            { titulo: "Dos resistencias en paralelo", icono: "🔀", color: "electro-green", tipo: "paralelo", r: [100, 100], unidad: "Ω" },
+            { titulo: "Tres resistencias en paralelo", icono: "🔀", color: "electro-green", tipo: "paralelo", r: [100, 200, 300], unidad: "Ω" },
             { titulo: "Circuito mixto básico", icono: "🔀", color: "purple", tipo: "mixto", r: [100, 200, 300], unidad: "Ω" },
-            { titulo: "Luces navideñas (serie)", icono: "🎄", color: "red", tipo: "serie", r: [50, 50, 50, 50], unidad: "Ω" },
-            { titulo: "Casa eléctrica (paralelo)", icono: "🏠", color: "green", tipo: "paralelo", r: [240, 240, 240], unidad: "Ω" },
-            { titulo: "LEDs en serie", icono: "💡", color: "yellow", tipo: "serie", r: [220, 220, 220], unidad: "Ω" },
-            { titulo: "LEDs en paralelo", icono: "💡", color: "green", tipo: "paralelo", r: [220, 220, 220], unidad: "Ω" },
+            { titulo: "Luces navideñas (serie)", icono: "🎄", color: "electro-red", tipo: "serie", r: [50, 50, 50, 50], unidad: "Ω" },
+            { titulo: "Casa eléctrica (paralelo)", icono: "🏠", color: "electro-green", tipo: "paralelo", r: [240, 240, 240], unidad: "Ω" },
+            { titulo: "LEDs en serie", icono: "💡", color: "electro-yellow", tipo: "serie", r: [220, 220, 220], unidad: "Ω" },
+            { titulo: "LEDs en paralelo", icono: "💡", color: "electro-green", tipo: "paralelo", r: [220, 220, 220], unidad: "Ω" },
             { titulo: "Resistencias de potencia", icono: "⚡", color: "orange", tipo: "serie", r: [1000, 1000], unidad: "Ω" },
-            { titulo: "Divisor de voltaje", icono: "⚖️", color: "cyan", tipo: "serie", r: [1000, 2000], unidad: "Ω" },
-            { titulo: "Pull-up y pull-down", icono: "️", color: "blue", tipo: "paralelo", r: [10000, 10000], unidad: "Ω" },
-            { titulo: "Filtro RC", icono: "🔋", color: "green", tipo: "serie", r: [1000, 1000], unidad: "Ω" },
+            { titulo: "Divisor de voltaje", icono: "⚖️", color: "electro-cyan", tipo: "serie", r: [1000, 2000], unidad: "Ω" },
+            { titulo: "Pull-up y pull-down", icono: "⬆️", color: "blue", tipo: "paralelo", r: [10000, 10000], unidad: "Ω" },
+            { titulo: "Filtro RC", icono: "🔋", color: "electro-green", tipo: "serie", r: [1000, 1000], unidad: "Ω" },
             { titulo: "Amplificador operacional", icono: "🔊", color: "purple", tipo: "mixto", r: [1000, 10000, 100000], unidad: "Ω" },
-            { titulo: "Sensor de temperatura", icono: "️", color: "red", tipo: "serie", r: [10000, 10000], unidad: "Ω" },
-            { titulo: "Puente de Wheatstone", icono: "⚖️", color: "yellow", tipo: "mixto", r: [100, 100, 100, 100], unidad: "Ω" },
-            { titulo: "Circuito de carga", icono: "🔋", color: "green", tipo: "serie", r: [100, 1000], unidad: "Ω" },
-            { titulo: "Circuito de descarga", icono: "⚡", color: "red", tipo: "paralelo", r: [1000, 1000], unidad: "Ω" },
-            { titulo: "Oscilador RC", icono: "️", color: "cyan", tipo: "serie", r: [10000, 100000], unidad: "Ω" },
-            { titulo: "Filtro pasa-bajos", icono: "", color: "blue", tipo: "serie", r: [1000, 1000], unidad: "Ω" },
+            { titulo: "Sensor de temperatura", icono: "🌡️", color: "electro-red", tipo: "serie", r: [10000, 10000], unidad: "Ω" },
+            { titulo: "Puente de Wheatstone", icono: "⚖️", color: "electro-yellow", tipo: "mixto", r: [100, 100, 100, 100], unidad: "Ω" },
+            { titulo: "Circuito de carga", icono: "🔋", color: "electro-green", tipo: "serie", r: [100, 1000], unidad: "Ω" },
+            { titulo: "Circuito de descarga", icono: "⚡", color: "electro-red", tipo: "paralelo", r: [1000, 1000], unidad: "Ω" },
+            { titulo: "Oscilador RC", icono: "〰️", color: "electro-cyan", tipo: "serie", r: [10000, 100000], unidad: "Ω" },
+            { titulo: "Filtro pasa-bajos", icono: "📉", color: "blue", tipo: "serie", r: [1000, 1000], unidad: "Ω" },
             { titulo: "Filtro pasa-altos", icono: "📈", color: "purple", tipo: "serie", r: [1000, 1000], unidad: "Ω" },
-            { titulo: "Atenuador de señal", icono: "🔉", color: "yellow", tipo: "serie", r: [1000, 2000, 3000], unidad: "Ω" },
-            { titulo: "Adaptador de impedancia", icono: "🔌", color: "green", tipo: "mixto", r: [50, 75, 100], unidad: "Ω" },
-            { titulo: "Circuito de protección", icono: "🛡️", color: "red", tipo: "serie", r: [100, 1000], unidad: "Ω" },
+            { titulo: "Atenuador de señal", icono: "🔉", color: "electro-yellow", tipo: "serie", r: [1000, 2000, 3000], unidad: "Ω" },
+            { titulo: "Adaptador de impedancia", icono: "🔌", color: "electro-green", tipo: "mixto", r: [50, 75, 100], unidad: "Ω" },
+            { titulo: "Circuito de protección", icono: "🛡️", color: "electro-red", tipo: "serie", r: [100, 1000], unidad: "Ω" },
             { titulo: "Limitador de corriente", icono: "⚠️", color: "orange", tipo: "serie", r: [220, 220], unidad: "Ω" },
-            { titulo: "Divisor de corriente", icono: "🔀", color: "cyan", tipo: "paralelo", r: [100, 200, 300], unidad: "Ω" },
+            { titulo: "Divisor de corriente", icono: "🔀", color: "electro-cyan", tipo: "paralelo", r: [100, 200, 300], unidad: "Ω" },
             { titulo: "Circuito de temporización", icono: "⏱️", color: "blue", tipo: "serie", r: [100000, 1000000], unidad: "Ω" },
             { titulo: "Generador de señal", icono: "〰️", color: "purple", tipo: "mixto", r: [1000, 10000, 100000], unidad: "Ω" },
-            { titulo: "Amplificador de audio", icono: "🔊", color: "green", tipo: "mixto", r: [1000, 10000, 100000], unidad: "Ω" },
-            { titulo: "Fuente de poder", icono: "🔋", color: "yellow", tipo: "serie", r: [100, 1000, 10000], unidad: "Ω" },
-            { titulo: "Regulador de voltaje", icono: "⚖️", color: "cyan", tipo: "mixto", r: [1000, 10000], unidad: "Ω" },
-            { titulo: "Circuito de encendido", icono: "🔘", color: "red", tipo: "serie", r: [10000, 10000], unidad: "Ω" },
-            { titulo: "Circuito de apagado", icono: "", color: "blue", tipo: "paralelo", r: [10000, 10000], unidad: "Ω" },
-            { titulo: "Control de motor", icono: "⚙️", color: "green", tipo: "mixto", r: [100, 1000, 10000], unidad: "Ω" },
-            { titulo: "Driver de LED", icono: "💡", color: "yellow", tipo: "serie", r: [220, 220, 220], unidad: "Ω" },
+            { titulo: "Amplificador de audio", icono: "🔊", color: "electro-green", tipo: "mixto", r: [1000, 10000, 100000], unidad: "Ω" },
+            { titulo: "Fuente de poder", icono: "🔋", color: "electro-yellow", tipo: "serie", r: [100, 1000, 10000], unidad: "Ω" },
+            { titulo: "Regulador de voltaje", icono: "⚖️", color: "electro-cyan", tipo: "mixto", r: [1000, 10000], unidad: "Ω" },
+            { titulo: "Circuito de encendido", icono: "🔘", color: "electro-red", tipo: "serie", r: [10000, 10000], unidad: "Ω" },
+            { titulo: "Circuito de apagado", icono: "🔌", color: "blue", tipo: "paralelo", r: [10000, 10000], unidad: "Ω" },
+            { titulo: "Control de motor", icono: "⚙️", color: "electro-green", tipo: "mixto", r: [100, 1000, 10000], unidad: "Ω" },
+            { titulo: "Driver de LED", icono: "💡", color: "electro-yellow", tipo: "serie", r: [220, 220, 220], unidad: "Ω" },
             { titulo: "Circuito de comunicación", icono: "📡", color: "purple", tipo: "mixto", r: [1000, 10000], unidad: "Ω" },
-            { titulo: "Interfaz de sensor", icono: "📊", color: "cyan", tipo: "serie", r: [10000, 100000], unidad: "Ω" },
-            { titulo: "Acondicionador de señal", icono: "📈", color: "green", tipo: "mixto", r: [1000, 10000, 100000], unidad: "Ω" },
+            { titulo: "Interfaz de sensor", icono: "📊", color: "electro-cyan", tipo: "serie", r: [10000, 100000], unidad: "Ω" },
+            { titulo: "Acondicionador de señal", icono: "📈", color: "electro-green", tipo: "mixto", r: [1000, 10000, 100000], unidad: "Ω" },
             { titulo: "Circuito de medición", icono: "📏", color: "blue", tipo: "mixto", r: [100, 1000, 10000], unidad: "Ω" },
-            { titulo: "Protector de sobretensión", icono: "", color: "red", tipo: "paralelo", r: [10000, 10000], unidad: "Ω" },
+            { titulo: "Protector de sobretensión", icono: "⚡", color: "electro-red", tipo: "paralelo", r: [10000, 10000], unidad: "Ω" },
             { titulo: "Filtro de ruido", icono: "🔇", color: "purple", tipo: "serie", r: [1000, 10000], unidad: "Ω" },
-            { titulo: "Acoplador de señal", icono: "🔗", color: "cyan", tipo: "serie", r: [1000, 1000], unidad: "Ω" },
-            { titulo: "Desacoplador de señal", icono: "🔌", color: "green", tipo: "paralelo", r: [1000, 1000], unidad: "Ω" },
-            { titulo: "Circuito de realimentación", icono: "🔄", color: "yellow", tipo: "mixto", r: [1000, 10000, 100000], unidad: "Ω" },
+            { titulo: "Acoplador de señal", icono: "🔗", color: "electro-cyan", tipo: "serie", r: [1000, 1000], unidad: "Ω" },
+            { titulo: "Desacoplador de señal", icono: "🔌", color: "electro-green", tipo: "paralelo", r: [1000, 1000], unidad: "Ω" },
+            { titulo: "Circuito de realimentación", icono: "🔄", color: "electro-yellow", tipo: "mixto", r: [1000, 10000, 100000], unidad: "Ω" },
             { titulo: "Oscilador de cristal", icono: "💎", color: "blue", tipo: "mixto", r: [1000, 10000], unidad: "Ω" },
-            { titulo: "Circuito de sincronización", icono: "", color: "purple", tipo: "serie", r: [10000, 100000], unidad: "Ω" },
-            { titulo: "Generador de clock", icono: "⏱️", color: "red", tipo: "mixto", r: [1000, 10000, 100000], unidad: "Ω" },
-            { titulo: "Circuito de reset", icono: "🔄", color: "green", tipo: "serie", r: [10000, 10000], unidad: "Ω" },
-            { titulo: "Circuito de power-on", icono: "⚡", color: "yellow", tipo: "serie", r: [10000, 100000], unidad: "Ω" },
+            { titulo: "Circuito de sincronización", icono: "⏱️", color: "purple", tipo: "serie", r: [10000, 100000], unidad: "Ω" },
+            { titulo: "Generador de clock", icono: "⏱️", color: "electro-red", tipo: "mixto", r: [1000, 10000, 100000], unidad: "Ω" },
+            { titulo: "Circuito de reset", icono: "🔄", color: "electro-green", tipo: "serie", r: [10000, 10000], unidad: "Ω" },
+            { titulo: "Circuito de power-on", icono: "⚡", color: "electro-yellow", tipo: "serie", r: [10000, 100000], unidad: "Ω" },
             { titulo: "Circuito de brown-out", icono: "⚠️", color: "orange", tipo: "mixto", r: [10000, 100000], unidad: "Ω" }
         ];
 
@@ -777,30 +808,30 @@
             
             const container = document.getElementById('ejemplo-actual');
             container.innerHTML = `
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
-                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-sm text-slate-400 font-bold">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-electro-green text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
                 </div>
                 
-                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">
+                <h3 class="text-2xl font-bold mb-4 text-${ej.color}">
                     ${ej.icono} ${ej.titulo}
                 </h3>
                 
-                <p class="text-slate-300 mb-4">${pregunta}</p>
+                <p class="text-slate-300 mb-6 text-lg">${pregunta}</p>
                 
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-sm text-slate-400 mb-2">Tu respuesta:</p>
-                    <div class="flex gap-2">
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <p class="text-sm text-slate-400 mb-3 font-bold">Tu respuesta:</p>
+                    <div class="flex gap-3">
                         <input type="number" id="respuesta-actual" 
                                placeholder="Ingresa la respuesta en ${ej.unidad}" 
-                               class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white text-lg"
+                               class="flex-1 p-4 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white text-lg focus:outline-none focus:border-electro-cyan"
                                onkeypress="if(event.key==='Enter') verificarEjemploActual(${respuestaCorrecta}, '${ej.unidad}', '${ej.tipo}', [${ej.r.join(',')}])">
                         <button onclick="verificarEjemploActual(${respuestaCorrecta}, '${ej.unidad}', '${ej.tipo}', [${ej.r.join(',')}])" 
-                                class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded transition">
+                                class="bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 px-8 rounded-lg transition shadow-lg shadow-electro-cyan/20">
                             Verificar
                         </button>
                     </div>
-                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                    <div id="resultado-actual" class="mt-4 hidden"></div>
                 </div>
             `;
             
@@ -816,8 +847,8 @@
             if (isNaN(respuesta)) {
                 resultadoDiv.classList.remove('hidden');
                 resultadoDiv.innerHTML = `
-                    <div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded">
-                        <p class="font-bold text-yellow-400">⚠️ Ingresa un número</p>
+                    <div class="bg-electro-yellow/20 border-2 border-electro-yellow p-4 rounded-lg">
+                        <p class="font-bold text-electro-yellow text-lg">⚠️ Ingresa un número</p>
                     </div>
                 `;
                 return;
@@ -836,13 +867,13 @@
                 } else if (tipo === 'paralelo') {
                     formula = `1/Rt = 1/${resistencias.join(' + 1/')} → Rt = ${correcta.toFixed(2)} ${unidad}`;
                 } else {
-                    formula = `Rt = (${resistencias[0]}${resistencias[1]}) + ${resistencias[2]} = ${correcta.toFixed(2)} ${unidad}`;
+                    formula = `Rt = (${resistencias[0]}∥${resistencias[1]}) + ${resistencias[2]} = ${correcta.toFixed(2)} ${unidad}`;
                 }
                 
                 resultadoDiv.innerHTML = `
-                    <div class="bg-green-900 border-2 border-green-500 p-3 rounded">
-                        <p class="font-bold text-green-400">✅ ¡Correcto!</p>
-                        <p class="text-sm text-slate-300">${formula}</p>
+                    <div class="bg-electro-green/20 border-2 border-electro-green p-4 rounded-lg">
+                        <p class="font-bold text-electro-green text-lg">✅ ¡Correcto!</p>
+                        <p class="text-slate-200 mt-2">${formula}</p>
                     </div>
                 `;
                 actualizarProgreso();
@@ -863,10 +894,10 @@
                 }
                 
                 resultadoDiv.innerHTML = `
-                    <div class="bg-red-900 border-2 border-red-500 p-3 rounded">
-                        <p class="font-bold text-red-400">❌ Incorrecto</p>
-                        <p class="text-sm text-slate-300">La respuesta correcta es <strong>${correcta.toFixed(2)} ${unidad}</strong></p>
-                        <p class="text-xs text-slate-400 mt-1">Fórmula: ${formula} = ${correcta.toFixed(2)} ${unidad}</p>
+                    <div class="bg-electro-red/20 border-2 border-electro-red p-4 rounded-lg">
+                        <p class="font-bold text-electro-red text-lg">❌ Incorrecto</p>
+                        <p class="text-slate-200 mt-2">La respuesta correcta es <strong>${correcta.toFixed(2)} ${unidad}</strong></p>
+                        <p class="text-sm text-slate-400 mt-2">Fórmula: ${formula} = ${correcta.toFixed(2)} ${unidad}</p>
                     </div>
                 `;
             }
@@ -974,13 +1005,13 @@
                 const opcionesMezcladas = mezclarArray(opcionesConIndice);
                 
                 const preguntaHTML = `
-                    <div class="bg-slate-900 p-4 rounded-lg" data-pregunta="${index}">
-                        <p class="font-semibold mb-3">${index + 1}. ${pregunta.pregunta}</p>
-                        <div class="space-y-2">
+                    <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/20" data-pregunta="${index}">
+                        <p class="font-semibold mb-4 text-lg">${index + 1}. ${pregunta.pregunta}</p>
+                        <div class="space-y-3">
                             ${opcionesMezcladas.map((opcion, opIndex) => `
                                 <button onclick="seleccionarRespuesta(${index}, this)" 
                                         data-es-correcta="${opcion.esCorrecta}"
-                                        class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition opcion-btn">
+                                        class="w-full text-left p-4 bg-electro-blue/40 rounded-lg hover:bg-electro-blue border border-electro-cyan/20 transition opcion-btn text-slate-200">
                                     ${opcion.texto}
                                 </button>
                             `).join('')}
@@ -1010,18 +1041,18 @@
                 btn.disabled = true;
                 btn.classList.add('opacity-50');
                 if (btn.dataset.esCorrecta === 'true') {
-                    btn.classList.remove('bg-slate-700', 'opacity-50');
-                    btn.classList.add('bg-green-600');
+                    btn.classList.remove('bg-electro-blue/40', 'opacity-50');
+                    btn.classList.add('bg-electro-green/30', 'border-electro-green');
                 }
             });
             
             if (esCorrecta) {
                 correctas++;
-                boton.classList.remove('bg-slate-700', 'opacity-50');
-                boton.classList.add('bg-green-600');
+                boton.classList.remove('bg-electro-blue/40', 'opacity-50');
+                boton.classList.add('bg-electro-green/30', 'border-electro-green');
             } else {
-                boton.classList.remove('bg-slate-700', 'opacity-50');
-                boton.classList.add('bg-red-600');
+                boton.classList.remove('bg-electro-blue/40', 'opacity-50');
+                boton.classList.add('bg-electro-red/30', 'border-electro-red');
             }
         }
 
@@ -1035,32 +1066,32 @@
             const resultadoDiv = document.getElementById('resultado-quiz');
             
             let mensaje, color, emoji;
-            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas los circuitos'; color = 'green'; emoji = '🏆'; }
-            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'blue'; emoji = '👍'; }
-            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar'; color = 'orange'; emoji = '📚'; }
-            else { mensaje = 'Estudia nuevamente el módulo'; color = 'red'; emoji = '⚠️'; }
+            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas los circuitos'; color = 'electro-green'; emoji = '🏆'; }
+            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'electro-cyan'; emoji = '👍'; }
+            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar'; color = 'electro-yellow'; emoji = '📚'; }
+            else { mensaje = 'Estudia nuevamente el módulo'; color = 'electro-red'; emoji = '⚠️'; }
             
             let explicacionesHTML = preguntasActuales.map((p, i) => {
                 const esCorrecta = respuestasSeleccionadas[i];
                 return `
-                    <div class="bg-slate-900 p-3 rounded mb-2 ${esCorrecta ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}">
-                        <p class="font-semibold text-sm">${i + 1}. ${p.pregunta}</p>
-                        <p class="text-xs mt-1 ${esCorrecta ? 'text-green-400' : 'text-red-400'}">
+                    <div class="bg-electro-dark/60 p-4 rounded-lg mb-3 ${esCorrecta ? 'border-l-4 border-electro-green' : 'border-l-4 border-electro-red'}">
+                        <p class="font-semibold text-sm mb-1">${i + 1}. ${p.pregunta}</p>
+                        <p class="text-xs ${esCorrecta ? 'text-electro-green' : 'text-electro-red'} font-bold">
                             ${esCorrecta ? '✓ Correcta' : '✗ Incorrecta'}
                         </p>
-                        <p class="text-xs text-slate-400 mt-1"><em>${p.explicacion}</em></p>
+                        <p class="text-xs text-slate-400 mt-2"><em>${p.explicacion}</em></p>
                     </div>
                 `;
             }).join('');
             
             resultadoDiv.innerHTML = `
-                <div class="bg-${color}-900 border-2 border-${color}-500 p-6 rounded-lg text-center mb-4">
-                    <p class="text-4xl mb-2">${emoji}</p>
-                    <h3 class="text-2xl font-bold text-${color}-400 mb-2">${mensaje}</h3>
-                    <p class="text-3xl font-bold text-white">${correctas} de 10 (${porcentaje}%)</p>
+                <div class="bg-${color}/20 border-2 border-${color} p-8 rounded-2xl text-center mb-6">
+                    <p class="text-5xl mb-3">${emoji}</p>
+                    <h3 class="text-3xl font-bold text-${color} mb-2">${mensaje}</h3>
+                    <p class="text-4xl font-extrabold text-white">${correctas} de 10 (${porcentaje}%)</p>
                 </div>
-                <div class="mt-4">
-                    <h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión de Respuestas:</h3>
+                <div class="mt-6">
+                    <h3 class="font-bold text-xl mb-4 text-electro-cyan">Revisión de Respuestas:</h3>
                     ${explicacionesHTML}
                 </div>
             `;

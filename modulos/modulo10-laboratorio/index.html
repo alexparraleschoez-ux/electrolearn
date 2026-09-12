@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="../../favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -17,10 +17,13 @@
                         'body': ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        'electro-dark': '#0f172a',
-                        'electro-yellow': '#facc15',
-                        'electro-cyan': '#22d3ee',
-                        'electro-green': '#4ade80',
+                        'electro-dark': '#0A1628',
+                        'electro-blue': '#1E3A8A',
+                        'electro-circuit': '#1E40AF',
+                        'electro-yellow': '#FACC15',
+                        'electro-cyan': '#00D4FF',
+                        'electro-green': '#00FF88',
+                        'electro-red': '#FF4444',
                     }
                 }
             }
@@ -31,72 +34,88 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
         .section-animate { animation: fadeInUp 0.6s ease-out; }
+        .logo-float { animation: float 3s ease-in-out infinite; }
+        
         .simulador-card {
             transition: all 0.3s;
             border: 2px solid transparent;
         }
         .simulador-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        .glass-card {
+            background: rgba(30, 58, 138, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
         }
     </style>
 </head>
 <body class="bg-electro-dark text-white font-body min-h-screen">
 
-   <!-- HEADER -->
-        <header class="bg-white p-3 shadow-lg">
-            <div class="container mx-auto flex justify-between items-center">
-                <a href="../../index.html" class="flex items-center">
-                    <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-12 md:h-16 w-auto">
-                </a>
-                <a href="../../index.html" class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition">
-                    <i class="fas fa-arrow-left mr-2"></i> Volver
-                </a>
-            </div>
-        </header>
+    <!-- HEADER FIJO CON LOGO GRANDE -->
+    <header class="bg-gradient-to-r from-electro-blue via-electro-circuit to-electro-blue p-4 shadow-2xl sticky top-0 z-50 border-b-4 border-electro-yellow">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="flex items-center logo-float">
+                <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-16 md:h-20 w-auto drop-shadow-lg">
+            </a>
+            <a href="../../index.html" class="bg-electro-yellow hover:bg-yellow-400 text-electro-dark px-6 py-3 rounded-lg font-bold hover:scale-105 transition-all shadow-lg flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Volver al Inicio
+            </a>
+        </div>
+    </header>
 
     <!-- TÍTULO -->
-    <section class="py-8 text-center px-4 section-animate">
-        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
-            <i class="fas fa-flask text-electro-yellow"></i> Módulo 10: Laboratorio Virtual
-        </h1>
-        <p class="text-slate-300 text-lg">Simuladores externos: PhET, Tinkercad y Falstad</p>
+    <section class="py-12 text-center px-4 section-animate relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-electro-dark via-electro-blue/20 to-electro-dark opacity-50"></div>
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-6xl font-heading font-extrabold mb-4">
+                <i class="fas fa-flask text-electro-yellow mr-3"></i> Módulo 10: Laboratorio Virtual
+            </h1>
+            <p class="text-slate-300 text-xl max-w-2xl mx-auto">Simuladores externos: PhET, Tinkercad y Falstad</p>
+        </div>
     </section>
 
     <div class="container mx-auto px-4 pb-16 space-y-8">
 
         <!-- INTRODUCCIÓN -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-electro-cyan">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-cyan">
                 <i class="fas fa-info-circle mr-2"></i>¿Qué es un Laboratorio Virtual?
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Un <strong class="text-electro-cyan">laboratorio virtual</strong> permite experimentar con circuitos electrónicos 
                 de forma segura, sin necesidad de componentes físicos.
             </p>
             <div class="grid md:grid-cols-3 gap-4">
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <h4 class="font-bold text-electro-green mb-2">✅ Ventajas:</h4>
-                    <ul class="text-sm text-slate-300 space-y-1">
+                <div class="bg-electro-dark/60 p-5 rounded-xl border border-electro-green/30">
+                    <h4 class="font-bold text-electro-green mb-3 text-lg">✅ Ventajas:</h4>
+                    <ul class="text-sm text-slate-300 space-y-2">
                         <li>✓ Sin riesgo de quemar componentes</li>
                         <li>✓ Disponible 24/7</li>
                         <li>✓ 100% gratuito</li>
                         <li>✓ Fácil de compartir</li>
                     </ul>
                 </div>
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <h4 class="font-bold text-electro-yellow mb-2">🎯 Usos:</h4>
-                    <ul class="text-sm text-slate-300 space-y-1">
+                <div class="bg-electro-dark/60 p-5 rounded-xl border border-electro-yellow/30">
+                    <h4 class="font-bold text-electro-yellow mb-3 text-lg">🎯 Usos:</h4>
+                    <ul class="text-sm text-slate-300 space-y-2">
                         <li>✓ Practicar antes de armar</li>
                         <li>✓ Probar ideas rápidamente</li>
                         <li>✓ Aprender conceptos</li>
                         <li>✓ Tareas y proyectos</li>
                     </ul>
                 </div>
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <h4 class="font-bold text-purple-400 mb-2">🔧 Herramientas:</h4>
-                    <ul class="text-sm text-slate-300 space-y-1">
+                <div class="bg-electro-dark/60 p-5 rounded-xl border border-purple-500/30">
+                    <h4 class="font-bold text-purple-400 mb-3 text-lg">🔧 Herramientas:</h4>
+                    <ul class="text-sm text-slate-300 space-y-2">
                         <li>✓ PhET Simulations</li>
                         <li>✓ Tinkercad Circuits</li>
                         <li>✓ Falstad Circuit</li>
@@ -107,21 +126,21 @@
         </div>
 
         <!-- PHET SIMULATIONS -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-blue-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-blue-400">
                 <i class="fas fa-atom mr-2"></i>PhET Simulations
             </h2>
-            <p class="text-slate-300 mb-6">
+            <p class="text-slate-300 mb-6 text-lg">
                 <strong class="text-blue-400">PhET</strong> es una plataforma de la Universidad de Colorado con simulaciones educativas gratuitas.
-                <span class="text-yellow-400 ml-2">✅ Todos los enlaces han sido verificados y funcionan correctamente.</span>
+                <span class="text-electro-yellow ml-2 font-bold">✅ Todos los enlaces han sido verificados y funcionan correctamente.</span>
             </p>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
                 <!-- Ohm's Law -->
-                <div class="simulador-card bg-slate-900 p-6 rounded-lg border-2 border-yellow-500">
-                    <h3 class="text-xl font-bold mb-3 text-yellow-400">💡 Ohm's Law</h3>
-                    <p class="text-slate-300 mb-3">Simulador específico para entender la Ley de Ohm (V = I × R).</p>
+                <div class="simulador-card bg-electro-dark/60 p-6 rounded-xl border border-electro-yellow/30">
+                    <h3 class="text-xl font-bold mb-3 text-electro-yellow">💡 Ohm's Law</h3>
+                    <p class="text-slate-300 mb-4">Simulador específico para entender la Ley de Ohm (V = I × R).</p>
                     <ul class="text-sm text-slate-400 mb-4 space-y-1">
                         <li>✓ Ajusta voltaje y resistencia</li>
                         <li>✓ Ve la corriente en tiempo real</li>
@@ -130,15 +149,15 @@
                     </ul>
                     <a href="https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_all.html" 
                        target="_blank" 
-                       class="block bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 rounded-lg text-center transition">
+                       class="block bg-electro-yellow hover:bg-yellow-400 text-electro-dark font-bold py-3 rounded-lg text-center transition shadow-lg shadow-electro-yellow/20">
                         <i class="fas fa-external-link-alt mr-2"></i>Abrir Simulador
                     </a>
                 </div>
 
                 <!-- Circuit Construction Kit: DC -->
-                <div class="simulador-card bg-slate-900 p-6 rounded-lg border-2 border-blue-500">
+                <div class="simulador-card bg-electro-dark/60 p-6 rounded-xl border border-blue-500/30">
                     <h3 class="text-xl font-bold mb-3 text-blue-400">⚡ Circuit Construction Kit: DC</h3>
-                    <p class="text-slate-300 mb-3">Construye circuitos DC con baterías, resistencias, LEDs y más.</p>
+                    <p class="text-slate-300 mb-4">Construye circuitos DC con baterías, resistencias, LEDs y más.</p>
                     <ul class="text-sm text-slate-400 mb-4 space-y-1">
                         <li>✓ Arrastra y suelta componentes</li>
                         <li>✓ Mide voltaje y corriente</li>
@@ -147,15 +166,15 @@
                     </ul>
                     <a href="https://phet.colorado.edu/sims/html/circuit-construction-kit-dc/latest/circuit-construction-kit-dc_all.html" 
                        target="_blank" 
-                       class="block bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg text-center transition">
+                       class="block bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg text-center transition shadow-lg shadow-blue-500/20">
                         <i class="fas fa-external-link-alt mr-2"></i>Abrir Simulador
                     </a>
                 </div>
 
                 <!-- Circuit Construction Kit: AC -->
-                <div class="simulador-card bg-slate-900 p-6 rounded-lg border-2 border-green-500">
-                    <h3 class="text-xl font-bold mb-3 text-green-400">🔌 Circuit Construction Kit: AC</h3>
-                    <p class="text-slate-300 mb-3">Simula circuitos con corriente alterna, capacitores e inductores.</p>
+                <div class="simulador-card bg-electro-dark/60 p-6 rounded-xl border border-electro-green/30">
+                    <h3 class="text-xl font-bold mb-3 text-electro-green">🔌 Circuit Construction Kit: AC</h3>
+                    <p class="text-slate-300 mb-4">Simula circuitos con corriente alterna, capacitores e inductores.</p>
                     <ul class="text-sm text-slate-400 mb-4 space-y-1">
                         <li>✓ Corriente alterna (AC)</li>
                         <li>✓ Capacitores e inductores</li>
@@ -164,15 +183,15 @@
                     </ul>
                     <a href="https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/latest/circuit-construction-kit-ac_all.html" 
                        target="_blank" 
-                       class="block bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg text-center transition">
+                       class="block bg-electro-green hover:bg-green-400 text-electro-dark font-bold py-3 rounded-lg text-center transition shadow-lg shadow-electro-green/20">
                         <i class="fas fa-external-link-alt mr-2"></i>Abrir Simulador
                     </a>
                 </div>
 
                 <!-- Capacitor Lab: Basics -->
-                <div class="simulador-card bg-slate-900 p-6 rounded-lg border-2 border-pink-500">
+                <div class="simulador-card bg-electro-dark/60 p-6 rounded-xl border border-pink-500/30">
                     <h3 class="text-xl font-bold mb-3 text-pink-400">🔋 Capacitor Lab: Basics</h3>
-                    <p class="text-slate-300 mb-3">Explora cómo funcionan los capacitores y su carga.</p>
+                    <p class="text-slate-300 mb-4">Explora cómo funcionan los capacitores y su carga.</p>
                     <ul class="text-sm text-slate-400 mb-4 space-y-1">
                         <li>✓ Cambia placas y dieléctrico</li>
                         <li>✓ Mide capacitancia</li>
@@ -181,15 +200,15 @@
                     </ul>
                     <a href="https://phet.colorado.edu/sims/html/capacitor-lab-basics/latest/capacitor-lab-basics_all.html" 
                        target="_blank" 
-                       class="block bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 rounded-lg text-center transition">
+                       class="block bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 rounded-lg text-center transition shadow-lg shadow-pink-500/20">
                         <i class="fas fa-external-link-alt mr-2"></i>Abrir Simulador
                     </a>
                 </div>
 
                 <!-- Resistance in a Wire -->
-                <div class="simulador-card bg-slate-900 p-6 rounded-lg border-2 border-purple-500">
+                <div class="simulador-card bg-electro-dark/60 p-6 rounded-xl border border-purple-500/30">
                     <h3 class="text-xl font-bold mb-3 text-purple-400">🔬 Resistance in a Wire</h3>
-                    <p class="text-slate-300 mb-3">Descubre cómo la resistividad, longitud y área afectan la resistencia.</p>
+                    <p class="text-slate-300 mb-4">Descubre cómo la resistividad, longitud y área afectan la resistencia.</p>
                     <ul class="text-sm text-slate-400 mb-4 space-y-1">
                         <li>✓ Cambia material del cable</li>
                         <li>✓ Ajusta longitud y área</li>
@@ -198,15 +217,15 @@
                     </ul>
                     <a href="https://phet.colorado.edu/sims/html/resistance-in-a-wire/latest/resistance-in-a-wire_all.html" 
                        target="_blank" 
-                       class="block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg text-center transition">
+                       class="block bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg text-center transition shadow-lg shadow-purple-500/20">
                         <i class="fas fa-external-link-alt mr-2"></i>Abrir Simulador
                     </a>
                 </div>
 
                 <!-- Energy Forms and Changes -->
-                <div class="simulador-card bg-slate-900 p-6 rounded-lg border-2 border-cyan-500">
-                    <h3 class="text-xl font-bold mb-3 text-cyan-400">⚡ Energy Forms and Changes</h3>
-                    <p class="text-slate-300 mb-3">Descubre cómo la energía se transforma entre diferentes formas.</p>
+                <div class="simulador-card bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <h3 class="text-xl font-bold mb-3 text-electro-cyan">⚡ Energy Forms and Changes</h3>
+                    <p class="text-slate-300 mb-4">Descubre cómo la energía se transforma entre diferentes formas.</p>
                     <ul class="text-sm text-slate-400 mb-4 space-y-1">
                         <li>✓ Energía química a eléctrica</li>
                         <li>✓ Baterías y conversión de energía</li>
@@ -215,99 +234,99 @@
                     </ul>
                     <a href="https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_all.html" 
                        target="_blank" 
-                       class="block bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-center transition">
+                       class="block bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-3 rounded-lg text-center transition shadow-lg shadow-electro-cyan/20">
                         <i class="fas fa-external-link-alt mr-2"></i>Abrir Simulador
                     </a>
                 </div>
 
-            </div> <!-- ✅ AQUÍ ESTABA EL ERROR: Faltaba cerrar el grid -->
-        </div> <!-- ✅ Y Faltaba cerrar la sección de PhET -->
+            </div>
+        </div>
 
         <!-- TINKERCAD CIRCUITS -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-electro-cyan">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-cyan">
                 <i class="fas fa-microchip mr-2"></i>Tinkercad Circuits
             </h2>
-            <p class="text-slate-300 mb-6">
+            <p class="text-slate-300 mb-6 text-lg">
                 <strong class="text-electro-cyan">Tinkercad</strong> de Autodesk permite simular circuitos con Arduino, componentes reales y código.
             </p>
 
-            <div class="bg-gradient-to-r from-cyan-900 to-blue-900 p-6 rounded-lg text-center border-2 border-cyan-500 mb-6">
-                <h3 class="text-2xl font-bold mb-3 text-cyan-400">🚀 Acceder a Tinkercad Circuits</h3>
-                <p class="text-slate-300 mb-4">Crea una cuenta gratuita y empieza a experimentar</p>
+            <div class="bg-gradient-to-r from-electro-blue/40 to-electro-cyan/20 p-8 rounded-xl text-center border-2 border-electro-cyan/50 mb-8">
+                <h3 class="text-2xl font-bold mb-3 text-electro-cyan">🚀 Acceder a Tinkercad Circuits</h3>
+                <p class="text-slate-300 mb-6 text-lg">Crea una cuenta gratuita y empieza a experimentar</p>
                 <a href="https://www.tinkercad.com/circuits" target="_blank" 
-                   class="inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-4 px-8 rounded-lg text-lg transition">
+                   class="inline-block bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 px-8 rounded-xl text-lg transition shadow-lg shadow-electro-cyan/30">
                     <i class="fas fa-external-link-alt mr-2"></i>Abrir Tinkercad Circuits
                 </a>
             </div>
 
-            <div class="bg-slate-900 p-4 rounded-lg">
-                <h4 class="font-bold text-electro-yellow mb-3">💡 Proyectos recomendados para empezar:</h4>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
-                    <div class="bg-slate-800 p-3 rounded">
-                        <p class="font-bold text-electro-cyan">1. LED Blink</p>
-                        <p class="text-slate-400">Parpadeo de LED con Arduino</p>
+            <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                <h4 class="font-bold text-electro-yellow mb-4 text-xl">💡 Proyectos recomendados para empezar:</h4>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/20">
+                        <p class="font-bold text-electro-cyan text-lg mb-1">1. LED Blink</p>
+                        <p class="text-slate-300">Parpadeo de LED con Arduino</p>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded">
-                        <p class="font-bold text-electro-cyan">2. Semáforo</p>
-                        <p class="text-slate-400">3 LEDs en secuencia</p>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/20">
+                        <p class="font-bold text-electro-cyan text-lg mb-1">2. Semáforo</p>
+                        <p class="text-slate-300">3 LEDs en secuencia</p>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded">
-                        <p class="font-bold text-electro-cyan">3. Botón + LED</p>
-                        <p class="text-slate-400">Controlar LED con botón</p>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/20">
+                        <p class="font-bold text-electro-cyan text-lg mb-1">3. Botón + LED</p>
+                        <p class="text-slate-300">Controlar LED con botón</p>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded">
-                        <p class="font-bold text-electro-cyan">4. Sensor de luz</p>
-                        <p class="text-slate-400">LED automático con LDR</p>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/20">
+                        <p class="font-bold text-electro-cyan text-lg mb-1">4. Sensor de luz</p>
+                        <p class="text-slate-300">LED automático con LDR</p>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded">
-                        <p class="font-bold text-electro-cyan">5. Servo motor</p>
-                        <p class="text-slate-400">Control angular con potenciómetro</p>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/20">
+                        <p class="font-bold text-electro-cyan text-lg mb-1">5. Servo motor</p>
+                        <p class="text-slate-300">Control angular con potenciómetro</p>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded">
-                        <p class="font-bold text-electro-cyan">6. Ultrasonido</p>
-                        <p class="text-slate-400">Medir distancia con HC-SR04</p>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/20">
+                        <p class="font-bold text-electro-cyan text-lg mb-1">6. Ultrasonido</p>
+                        <p class="text-slate-300">Medir distancia con HC-SR04</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- FALSTAD CIRCUIT -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-purple-400">
                 <i class="fas fa-wave-square mr-2"></i>Falstad Circuit Simulator
             </h2>
-            <p class="text-slate-300 mb-6">
+            <p class="text-slate-300 mb-6 text-lg">
                 <strong class="text-purple-400">Falstad</strong> es un simulador de circuitos avanzado y gratuito, ideal para electrónica analógica.
             </p>
 
-            <div class="bg-slate-900 p-6 rounded-lg">
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-electro-dark/60 p-8 rounded-xl border border-purple-500/30">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
                     <div>
-                        <h3 class="text-xl font-bold mb-3 text-purple-400">🔬 Características avanzadas:</h3>
-                        <ul class="text-sm text-slate-300 space-y-2">
-                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mr-2 mt-1"></i><span>Componentes: R, L, C, diodos, transistores, op-amps</span></li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mr-2 mt-1"></i><span>Osciloscopio integrado</span></li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mr-2 mt-1"></i><span>Visualización de corriente en tiempo real</span></li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mr-2 mt-1"></i><span>Análisis de frecuencia (Bode)</span></li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mr-2 mt-1"></i><span>Circuitos digitales y analógicos</span></li>
+                        <h3 class="text-xl font-bold mb-4 text-purple-400">🔬 Características avanzadas:</h3>
+                        <ul class="text-sm text-slate-300 space-y-3">
+                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mr-3 mt-1"></i><span>Componentes: R, L, C, diodos, transistores, op-amps</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mr-3 mt-1"></i><span>Osciloscopio integrado</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mr-3 mt-1"></i><span>Visualización de corriente en tiempo real</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mr-3 mt-1"></i><span>Análisis de frecuencia (Bode)</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mr-3 mt-1"></i><span>Circuitos digitales y analógicos</span></li>
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold mb-3 text-purple-400">🎓 Ideal para:</h3>
-                        <ul class="text-sm text-slate-300 space-y-2">
-                            <li class="flex items-start"><i class="fas fa-graduation-cap text-purple-400 mr-2 mt-1"></i><span>Estudiantes de electrónica</span></li>
-                            <li class="flex items-start"><i class="fas fa-graduation-cap text-purple-400 mr-2 mt-1"></i><span>Filtros activos y pasivos</span></li>
-                            <li class="flex items-start"><i class="fas fa-graduation-cap text-purple-400 mr-2 mt-1"></i><span>Amplificadores operacionales</span></li>
-                            <li class="flex items-start"><i class="fas fa-graduation-cap text-purple-400 mr-2 mt-1"></i><span>Osciladores y temporizadores</span></li>
-                            <li class="flex items-start"><i class="fas fa-graduation-cap text-purple-400 mr-2 mt-1"></i><span>Fuentes de poder</span></li>
+                        <h3 class="text-xl font-bold mb-4 text-purple-400">🎓 Ideal para:</h3>
+                        <ul class="text-sm text-slate-300 space-y-3">
+                            <li class="flex items-start"><i class="fas fa-graduation-cap text-purple-400 mr-3 mt-1"></i><span>Estudiantes de electrónica</span></li>
+                            <li class="flex items-start"><i class="fas fa-graduation-cap text-purple-400 mr-3 mt-1"></i><span>Filtros activos y pasivos</span></li>
+                            <li class="flex items-start"><i class="fas fa-graduation-cap text-purple-400 mr-3 mt-1"></i><span>Amplificadores operacionales</span></li>
+                            <li class="flex items-start"><i class="fas fa-graduation-cap text-purple-400 mr-3 mt-1"></i><span>Osciladores y temporizadores</span></li>
+                            <li class="flex items-start"><i class="fas fa-graduation-cap text-purple-400 mr-3 mt-1"></i><span>Fuentes de poder</span></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="text-center">
                     <a href="https://www.falstad.com/circuit/" target="_blank" 
-                       class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 px-8 rounded-lg text-lg transition">
+                       class="inline-block bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 px-8 rounded-xl text-lg transition shadow-lg shadow-purple-500/30">
                         <i class="fas fa-external-link-alt mr-2"></i>Abrir Falstad Circuit
                     </a>
                 </div>
@@ -315,15 +334,15 @@
         </div>
 
         <!-- GUÍA DE USO -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-electro-green">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-green">
                 <i class="fas fa-book-open mr-2"></i>Guía: Cómo Usar los Simuladores
             </h2>
             
-            <div class="space-y-4">
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <h3 class="font-bold text-electro-cyan mb-2">1️⃣ PhET - Para principiantes</h3>
-                    <ol class="text-sm text-slate-300 space-y-1 list-decimal list-inside">
+            <div class="space-y-6">
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <h3 class="font-bold text-electro-cyan mb-3 text-xl">1️⃣ PhET - Para principiantes</h3>
+                    <ol class="text-sm text-slate-300 space-y-2 list-decimal list-inside marker:text-electro-cyan marker:font-bold">
                         <li>Abre el enlace del simulador</li>
                         <li>Arrastra componentes desde el panel lateral</li>
                         <li>Conéctalos haciendo clic en los terminales</li>
@@ -332,9 +351,9 @@
                     </ol>
                 </div>
 
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <h3 class="font-bold text-electro-cyan mb-2">2️⃣ Tinkercad - Para Arduino</h3>
-                    <ol class="text-sm text-slate-300 space-y-1 list-decimal list-inside">
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <h3 class="font-bold text-electro-cyan mb-3 text-xl">2️⃣ Tinkercad - Para Arduino</h3>
+                    <ol class="text-sm text-slate-300 space-y-2 list-decimal list-inside marker:text-electro-cyan marker:font-bold">
                         <li>Crea cuenta gratuita en tinkercad.com</li>
                         <li>Ve a "Circuits" → "Create new Circuit"</li>
                         <li>Arrastra Arduino y componentes</li>
@@ -344,9 +363,9 @@
                     </ol>
                 </div>
 
-                <div class="bg-slate-900 p-4 rounded-lg">
-                    <h3 class="font-bold text-electro-cyan mb-2">3️⃣ Falstad - Para avanzado</h3>
-                    <ol class="text-sm text-slate-300 space-y-1 list-decimal list-inside">
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <h3 class="font-bold text-electro-cyan mb-3 text-xl">3️⃣ Falstad - Para avanzado</h3>
+                    <ol class="text-sm text-slate-300 space-y-2 list-decimal list-inside marker:text-electro-cyan marker:font-bold">
                         <li>Abre falstad.com/circuit</li>
                         <li>Usa el menú "Draw" para agregar componentes</li>
                         <li>Clic derecho para editar valores</li>
@@ -358,64 +377,70 @@
         </div>
 
         <!-- RECURSOS ADICIONALES -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-electro-yellow">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-yellow">
                 <i class="fas fa-link mr-2"></i>Recursos Adicionales
             </h2>
             
             <div class="grid md:grid-cols-2 gap-4">
                 <a href="https://www.arduino.cc/en/Tutorial/HomePage" target="_blank" 
-                   class="simulador-card bg-slate-900 p-4 rounded-lg border-2 border-slate-700 hover:border-electro-cyan block">
-                    <h3 class="font-bold text-electro-cyan mb-2">📚 Arduino Tutorials</h3>
+                   class="simulador-card bg-electro-dark/60 p-5 rounded-xl border border-slate-700 hover:border-electro-cyan block">
+                    <h3 class="font-bold text-electro-cyan mb-2 text-lg">📚 Arduino Tutorials</h3>
                     <p class="text-sm text-slate-400">Tutoriales oficiales de Arduino</p>
                 </a>
 
                 <a href="https://learn.sparkfun.com/tutorials" target="_blank" 
-                   class="simulador-card bg-slate-900 p-4 rounded-lg border-2 border-slate-700 hover:border-electro-cyan block">
-                    <h3 class="font-bold text-electro-cyan mb-2">🎓 SparkFun Learn</h3>
+                   class="simulador-card bg-electro-dark/60 p-5 rounded-xl border border-slate-700 hover:border-electro-cyan block">
+                    <h3 class="font-bold text-electro-cyan mb-2 text-lg">🎓 SparkFun Learn</h3>
                     <p class="text-sm text-slate-400">Tutoriales de electrónica</p>
                 </a>
 
                 <a href="https://www.allaboutcircuits.com/textbook/" target="_blank" 
-                   class="simulador-card bg-slate-900 p-4 rounded-lg border-2 border-slate-700 hover:border-electro-cyan block">
-                    <h3 class="font-bold text-electro-cyan mb-2">📖 All About Circuits</h3>
+                   class="simulador-card bg-electro-dark/60 p-5 rounded-xl border border-slate-700 hover:border-electro-cyan block">
+                    <h3 class="font-bold text-electro-cyan mb-2 text-lg">📖 All About Circuits</h3>
                     <p class="text-sm text-slate-400">Libro de texto gratuito</p>
                 </a>
 
                 <a href="https://www.electronics-tutorials.ws/" target="_blank" 
-                   class="simulador-card bg-slate-900 p-4 rounded-lg border-2 border-slate-700 hover:border-electro-cyan block">
-                    <h3 class="font-bold text-electro-cyan mb-2">🔌 Electronics Tutorials</h3>
+                   class="simulador-card bg-electro-dark/60 p-5 rounded-xl border border-slate-700 hover:border-electro-cyan block">
+                    <h3 class="font-bold text-electro-cyan mb-2 text-lg">🔌 Electronics Tutorials</h3>
                     <p class="text-sm text-slate-400">Tutoriales de electrónica</p>
                 </a>
             </div>
         </div>
 
         <!-- MENSAJE FINAL -->
-        <div class="bg-gradient-to-r from-electro-green to-electro-cyan p-6 rounded-xl shadow-xl section-animate border-2 border-electro-green">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-center text-black">🎉 ¡Felicitaciones!</h2>
-            <p class="text-center text-slate-900 mb-4 font-semibold">
+        <div class="bg-gradient-to-r from-electro-green/20 to-electro-cyan/20 p-8 rounded-2xl shadow-2xl section-animate border-2 border-electro-green/50">
+            <h2 class="text-3xl font-heading font-bold mb-4 text-center text-electro-green">🎉 ¡Felicitaciones!</h2>
+            <p class="text-center text-slate-200 mb-6 text-lg font-semibold">
                 Has completado todos los módulos de ElectroLearn. Ahora tienes las herramientas para:
             </p>
-            <div class="grid md:grid-cols-3 gap-4 text-center">
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-3xl mb-2">📚</p>
-                    <p class="font-bold text-electro-cyan">Entender</p>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <p class="text-4xl mb-3">📚</p>
+                    <p class="font-bold text-electro-cyan text-xl mb-2">Entender</p>
                     <p class="text-sm text-slate-300">Conceptos de electricidad y electrónica</p>
                 </div>
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-3xl mb-2">🔧</p>
-                    <p class="font-bold text-electro-cyan">Construir</p>
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <p class="text-4xl mb-3">🔧</p>
+                    <p class="font-bold text-electro-cyan text-xl mb-2">Construir</p>
                     <p class="text-sm text-slate-300">Circuitos reales con componentes</p>
                 </div>
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-3xl mb-2">💻</p>
-                    <p class="font-bold text-electro-cyan">Programar</p>
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <p class="text-4xl mb-3">💻</p>
+                    <p class="font-bold text-electro-cyan text-xl mb-2">Programar</p>
                     <p class="text-sm text-slate-300">Arduino y microcontroladores</p>
                 </div>
             </div>
         </div>
 
     </div>
+
+    <!-- FOOTER DEL MÓDULO -->
+    <footer class="bg-electro-dark p-8 text-center border-t-4 border-electro-yellow mt-12">
+        <p class="text-lg font-bold text-white">© 2026 ElectroLearn - Proyecto de Grado</p>
+        <p class="text-electro-cyan mt-2">Desarrollado por el Grupo 3B Informática</p>
+    </footer>
 
 </body>
 </html>

@@ -6,13 +6,15 @@
     <meta name="description" content="Repositorio interactivo de electricidad y electrónica básica">
     <meta name="author" content="Alex Parrales Choez - Bachiller en Informática 2026">
     <title>ElectroLearn - Repositorio Digital Interactivo</title>
+    
+    <!-- FAVICON -->
     <link rel="icon" type="image/png" href="favicon.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     
     <script>
@@ -24,165 +26,189 @@
                         'body': ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        'electro-dark': '#0f172a',
-                        'electro-yellow': '#facc15',
-                        'electro-cyan': '#22d3ee',
-                        'electro-green': '#4ade80',
-                        'electro-red': '#f87171',
+                        'electro-dark': '#0A1628',
+                        'electro-blue': '#1E3A8A',
+                        'electro-circuit': '#1E40AF',
+                        'electro-yellow': '#FACC15',
+                        'electro-cyan': '#00D4FF',
+                        'electro-green': '#00FF88',
+                        'electro-red': '#FF4444',
                     }
                 }
             }
         }
     </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.8); }
+        }
+        .logo-float { animation: float 3s ease-in-out infinite; }
+        .glow-effect { animation: pulse-glow 2s ease-in-out infinite; }
+        .gradient-text {
+            background: linear-gradient(135deg, #FACC15 0%, #00D4FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
 </head>
 <body class="bg-electro-dark text-white font-body">
 
-    <!-- HEADER -->
-    <header class="bg-white p-3 shadow-lg sticky top-0 z-50">
+    <!-- HEADER FIJO CON LOGO GRANDE -->
+    <header class="bg-gradient-to-r from-electro-blue via-electro-circuit to-electro-blue p-4 shadow-2xl sticky top-0 z-50 border-b-4 border-electro-yellow">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="flex items-center">
-                <img src="multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-12 md:h-16 w-auto">
+            <a href="index.html" class="flex items-center logo-float">
+                <img src="multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-16 md:h-20 w-auto drop-shadow-lg">
             </a>
             
-            <button id="menu-btn" class="md:hidden text-2xl text-slate-700 focus:outline-none">
+            <button id="menu-btn" class="md:hidden text-2xl text-electro-yellow focus:outline-none">
                 <i class="fas fa-bars"></i>
             </button>
             
             <nav>
-                <ul id="menu" class="hidden md:flex gap-6 font-semibold text-slate-700">
-                    <li><a href="#inicio" class="hover:text-electro-yellow transition">Inicio</a></li>
-                    <li><a href="#modulos" class="hover:text-electro-yellow transition">Módulos</a></li>
-                    <li><a href="videos.html" class="hover:text-electro-yellow transition">Videos</a></li>
-                    <li><a href="modulos/modulo10-laboratorio/index.html" class="hover:text-electro-yellow transition">Simuladores</a></li>
-                    <li><a href="#progreso" class="hover:text-electro-yellow transition">Mi Progreso</a></li>
+                <ul id="menu" class="hidden md:flex gap-8 font-bold text-lg">
+                    <li><a href="#inicio" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Inicio</a></li>
+                    <li><a href="#modulos" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Módulos</a></li>
+                    <li><a href="videos.html" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Videos</a></li>
+                    <li><a href="modulos/modulo10-laboratorio/index.html" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Simuladores</a></li>
+                    <li><a href="#progreso" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Mi Progreso</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section id="inicio" class="py-20 text-center px-4">
-        <div class="container mx-auto">
-            <h2 class="text-4xl md:text-6xl font-heading font-bold mb-6">
+    <!-- HERO SECTION CON FONDO ELÉCTRICO -->
+    <section id="inicio" class="py-24 text-center px-4 relative overflow-hidden">
+        <!-- Efecto de fondo -->
+        <div class="absolute inset-0 bg-gradient-to-br from-electro-dark via-electro-blue to-electro-dark opacity-50"></div>
+        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(250, 204, 21, 0.1) 0%, transparent 50%);"></div>
+        
+        <div class="container mx-auto relative z-10">
+            <h2 class="text-5xl md:text-7xl font-heading font-extrabold mb-6">
                 Aprende <span class="text-electro-yellow">Electricidad</span> y 
                 <span class="text-electro-cyan">Electrónica</span>
             </h2>
-            <p class="text-xl text-slate-300 max-w-2xl mx-auto mb-8">
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
                 Repositorio interactivo diseñado para estudiantes de 1er año 
                 de Soporte Informático. Aprende haciendo, experimentando y divirtiéndote.
             </p>
             <button onclick="document.getElementById('modulos').scrollIntoView({behavior: 'smooth'})" 
-                    class="bg-electro-yellow hover:bg-yellow-400 text-black font-bold py-3 px-8 rounded-full transition transform hover:scale-105 shadow-lg">
+                    class="bg-electro-yellow hover:bg-yellow-400 text-electro-dark font-extrabold py-4 px-10 rounded-full transition-all transform hover:scale-110 shadow-2xl glow-effect text-lg">
                 Comenzar Ahora <i class="fas fa-arrow-right ml-2"></i>
             </button>
         </div>
     </section>
 
     <!-- MÓDULOS -->
-    <section id="modulos" class="py-16 bg-slate-800">
+    <section id="modulos" class="py-20 bg-gradient-to-b from-electro-dark to-electro-blue">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-heading font-bold text-center mb-4">
+            <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-center mb-4 gradient-text">
                 Módulos de Aprendizaje
             </h2>
-            <p class="text-center text-slate-300 mb-12">Explora cada tema a tu propio ritmo</p>
+            <p class="text-center text-slate-300 mb-16 text-lg">Explora cada tema a tu propio ritmo</p>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Módulo 1 -->
-                <div class="bg-slate-700 p-6 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-cyan-400">
-                    <i class="fas fa-wave-square text-4xl text-cyan-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Módulo 1: Corriente Eléctrica</h3>
-                    <p class="text-slate-300 mb-4">Conceptos fundamentales, tipos de corriente y mediciones básicas.</p>
-                    <a href="modulos/modulo1-corriente/index.html" class="text-yellow-400 font-bold hover:text-yellow-300">
+                <div class="bg-electro-blue/50 backdrop-blur p-8 rounded-2xl hover:scale-105 transition-all border-2 border-electro-cyan/30 hover:border-electro-cyan shadow-xl">
+                    <i class="fas fa-wave-square text-5xl text-electro-cyan mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Módulo 1: Corriente Eléctrica</h3>
+                    <p class="text-slate-300 mb-6">Conceptos fundamentales, tipos de corriente y mediciones básicas.</p>
+                    <a href="modulos/modulo1-corriente/index.html" class="text-electro-yellow font-bold hover:text-yellow-300 text-lg">
                         Entrar <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
 
                 <!-- Módulo 2 -->
-                <div class="bg-slate-700 p-6 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-green-400">
-                    <i class="fas fa-calculator text-4xl text-green-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Módulo 2: Ley de Ohm</h3>
-                    <p class="text-slate-300 mb-4">Simulador interactivo para calcular Voltaje, Corriente y Resistencia.</p>
-                    <a href="modulos/modulo2-ley-ohm/index.html" class="text-yellow-400 font-bold hover:text-yellow-300">
+                <div class="bg-electro-blue/50 backdrop-blur p-8 rounded-2xl hover:scale-105 transition-all border-2 border-electro-green/30 hover:border-electro-green shadow-xl">
+                    <i class="fas fa-calculator text-5xl text-electro-green mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Módulo 2: Ley de Ohm</h3>
+                    <p class="text-slate-300 mb-6">Simulador interactivo para calcular Voltaje, Corriente y Resistencia.</p>
+                    <a href="modulos/modulo2-ley-ohm/index.html" class="text-electro-yellow font-bold hover:text-yellow-300 text-lg">
                         Entrar <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
 
                 <!-- Módulo 3 -->
-                <div class="bg-slate-700 p-6 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-purple-400">
-                    <i class="fas fa-microchip text-4xl text-purple-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Módulo 3: Componentes</h3>
-                    <p class="text-slate-300 mb-4">Resistencias, capacitores, diodos, LEDs y transistores explicados.</p>
-                    <a href="modulos/modulo3-componentes/index.html" class="text-yellow-400 font-bold hover:text-yellow-300">
+                <div class="bg-electro-blue/50 backdrop-blur p-8 rounded-2xl hover:scale-105 transition-all border-2 border-purple-400/30 hover:border-purple-400 shadow-xl">
+                    <i class="fas fa-microchip text-5xl text-purple-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Módulo 3: Componentes</h3>
+                    <p class="text-slate-300 mb-6">Resistencias, capacitores, diodos, LEDs y transistores explicados.</p>
+                    <a href="modulos/modulo3-componentes/index.html" class="text-electro-yellow font-bold hover:text-yellow-300 text-lg">
                         Entrar <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
 
                 <!-- Módulo 4 -->
-                <div class="bg-slate-700 p-6 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-red-400">
-                    <i class="fas fa-project-diagram text-4xl text-red-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Módulo 4: Circuitos</h3>
-                    <p class="text-slate-300 mb-4">Circuitos en serie, paralelo y mixtos con simulaciones.</p>
-                    <a href="modulos/modulo4-circuitos/index.html" class="text-yellow-400 font-bold hover:text-yellow-300">
+                <div class="bg-electro-blue/50 backdrop-blur p-8 rounded-2xl hover:scale-105 transition-all border-2 border-electro-red/30 hover:border-electro-red shadow-xl">
+                    <i class="fas fa-project-diagram text-5xl text-electro-red mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Módulo 4: Circuitos</h3>
+                    <p class="text-slate-300 mb-6">Circuitos en serie, paralelo y mixtos con simulaciones.</p>
+                    <a href="modulos/modulo4-circuitos/index.html" class="text-electro-yellow font-bold hover:text-yellow-300 text-lg">
                         Entrar <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
 
                 <!-- Módulo 5 -->
-                <div class="bg-slate-700 p-6 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-orange-400">
-                    <i class="fas fa-tools text-4xl text-orange-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Módulo 5: Herramientas</h3>
-                    <p class="text-slate-300 mb-4">Multímetro, soldador, protoboard y herramientas de medición.</p>
-                    <a href="modulos/modulo5-herramientas/index.html" class="text-yellow-400 font-bold hover:text-yellow-300">
+                <div class="bg-electro-blue/50 backdrop-blur p-8 rounded-2xl hover:scale-105 transition-all border-2 border-orange-400/30 hover:border-orange-400 shadow-xl">
+                    <i class="fas fa-tools text-5xl text-orange-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Módulo 5: Herramientas</h3>
+                    <p class="text-slate-300 mb-6">Multímetro, soldador, protoboard y herramientas de medición.</p>
+                    <a href="modulos/modulo5-herramientas/index.html" class="text-electro-yellow font-bold hover:text-yellow-300 text-lg">
                         Entrar <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
 
                 <!-- Módulo 6 -->
-                <div class="bg-slate-700 p-6 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-pink-400">
-                    <i class="fas fa-microchip text-4xl text-pink-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Módulo 6: Componentes Avanzados</h3>
-                    <p class="text-slate-300 mb-4">Capacitores, diodos especiales, transistores y circuitos integrados.</p>
-                    <a href="modulos/modulo6-componentes-avanzados/index.html" class="text-yellow-400 font-bold hover:text-yellow-300">
+                <div class="bg-electro-blue/50 backdrop-blur p-8 rounded-2xl hover:scale-105 transition-all border-2 border-pink-400/30 hover:border-pink-400 shadow-xl">
+                    <i class="fas fa-microchip text-5xl text-pink-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Módulo 6: Componentes Avanzados</h3>
+                    <p class="text-slate-300 mb-6">Capacitores, diodos especiales, transistores y circuitos integrados.</p>
+                    <a href="modulos/modulo6-componentes-avanzados/index.html" class="text-electro-yellow font-bold hover:text-yellow-300 text-lg">
                         Entrar <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
 
                 <!-- Módulo 7 -->
-                <div class="bg-slate-700 p-6 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-yellow-400">
-                    <i class="fas fa-bolt text-4xl text-yellow-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Módulo 7: Fuentes de Poder</h3>
-                    <p class="text-slate-300 mb-4">Transformadores, rectificadores, reguladores y fuentes switching.</p>
-                    <a href="modulos/modulo7-fuentes/index.html" class="text-yellow-400 font-bold hover:text-yellow-300">
+                <div class="bg-electro-blue/50 backdrop-blur p-8 rounded-2xl hover:scale-105 transition-all border-2 border-electro-yellow/30 hover:border-electro-yellow shadow-xl">
+                    <i class="fas fa-bolt text-5xl text-electro-yellow mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Módulo 7: Fuentes de Poder</h3>
+                    <p class="text-slate-300 mb-6">Transformadores, rectificadores, reguladores y fuentes switching.</p>
+                    <a href="modulos/modulo7-fuentes/index.html" class="text-electro-yellow font-bold hover:text-yellow-300 text-lg">
                         Entrar <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
 
                 <!-- Módulo 8 -->
-                <div class="bg-slate-700 p-6 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-indigo-400">
-                    <i class="fas fa-wave-square text-4xl text-indigo-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Módulo 8: Señales y Ondas</h3>
-                    <p class="text-slate-300 mb-4">Señales analógicas, digitales, PWM y comunicación serial.</p>
-                    <a href="modulos/modulo8-senales/index.html" class="text-yellow-400 font-bold hover:text-yellow-300">
+                <div class="bg-electro-blue/50 backdrop-blur p-8 rounded-2xl hover:scale-105 transition-all border-2 border-indigo-400/30 hover:border-indigo-400 shadow-xl">
+                    <i class="fas fa-wave-square text-5xl text-indigo-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Módulo 8: Señales y Ondas</h3>
+                    <p class="text-slate-300 mb-6">Señales analógicas, digitales, PWM y comunicación serial.</p>
+                    <a href="modulos/modulo8-senales/index.html" class="text-electro-yellow font-bold hover:text-yellow-300 text-lg">
                         Entrar <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
 
                 <!-- Módulo 9 -->
-                <div class="bg-slate-700 p-6 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-teal-400">
-                    <i class="fas fa-robot text-4xl text-teal-400 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Módulo 9: Arduino Básico</h3>
-                    <p class="text-slate-300 mb-4">Programación, pines, sensores y primeros proyectos con Arduino.</p>
-                    <a href="modulos/modulo9-arduino/index.html" class="text-yellow-400 font-bold hover:text-yellow-300">
+                <div class="bg-electro-blue/50 backdrop-blur p-8 rounded-2xl hover:scale-105 transition-all border-2 border-teal-400/30 hover:border-teal-400 shadow-xl">
+                    <i class="fas fa-robot text-5xl text-teal-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Módulo 9: Arduino Básico</h3>
+                    <p class="text-slate-300 mb-6">Programación, pines, sensores y primeros proyectos con Arduino.</p>
+                    <a href="modulos/modulo9-arduino/index.html" class="text-electro-yellow font-bold hover:text-yellow-300 text-lg">
                         Entrar <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
 
                 <!-- Módulo 10 -->
-                <div class="bg-gradient-to-br from-blue-600 to-purple-600 p-6 rounded-xl hover:scale-105 transition-transform border-2 border-transparent hover:border-white">
-                    <i class="fas fa-flask text-4xl text-yellow-300 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Módulo 10: Laboratorio Virtual</h3>
-                    <p class="text-slate-100 mb-4">Simuladores externos integrados: PhET y Tinkercad Circuits.</p>
-                    <a href="modulos/modulo10-laboratorio/index.html" class="text-yellow-300 font-bold hover:text-yellow-200">
+                <div class="bg-gradient-to-br from-electro-cyan to-purple-600 p-8 rounded-2xl hover:scale-105 transition-all border-2 border-white/50 shadow-2xl">
+                    <i class="fas fa-flask text-5xl text-electro-yellow mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Módulo 10: Laboratorio Virtual</h3>
+                    <p class="text-white mb-6">Simuladores externos integrados: PhET y Tinkercad Circuits.</p>
+                    <a href="modulos/modulo10-laboratorio/index.html" class="text-electro-yellow font-bold hover:text-yellow-300 text-lg">
                         Explorar <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
@@ -191,26 +217,26 @@
     </section>
 
     <!-- PROGRESO -->
-    <section id="progreso" class="py-16 bg-slate-800">
+    <section id="progreso" class="py-20 bg-gradient-to-b from-electro-blue to-electro-dark">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">
-                <i class="fas fa-chart-line text-electro-yellow mr-2"></i> Tu Progreso
+            <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-8 gradient-text">
+                <i class="fas fa-chart-line text-electro-yellow mr-3"></i> Tu Progreso
             </h2>
-            <div class="max-w-md mx-auto bg-slate-900 p-6 rounded-xl">
-                <p class="text-slate-300 mb-4">Módulos completados:</p>
-                <div class="w-full bg-slate-700 rounded-full h-4 mb-4">
-                    <div id="barra-progreso" class="bg-electro-green h-4 rounded-full transition-all" style="width: 0%"></div>
+            <div class="max-w-2xl mx-auto bg-electro-blue/50 backdrop-blur p-8 rounded-2xl border-2 border-electro-cyan/30 shadow-2xl">
+                <p class="text-slate-300 mb-6 text-lg">Módulos completados:</p>
+                <div class="w-full bg-slate-700 rounded-full h-6 mb-6 overflow-hidden">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-electro-cyan to-electro-green h-6 rounded-full transition-all shadow-lg" style="width: 0%"></div>
                 </div>
-                <p id="texto-progreso" class="text-electro-yellow font-bold">0 de 10 módulos (0%)</p>
+                <p id="texto-progreso" class="text-electro-yellow font-bold text-2xl">0 de 10 módulos (0%)</p>
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-950 p-8 text-center border-t border-slate-800">
-        <p class="text-lg font-semibold">© 2026 ElectroLearn - Proyecto de Grado</p>
-        <p class="text-slate-400 mt-2">Desarrollado por el Grupo 3B Informática</p>
-        <p class="text-slate-500 text-sm mt-4">Bachiller en Informática - Soporte Informático</p>
+    <footer class="bg-electro-dark p-10 text-center border-t-4 border-electro-yellow">
+        <p class="text-xl font-bold text-white">© 2026 ElectroLearn - Proyecto de Grado</p>
+        <p class="text-electro-cyan mt-3 text-lg">Desarrollado por el Grupo 3B Informática</p>
+        <p class="text-slate-400 text-sm mt-4">Bachiller en Informática - Soporte Informático</p>
     </footer>
 
     <script src="js/main.js"></script>

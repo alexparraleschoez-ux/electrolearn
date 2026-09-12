@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="../../favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -15,6 +15,15 @@
                     fontFamily: {
                         'heading': ['Poppins', 'sans-serif'],
                         'body': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'electro-dark': '#0A1628',
+                        'electro-blue': '#1E3A8A',
+                        'electro-circuit': '#1E40AF',
+                        'electro-yellow': '#FACC15',
+                        'electro-cyan': '#00D4FF',
+                        'electro-green': '#00FF88',
+                        'electro-red': '#FF4444',
                     }
                 }
             }
@@ -25,28 +34,25 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes carga {
-            0% { height: 0%; background-color: #ef4444; }
-            100% { height: 100%; background-color: #22c55e; }
-        }
-        @keyframes descarga {
-            0% { height: 100%; background-color: #22c55e; }
-            100% { height: 0%; background-color: #ef4444; }
-        }
         @keyframes parpadeo {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.3; }
         }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
         .section-animate { animation: fadeInUp 0.6s ease-out; }
         .componente-card {
-            border-left: 4px solid #22d3ee;
+            border-left: 4px solid #00D4FF;
             transition: all 0.3s;
         }
         .componente-card:hover {
             transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
         }
         .opcion-btn:disabled { cursor: not-allowed; }
+        .logo-float { animation: float 3s ease-in-out infinite; }
         
         /* Calculadora */
         .calc-btn {
@@ -63,10 +69,10 @@
             font-size: 2rem;
             text-align: right;
             padding: 1rem;
-            background: #0f172a;
-            border: 2px solid #22d3ee;
+            background: #0A1628;
+            border: 2px solid #00D4FF;
             border-radius: 0.5rem;
-            color: #22d3ee;
+            color: #00D4FF;
             min-height: 80px;
             overflow-x: auto;
         }
@@ -79,65 +85,58 @@
             animation: parpadeo 1s ease-in-out infinite;
         }
         
-        /* Tabs */
-        .tab-btn {
-            transition: all 0.3s;
-        }
-        .tab-btn.active {
-            background-color: #22d3ee;
-            color: #0f172a;
-            font-weight: bold;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
+        .glass-card {
+            background: rgba(30, 58, 138, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
         }
     </style>
 </head>
-<body class="bg-slate-900 text-white font-body min-h-screen">
+<body class="bg-electro-dark text-white font-body min-h-screen">
 
-    <!-- HEADER -->
-        <header class="bg-white p-3 shadow-lg">
-            <div class="container mx-auto flex justify-between items-center">
-                <a href="../../index.html" class="flex items-center">
-                    <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-12 md:h-16 w-auto">
-                </a>
-                <a href="../../index.html" class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition">
-                    <i class="fas fa-arrow-left mr-2"></i> Volver
-                </a>
-            </div>
-        </header>
+    <!-- HEADER FIJO CON LOGO GRANDE -->
+    <header class="bg-gradient-to-r from-electro-blue via-electro-circuit to-electro-blue p-4 shadow-2xl sticky top-0 z-50 border-b-4 border-electro-yellow">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="flex items-center logo-float">
+                <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-16 md:h-20 w-auto drop-shadow-lg">
+            </a>
+            <a href="../../index.html" class="bg-electro-yellow hover:bg-yellow-400 text-electro-dark px-6 py-3 rounded-lg font-bold hover:scale-105 transition-all shadow-lg flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Volver al Inicio
+            </a>
+        </div>
+    </header>
 
     <!-- TÍTULO -->
-    <section class="py-8 text-center px-4 section-animate">
-        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
-            <i class="fas fa-microchip text-purple-400"></i> Módulo 6: Componentes Avanzados
-        </h1>
-        <p class="text-slate-300 text-lg">Capacitores, diodos especiales, transistores y circuitos integrados</p>
+    <section class="py-12 text-center px-4 section-animate relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-electro-dark via-electro-blue/20 to-electro-dark opacity-50"></div>
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-6xl font-heading font-extrabold mb-4">
+                <i class="fas fa-microchip text-electro-cyan mr-3"></i> Módulo 6: Componentes Avanzados
+            </h1>
+            <p class="text-slate-300 text-xl max-w-2xl mx-auto">Capacitores, diodos especiales, transistores y circuitos integrados</p>
+        </div>
     </section>
 
     <div class="container mx-auto px-4 pb-16 space-y-8">
 
         <!-- SECCIÓN 1: TEORÍA -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-8 text-electro-cyan">
                 <i class="fas fa-book mr-2"></i>Teoría: Componentes Avanzados
             </h2>
 
             <!-- Capacitores -->
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-green-400">
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-green">
                     <i class="fas fa-battery-half mr-2"></i>Capacitores en Profundidad
                 </h3>
-                <p class="text-slate-300 mb-3">
-                    Los <strong class="text-green-400">capacitores</strong> almacenan energía en un campo eléctrico. 
+                <p class="text-slate-300 mb-4 text-lg">
+                    Los <strong class="text-electro-green">capacitores</strong> almacenan energía en un campo eléctrico. 
                     Su capacidad se mide en <strong>Faradios (F)</strong>.
                 </p>
                 <div class="grid md:grid-cols-2 gap-4 mb-4">
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2">📏 Tipos principales:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">📏 Tipos principales:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ <strong>Cerámicos</strong>: Pequeños, sin polaridad (pF-nF)</li>
                             <li>✓ <strong>Electrolíticos</strong>: Grandes, con polaridad (μF-mF)</li>
@@ -145,43 +144,43 @@
                             <li>✓ <strong>Poliéster</strong>: Precisión, audio</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2"> Fórmulas importantes:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2"> Fórmulas importantes:</h4>
                         <div class="space-y-2">
-                            <div class="bg-slate-900 p-2 rounded">
-                                <p class="text-green-400 font-mono text-sm">Q = C × V</p>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-green font-mono text-sm font-bold">Q = C × V</p>
                                 <p class="text-xs text-slate-400">Carga = Capacitancia × Voltaje</p>
                             </div>
-                            <div class="bg-slate-900 p-2 rounded">
-                                <p class="text-green-400 font-mono text-sm">E = ½ × C × V²</p>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-green font-mono text-sm font-bold">E = ½ × C × V²</p>
                                 <p class="text-xs text-slate-400">Energía almacenada</p>
                             </div>
-                            <div class="bg-slate-900 p-2 rounded">
-                                <p class="text-green-400 font-mono text-sm">τ = R × C</p>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-green font-mono text-sm font-bold">τ = R × C</p>
                                 <p class="text-xs text-slate-400">Constante de tiempo</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-green-900 p-3 rounded-lg">
-                    <p class="text-sm text-slate-300">
-                        💡 <strong>Constante de tiempo (τ):</strong> Tiempo que tarda un capacitor en cargarse al 63.2% de su valor máximo. 
+                <div class="bg-electro-green/10 border border-electro-green/30 p-4 rounded-lg">
+                    <p class="text-slate-200">
+                        💡 <strong class="text-electro-green">Constante de tiempo (τ):</strong> Tiempo que tarda un capacitor en cargarse al 63.2% de su valor máximo. 
                         Después de 5τ está completamente cargado (99.3%).
                     </p>
                 </div>
             </div>
 
             <!-- Diodos Especiales -->
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-red-400">
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-red">
                     <i class="fas fa-arrow-right mr-2"></i>Diodos Especiales
                 </h3>
-                <p class="text-slate-300 mb-3">
+                <p class="text-slate-300 mb-4 text-lg">
                     Además del diodo rectificador estándar, existen tipos especializados para diferentes aplicaciones.
                 </p>
                 <div class="grid md:grid-cols-2 gap-4 mb-4">
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-red-400 mb-2">🔴 Diodo Zener:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-red mb-2">🔴 Diodo Zener:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Regula voltaje en polarización inversa</li>
                             <li>✓ Voltajes: 2.4V a 200V</li>
@@ -189,8 +188,8 @@
                             <li>✓ Símbolo: Diodo con línea en Z</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-yellow-400 mb-2">💡 LED (Diodo Emisor de Luz):</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-yellow mb-2">💡 LED (Diodo Emisor de Luz):</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Emite luz en polarización directa</li>
                             <li>✓ Voltaje: 1.8V-3.4V según color</li>
@@ -198,7 +197,7 @@
                             <li>✓ Requiere resistencia limitadora</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
                         <h4 class="font-bold text-purple-400 mb-2"> Diodo Schottky:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Caída de voltaje baja: 0.2-0.3V</li>
@@ -207,7 +206,7 @@
                             <li>✓ Menor pérdida de energía</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
                         <h4 class="font-bold text-blue-400 mb-2">📡 Fotodiodo:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Detecta luz (sensor óptico)</li>
@@ -220,16 +219,16 @@
             </div>
 
             <!-- Transistores -->
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-blue-400">
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-400">
                     <i class="fas fa-project-diagram mr-2"></i>Transistores
                 </h3>
-                <p class="text-slate-300 mb-3">
+                <p class="text-slate-300 mb-4 text-lg">
                     Los <strong class="text-blue-400">transistores</strong> son semiconductores que amplifican señales o actúan como interruptores. 
                     Son la base de la electrónica moderna.
                 </p>
                 <div class="grid md:grid-cols-2 gap-4 mb-4">
-                    <div class="bg-slate-800 p-3 rounded-lg">
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
                         <h4 class="font-bold text-blue-400 mb-2">🔺 BJT (Bipolar Junction Transistor):</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ <strong>NPN</strong>: Más común (2N2222, BC547)</li>
@@ -239,7 +238,7 @@
                             <li>✓ Ganancia: β (hFE) = 100-300 típico</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
                         <h4 class="font-bold text-purple-400 mb-2">⚡ MOSFET:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ <strong>N-Channel</strong>: IRF520, 2N7000</li>
@@ -250,26 +249,26 @@
                         </ul>
                     </div>
                 </div>
-                <div class="bg-blue-900 p-3 rounded-lg">
-                    <p class="text-sm text-slate-300">
-                        💡 <strong>Aplicaciones:</strong> Amplificadores de audio, interruptores electrónicos, 
+                <div class="bg-blue-900/30 border border-blue-500/30 p-4 rounded-lg">
+                    <p class="text-slate-200">
+                        💡 <strong class="text-blue-400">Aplicaciones:</strong> Amplificadores de audio, interruptores electrónicos, 
                         control de motores, fuentes de poder, circuitos lógicos.
                     </p>
                 </div>
             </div>
 
             <!-- Circuitos Integrados -->
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-purple-400">
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-purple-400">
                     <i class="fas fa-microchip mr-2"></i>Circuitos Integrados (IC)
                 </h3>
-                <p class="text-slate-300 mb-3">
+                <p class="text-slate-300 mb-4 text-lg">
                     Los <strong class="text-purple-400">circuitos integrados</strong> contienen múltiples componentes 
                     en un solo chip. Son la base de la electrónica moderna.
                 </p>
                 <div class="grid md:grid-cols-3 gap-4 mb-4">
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-yellow-400 mb-2">⏱️ Timer 555:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-yellow mb-2">⏱️ Timer 555:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Genera pulsos y oscilaciones</li>
                             <li>✓ Modos: Monoestable, Astable</li>
@@ -277,8 +276,8 @@
                             <li>✓ Usos: Timers, PWM, osciladores</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-green-400 mb-2"> Op-Amp (741):</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-green mb-2"> Op-Amp (741):</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Amplificador operacional</li>
                             <li>✓ Alta ganancia (100,000x)</li>
@@ -286,8 +285,8 @@
                             <li>✓ Realimentación negativa</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2">⚡ Regulador 7805:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">⚡ Regulador 7805:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Regula voltaje a 5V fijos</li>
                             <li>✓ Entrada: 7V-35V</li>
@@ -296,53 +295,53 @@
                         </ul>
                     </div>
                 </div>
-                <div class="bg-purple-900 p-3 rounded-lg">
-                    <p class="text-sm text-slate-300">
-                        💡 <strong>Importante:</strong> Los IC tienen una muesca o punto que indica el pin 1. 
+                <div class="bg-purple-900/30 border border-purple-500/30 p-4 rounded-lg">
+                    <p class="text-slate-200">
+                        💡 <strong class="text-purple-400">Importante:</strong> Los IC tienen una muesca o punto que indica el pin 1. 
                         Siempre verifica el datasheet antes de conectar.
                     </p>
                 </div>
             </div>
 
             <!-- Comparación -->
-            <div class="bg-slate-900 p-5 rounded-lg">
-                <h3 class="text-xl font-bold mb-3 text-cyan-400">
+            <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                <h3 class="text-2xl font-bold mb-4 text-electro-cyan">
                     <i class="fas fa-balance-scale mr-2"></i>Comparación: BJT vs MOSFET
                 </h3>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead class="bg-slate-800">
+                    <table class="w-full text-sm md:text-base">
+                        <thead class="bg-electro-blue/60">
                             <tr>
-                                <th class="p-3 text-left text-cyan-400">Característica</th>
-                                <th class="p-3 text-center text-blue-400">BJT</th>
-                                <th class="p-3 text-center text-purple-400">MOSFET</th>
+                                <th class="p-4 text-left text-electro-cyan">Característica</th>
+                                <th class="p-4 text-center text-blue-400">BJT</th>
+                                <th class="p-4 text-center text-purple-400">MOSFET</th>
                             </tr>
                         </thead>
                         <tbody class="text-slate-300">
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Control</td>
-                                <td class="p-3 text-center">Corriente de base</td>
-                                <td class="p-3 text-center">Voltaje de gate</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Control</td>
+                                <td class="p-4 text-center">Corriente de base</td>
+                                <td class="p-4 text-center">Voltaje de gate</td>
                             </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Impedancia entrada</td>
-                                <td class="p-3 text-center">Baja</td>
-                                <td class="p-3 text-center">Muy alta</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Impedancia entrada</td>
+                                <td class="p-4 text-center">Baja</td>
+                                <td class="p-4 text-center">Muy alta</td>
                             </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Velocidad</td>
-                                <td class="p-3 text-center">Media</td>
-                                <td class="p-3 text-center">Alta</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Velocidad</td>
+                                <td class="p-4 text-center">Media</td>
+                                <td class="p-4 text-center">Alta</td>
                             </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Aplicación</td>
-                                <td class="p-3 text-center">Amplificación</td>
-                                <td class="p-3 text-center">Conmutación</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Aplicación</td>
+                                <td class="p-4 text-center">Amplificación</td>
+                                <td class="p-4 text-center">Conmutación</td>
                             </tr>
                             <tr>
-                                <td class="p-3 font-bold">Ejemplo</td>
-                                <td class="p-3 text-center">2N2222, BC547</td>
-                                <td class="p-3 text-center">IRF520, 2N7000</td>
+                                <td class="p-4 font-bold">Ejemplo</td>
+                                <td class="p-4 text-center">2N2222, BC547</td>
+                                <td class="p-4 text-center">IRF520, 2N7000</td>
                             </tr>
                         </tbody>
                     </table>
@@ -351,140 +350,140 @@
         </div>
 
         <!-- SECCIÓN 2: SIMULADOR RC -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-green-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-green">
                 <i class="fas fa-battery-half mr-2"></i>Simulador: Circuito RC (Carga/Descarga)
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Observa cómo se carga y descarga un capacitor. Ajusta R y C para ver el efecto en la constante de tiempo.
             </p>
 
-            <div class="bg-slate-900 p-6 rounded-lg">
+            <div class="bg-electro-dark/60 p-8 rounded-xl border border-electro-cyan/30">
                 <!-- Controles -->
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
                     <div>
-                        <label class="block mb-2 font-semibold">
-                            <i class="fas fa-microchip text-red-400 mr-2"></i>
-                            Resistencia (R): <span id="r-rc-display" class="text-red-400">1000</span> Ω
+                        <label class="block mb-3 font-semibold text-lg text-slate-200">
+                            <i class="fas fa-microchip text-electro-red mr-2"></i>
+                            Resistencia (R): <span id="r-rc-display" class="text-electro-red text-2xl">1000</span> Ω
                         </label>
                         <input type="range" id="r-rc" min="100" max="10000" step="100" value="1000" 
-                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-red-400"
+                               class="w-full h-3 bg-electro-blue rounded-lg appearance-none cursor-pointer accent-electro-red"
                                oninput="actualizarRC()">
                     </div>
                     <div>
-                        <label class="block mb-2 font-semibold">
-                            <i class="fas fa-battery-half text-green-400 mr-2"></i>
-                            Capacitancia (C): <span id="c-rc-display" class="text-green-400">100</span> μF
+                        <label class="block mb-3 font-semibold text-lg text-slate-200">
+                            <i class="fas fa-battery-half text-electro-green mr-2"></i>
+                            Capacitancia (C): <span id="c-rc-display" class="text-electro-green text-2xl">100</span> μF
                         </label>
                         <input type="range" id="c-rc" min="10" max="1000" step="10" value="100" 
-                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-green-400"
+                               class="w-full h-3 bg-electro-blue rounded-lg appearance-none cursor-pointer accent-electro-green"
                                oninput="actualizarRC()">
                     </div>
                 </div>
 
                 <!-- Visualización del capacitor -->
-                <div class="bg-slate-800 p-4 rounded-lg mb-4">
-                    <div class="flex items-center justify-center gap-8">
+                <div class="bg-electro-blue/30 p-8 rounded-xl mb-8 border border-electro-cyan/20">
+                    <div class="flex items-center justify-center gap-12">
                         <div class="text-center">
-                            <div class="w-20 h-40 bg-slate-700 rounded-lg relative overflow-hidden border-2 border-slate-600">
-                                <div id="capacitor-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-red-500 to-green-500 capacitor-bar" style="height: 0%"></div>
+                            <div class="w-24 h-48 bg-electro-dark rounded-lg relative overflow-hidden border-2 border-electro-cyan/50 shadow-inner">
+                                <div id="capacitor-fill" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-electro-red to-electro-green capacitor-bar" style="height: 0%"></div>
                             </div>
-                            <p class="text-sm text-slate-400 mt-2">Capacitor</p>
-                            <p class="text-xs text-cyan-400" id="capacitor-voltage">0.0V</p>
+                            <p class="text-sm text-slate-400 mt-3 font-bold">Capacitor</p>
+                            <p class="text-lg text-electro-cyan font-mono font-bold" id="capacitor-voltage">0.0V</p>
                         </div>
                         <div class="text-center">
-                            <div id="led-sim" class="w-16 h-16 bg-slate-700 rounded-full border-4 border-slate-600 flex items-center justify-center">
-                                <div class="w-8 h-8 bg-slate-500 rounded-full"></div>
+                            <div id="led-sim" class="w-20 h-20 bg-electro-dark rounded-full border-4 border-slate-600 flex items-center justify-center shadow-lg transition-all duration-100">
+                                <div class="w-10 h-10 bg-slate-500 rounded-full transition-all duration-100"></div>
                             </div>
-                            <p class="text-sm text-slate-400 mt-2">LED</p>
+                            <p class="text-sm text-slate-400 mt-3 font-bold">LED</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Botones de control -->
-                <div class="flex gap-4 mb-4">
-                    <button onclick="cargarCapacitor()" class="flex-1 bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition">
+                <div class="flex gap-4 mb-8">
+                    <button onclick="cargarCapacitor()" class="flex-1 bg-electro-green hover:bg-green-400 text-electro-dark font-bold py-4 rounded-xl transition shadow-lg shadow-electro-green/20">
                         <i class="fas fa-bolt mr-2"></i>Cargar
                     </button>
-                    <button onclick="descargarCapacitor()" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-lg transition">
+                    <button onclick="descargarCapacitor()" class="flex-1 bg-electro-red hover:bg-red-600 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-electro-red/20">
                         <i class="fas fa-power-off mr-2"></i>Descargar
                     </button>
-                    <button onclick="resetRC()" class="flex-1 bg-slate-600 hover:bg-slate-500 text-white font-bold py-3 rounded-lg transition">
+                    <button onclick="resetRC()" class="flex-1 bg-slate-600 hover:bg-slate-500 text-white font-bold py-4 rounded-xl transition">
                         <i class="fas fa-redo mr-2"></i>Reset
                     </button>
                 </div>
 
                 <!-- Información -->
-                <div class="bg-gradient-to-r from-green-900 to-cyan-900 p-4 rounded-lg text-center border-2 border-green-500">
-                    <p class="text-sm text-slate-300 mb-2">Constante de tiempo (τ = R × C):</p>
-                    <p class="text-3xl font-bold text-green-400 mb-2" id="tau-display">0.10 s</p>
+                <div class="bg-gradient-to-r from-electro-green/20 to-electro-cyan/20 p-6 rounded-xl text-center border-2 border-electro-green/50">
+                    <p class="text-sm text-slate-300 mb-2 font-bold uppercase tracking-wider">Constante de tiempo (τ = R × C):</p>
+                    <p class="text-4xl font-extrabold text-electro-green mb-2" id="tau-display">0.10 s</p>
                     <p class="text-sm text-slate-300">
-                        Tiempo de carga completa (5τ): <span id="tiempo-total" class="text-cyan-400 font-bold">0.50 s</span>
+                        Tiempo de carga completa (5τ): <span id="tiempo-total" class="text-electro-cyan font-bold text-lg">0.50 s</span>
                     </p>
                 </div>
             </div>
         </div>
 
         <!-- SECCIÓN 3: CALCULADORA 555 -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-yellow">
                 <i class="fas fa-calculator mr-2"></i>Calculadora: Temporizador 555
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Calcula la frecuencia y duty cycle de un circuito 555 en modo astable.
             </p>
 
-            <div class="bg-slate-900 p-6 rounded-lg">
+            <div class="bg-electro-dark/60 p-8 rounded-xl border border-electro-cyan/30">
                 <!-- Entradas -->
-                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
                     <div>
-                        <label class="block mb-2 font-semibold text-sm">
-                            <i class="fas fa-microchip text-red-400 mr-2"></i>
+                        <label class="block mb-3 font-semibold text-lg text-slate-200">
+                            <i class="fas fa-microchip text-electro-red mr-2"></i>
                             R1 (Ω):
                         </label>
                         <input type="number" id="r1-555" value="1000" 
-                               class="w-full p-3 bg-slate-700 rounded border border-slate-600 text-white"
+                               class="w-full p-4 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white text-lg focus:outline-none focus:border-electro-cyan"
                                oninput="calcular555()">
                     </div>
                     <div>
-                        <label class="block mb-2 font-semibold text-sm">
+                        <label class="block mb-3 font-semibold text-lg text-slate-200">
                             <i class="fas fa-microchip text-orange-400 mr-2"></i>
                             R2 (Ω):
                         </label>
                         <input type="number" id="r2-555" value="1000" 
-                               class="w-full p-3 bg-slate-700 rounded border border-slate-600 text-white"
+                               class="w-full p-4 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white text-lg focus:outline-none focus:border-electro-cyan"
                                oninput="calcular555()">
                     </div>
                     <div>
-                        <label class="block mb-2 font-semibold text-sm">
-                            <i class="fas fa-battery-half text-green-400 mr-2"></i>
+                        <label class="block mb-3 font-semibold text-lg text-slate-200">
+                            <i class="fas fa-battery-half text-electro-green mr-2"></i>
                             C (μF):
                         </label>
                         <input type="number" id="c-555" value="10" 
-                               class="w-full p-3 bg-slate-700 rounded border border-slate-600 text-white"
+                               class="w-full p-4 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white text-lg focus:outline-none focus:border-electro-cyan"
                                oninput="calcular555()">
                     </div>
                 </div>
 
                 <!-- Resultados -->
-                <div class="grid md:grid-cols-3 gap-4">
-                    <div class="bg-slate-800 p-4 rounded-lg text-center">
-                        <p class="text-sm text-slate-400 mb-2">Frecuencia:</p>
-                        <p class="text-2xl font-bold text-cyan-400" id="freq-555">0 Hz</p>
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-electro-blue/40 p-6 rounded-xl text-center border border-electro-cyan/30">
+                        <p class="text-sm text-slate-400 mb-2 font-bold uppercase">Frecuencia:</p>
+                        <p class="text-3xl font-extrabold text-electro-cyan" id="freq-555">0 Hz</p>
                     </div>
-                    <div class="bg-slate-800 p-4 rounded-lg text-center">
-                        <p class="text-sm text-slate-400 mb-2">Período:</p>
-                        <p class="text-2xl font-bold text-green-400" id="periodo-555">0 s</p>
+                    <div class="bg-electro-blue/40 p-6 rounded-xl text-center border border-electro-cyan/30">
+                        <p class="text-sm text-slate-400 mb-2 font-bold uppercase">Período:</p>
+                        <p class="text-3xl font-extrabold text-electro-green" id="periodo-555">0 s</p>
                     </div>
-                    <div class="bg-slate-800 p-4 rounded-lg text-center">
-                        <p class="text-sm text-slate-400 mb-2">Duty Cycle:</p>
-                        <p class="text-2xl font-bold text-yellow-400" id="duty-555">0%</p>
+                    <div class="bg-electro-blue/40 p-6 rounded-xl text-center border border-electro-cyan/30">
+                        <p class="text-sm text-slate-400 mb-2 font-bold uppercase">Duty Cycle:</p>
+                        <p class="text-3xl font-extrabold text-electro-yellow" id="duty-555">0%</p>
                     </div>
                 </div>
 
                 <!-- Fórmula -->
-                <div class="mt-4 bg-slate-800 p-3 rounded-lg">
-                    <p class="text-sm text-slate-400 mb-2">Fórmula aplicada:</p>
+                <div class="bg-electro-dark/60 p-4 rounded-lg border border-electro-cyan/30">
+                    <p class="text-sm text-slate-400 mb-1">Fórmula aplicada:</p>
                     <p class="text-lg font-mono text-white text-center" id="formula-555">
                         f = 1.44 / ((R1 + 2×R2) × C)
                     </p>
@@ -493,65 +492,65 @@
         </div>
 
         <!-- SECCIÓN 4: CALCULADORA CIENTÍFICA -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-cyan">
                 <i class="fas fa-calculator mr-2"></i>Calculadora para Estudiantes
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Practica tus cálculos de electrónica con esta calculadora interactiva.
             </p>
 
-            <div class="bg-slate-900 p-6 rounded-lg">
-                <div class="mb-4">
+            <div class="bg-electro-dark/60 p-8 rounded-xl border border-electro-cyan/30">
+                <div class="mb-6">
                     <div class="calc-display" id="calc-display">0</div>
                 </div>
 
-                <div class="grid grid-cols-4 gap-2 mb-4">
-                    <button onclick="calcClear()" class="calc-btn bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-lg">C</button>
-                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg">⌫</button>
-                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">%</button>
-                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">÷</button>
+                <div class="grid grid-cols-4 gap-3 mb-6">
+                    <button onclick="calcClear()" class="calc-btn bg-electro-red hover:bg-red-600 text-white font-bold py-4 rounded-lg text-xl">C</button>
+                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg text-xl">⌫</button>
+                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">%</button>
+                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">÷</button>
 
-                    <button onclick="calcNumber('7')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">7</button>
-                    <button onclick="calcNumber('8')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">8</button>
-                    <button onclick="calcNumber('9')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">9</button>
-                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">×</button>
+                    <button onclick="calcNumber('7')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">7</button>
+                    <button onclick="calcNumber('8')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">8</button>
+                    <button onclick="calcNumber('9')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">9</button>
+                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">×</button>
 
-                    <button onclick="calcNumber('4')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">4</button>
-                    <button onclick="calcNumber('5')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">5</button>
-                    <button onclick="calcNumber('6')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">6</button>
-                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">−</button>
+                    <button onclick="calcNumber('4')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">4</button>
+                    <button onclick="calcNumber('5')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">5</button>
+                    <button onclick="calcNumber('6')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">6</button>
+                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">−</button>
 
-                    <button onclick="calcNumber('1')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">1</button>
-                    <button onclick="calcNumber('2')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">2</button>
-                    <button onclick="calcNumber('3')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">3</button>
-                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">+</button>
+                    <button onclick="calcNumber('1')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">1</button>
+                    <button onclick="calcNumber('2')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">2</button>
+                    <button onclick="calcNumber('3')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">3</button>
+                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">+</button>
 
-                    <button onclick="calcNumber('0')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg col-span-2">0</button>
-                    <button onclick="calcDecimal()" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">.</button>
-                    <button onclick="calcEquals()" class="calc-btn bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-lg">=</button>
+                    <button onclick="calcNumber('0')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl col-span-2">0</button>
+                    <button onclick="calcDecimal()" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">.</button>
+                    <button onclick="calcEquals()" class="calc-btn bg-electro-green hover:bg-green-400 text-electro-dark font-bold py-4 rounded-lg text-xl shadow-lg shadow-electro-green/20">=</button>
                 </div>
 
-                <div class="grid grid-cols-3 gap-2 mb-4">
-                    <button onclick="calcConvert('ohm-kohm')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">Ω → kΩ</button>
-                    <button onclick="calcConvert('kohm-mohm')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">kΩ → MΩ</button>
-                    <button onclick="calcConvert('ma-a')" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">mA → A</button>
+                <div class="grid grid-cols-3 gap-3 mb-6">
+                    <button onclick="calcConvert('ohm-kohm')" class="calc-btn bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-3 rounded-lg text-sm shadow-lg shadow-electro-cyan/20">Ω → kΩ</button>
+                    <button onclick="calcConvert('kohm-mohm')" class="calc-btn bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-3 rounded-lg text-sm shadow-lg shadow-electro-cyan/20">kΩ → MΩ</button>
+                    <button onclick="calcConvert('ma-a')" class="calc-btn bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-3 rounded-lg text-sm shadow-lg shadow-electro-cyan/20">mA → A</button>
                 </div>
 
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <h3 class="font-bold text-yellow-400 mb-3"> Fórmulas Rápidas:</h3>
-                    <div class="grid md:grid-cols-2 gap-2 text-sm">
-                        <div class="bg-slate-900 p-2 rounded">
-                            <p class="text-green-400 font-mono text-xs">τ = R × C</p>
+                <div class="bg-electro-blue/40 p-6 rounded-xl border border-electro-cyan/30">
+                    <h3 class="font-bold text-electro-yellow mb-4 text-xl">⚡ Fórmulas Rápidas:</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-green font-mono font-bold">τ = R × C</p>
                         </div>
-                        <div class="bg-slate-900 p-2 rounded">
-                            <p class="text-green-400 font-mono text-xs">Q = C × V</p>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-green font-mono font-bold">Q = C × V</p>
                         </div>
-                        <div class="bg-slate-900 p-2 rounded">
-                            <p class="text-yellow-400 font-mono text-xs">f = 1.44/((R1+2R2)×C)</p>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-yellow font-mono font-bold">f = 1.44/((R1+2R2)×C)</p>
                         </div>
-                        <div class="bg-slate-900 p-2 rounded">
-                            <p class="text-cyan-400 font-mono text-xs">V = I × R</p>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-cyan font-mono font-bold">V = I × R</p>
                         </div>
                     </div>
                 </div>
@@ -559,70 +558,76 @@
         </div>
 
         <!-- SECCIÓN 5: EJEMPLOS PRÁCTICOS -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-yellow">
                 <i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos: ¡Calcula Tú Mismo!
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Resuelve estos problemas sobre componentes avanzados. Completa los 50 ejemplos.
             </p>
 
-            <div class="bg-slate-900 p-4 rounded-lg mb-6">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-slate-400">Progreso:</span>
-                    <span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50 completados</span>
+            <div class="bg-electro-dark/60 p-6 rounded-xl mb-8 border border-electro-cyan/30">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm text-slate-400 font-bold uppercase">Progreso:</span>
+                    <span class="text-sm font-bold text-electro-cyan" id="progreso-texto">0 de 50 completados</span>
                 </div>
-                <div class="w-full bg-slate-700 rounded-full h-3">
-                    <div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                <div class="w-full bg-electro-blue rounded-full h-4 overflow-hidden">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-electro-cyan to-electro-green h-4 rounded-full transition-all duration-500 shadow-lg" style="width: 0%"></div>
                 </div>
             </div>
 
-            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500"></div>
+            <div id="ejemplo-actual" class="bg-electro-dark/60 p-8 rounded-xl border-2 border-electro-cyan/50"></div>
 
-            <div class="flex gap-4 mt-6">
+            <div class="flex gap-4 mt-8">
                 <button onclick="ejemploAnterior()" id="btn-anterior"
-                        class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="flex-1 bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed border border-electro-cyan/30">
                     <i class="fas fa-arrow-left mr-2"></i>Anterior
                 </button>
                 <button onclick="siguienteEjemplo()" id="btn-siguiente"
-                        class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">
+                        class="flex-1 bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 rounded-xl transition shadow-lg shadow-electro-cyan/20">
                     Siguiente<i class="fas fa-arrow-right ml-2"></i>
                 </button>
             </div>
 
-            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
-                <p class="text-sm text-slate-400 mb-3">O salta a un ejemplo específico:</p>
-                <div class="flex gap-2">
+            <div class="mt-8 bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                <p class="text-sm text-slate-400 mb-3 font-bold">O salta a un ejemplo específico:</p>
+                <div class="flex gap-3">
                     <input type="number" id="saltar-a" min="1" max="50" placeholder="Número (1-50)" 
-                           class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white">
-                    <button onclick="irAEjemplo()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded transition">Ir</button>
+                           class="flex-1 p-3 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white focus:outline-none focus:border-electro-cyan">
+                    <button onclick="irAEjemplo()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-lg transition">Ir</button>
                 </div>
             </div>
         </div>
 
         <!-- SECCIÓN 6: QUIZ -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-purple-400">
                 <i class="fas fa-question-circle mr-2"></i>Quiz: Evalúa tu Conocimiento
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 10 preguntas aleatorias de un banco de 30 sobre componentes avanzados.
             </p>
             
-            <div id="quiz-container" class="space-y-4 mb-6"></div>
+            <div id="quiz-container" class="space-y-4 mb-8"></div>
             
-            <button onclick="verResultados()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg transition">
+            <button onclick="verResultados()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-xl transition shadow-lg mb-4">
                 <i class="fas fa-check-circle mr-2"></i>Ver Resultados
             </button>
             
             <div id="resultado-quiz" class="mt-6 hidden"></div>
             
-            <button onclick="nuevoIntento()" class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden" id="btn-reintentar">
+            <button onclick="nuevoIntento()" class="w-full mt-4 bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 rounded-xl transition hidden shadow-lg shadow-electro-cyan/20" id="btn-reintentar">
                 <i class="fas fa-redo mr-2"></i>Intentar de Nuevo
             </button>
         </div>
 
     </div>
+
+    <!-- FOOTER DEL MÓDULO -->
+    <footer class="bg-electro-dark p-8 text-center border-t-4 border-electro-yellow mt-12">
+        <p class="text-lg font-bold text-white">© 2026 ElectroLearn - Proyecto de Grado</p>
+        <p class="text-electro-cyan mt-2">Desarrollado por el Grupo 3B Informática</p>
+    </footer>
 
     <script>
         // ============ SIMULADOR RC ============
@@ -650,7 +655,6 @@
             const c = parseInt(document.getElementById('c-rc').value);
             const tau = (r * c) / 1000000;
             const voltajeMax = 5;
-            const voltajeActual = capacitorCargado;
             
             let tiempo = 0;
             const paso = 0.05; // 50ms
@@ -667,7 +671,8 @@
                 // Actualizar LED
                 const led = document.getElementById('led-sim');
                 const brillo = Math.min(porcentaje / 100, 1);
-                led.style.backgroundColor = `rgba(34, 197, 94, ${brillo})`;
+                led.style.backgroundColor = `rgba(0, 255, 136, ${brillo})`;
+                led.style.boxShadow = `0 0 ${20 * brillo}px rgba(0, 255, 136, ${brillo})`;
                 led.querySelector('div').style.backgroundColor = `rgba(255, 255, 255, ${brillo})`;
                 
                 if (tiempo >= tau * 5) {
@@ -699,7 +704,8 @@
                 // Actualizar LED
                 const led = document.getElementById('led-sim');
                 const brillo = Math.min(porcentaje / 100, 1);
-                led.style.backgroundColor = `rgba(34, 197, 94, ${brillo})`;
+                led.style.backgroundColor = `rgba(0, 255, 136, ${brillo})`;
+                led.style.boxShadow = `0 0 ${20 * brillo}px rgba(0, 255, 136, ${brillo})`;
                 led.querySelector('div').style.backgroundColor = `rgba(255, 255, 255, ${brillo})`;
                 
                 if (tiempo >= tau * 5) {
@@ -714,8 +720,9 @@
             document.getElementById('capacitor-fill').style.height = '0%';
             document.getElementById('capacitor-voltage').textContent = '0.0V';
             const led = document.getElementById('led-sim');
-            led.style.backgroundColor = 'rgb(51, 65, 85)';
-            led.querySelector('div').style.backgroundColor = 'rgb(100, 116, 139)';
+            led.style.backgroundColor = '#0A1628';
+            led.style.boxShadow = 'none';
+            led.querySelector('div').style.backgroundColor = '#64748b';
         }
 
         // ============ CALCULADORA 555 ============
@@ -809,56 +816,56 @@
 
         // ============ 50 EJEMPLOS PRÁCTICOS ============
         const ejemplosPracticos = [
-            { titulo: "Constante de tiempo RC básica", icono: "⏱️", color: "green", tipo: "tau", r: 1000, c: 100, unidad: "s" },
-            { titulo: "Carga de capacitor 10μF", icono: "🔋", color: "green", tipo: "tau", r: 10000, c: 10, unidad: "s" },
-            { titulo: "Filtro pasa-bajos RC", icono: "", color: "cyan", tipo: "tau", r: 1000, c: 1000, unidad: "s" },
-            { titulo: "Temporizador 555 básico", icono: "⏱️", color: "yellow", tipo: "555", r1: 1000, r2: 1000, c: 10, unidad: "Hz" },
+            { titulo: "Constante de tiempo RC básica", icono: "⏱️", color: "electro-green", tipo: "tau", r: 1000, c: 100, unidad: "s" },
+            { titulo: "Carga de capacitor 10μF", icono: "🔋", color: "electro-green", tipo: "tau", r: 10000, c: 10, unidad: "s" },
+            { titulo: "Filtro pasa-bajos RC", icono: "📉", color: "electro-cyan", tipo: "tau", r: 1000, c: 1000, unidad: "s" },
+            { titulo: "Temporizador 555 básico", icono: "⏱️", color: "electro-yellow", tipo: "555", r1: 1000, r2: 1000, c: 10, unidad: "Hz" },
             { titulo: "Oscilador 555 1kHz", icono: "〰️", color: "purple", tipo: "555", r1: 1000, r2: 500, c: 0.1, unidad: "Hz" },
-            { titulo: "LED con resistencia 220Ω", icono: "", color: "red", tipo: "R", v: 5, i: 0.015, unidad: "Ω" },
-            { titulo: "Diodo Zener 5.1V", icono: "", color: "yellow", tipo: "V", v: 5.1, r: 0, i: 0, unidad: "V" },
+            { titulo: "LED con resistencia 220Ω", icono: "💡", color: "electro-red", tipo: "R", v: 5, i: 0.015, unidad: "Ω" },
+            { titulo: "Diodo Zener 5.1V", icono: "⚡", color: "electro-yellow", tipo: "V", v: 5.1, r: 0, i: 0, unidad: "V" },
             { titulo: "Transistor NPN ganancia", icono: "🔺", color: "blue", tipo: "beta", ib: 0.001, ic: 0.1, unidad: "x" },
             { titulo: "MOSFET voltaje gate", icono: "⚡", color: "purple", tipo: "V", v: 5, r: 0, i: 0, unidad: "V" },
-            { titulo: "Op-Amp ganancia inversora", icono: "🔊", color: "green", tipo: "ganancia", r1: 1000, r2: 10000, unidad: "x" },
-            { titulo: "Regulador 7805 entrada", icono: "", color: "cyan", tipo: "V", v: 12, r: 0, i: 0, unidad: "V" },
-            { titulo: "Capacitor electrolítico 1000μF", icono: "", color: "green", tipo: "C", c: 1000, unidad: "μF" },
+            { titulo: "Op-Amp ganancia inversora", icono: "🔊", color: "electro-green", tipo: "ganancia", r1: 1000, r2: 10000, unidad: "x" },
+            { titulo: "Regulador 7805 entrada", icono: "🔌", color: "electro-cyan", tipo: "V", v: 12, r: 0, i: 0, unidad: "V" },
+            { titulo: "Capacitor electrolítico 1000μF", icono: "🔋", color: "electro-green", tipo: "C", c: 1000, unidad: "μF" },
             { titulo: "Capacitor cerámico 100nF", icono: "🔋", color: "blue", tipo: "C", c: 0.1, unidad: "μF" },
             { titulo: "Frecuencia de corte RC", icono: "📊", color: "purple", tipo: "fc", r: 1000, c: 0.000001, unidad: "Hz" },
-            { titulo: "Energía en capacitor", icono: "⚡", color: "yellow", tipo: "energia", c: 0.0001, v: 12, unidad: "J" },
-            { titulo: "Carga almacenada", icono: "🔋", color: "green", tipo: "carga", c: 0.0001, v: 5, unidad: "C" },
-            { titulo: "Diodo Schottky caída", icono: "➡️", color: "red", tipo: "V", v: 0.3, r: 0, i: 0, unidad: "V" },
-            { titulo: "LED azul voltaje", icono: "", color: "blue", tipo: "V", v: 3.2, r: 0, i: 0, unidad: "V" },
+            { titulo: "Energía en capacitor", icono: "⚡", color: "electro-yellow", tipo: "energia", c: 0.0001, v: 12, unidad: "J" },
+            { titulo: "Carga almacenada", icono: "🔋", color: "electro-green", tipo: "carga", c: 0.0001, v: 5, unidad: "C" },
+            { titulo: "Diodo Schottky caída", icono: "➡️", color: "electro-red", tipo: "V", v: 0.3, r: 0, i: 0, unidad: "V" },
+            { titulo: "LED azul voltaje", icono: "🔵", color: "blue", tipo: "V", v: 3.2, r: 0, i: 0, unidad: "V" },
             { titulo: "Fotodiodo corriente", icono: "📡", color: "purple", tipo: "I", v: 5, r: 10000, i: 0, unidad: "mA" },
-            { titulo: "Transistor saturación", icono: "🔺", color: "cyan", tipo: "V", v: 0.2, r: 0, i: 0, unidad: "V" },
-            { titulo: "MOSFET resistencia ON", icono: "⚡", color: "green", tipo: "R", r: 0.1, unidad: "Ω" },
-            { titulo: "Op-Amp voltaje salida", icono: "🔊", color: "yellow", tipo: "V", v: 15, r: 0, i: 0, unidad: "V" },
+            { titulo: "Transistor saturación", icono: "🔺", color: "electro-cyan", tipo: "V", v: 0.2, r: 0, i: 0, unidad: "V" },
+            { titulo: "MOSFET resistencia ON", icono: "⚡", color: "electro-green", tipo: "R", r: 0.1, unidad: "Ω" },
+            { titulo: "Op-Amp voltaje salida", icono: "🔊", color: "electro-yellow", tipo: "V", v: 15, r: 0, i: 0, unidad: "V" },
             { titulo: "555 monoestable tiempo", icono: "⏱️", color: "orange", tipo: "tiempo", r: 100000, c: 0.00001, unidad: "s" },
-            { titulo: "Capacitor en paralelo", icono: "🔋", color: "green", tipo: "cp", c1: 100, c2: 100, unidad: "μF" },
+            { titulo: "Capacitor en paralelo", icono: "🔋", color: "electro-green", tipo: "cp", c1: 100, c2: 100, unidad: "μF" },
             { titulo: "Capacitor en serie", icono: "🔋", color: "blue", tipo: "cs", c1: 100, c2: 100, unidad: "μF" },
-            { titulo: "Diodo rectificador 1N4007", icono: "➡️", color: "red", tipo: "V", v: 0.7, r: 0, i: 0, unidad: "V" },
-            { titulo: "LED corriente máxima", icono: "💡", color: "yellow", tipo: "I", v: 0, r: 0, i: 0.03, unidad: "A" },
+            { titulo: "Diodo rectificador 1N4007", icono: "➡️", color: "electro-red", tipo: "V", v: 0.7, r: 0, i: 0, unidad: "V" },
+            { titulo: "LED corriente máxima", icono: "💡", color: "electro-yellow", tipo: "I", v: 0, r: 0, i: 0.03, unidad: "A" },
             { titulo: "Transistor potencia disipada", icono: "🔥", color: "orange", tipo: "P", v: 12, i: 0.5, unidad: "W" },
             { titulo: "MOSFET corriente drain", icono: "⚡", color: "purple", tipo: "I", v: 12, r: 24, i: 0, unidad: "A" },
-            { titulo: "Op-Amp impedancia entrada", icono: "🔊", color: "cyan", tipo: "R", r: 1000000, unidad: "Ω" },
-            { titulo: "7805 corriente máxima", icono: "", color: "green", tipo: "I", v: 0, r: 0, i: 1, unidad: "A" },
-            { titulo: "Capacitor voltaje máximo", icono: "🔋", color: "red", tipo: "V", v: 50, r: 0, i: 0, unidad: "V" },
-            { titulo: "Diodo Zener corriente", icono: "⚡", color: "yellow", tipo: "I", v: 12, r: 1000, i: 0, unidad: "mA" },
+            { titulo: "Op-Amp impedancia entrada", icono: "🔊", color: "electro-cyan", tipo: "R", r: 1000000, unidad: "Ω" },
+            { titulo: "7805 corriente máxima", icono: "⚡", color: "electro-green", tipo: "I", v: 0, r: 0, i: 1, unidad: "A" },
+            { titulo: "Capacitor voltaje máximo", icono: "🔋", color: "electro-red", tipo: "V", v: 50, r: 0, i: 0, unidad: "V" },
+            { titulo: "Diodo Zener corriente", icono: "⚡", color: "electro-yellow", tipo: "I", v: 12, r: 1000, i: 0, unidad: "mA" },
             { titulo: "Transistor base resistencia", icono: "🔺", color: "blue", tipo: "R", v: 5, i: 0.001, unidad: "Ω" },
             { titulo: "MOSFET gate capacitancia", icono: "⚡", color: "purple", tipo: "C", c: 1000, unidad: "pF" },
-            { titulo: "Op-Amp ancho de banda", icono: "", color: "green", tipo: "f", f: 1000000, unidad: "Hz" },
-            { titulo: "555 duty cycle 50%", icono: "⏱️", color: "cyan", tipo: "duty", r1: 1000, r2: 1000, unidad: "%" },
+            { titulo: "Op-Amp ancho de banda", icono: "📊", color: "electro-green", tipo: "f", f: 1000000, unidad: "Hz" },
+            { titulo: "555 duty cycle 50%", icono: "⏱️", color: "electro-cyan", tipo: "duty", r1: 1000, r2: 1000, unidad: "%" },
             { titulo: "Capacitor ESR", icono: "🔋", color: "orange", tipo: "R", r: 0.5, unidad: "Ω" },
-            { titulo: "Diodo corriente máxima", icono: "➡️", color: "red", tipo: "I", v: 0, r: 0, i: 1, unidad: "A" },
-            { titulo: "LED eficiencia lumínica", icono: "💡", color: "yellow", tipo: "lm", lm: 100, unidad: "lm/W" },
+            { titulo: "Diodo corriente máxima", icono: "➡️", color: "electro-red", tipo: "I", v: 0, r: 0, i: 1, unidad: "A" },
+            { titulo: "LED eficiencia lumínica", icono: "💡", color: "electro-yellow", tipo: "lm", lm: 100, unidad: "lm/W" },
             { titulo: "Transistor frecuencia corte", icono: "📊", color: "blue", tipo: "f", f: 100000000, unidad: "Hz" },
             { titulo: "MOSFET voltaje threshold", icono: "⚡", color: "purple", tipo: "V", v: 2.5, r: 0, i: 0, unidad: "V" },
-            { titulo: "Op-Amp slew rate", icono: "", color: "green", tipo: "sr", sr: 0.5, unidad: "V/μs" },
-            { titulo: "7805 disipación potencia", icono: "🔥", color: "red", tipo: "P", v: 7, i: 0.5, unidad: "W" },
-            { titulo: "Capacitor ripple current", icono: "🔋", color: "cyan", tipo: "I", v: 0, r: 0, i: 2, unidad: "A" },
+            { titulo: "Op-Amp slew rate", icono: "📈", color: "electro-green", tipo: "sr", sr: 0.5, unidad: "V/μs" },
+            { titulo: "7805 disipación potencia", icono: "🔥", color: "electro-red", tipo: "P", v: 7, i: 0.5, unidad: "W" },
+            { titulo: "Capacitor ripple current", icono: "🔋", color: "electro-cyan", tipo: "I", v: 0, r: 0, i: 2, unidad: "A" },
             { titulo: "Diodo tiempo recuperación", icono: "⏱️", color: "orange", tipo: "t", t: 0.00000005, unidad: "s" },
             { titulo: "Transistor hFE mínimo", icono: "🔺", color: "blue", tipo: "beta", ib: 0, ic: 0, beta: 100, unidad: "x" },
             { titulo: "MOSFET RDS(on)", icono: "⚡", color: "purple", tipo: "R", r: 0.05, unidad: "Ω" },
-            { titulo: "Op-Amp CMRR", icono: "", color: "green", tipo: "db", db: 90, unidad: "dB" },
-            { titulo: "555 consumo corriente", icono: "⏱️", color: "yellow", tipo: "I", v: 5, r: 0, i: 0.01, unidad: "A" }
+            { titulo: "Op-Amp CMRR", icono: "📊", color: "electro-green", tipo: "db", db: 90, unidad: "dB" },
+            { titulo: "555 consumo corriente", icono: "⏱️", color: "electro-yellow", tipo: "I", v: 5, r: 0, i: 0.01, unidad: "A" }
         ];
 
         // ============ SISTEMA DE EJEMPLOS ============
@@ -974,30 +981,30 @@
             
             const container = document.getElementById('ejemplo-actual');
             container.innerHTML = `
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
-                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-sm text-slate-400 font-bold">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-electro-green text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
                 </div>
                 
-                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">
+                <h3 class="text-2xl font-bold mb-4 text-${ej.color}">
                     ${ej.icono} ${ej.titulo}
                 </h3>
                 
-                <p class="text-slate-300 mb-4">${pregunta}</p>
+                <p class="text-slate-300 mb-6 text-lg">${pregunta}</p>
                 
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-sm text-slate-400 mb-2">Tu respuesta:</p>
-                    <div class="flex gap-2">
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <p class="text-sm text-slate-400 mb-3 font-bold">Tu respuesta:</p>
+                    <div class="flex gap-3">
                         <input type="number" id="respuesta-actual" step="0.0001"
                                placeholder="Ingresa la respuesta en ${ej.unidad}" 
-                               class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white text-lg"
+                               class="flex-1 p-4 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white text-lg focus:outline-none focus:border-electro-cyan"
                                onkeypress="if(event.key==='Enter') verificarEjemploActual()">
                         <button onclick="verificarEjemploActual()" 
-                                class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded transition">
+                                class="bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 px-8 rounded-lg transition shadow-lg shadow-electro-cyan/20">
                             Verificar
                         </button>
                     </div>
-                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                    <div id="resultado-actual" class="mt-4 hidden"></div>
                 </div>
             `;
             
@@ -1016,8 +1023,8 @@
             if (isNaN(respuesta)) {
                 resultadoDiv.classList.remove('hidden');
                 resultadoDiv.innerHTML = `
-                    <div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded">
-                        <p class="font-bold text-yellow-400">️ Ingresa un número</p>
+                    <div class="bg-electro-yellow/20 border-2 border-electro-yellow p-4 rounded-lg">
+                        <p class="font-bold text-electro-yellow text-lg">⚠️ Ingresa un número</p>
                     </div>
                 `;
                 return;
@@ -1031,9 +1038,9 @@
             if (esCorrecta) {
                 ejemplosCompletados.add(ejemploActual);
                 resultadoDiv.innerHTML = `
-                    <div class="bg-green-900 border-2 border-green-500 p-3 rounded">
-                        <p class="font-bold text-green-400">✅ ¡Correcto!</p>
-                        <p class="text-sm text-slate-300">${formula}</p>
+                    <div class="bg-electro-green/20 border-2 border-electro-green p-4 rounded-lg">
+                        <p class="font-bold text-electro-green text-lg">✅ ¡Correcto!</p>
+                        <p class="text-slate-200 mt-2">${formula}</p>
                     </div>
                 `;
                 actualizarProgreso();
@@ -1045,10 +1052,10 @@
                 }, 2000);
             } else {
                 resultadoDiv.innerHTML = `
-                    <div class="bg-red-900 border-2 border-red-500 p-3 rounded">
-                        <p class="font-bold text-red-400">❌ Incorrecto</p>
-                        <p class="text-sm text-slate-300">La respuesta correcta es <strong>${correcta.toFixed(4)} ${unidad}</strong></p>
-                        <p class="text-xs text-slate-400 mt-1">${formula}</p>
+                    <div class="bg-electro-red/20 border-2 border-electro-red p-4 rounded-lg">
+                        <p class="font-bold text-electro-red text-lg">❌ Incorrecto</p>
+                        <p class="text-slate-200 mt-2">La respuesta correcta es <strong>${correcta.toFixed(4)} ${unidad}</strong></p>
+                        <p class="text-sm text-slate-400 mt-2">${formula}</p>
                     </div>
                 `;
             }
@@ -1156,13 +1163,13 @@
                 const opcionesMezcladas = mezclarArray(opcionesConIndice);
                 
                 const preguntaHTML = `
-                    <div class="bg-slate-900 p-4 rounded-lg" data-pregunta="${index}">
-                        <p class="font-semibold mb-3">${index + 1}. ${pregunta.pregunta}</p>
-                        <div class="space-y-2">
+                    <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/20" data-pregunta="${index}">
+                        <p class="font-semibold mb-4 text-lg">${index + 1}. ${pregunta.pregunta}</p>
+                        <div class="space-y-3">
                             ${opcionesMezcladas.map((opcion, opIndex) => `
                                 <button onclick="seleccionarRespuesta(${index}, this)" 
                                         data-es-correcta="${opcion.esCorrecta}"
-                                        class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition opcion-btn">
+                                        class="w-full text-left p-4 bg-electro-blue/40 rounded-lg hover:bg-electro-blue border border-electro-cyan/20 transition opcion-btn text-slate-200">
                                     ${opcion.texto}
                                 </button>
                             `).join('')}
@@ -1192,18 +1199,18 @@
                 btn.disabled = true;
                 btn.classList.add('opacity-50');
                 if (btn.dataset.esCorrecta === 'true') {
-                    btn.classList.remove('bg-slate-700', 'opacity-50');
-                    btn.classList.add('bg-green-600');
+                    btn.classList.remove('bg-electro-blue/40', 'opacity-50');
+                    btn.classList.add('bg-electro-green/30', 'border-electro-green');
                 }
             });
             
             if (esCorrecta) {
                 correctas++;
-                boton.classList.remove('bg-slate-700', 'opacity-50');
-                boton.classList.add('bg-green-600');
+                boton.classList.remove('bg-electro-blue/40', 'opacity-50');
+                boton.classList.add('bg-electro-green/30', 'border-electro-green');
             } else {
-                boton.classList.remove('bg-slate-700', 'opacity-50');
-                boton.classList.add('bg-red-600');
+                boton.classList.remove('bg-electro-blue/40', 'opacity-50');
+                boton.classList.add('bg-electro-red/30', 'border-electro-red');
             }
         }
 
@@ -1217,32 +1224,32 @@
             const resultadoDiv = document.getElementById('resultado-quiz');
             
             let mensaje, color, emoji;
-            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas los componentes avanzados'; color = 'green'; emoji = '🏆'; }
-            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'blue'; emoji = '👍'; }
-            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar'; color = 'orange'; emoji = '📚'; }
-            else { mensaje = 'Estudia nuevamente el módulo'; color = 'red'; emoji = '⚠️'; }
+            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas los componentes avanzados'; color = 'electro-green'; emoji = '🏆'; }
+            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'electro-cyan'; emoji = '👍'; }
+            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar'; color = 'electro-yellow'; emoji = '📚'; }
+            else { mensaje = 'Estudia nuevamente el módulo'; color = 'electro-red'; emoji = '⚠️'; }
             
             let explicacionesHTML = preguntasActuales.map((p, i) => {
                 const esCorrecta = respuestasSeleccionadas[i];
                 return `
-                    <div class="bg-slate-900 p-3 rounded mb-2 ${esCorrecta ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}">
-                        <p class="font-semibold text-sm">${i + 1}. ${p.pregunta}</p>
-                        <p class="text-xs mt-1 ${esCorrecta ? 'text-green-400' : 'text-red-400'}">
+                    <div class="bg-electro-dark/60 p-4 rounded-lg mb-3 ${esCorrecta ? 'border-l-4 border-electro-green' : 'border-l-4 border-electro-red'}">
+                        <p class="font-semibold text-sm mb-1">${i + 1}. ${p.pregunta}</p>
+                        <p class="text-xs ${esCorrecta ? 'text-electro-green' : 'text-electro-red'} font-bold">
                             ${esCorrecta ? '✓ Correcta' : '✗ Incorrecta'}
                         </p>
-                        <p class="text-xs text-slate-400 mt-1"><em>${p.explicacion}</em></p>
+                        <p class="text-xs text-slate-400 mt-2"><em>${p.explicacion}</em></p>
                     </div>
                 `;
             }).join('');
             
             resultadoDiv.innerHTML = `
-                <div class="bg-${color}-900 border-2 border-${color}-500 p-6 rounded-lg text-center mb-4">
-                    <p class="text-4xl mb-2">${emoji}</p>
-                    <h3 class="text-2xl font-bold text-${color}-400 mb-2">${mensaje}</h3>
-                    <p class="text-3xl font-bold text-white">${correctas} de 10 (${porcentaje}%)</p>
+                <div class="bg-${color}/20 border-2 border-${color} p-8 rounded-2xl text-center mb-6">
+                    <p class="text-5xl mb-3">${emoji}</p>
+                    <h3 class="text-3xl font-bold text-${color} mb-2">${mensaje}</h3>
+                    <p class="text-4xl font-extrabold text-white">${correctas} de 10 (${porcentaje}%)</p>
                 </div>
-                <div class="mt-4">
-                    <h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión de Respuestas:</h3>
+                <div class="mt-6">
+                    <h3 class="font-bold text-xl mb-4 text-electro-cyan">Revisión de Respuestas:</h3>
                     ${explicacionesHTML}
                 </div>
             `;

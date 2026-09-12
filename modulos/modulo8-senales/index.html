@@ -7,55 +7,127 @@
     <link rel="icon" type="image/png" href="../../favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = { theme: { extend: { fontFamily: { 'heading': ['Poppins', 'sans-serif'], 'body': ['Inter', 'sans-serif'] } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'electro-dark': '#0A1628',
+                        'electro-blue': '#1E3A8A',
+                        'electro-circuit': '#1E40AF',
+                        'electro-yellow': '#FACC15',
+                        'electro-cyan': '#00D4FF',
+                        'electro-green': '#00FF88',
+                        'electro-red': '#FF4444',
+                    }
+                }
+            }
+        }
     </script>
     <style>
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes onda { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes onda {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
         .section-animate { animation: fadeInUp 0.6s ease-out; }
-        .componente-card { border-left: 4px solid #22d3ee; transition: all 0.3s; }
-        .componente-card:hover { transform: translateX(5px); box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3); }
+        .componente-card {
+            border-left: 4px solid #00D4FF;
+            transition: all 0.3s;
+        }
+        .componente-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
+        }
         .opcion-btn:disabled { cursor: not-allowed; }
-        .calc-btn { transition: all 0.1s; user-select: none; }
-        .calc-btn:active { transform: scale(0.95); }
-        .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
-        .calc-display { font-family: 'Courier New', monospace; font-size: 2rem; text-align: right; padding: 1rem; background: #0f172a; border: 2px solid #22d3ee; border-radius: 0.5rem; color: #22d3ee; min-height: 80px; }
+        .logo-float { animation: float 3s ease-in-out infinite; }
         .onda-punto { animation: onda 1s ease-in-out infinite; }
+        
+        /* Calculadora */
+        .calc-btn {
+            transition: all 0.1s;
+            user-select: none;
+        }
+        .calc-btn:active { transform: scale(0.95); }
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .calc-display {
+            font-family: 'Courier New', monospace;
+            font-size: 2rem;
+            text-align: right;
+            padding: 1rem;
+            background: #0A1628;
+            border: 2px solid #00D4FF;
+            border-radius: 0.5rem;
+            color: #00D4FF;
+            min-height: 80px;
+            overflow-x: auto;
+        }
+
+        .glass-card {
+            background: rgba(30, 58, 138, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-white font-body min-h-screen">
+<body class="bg-electro-dark text-white font-body min-h-screen">
 
-   <!-- HEADER -->
-        <header class="bg-white p-3 shadow-lg">
-            <div class="container mx-auto flex justify-between items-center">
-                <a href="../../index.html" class="flex items-center">
-                    <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-12 md:h-16 w-auto">
-                </a>
-                <a href="../../index.html" class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition">
-                    <i class="fas fa-arrow-left mr-2"></i> Volver
-                </a>
-            </div>
-        </header>
+    <!-- HEADER FIJO CON LOGO GRANDE -->
+    <header class="bg-gradient-to-r from-electro-blue via-electro-circuit to-electro-blue p-4 shadow-2xl sticky top-0 z-50 border-b-4 border-electro-yellow">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../../index.html" class="flex items-center logo-float">
+                <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-16 md:h-20 w-auto drop-shadow-lg">
+            </a>
+            <a href="../../index.html" class="bg-electro-yellow hover:bg-yellow-400 text-electro-dark px-6 py-3 rounded-lg font-bold hover:scale-105 transition-all shadow-lg flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Volver al Inicio
+            </a>
+        </div>
+    </header>
 
-    <section class="py-8 text-center px-4 section-animate">
-        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2"><i class="fas fa-wave-square text-indigo-400"></i> Módulo 8: Señales y Ondas</h1>
-        <p class="text-slate-300 text-lg">Señales analógicas, digitales, PWM y comunicación serial</p>
+    <!-- TÍTULO -->
+    <section class="py-12 text-center px-4 section-animate relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-electro-dark via-electro-blue/20 to-electro-dark opacity-50"></div>
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-6xl font-heading font-extrabold mb-4">
+                <i class="fas fa-wave-square text-electro-cyan mr-3"></i> Módulo 8: Señales y Ondas
+            </h1>
+            <p class="text-slate-300 text-xl max-w-2xl mx-auto">Señales analógicas, digitales, PWM y comunicación serial</p>
+        </div>
     </section>
 
     <div class="container mx-auto px-4 pb-16 space-y-8">
 
-        <!-- TEORÍA -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400"><i class="fas fa-book mr-2"></i>Teoría: Señales y Ondas</h2>
+        <!-- SECCIÓN 1: TEORÍA -->
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-8 text-electro-cyan">
+                <i class="fas fa-book mr-2"></i>Teoría: Señales y Ondas
+            </h2>
 
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400"><i class="fas fa-wave-square mr-2"></i>¿Qué es una Señal?</h3>
-                <p class="text-slate-300 mb-3">Una <strong class="text-yellow-400">señal</strong> es una variación de voltaje o corriente que transporta información.</p>
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
+                    <i class="fas fa-wave-square mr-2"></i>¿Qué es una Señal?
+                </h3>
+                <p class="text-slate-300 mb-4 text-lg">
+                    Una <strong class="text-electro-yellow">señal</strong> es una variación de voltaje o corriente que transporta información.
+                </p>
                 <div class="grid md:grid-cols-2 gap-4">
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2"> Señal Analógica:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2"> Señal Analógica:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Valores continuos</li>
                             <li>✓ Infinitos valores posibles</li>
@@ -63,8 +135,8 @@
                             <li>✓ Susceptible al ruido</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2">💻 Señal Digital:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">💻 Señal Digital:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Valores discretos (0 o 1)</li>
                             <li>✓ Dos niveles: HIGH/LOW</li>
@@ -75,11 +147,13 @@
                 </div>
             </div>
 
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-green-400"><i class="fas fa-chart-line mr-2"></i>Características de una Onda</h3>
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-green">
+                    <i class="fas fa-chart-line mr-2"></i>Características de una Onda
+                </h3>
                 <div class="grid md:grid-cols-2 gap-4">
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-green-400 mb-2">📏 Parámetros:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">📏 Parámetros:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ <strong>Amplitud (A)</strong>: Valor máximo (V)</li>
                             <li>✓ <strong>Frecuencia (f)</strong>: Ciclos por segundo (Hz)</li>
@@ -87,36 +161,60 @@
                             <li>✓ <strong>Fase (φ)</strong>: Desplazamiento (°)</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-green-400 mb-2">📐 Fórmulas:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">📐 Fórmulas:</h4>
                         <div class="space-y-2">
-                            <div class="bg-slate-900 p-2 rounded"><p class="text-green-400 font-mono text-sm">f = 1/T</p><p class="text-xs text-slate-400">Frecuencia = 1/Período</p></div>
-                            <div class="bg-slate-900 p-2 rounded"><p class="text-green-400 font-mono text-sm">T = 1/f</p><p class="text-xs text-slate-400">Período = 1/Frecuencia</p></div>
-                            <div class="bg-slate-900 p-2 rounded"><p class="text-green-400 font-mono text-sm">Vrms = Vp/√2</p><p class="text-xs text-slate-400">Voltaje RMS (senoidal)</p></div>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-green font-mono text-sm font-bold">f = 1/T</p>
+                                <p class="text-xs text-slate-400">Frecuencia = 1/Período</p>
+                            </div>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-green font-mono text-sm font-bold">T = 1/f</p>
+                                <p class="text-xs text-slate-400">Período = 1/Frecuencia</p>
+                            </div>
+                            <div class="bg-electro-dark/60 p-2 rounded border border-electro-cyan/20">
+                                <p class="text-electro-green font-mono text-sm font-bold">Vrms = Vp/√2</p>
+                                <p class="text-xs text-slate-400">Voltaje RMS (senoidal)</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-purple-400"><i class="fas fa-square mr-2"></i>PWM (Pulse Width Modulation)</h3>
-                <p class="text-slate-300 mb-3">El <strong class="text-purple-400">PWM</strong> varía el ancho del pulso para controlar potencia promedio.</p>
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-purple-400 font-mono text-center text-xl mb-2">Duty Cycle = (Ton/T) × 100%</p>
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-purple-400">
+                    <i class="fas fa-square mr-2"></i>PWM (Pulse Width Modulation)
+                </h3>
+                <p class="text-slate-300 mb-4 text-lg">
+                    El <strong class="text-purple-400">PWM</strong> varía el ancho del pulso para controlar potencia promedio.
+                </p>
+                <div class="bg-electro-blue/40 p-5 rounded-lg border border-electro-cyan/30">
+                    <p class="text-purple-400 font-mono text-center text-2xl font-bold mb-2">Duty Cycle = (Ton/T) × 100%</p>
                     <p class="text-sm text-slate-400 text-center mb-4">Donde Ton = tiempo encendido, T = período total</p>
-                    <div class="grid grid-cols-3 gap-2 text-center text-sm">
-                        <div class="bg-slate-900 p-2 rounded"><p class="text-yellow-400 font-bold">25%</p><p class="text-xs text-slate-400">Poco brillo</p></div>
-                        <div class="bg-slate-900 p-2 rounded"><p class="text-yellow-400 font-bold">50%</p><p class="text-xs text-slate-400">Brillo medio</p></div>
-                        <div class="bg-slate-900 p-2 rounded"><p class="text-yellow-400 font-bold">75%</p><p class="text-xs text-slate-400">Brillo alto</p></div>
+                    <div class="grid grid-cols-3 gap-3 text-center text-sm">
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-yellow font-bold text-lg">25%</p>
+                            <p class="text-xs text-slate-400">Poco brillo</p>
+                        </div>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-yellow font-bold text-lg">50%</p>
+                            <p class="text-xs text-slate-400">Brillo medio</p>
+                        </div>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-yellow font-bold text-lg">75%</p>
+                            <p class="text-xs text-slate-400">Brillo alto</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="componente-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-cyan-400"><i class="fas fa-exchange-alt mr-2"></i>Comunicación Serial</h3>
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-cyan">
+                    <i class="fas fa-exchange-alt mr-2"></i>Comunicación Serial
+                </h3>
                 <div class="grid md:grid-cols-3 gap-4">
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2">UART:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">UART:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Asíncrona</li>
                             <li>✓ TX, RX, GND</li>
@@ -124,8 +222,8 @@
                             <li>✓ Ejemplo: Arduino Serial</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2">I2C:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">I2C:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Sincrónica</li>
                             <li>✓ SDA, SCL</li>
@@ -133,8 +231,8 @@
                             <li>✓ Ejemplo: sensores</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-cyan-400 mb-2">SPI:</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-cyan mb-2">SPI:</h4>
                         <ul class="text-sm text-slate-300 space-y-1">
                             <li>✓ Sincrónica</li>
                             <li>✓ MOSI, MISO, SCK, SS</li>
@@ -145,125 +243,210 @@
                 </div>
             </div>
 
-            <div class="componente-card bg-slate-900 p-5 rounded-lg">
-                <h3 class="text-xl font-bold mb-3 text-red-400"><i class="fas fa-broadcast-tower mr-2"></i>Señales de Radio</h3>
+            <div class="componente-card bg-electro-dark/60 p-6 rounded-xl">
+                <h3 class="text-2xl font-bold mb-4 text-electro-red">
+                    <i class="fas fa-broadcast-tower mr-2"></i>Señales de Radio
+                </h3>
                 <div class="grid md:grid-cols-2 gap-4">
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-red-400 mb-2">📻 AM (Amplitud Modulada):</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-red mb-2">📻 AM (Amplitud Modulada):</h4>
                         <p class="text-sm text-slate-300">Varía la amplitud. Largo alcance, susceptible al ruido.</p>
                     </div>
-                    <div class="bg-slate-800 p-3 rounded-lg">
-                        <h4 class="font-bold text-red-400 mb-2">📻 FM (Frecuencia Modulada):</h4>
+                    <div class="bg-electro-blue/40 p-4 rounded-lg border border-electro-cyan/30">
+                        <h4 class="font-bold text-electro-red mb-2">📻 FM (Frecuencia Modulada):</h4>
                         <p class="text-sm text-slate-300">Varía la frecuencia. Mejor calidad, menor alcance.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SIMULADOR PWM -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400"><i class="fas fa-square mr-2"></i>Simulador PWM</h2>
-            <p class="text-slate-300 mb-4">Ajusta el duty cycle para ver cómo cambia el brillo del LED.</p>
+        <!-- SECCIÓN 2: SIMULADOR PWM -->
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-purple-400">
+                <i class="fas fa-square mr-2"></i>Simulador PWM
+            </h2>
+            <p class="text-slate-300 mb-6 text-lg">
+                Ajusta el duty cycle para ver cómo cambia el brillo del LED.
+            </p>
 
-            <div class="bg-slate-900 p-6 rounded-lg">
-                <div class="mb-6">
-                    <label class="block mb-2 font-semibold">
+            <div class="bg-electro-dark/60 p-8 rounded-xl border border-electro-cyan/30">
+                <div class="mb-8">
+                    <label class="block mb-3 font-semibold text-lg text-slate-200">
                         <i class="fas fa-sliders-h text-purple-400 mr-2"></i>
-                        Duty Cycle: <span id="duty-display" class="text-purple-400">50</span>%
+                        Duty Cycle: <span id="duty-display" class="text-purple-400 text-2xl">50</span>%
                     </label>
-                    <input type="range" id="duty" min="0" max="100" step="5" value="50" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-purple-400" oninput="actualizarPWM()">
-                    <div class="flex justify-between text-xs text-slate-400 mt-1"><span>0%</span><span>50%</span><span>100%</span></div>
+                    <input type="range" id="duty" min="0" max="100" step="5" value="50" 
+                           class="w-full h-3 bg-electro-blue rounded-lg appearance-none cursor-pointer accent-purple-400" 
+                           oninput="actualizarPWM()">
+                    <div class="flex justify-between text-xs text-slate-400 mt-2">
+                        <span>0%</span><span>50%</span><span>100%</span>
+                    </div>
                 </div>
 
                 <!-- Visualización PWM -->
-                <div class="bg-slate-800 p-4 rounded-lg mb-4">
-                    <div class="flex items-center justify-center gap-8">
+                <div class="bg-electro-blue/30 p-8 rounded-xl mb-8 border border-electro-cyan/20">
+                    <div class="flex items-center justify-center gap-12">
                         <div class="flex-1">
                             <svg id="pwm-svg" viewBox="0 0 400 100" class="w-full">
                                 <rect x="0" y="0" width="200" height="50" fill="#a855f7"/>
                                 <rect x="200" y="0" width="200" height="100" fill="#1e293b"/>
                                 <line x1="0" y1="50" x2="400" y2="50" stroke="#64748b" stroke-width="1"/>
                             </svg>
-                            <p class="text-center text-xs text-slate-400 mt-2">Forma de onda PWM</p>
+                            <p class="text-center text-sm text-slate-400 mt-3 font-bold">Forma de onda PWM</p>
                         </div>
                         <div class="text-center">
-                            <div id="led-pwm" class="w-20 h-20 bg-purple-500 rounded-full border-4 border-purple-300 mx-auto" style="opacity: 0.5"></div>
-                            <p class="text-sm text-slate-400 mt-2">LED</p>
-                            <p class="text-xs text-purple-400" id="brillo-texto">50% brillo</p>
+                            <div id="led-pwm" class="w-24 h-24 bg-purple-500 rounded-full border-4 border-purple-300 mx-auto shadow-lg transition-all duration-100" style="opacity: 0.5"></div>
+                            <p class="text-sm text-slate-400 mt-3 font-bold">LED</p>
+                            <p class="text-lg text-purple-400 font-mono font-bold" id="brillo-texto">50% brillo</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gradient-to-r from-purple-900 to-cyan-900 p-4 rounded-lg text-center border-2 border-purple-500">
-                    <p class="text-sm text-slate-300 mb-2">Voltaje promedio:</p>
-                    <p class="text-3xl font-bold text-purple-400" id="vprom-display">2.5 V</p>
+                <div class="bg-gradient-to-r from-purple-900/40 to-electro-cyan/20 p-6 rounded-xl text-center border-2 border-purple-500/50">
+                    <p class="text-sm text-slate-300 mb-2 font-bold uppercase tracking-wider">Voltaje promedio:</p>
+                    <p class="text-4xl font-extrabold text-purple-400" id="vprom-display">2.5 V</p>
                     <p class="text-xs text-slate-400 mt-2">(con Vcc = 5V)</p>
                 </div>
             </div>
         </div>
 
-        <!-- CALCULADORA -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-cyan-400"><i class="fas fa-calculator mr-2"></i>Calculadora</h2>
-            <div class="bg-slate-900 p-6 rounded-lg">
-                <div class="mb-4"><div class="calc-display" id="calc-display">0</div></div>
-                <div class="grid grid-cols-4 gap-2 mb-4">
-                    <button onclick="calcClear()" class="calc-btn bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-lg">C</button>
-                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg">⌫</button>
-                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">%</button>
-                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">÷</button>
-                    <button onclick="calcNumber('7')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">7</button>
-                    <button onclick="calcNumber('8')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">8</button>
-                    <button onclick="calcNumber('9')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">9</button>
-                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">×</button>
-                    <button onclick="calcNumber('4')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">4</button>
-                    <button onclick="calcNumber('5')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">5</button>
-                    <button onclick="calcNumber('6')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">6</button>
-                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">−</button>
-                    <button onclick="calcNumber('1')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">1</button>
-                    <button onclick="calcNumber('2')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">2</button>
-                    <button onclick="calcNumber('3')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">3</button>
-                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg">+</button>
-                    <button onclick="calcNumber('0')" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg col-span-2">0</button>
-                    <button onclick="calcDecimal()" class="calc-btn bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-lg">.</button>
-                    <button onclick="calcEquals()" class="calc-btn bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-lg">=</button>
+        <!-- SECCIÓN 3: CALCULADORA -->
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-cyan">
+                <i class="fas fa-calculator mr-2"></i>Calculadora para Estudiantes
+            </h2>
+            <p class="text-slate-300 mb-6 text-lg">
+                Practica tus cálculos de señales y ondas con esta calculadora interactiva.
+            </p>
+
+            <div class="bg-electro-dark/60 p-8 rounded-xl border border-electro-cyan/30">
+                <div class="mb-6">
+                    <div class="calc-display" id="calc-display">0</div>
                 </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <button onclick="calcFtoT()" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">f → T</button>
-                    <button onclick="calcTtoF()" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">T → f</button>
-                    <button onclick="calcVrms()" class="calc-btn bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg text-sm">Vp → Vrms</button>
+
+                <div class="grid grid-cols-4 gap-3 mb-6">
+                    <button onclick="calcClear()" class="calc-btn bg-electro-red hover:bg-red-600 text-white font-bold py-4 rounded-lg text-xl">C</button>
+                    <button onclick="calcBackspace()" class="calc-btn bg-orange-600 hover:bg-orange-500 text-white font-bold py-4 rounded-lg text-xl">⌫</button>
+                    <button onclick="calcOperator('%')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">%</button>
+                    <button onclick="calcOperator('/')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">÷</button>
+
+                    <button onclick="calcNumber('7')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">7</button>
+                    <button onclick="calcNumber('8')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">8</button>
+                    <button onclick="calcNumber('9')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">9</button>
+                    <button onclick="calcOperator('*')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">×</button>
+
+                    <button onclick="calcNumber('4')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">4</button>
+                    <button onclick="calcNumber('5')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">5</button>
+                    <button onclick="calcNumber('6')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">6</button>
+                    <button onclick="calcOperator('-')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">−</button>
+
+                    <button onclick="calcNumber('1')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">1</button>
+                    <button onclick="calcNumber('2')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">2</button>
+                    <button onclick="calcNumber('3')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">3</button>
+                    <button onclick="calcOperator('+')" class="calc-btn bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-lg text-xl">+</button>
+
+                    <button onclick="calcNumber('0')" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl col-span-2">0</button>
+                    <button onclick="calcDecimal()" class="calc-btn bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-lg text-xl">.</button>
+                    <button onclick="calcEquals()" class="calc-btn bg-electro-green hover:bg-green-400 text-electro-dark font-bold py-4 rounded-lg text-xl shadow-lg shadow-electro-green/20">=</button>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3 mb-6">
+                    <button onclick="calcFtoT()" class="calc-btn bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-3 rounded-lg text-sm shadow-lg shadow-electro-cyan/20">f → T</button>
+                    <button onclick="calcTtoF()" class="calc-btn bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-3 rounded-lg text-sm shadow-lg shadow-electro-cyan/20">T → f</button>
+                    <button onclick="calcVrms()" class="calc-btn bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-3 rounded-lg text-sm shadow-lg shadow-electro-cyan/20">Vp → Vrms</button>
+                </div>
+
+                <div class="bg-electro-blue/40 p-6 rounded-xl border border-electro-cyan/30">
+                    <h3 class="font-bold text-electro-yellow mb-4 text-xl">⚡ Fórmulas Rápidas:</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-green font-mono font-bold">f = 1/T</p>
+                        </div>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-green font-mono font-bold">T = 1/f</p>
+                        </div>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-electro-green font-mono font-bold">Vrms = Vp/√2</p>
+                        </div>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg border border-electro-cyan/20">
+                            <p class="text-purple-400 font-mono font-bold">D = (Ton/T) × 100%</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- EJEMPLOS -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400"><i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos</h2>
-            <div class="bg-slate-900 p-4 rounded-lg mb-6">
-                <div class="flex justify-between items-center mb-2"><span class="text-sm text-slate-400">Progreso:</span><span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50</span></div>
-                <div class="w-full bg-slate-700 rounded-full h-3"><div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+        <!-- SECCIÓN 4: EJEMPLOS PRÁCTICOS -->
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-yellow">
+                <i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos: ¡Calcula Tú Mismo!
+            </h2>
+            <p class="text-slate-300 mb-6 text-lg">
+                Resuelve estos problemas sobre señales y ondas. Completa los 50 ejemplos.
+            </p>
+
+            <div class="bg-electro-dark/60 p-6 rounded-xl mb-8 border border-electro-cyan/30">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm text-slate-400 font-bold uppercase">Progreso:</span>
+                    <span class="text-sm font-bold text-electro-cyan" id="progreso-texto">0 de 50 completados</span>
+                </div>
+                <div class="w-full bg-electro-blue rounded-full h-4 overflow-hidden">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-electro-cyan to-electro-green h-4 rounded-full transition-all duration-500 shadow-lg" style="width: 0%"></div>
+                </div>
             </div>
-            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500"></div>
-            <div class="flex gap-4 mt-6">
-                <button onclick="ejemploAnterior()" id="btn-anterior" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"><i class="fas fa-arrow-left mr-2"></i>Anterior</button>
-                <button onclick="siguienteEjemplo()" id="btn-siguiente" class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">Siguiente<i class="fas fa-arrow-right ml-2"></i></button>
+
+            <div id="ejemplo-actual" class="bg-electro-dark/60 p-8 rounded-xl border-2 border-electro-cyan/50"></div>
+
+            <div class="flex gap-4 mt-8">
+                <button onclick="ejemploAnterior()" id="btn-anterior"
+                        class="flex-1 bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed border border-electro-cyan/30">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior
+                </button>
+                <button onclick="siguienteEjemplo()" id="btn-siguiente"
+                        class="flex-1 bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 rounded-xl transition shadow-lg shadow-electro-cyan/20">
+                    Siguiente<i class="fas fa-arrow-right ml-2"></i>
+                </button>
             </div>
-            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
-                <p class="text-sm text-slate-400 mb-3">Salta a un ejemplo:</p>
-                <div class="flex gap-2"><input type="number" id="saltar-a" min="1" max="50" placeholder="1-50" class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white"><button onclick="irAEjemplo()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded">Ir</button></div>
+
+            <div class="mt-8 bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                <p class="text-sm text-slate-400 mb-3 font-bold">O salta a un ejemplo específico:</p>
+                <div class="flex gap-3">
+                    <input type="number" id="saltar-a" min="1" max="50" placeholder="Número (1-50)" 
+                           class="flex-1 p-3 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white focus:outline-none focus:border-electro-cyan">
+                    <button onclick="irAEjemplo()" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-lg transition">Ir</button>
+                </div>
             </div>
         </div>
 
-        <!-- QUIZ -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400"><i class="fas fa-question-circle mr-2"></i>Quiz</h2>
-            <div id="quiz-container" class="space-y-4 mb-6"></div>
-            <button onclick="verResultados()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg"><i class="fas fa-check-circle mr-2"></i>Ver Resultados</button>
+        <!-- SECCIÓN 5: QUIZ -->
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-purple-400">
+                <i class="fas fa-question-circle mr-2"></i>Quiz: Evalúa tu Conocimiento
+            </h2>
+            <p class="text-slate-300 mb-6 text-lg">
+                10 preguntas aleatorias de un banco de 30 sobre señales y ondas.
+            </p>
+            
+            <div id="quiz-container" class="space-y-4 mb-8"></div>
+            
+            <button onclick="verResultados()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-xl transition shadow-lg mb-4">
+                <i class="fas fa-check-circle mr-2"></i>Ver Resultados
+            </button>
+            
             <div id="resultado-quiz" class="mt-6 hidden"></div>
-            <button onclick="nuevoIntento()" class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden" id="btn-reintentar"><i class="fas fa-redo mr-2"></i>Intentar de Nuevo</button>
+            
+            <button onclick="nuevoIntento()" class="w-full mt-4 bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 rounded-xl transition hidden shadow-lg shadow-electro-cyan/20" id="btn-reintentar">
+                <i class="fas fa-redo mr-2"></i>Intentar de Nuevo
+            </button>
         </div>
 
     </div>
+
+    <!-- FOOTER DEL MÓDULO -->
+    <footer class="bg-electro-dark p-8 text-center border-t-4 border-electro-yellow mt-12">
+        <p class="text-lg font-bold text-white">© 2026 ElectroLearn - Proyecto de Grado</p>
+        <p class="text-electro-cyan mt-2">Desarrollado por el Grupo 3B Informática</p>
+    </footer>
 
     <script>
         // ============ PWM ============
@@ -283,6 +466,7 @@
             const opacidad = duty / 100;
             led.style.opacity = 0.2 + (opacidad * 0.8);
             led.style.backgroundColor = `rgb(${168 * opacidad + 50}, ${85 * opacidad + 50}, ${247})`;
+            led.style.boxShadow = `0 0 ${30 * opacidad}px rgba(168, 85, 247, ${opacidad})`;
             document.getElementById('brillo-texto').textContent = duty + '% brillo';
             
             const vprom = (duty / 100) * 5;
@@ -306,7 +490,7 @@
         const ejemplosPracticos = Array.from({length: 50}, (_, i) => {
             const tipos = ['frecuencia', 'periodo', 'vrms', 'duty', 'vprom', 'baudios'];
             const tipo = tipos[i % tipos.length];
-            return { tipo, i, color: ['indigo','purple','pink','cyan','green','yellow'][i%6], icono: ['📊','⏱️','📈','⚡','','📡'][i%6] };
+            return { tipo, i, color: ['indigo','purple','pink','electro-cyan','electro-green','electro-yellow'][i%6], icono: ['📊','⏱️','📈','⚡','🔋','📡'][i%6] };
         });
         let ejemploActual = 0, ejemplosCompletados = new Set();
 
@@ -351,19 +535,19 @@
             
             const container = document.getElementById('ejemplo-actual');
             container.innerHTML = `
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual+1} de 50</span>
-                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-sm text-slate-400 font-bold">Ejemplo ${ejemploActual+1} de 50</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-electro-green text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">${ej.icono} Señal ${ej.tipo}</h3>
-                <p class="text-slate-300 mb-4">${pregunta}</p>
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-sm text-slate-400 mb-2">Respuesta:</p>
-                    <div class="flex gap-2">
-                        <input type="number" id="respuesta-actual" step="0.0001" placeholder="Respuesta" class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white" onkeypress="if(event.key==='Enter') verificarEjemplo()">
-                        <button onclick="verificarEjemplo()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded">Verificar</button>
+                <h3 class="text-2xl font-bold mb-4 text-${ej.color}">${ej.icono} Señal ${ej.tipo}</h3>
+                <p class="text-slate-300 mb-6 text-lg">${pregunta}</p>
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <p class="text-sm text-slate-400 mb-3 font-bold">Respuesta:</p>
+                    <div class="flex gap-3">
+                        <input type="number" id="respuesta-actual" step="0.0001" placeholder="Respuesta" class="flex-1 p-4 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white text-lg focus:outline-none focus:border-electro-cyan" onkeypress="if(event.key==='Enter') verificarEjemplo()">
+                        <button onclick="verificarEjemplo()" class="bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 px-8 rounded-lg transition shadow-lg shadow-electro-cyan/20">Verificar</button>
                     </div>
-                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                    <div id="resultado-actual" class="mt-4 hidden"></div>
                 </div>
             `;
             window.ejemploData = { correcta: respuesta, formula };
@@ -375,16 +559,16 @@
             const { correcta, formula } = window.ejemploData;
             const respuesta = parseFloat(document.getElementById('respuesta-actual').value);
             const div = document.getElementById('resultado-actual');
-            if (isNaN(respuesta)) { div.classList.remove('hidden'); div.innerHTML = '<div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded"><p class="font-bold text-yellow-400">⚠️ Ingresa número</p></div>'; return; }
+            if (isNaN(respuesta)) { div.classList.remove('hidden'); div.innerHTML = '<div class="bg-electro-yellow/20 border-2 border-electro-yellow p-4 rounded-lg"><p class="font-bold text-electro-yellow text-lg">⚠️ Ingresa número</p></div>'; return; }
             const esCorrecta = Math.abs(respuesta - correcta) <= correcta * 0.05;
             div.classList.remove('hidden');
             if (esCorrecta) {
                 ejemplosCompletados.add(ejemploActual);
-                div.innerHTML = `<div class="bg-green-900 border-2 border-green-500 p-3 rounded"><p class="font-bold text-green-400">✅ ¡Correcto!</p><p class="text-sm text-slate-300">${formula}</p></div>`;
+                div.innerHTML = `<div class="bg-electro-green/20 border-2 border-electro-green p-4 rounded-lg"><p class="font-bold text-electro-green text-lg">✅ ¡Correcto!</p><p class="text-slate-200 mt-2">${formula}</p></div>`;
                 actualizarProgreso();
                 setTimeout(() => { if (ejemploActual < 49) siguienteEjemplo(); }, 2000);
             } else {
-                div.innerHTML = `<div class="bg-red-900 border-2 border-red-500 p-3 rounded"><p class="font-bold text-red-400">❌ Incorrecto</p><p class="text-sm">Correcto: <strong>${correcta.toFixed(4)}</strong></p><p class="text-xs text-slate-400 mt-1">${formula}</p></div>`;
+                div.innerHTML = `<div class="bg-electro-red/20 border-2 border-electro-red p-4 rounded-lg"><p class="font-bold text-electro-red text-lg">❌ Incorrecto</p><p class="text-slate-200 mt-2">Correcto: <strong>${correcta.toFixed(4)}</strong></p><p class="text-sm text-slate-400 mt-2">${formula}</p></div>`;
             }
         }
 
@@ -435,18 +619,18 @@
             preguntasActuales.forEach((p, i) => {
                 const oc = p.o.map((op, j) => ({ texto: op, esCorrecta: j === p.r }));
                 const om = mezclarArray(oc);
-                c.innerHTML += `<div class="bg-slate-900 p-4 rounded-lg" data-p="${i}"><p class="font-semibold mb-3">${i+1}. ${p.p}</p><div class="space-y-2">${om.map((o, j) => `<button onclick="selR(${i}, this)" data-c="${o.esCorrecta}" class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition ob">${o.texto}</button>`).join('')}</div></div>`;
+                c.innerHTML += `<div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/20" data-p="${i}"><p class="font-semibold mb-4 text-lg">${i+1}. ${p.p}</p><div class="space-y-3">${om.map((o, j) => `<button onclick="selR(${i}, this)" data-c="${o.esCorrecta}" class="w-full text-left p-4 bg-electro-blue/40 rounded-lg hover:bg-electro-blue border border-electro-cyan/20 transition opcion-btn text-slate-200">${o.texto}</button>`).join('')}</div></div>`;
             });
             document.getElementById('resultado-quiz').classList.add('hidden');
             document.getElementById('btn-reintentar').classList.add('hidden');
         }
-        function selR(i, b) { const d = document.querySelector(`[data-p="${i}"]`); if (d.dataset.r === 't') return; d.dataset.r = 't'; respondidas++; const c = b.dataset.c === 'true'; respuestasSeleccionadas[i] = c; d.querySelectorAll('.ob').forEach(btn => { btn.disabled = true; btn.classList.add('opacity-50'); if (btn.dataset.c === 'true') { btn.classList.remove('bg-slate-700', 'opacity-50'); btn.classList.add('bg-green-600'); } }); if (c) { correctas++; b.classList.remove('bg-slate-700', 'opacity-50'); b.classList.add('bg-green-600'); } else { b.classList.remove('bg-slate-700', 'opacity-50'); b.classList.add('bg-red-600'); } }
+        function selR(i, b) { const d = document.querySelector(`[data-p="${i}"]`); if (d.dataset.r === 't') return; d.dataset.r = 't'; respondidas++; const c = b.dataset.c === 'true'; respuestasSeleccionadas[i] = c; d.querySelectorAll('.opcion-btn').forEach(btn => { btn.disabled = true; btn.classList.add('opacity-50'); if (btn.dataset.c === 'true') { btn.classList.remove('bg-electro-blue/40', 'opacity-50'); btn.classList.add('bg-electro-green/30', 'border-electro-green'); } }); if (c) { correctas++; b.classList.remove('bg-electro-blue/40', 'opacity-50'); b.classList.add('bg-electro-green/30', 'border-electro-green'); } else { b.classList.remove('bg-electro-blue/40', 'opacity-50'); b.classList.add('bg-electro-red/30', 'border-electro-red'); } }
         function verResultados() {
             if (respondidas < 10) { alert(`Responde ${respondidas} de 10`); return; }
             const p = Math.round((correctas/10)*100); const r = document.getElementById('resultado-quiz');
-            let m, co, e; if (p >= 90) { m = '¡Excelente!'; co = 'green'; e = '🏆'; } else if (p >= 70) { m = '¡Bien!'; co = 'blue'; e = '👍'; } else if (p >= 50) { m = 'Repasa'; co = 'orange'; e = '📚'; } else { m = 'Estudia más'; co = 'red'; e = '⚠️'; }
-            const h = preguntasActuales.map((q, i) => `<div class="bg-slate-900 p-3 rounded mb-2 ${respuestasSeleccionadas[i] ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}"><p class="font-semibold text-sm">${i+1}. ${q.p}</p><p class="text-xs mt-1 ${respuestasSeleccionadas[i] ? 'text-green-400' : 'text-red-400'}">${respuestasSeleccionadas[i] ? '✓' : '✗'}</p><p class="text-xs text-slate-400 mt-1"><em>${q.e}</em></p></div>`).join('');
-            r.innerHTML = `<div class="bg-${co}-900 border-2 border-${co}-500 p-6 rounded-lg text-center mb-4"><p class="text-4xl mb-2">${e}</p><h3 class="text-2xl font-bold text-${co}-400 mb-2">${m}</h3><p class="text-3xl font-bold text-white">${correctas}/10 (${p}%)</p></div><div class="mt-4"><h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión:</h3>${h}</div>`;
+            let m, co, e; if (p >= 90) { m = '¡Excelente!'; co = 'electro-green'; e = '🏆'; } else if (p >= 70) { m = '¡Bien hecho!'; co = 'electro-cyan'; e = '👍'; } else if (p >= 50) { m = 'Necesitas repasar'; co = 'electro-yellow'; e = '📚'; } else { m = 'Estudia nuevamente el módulo'; co = 'electro-red'; e = '⚠️'; }
+            const h = preguntasActuales.map((q, i) => `<div class="bg-electro-dark/60 p-4 rounded-lg mb-3 ${respuestasSeleccionadas[i] ? 'border-l-4 border-electro-green' : 'border-l-4 border-electro-red'}"><p class="font-semibold text-sm mb-1">${i+1}. ${q.p}</p><p class="text-xs ${respuestasSeleccionadas[i] ? 'text-electro-green' : 'text-electro-red'} font-bold">${respuestasSeleccionadas[i] ? '✓ Correcta' : '✗ Incorrecta'}</p><p class="text-xs text-slate-400 mt-2"><em>${q.e}</em></p></div>`).join('');
+            r.innerHTML = `<div class="bg-${co}/20 border-2 border-${co} p-8 rounded-2xl text-center mb-6"><p class="text-5xl mb-3">${e}</p><h3 class="text-3xl font-bold text-${co} mb-2">${m}</h3><p class="text-4xl font-extrabold text-white">${correctas}/10 (${p}%)</p></div><div class="mt-6"><h3 class="font-bold text-xl mb-4 text-electro-cyan">Revisión de Respuestas:</h3>${h}</div>`;
             r.classList.remove('hidden'); document.getElementById('btn-reintentar').classList.remove('hidden'); r.scrollIntoView({ behavior: 'smooth' });
         }
         function nuevoIntento() { cargarQuiz(); window.scrollTo({ top: document.getElementById('quiz-container').offsetTop - 100, behavior: 'smooth' }); }

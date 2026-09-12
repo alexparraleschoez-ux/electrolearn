@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="../../favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -15,6 +15,15 @@
                     fontFamily: {
                         'heading': ['Poppins', 'sans-serif'],
                         'body': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'electro-dark': '#0A1628',
+                        'electro-blue': '#1E3A8A',
+                        'electro-circuit': '#1E40AF',
+                        'electro-yellow': '#FACC15',
+                        'electro-cyan': '#00D4FF',
+                        'electro-green': '#00FF88',
+                        'electro-red': '#FF4444',
                     }
                 }
             }
@@ -28,8 +37,8 @@
             100% { left: 100%; opacity: 0; }
         }
         @keyframes parpadeo {
-            0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px #ef4444); }
-            50% { opacity: 0.6; filter: drop-shadow(0 0 5px #ef4444); }
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px #FF4444); }
+            50% { opacity: 0.6; filter: drop-shadow(0 0 5px #FF4444); }
         }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
@@ -39,195 +48,204 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
         .electron { animation: fluirCircuito 3s linear infinite; }
         .led-glow { animation: parpadeo 1s ease-in-out infinite; }
         .section-animate { animation: fadeInUp 0.6s ease-out; }
         .triangulo-ohm { animation: pulso 2s ease-in-out infinite; }
+        .logo-float { animation: float 3s ease-in-out infinite; }
         .teoria-card {
-            border-left: 4px solid #22d3ee;
+            border-left: 4px solid #00D4FF;
             transition: all 0.3s;
         }
         .teoria-card:hover {
             transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
         }
         .opcion-btn:disabled { cursor: not-allowed; }
+        
+        .glass-card {
+            background: rgba(30, 58, 138, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-white font-body min-h-screen">
+<body class="bg-electro-dark text-white font-body min-h-screen">
 
-    <!-- HEADER -->
-    <header class="bg-white p-3 shadow-lg">
+    <!-- HEADER FIJO CON LOGO GRANDE -->
+    <header class="bg-gradient-to-r from-electro-blue via-electro-circuit to-electro-blue p-4 shadow-2xl sticky top-0 z-50 border-b-4 border-electro-yellow">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="../../index.html" class="flex items-center">
-                <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-12 md:h-16 w-auto">
+            <a href="../../index.html" class="flex items-center logo-float">
+                <img src="../../multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-16 md:h-20 w-auto drop-shadow-lg">
             </a>
-            <a href="../../index.html" class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold hover:opacity-90 transition">
-                <i class="fas fa-arrow-left mr-2"></i> Volver
+            <a href="../../index.html" class="bg-electro-yellow hover:bg-yellow-400 text-electro-dark px-6 py-3 rounded-lg font-bold hover:scale-105 transition-all shadow-lg flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> Volver al Inicio
             </a>
         </div>
     </header>
 
     <!-- TÍTULO -->
-    <section class="py-8 text-center px-4 section-animate">
-        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
-            <i class="fas fa-calculator text-cyan-400"></i> Módulo 2: Ley de Ohm
-        </h1>
-        <p class="text-slate-300 text-lg">La relación fundamental entre Voltaje, Corriente y Resistencia</p>
+    <section class="py-12 text-center px-4 section-animate relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-electro-dark via-electro-blue/20 to-electro-dark opacity-50"></div>
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-6xl font-heading font-extrabold mb-4">
+                <i class="fas fa-calculator text-electro-cyan mr-3"></i> Módulo 2: Ley de Ohm
+            </h1>
+            <p class="text-slate-300 text-xl max-w-2xl mx-auto">La relación fundamental entre Voltaje, Corriente y Resistencia</p>
+        </div>
     </section>
 
     <div class="container mx-auto px-4 pb-16 space-y-8">
 
         <!-- SECCIÓN 1: TEORÍA -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-8 text-electro-cyan">
                 <i class="fas fa-book mr-2"></i>Teoría: La Ley de Ohm
             </h2>
 
-            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="teoria-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-history mr-2"></i>¿Qué es la Ley de Ohm?
                 </h3>
-                <p class="text-slate-300 mb-3">
-                    La <strong class="text-cyan-400">Ley de Ohm</strong> es la ley fundamental de la electricidad. 
-                    Fue descubierta por el físico alemán <strong class="text-yellow-400">Georg Simon Ohm</strong> en 1827.
+                <p class="text-slate-300 mb-4 text-lg">
+                    La <strong class="text-electro-cyan">Ley de Ohm</strong> es la ley fundamental de la electricidad. 
+                    Fue descubierta por el físico alemán <strong class="text-electro-yellow">Georg Simon Ohm</strong> en 1827.
                 </p>
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-sm text-slate-400 mb-2">📘 Definición:</p>
-                    <p class="text-slate-300">
-                        Establece que la <strong class="text-green-400">corriente (I)</strong> que circula por un conductor 
-                        es <strong>directamente proporcional</strong> al <strong class="text-yellow-400">voltaje (V)</strong> 
-                        aplicado e <strong>inversamente proporcional</strong> a la <strong class="text-red-400">resistencia (R)</strong>.
+                <div class="bg-electro-blue/40 p-5 rounded-lg border border-electro-cyan/30">
+                    <p class="text-sm text-electro-cyan mb-2 font-bold">📘 Definición:</p>
+                    <p class="text-slate-200 text-lg">
+                        Establece que la <strong class="text-electro-green">corriente (I)</strong> que circula por un conductor 
+                        es <strong>directamente proporcional</strong> al <strong class="text-electro-yellow">voltaje (V)</strong> 
+                        aplicado e <strong>inversamente proporcional</strong> a la <strong class="text-electro-red">resistencia (R)</strong>.
                     </p>
                 </div>
             </div>
 
-            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="teoria-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-square-root-alt mr-2"></i>La Fórmula: V = I × R
                 </h3>
-                <div class="bg-blue-900 p-6 rounded-lg text-center mb-4">
-                    <p class="text-4xl font-bold text-white mb-2">V = I × R</p>
+                <div class="bg-gradient-to-r from-electro-blue to-electro-circuit p-6 rounded-lg text-center mb-6 border border-electro-cyan/50">
+                    <p class="text-4xl font-extrabold text-white mb-2">V = I × R</p>
                     <p class="text-sm text-slate-300">Voltaje = Corriente × Resistencia</p>
                 </div>
                 
                 <div class="grid md:grid-cols-3 gap-4">
-                    <div class="bg-slate-800 p-4 rounded-lg border-2 border-yellow-500">
-                        <h4 class="font-bold text-yellow-400 mb-2">Para calcular V:</h4>
-                        <p class="text-2xl font-bold text-center text-white">V = I × R</p>
+                    <div class="bg-electro-blue/40 p-5 rounded-lg border-2 border-electro-yellow/50 text-center">
+                        <h4 class="font-bold text-electro-yellow mb-2 text-lg">Para calcular V:</h4>
+                        <p class="text-3xl font-bold text-white">V = I × R</p>
                         <p class="text-xs text-slate-400 mt-2">Voltaje (V) = Corriente (A) × Resistencia (Ω)</p>
                     </div>
-                    <div class="bg-slate-800 p-4 rounded-lg border-2 border-green-500">
-                        <h4 class="font-bold text-green-400 mb-2">Para calcular I:</h4>
-                        <p class="text-2xl font-bold text-center text-white">I = V / R</p>
+                    <div class="bg-electro-blue/40 p-5 rounded-lg border-2 border-electro-green/50 text-center">
+                        <h4 class="font-bold text-electro-green mb-2 text-lg">Para calcular I:</h4>
+                        <p class="text-3xl font-bold text-white">I = V / R</p>
                         <p class="text-xs text-slate-400 mt-2">Corriente (A) = Voltaje (V) / Resistencia (Ω)</p>
                     </div>
-                    <div class="bg-slate-800 p-4 rounded-lg border-2 border-red-500">
-                        <h4 class="font-bold text-red-400 mb-2">Para calcular R:</h4>
-                        <p class="text-2xl font-bold text-center text-white">R = V / I</p>
+                    <div class="bg-electro-blue/40 p-5 rounded-lg border-2 border-electro-red/50 text-center">
+                        <h4 class="font-bold text-electro-red mb-2 text-lg">Para calcular R:</h4>
+                        <p class="text-3xl font-bold text-white">R = V / I</p>
                         <p class="text-xs text-slate-400 mt-2">Resistencia (Ω) = Voltaje (V) / Corriente (A)</p>
                     </div>
                 </div>
             </div>
 
-            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="teoria-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-play mr-2"></i>Triángulo de la Ley de Ohm
                 </h3>
-                <p class="text-slate-300 mb-4">
+                <p class="text-slate-300 mb-4 text-lg">
                     El triángulo de Ohm es una herramienta visual para recordar las tres fórmulas. 
                     Tapa la variable que quieres calcular:
                 </p>
-                <div class="flex justify-center mb-4">
+                <div class="flex justify-center mb-6">
                     <div class="triangulo-ohm relative">
                         <svg width="200" height="180" viewBox="0 0 200 180">
-                            <!-- Triángulo -->
-                            <polygon points="100,10 10,170 190,170" fill="#1e293b" stroke="#22d3ee" stroke-width="3"/>
-                            <!-- Línea horizontal -->
-                            <line x1="55" y1="90" x2="145" y2="90" stroke="#22d3ee" stroke-width="2"/>
-                            <!-- Línea vertical -->
-                            <line x1="100" y1="90" x2="100" y2="170" stroke="#22d3ee" stroke-width="2"/>
-                            <!-- Textos -->
-                            <text x="100" y="60" text-anchor="middle" font-size="32" font-weight="bold" fill="#facc15">V</text>
-                            <text x="60" y="140" text-anchor="middle" font-size="32" font-weight="bold" fill="#4ade80">I</text>
-                            <text x="140" y="140" text-anchor="middle" font-size="32" font-weight="bold" fill="#ef4444">R</text>
-                            <!-- Símbolos -->
-                            <text x="100" y="100" text-anchor="middle" font-size="20" fill="#22d3ee">×</text>
-                            <text x="100" y="135" text-anchor="middle" font-size="20" fill="#22d3ee">÷</text>
+                            <polygon points="100,10 10,170 190,170" fill="#0A1628" stroke="#00D4FF" stroke-width="3"/>
+                            <line x1="55" y1="90" x2="145" y2="90" stroke="#00D4FF" stroke-width="2"/>
+                            <line x1="100" y1="90" x2="100" y2="170" stroke="#00D4FF" stroke-width="2"/>
+                            <text x="100" y="60" text-anchor="middle" font-size="32" font-weight="bold" fill="#FACC15">V</text>
+                            <text x="60" y="140" text-anchor="middle" font-size="32" font-weight="bold" fill="#00FF88">I</text>
+                            <text x="140" y="140" text-anchor="middle" font-size="32" font-weight="bold" fill="#FF4444">R</text>
+                            <text x="100" y="100" text-anchor="middle" font-size="20" fill="#00D4FF">×</text>
+                            <text x="100" y="135" text-anchor="middle" font-size="20" fill="#00D4FF">÷</text>
                         </svg>
                     </div>
                 </div>
-                <div class="bg-purple-900 p-3 rounded-lg">
-                    <p class="text-sm text-slate-300">
-                        💡 <strong>Cómo usar:</strong> Tapa la letra que quieres calcular. 
+                <div class="bg-purple-900/30 border border-purple-500/30 p-4 rounded-lg">
+                    <p class="text-slate-200">
+                        💡 <strong class="text-purple-400">Cómo usar:</strong> Tapa la letra que quieres calcular. 
                         Las dos letras restantes te muestran la operación.
-                        <br>• Tapa <strong class="text-yellow-400">V</strong> → Ves I × R
-                        <br>• Tapa <strong class="text-green-400">I</strong> → Ves V ÷ R
-                        <br>• Tapa <strong class="text-red-400">R</strong> → Ves V ÷ I
+                        <br>• Tapa <strong class="text-electro-yellow">V</strong> → Ves I × R
+                        <br>• Tapa <strong class="text-electro-green">I</strong> → Ves V ÷ R
+                        <br>• Tapa <strong class="text-electro-red">R</strong> → Ves V ÷ I
                     </p>
                 </div>
             </div>
 
-            <div class="teoria-card bg-slate-900 p-5 rounded-lg mb-4">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="teoria-card bg-electro-dark/60 p-6 rounded-xl mb-6">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-balance-scale mr-2"></i>Relaciones de Proporcionalidad
                 </h3>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="bg-green-900 p-4 rounded-lg">
-                        <h4 class="font-bold text-green-400 mb-2">✓ Directamente Proporcional</h4>
-                        <p class="text-sm text-slate-300 mb-2">
-                            Si aumenta el <strong class="text-yellow-400">voltaje</strong>, aumenta la <strong class="text-green-400">corriente</strong> 
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-electro-green/10 border border-electro-green/30 p-6 rounded-xl">
+                        <h4 class="font-bold text-electro-green mb-3 text-xl">✓ Directamente Proporcional</h4>
+                        <p class="text-slate-300 mb-3">
+                            Si aumenta el <strong class="text-electro-yellow">voltaje</strong>, aumenta la <strong class="text-electro-green">corriente</strong> 
                             (manteniendo R constante).
                         </p>
-                        <div class="bg-slate-800 p-2 rounded text-center">
-                            <p class="text-xs text-slate-400">Ejemplo: 9V → 18V (doble voltaje) = doble corriente</p>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg text-center">
+                            <p class="text-sm text-slate-400">Ejemplo: 9V → 18V (doble voltaje) = doble corriente</p>
                         </div>
                     </div>
-                    <div class="bg-red-900 p-4 rounded-lg">
-                        <h4 class="font-bold text-red-400 mb-2">✗ Inversamente Proporcional</h4>
-                        <p class="text-sm text-slate-300 mb-2">
-                            Si aumenta la <strong class="text-red-400">resistencia</strong>, disminuye la <strong class="text-green-400">corriente</strong> 
+                    <div class="bg-electro-red/10 border border-electro-red/30 p-6 rounded-xl">
+                        <h4 class="font-bold text-electro-red mb-3 text-xl">✗ Inversamente Proporcional</h4>
+                        <p class="text-slate-300 mb-3">
+                            Si aumenta la <strong class="text-electro-red">resistencia</strong>, disminuye la <strong class="text-electro-green">corriente</strong> 
                             (manteniendo V constante).
                         </p>
-                        <div class="bg-slate-800 p-2 rounded text-center">
-                            <p class="text-xs text-slate-400">Ejemplo: 100Ω → 200Ω (doble resistencia) = mitad de corriente</p>
+                        <div class="bg-electro-dark/60 p-3 rounded-lg text-center">
+                            <p class="text-sm text-slate-400">Ejemplo: 100Ω → 200Ω (doble resistencia) = mitad de corriente</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="teoria-card bg-slate-900 p-5 rounded-lg">
-                <h3 class="text-xl font-bold mb-3 text-yellow-400">
+            <div class="teoria-card bg-electro-dark/60 p-6 rounded-xl">
+                <h3 class="text-2xl font-bold mb-4 text-electro-yellow">
                     <i class="fas fa-units mr-2"></i>Unidades de Medida
                 </h3>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead class="bg-slate-800">
+                    <table class="w-full text-sm md:text-base">
+                        <thead class="bg-electro-blue/60">
                             <tr>
-                                <th class="p-3 text-left text-yellow-400">Variable</th>
-                                <th class="p-3 text-left text-cyan-400">Unidad</th>
-                                <th class="p-3 text-left text-slate-400">Símbolo</th>
-                                <th class="p-3 text-left text-slate-400">Instrumento</th>
+                                <th class="p-4 text-left text-electro-yellow">Variable</th>
+                                <th class="p-4 text-left text-electro-cyan">Unidad</th>
+                                <th class="p-4 text-left text-slate-400">Símbolo</th>
+                                <th class="p-4 text-left text-slate-400">Instrumento</th>
                             </tr>
                         </thead>
                         <tbody class="text-slate-300">
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Voltaje (V)</td>
-                                <td class="p-3">Voltio</td>
-                                <td class="p-3">V</td>
-                                <td class="p-3">Voltímetro</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Voltaje (V)</td>
+                                <td class="p-4">Voltio</td>
+                                <td class="p-4">V</td>
+                                <td class="p-4">Voltímetro</td>
                             </tr>
-                            <tr class="border-b border-slate-700">
-                                <td class="p-3 font-bold">Corriente (I)</td>
-                                <td class="p-3">Amperio</td>
-                                <td class="p-3">A</td>
-                                <td class="p-3">Amperímetro</td>
+                            <tr class="border-b border-electro-cyan/20">
+                                <td class="p-4 font-bold">Corriente (I)</td>
+                                <td class="p-4">Amperio</td>
+                                <td class="p-4">A</td>
+                                <td class="p-4">Amperímetro</td>
                             </tr>
                             <tr>
-                                <td class="p-3 font-bold">Resistencia (R)</td>
-                                <td class="p-3">Ohmio</td>
-                                <td class="p-3">Ω</td>
-                                <td class="p-3">Ohmímetro</td>
+                                <td class="p-4 font-bold">Resistencia (R)</td>
+                                <td class="p-4">Ohmio</td>
+                                <td class="p-4">Ω</td>
+                                <td class="p-4">Ohmímetro</td>
                             </tr>
                         </tbody>
                     </table>
@@ -236,86 +254,81 @@
         </div>
 
         <!-- SECCIÓN 2: SIMULADOR INTERACTIVO -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-green-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-green">
                 <i class="fas fa-flask mr-2"></i>Simulador Interactivo: Ley de Ohm
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Ajusta los valores y observa cómo cambian las variables en tiempo real.
             </p>
 
-            <div class="bg-slate-900 p-6 rounded-lg">
+            <div class="bg-electro-dark/60 p-8 rounded-xl border border-electro-green/30">
                 <!-- Sliders -->
-                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                <div class="grid md:grid-cols-3 gap-8 mb-8">
                     <div>
-                        <label class="block mb-2 font-semibold">
-                            <i class="fas fa-battery-full text-yellow-400 mr-2"></i>
-                            Voltaje (V): <span id="voltajeDisplay" class="text-yellow-400 text-xl">9</span> V
+                        <label class="block mb-3 font-semibold text-lg">
+                            <i class="fas fa-battery-full text-electro-yellow mr-2"></i>
+                            Voltaje (V): <span id="voltajeDisplay" class="text-electro-yellow text-2xl">9</span> V
                         </label>
                         <input type="range" id="voltajeSlider" min="1" max="24" step="1" value="9" 
-                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-400">
-                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                               class="w-full h-3 bg-electro-blue rounded-lg appearance-none cursor-pointer accent-electro-yellow">
+                        <div class="flex justify-between text-xs text-slate-400 mt-2">
                             <span>1V</span><span>12V</span><span>24V</span>
                         </div>
                     </div>
                     
                     <div>
-                        <label class="block mb-2 font-semibold">
-                            <i class="fas fa-microchip text-red-400 mr-2"></i>
-                            Resistencia (R): <span id="resistenciaDisplay" class="text-red-400 text-xl">100</span> Ω
+                        <label class="block mb-3 font-semibold text-lg">
+                            <i class="fas fa-microchip text-electro-red mr-2"></i>
+                            Resistencia (R): <span id="resistenciaDisplay" class="text-electro-red text-2xl">100</span> Ω
                         </label>
                         <input type="range" id="resistenciaSlider" min="10" max="1000" step="10" value="100" 
-                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-red-400">
-                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                               class="w-full h-3 bg-electro-blue rounded-lg appearance-none cursor-pointer accent-electro-red">
+                        <div class="flex justify-between text-xs text-slate-400 mt-2">
                             <span>10Ω</span><span>500Ω</span><span>1000Ω</span>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block mb-2 font-semibold">
-                            <i class="fas fa-wave-square text-green-400 mr-2"></i>
-                            Corriente (I): <span id="corrienteDisplay" class="text-green-400 text-xl">0.090</span> A
+                        <label class="block mb-3 font-semibold text-lg">
+                            <i class="fas fa-wave-square text-electro-green mr-2"></i>
+                            Corriente (I): <span id="corrienteDisplay" class="text-electro-green text-2xl">0.090</span> A
                         </label>
                         <input type="range" id="corrienteSlider" min="1" max="100" step="1" value="90" 
-                               class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-green-400">
-                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                               class="w-full h-3 bg-electro-blue rounded-lg appearance-none cursor-pointer accent-electro-green">
+                        <div class="flex justify-between text-xs text-slate-400 mt-2">
                             <span>1mA</span><span>50mA</span><span>100mA</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Visualización del circuito -->
-                <div class="bg-slate-800 p-6 rounded-lg mb-4">
+                <div class="bg-electro-blue/30 p-8 rounded-xl mb-8 border border-electro-cyan/20">
                     <svg viewBox="0 0 500 200" class="w-full max-w-2xl mx-auto">
-                        <!-- Cables -->
-                        <line x1="80" y1="100" x2="180" y2="100" stroke="#22d3ee" stroke-width="4"/>
-                        <line x1="280" y1="100" x2="380" y2="100" stroke="#22d3ee" stroke-width="4"/>
-                        <line x1="80" y1="100" x2="80" y2="170" stroke="#22d3ee" stroke-width="4"/>
-                        <line x1="380" y1="100" x2="380" y2="170" stroke="#22d3ee" stroke-width="4"/>
-                        <line x1="80" y1="170" x2="380" y2="170" stroke="#22d3ee" stroke-width="4"/>
+                        <line x1="80" y1="100" x2="180" y2="100" stroke="#00D4FF" stroke-width="4"/>
+                        <line x1="280" y1="100" x2="380" y2="100" stroke="#00D4FF" stroke-width="4"/>
+                        <line x1="80" y1="100" x2="80" y2="170" stroke="#00D4FF" stroke-width="4"/>
+                        <line x1="380" y1="100" x2="380" y2="170" stroke="#00D4FF" stroke-width="4"/>
+                        <line x1="80" y1="170" x2="380" y2="170" stroke="#00D4FF" stroke-width="4"/>
                         
-                        <!-- Batería -->
-                        <rect x="40" y="80" width="80" height="40" fill="#facc15" rx="5"/>
-                        <text x="80" y="105" text-anchor="middle" font-size="16" font-weight="bold" fill="black" id="bateriaTexto">9V</text>
+                        <rect x="40" y="80" width="80" height="40" fill="#FACC15" rx="5"/>
+                        <text x="80" y="105" text-anchor="middle" font-size="16" font-weight="bold" fill="#0A1628" id="bateriaTexto">9V</text>
                         
-                        <!-- Resistencia -->
-                        <rect x="180" y="85" width="100" height="30" fill="#ef4444" rx="3"/>
+                        <rect x="180" y="85" width="100" height="30" fill="#FF4444" rx="3"/>
                         <text x="230" y="105" text-anchor="middle" font-size="12" fill="white" font-weight="bold" id="resistenciaTexto">100Ω</text>
                         
-                        <!-- LED -->
-                        <circle cx="380" cy="100" r="25" fill="#ef4444" id="led" class="led-glow"/>
+                        <circle cx="380" cy="100" r="25" fill="#FF4444" id="led" class="led-glow"/>
                         <text x="380" y="105" text-anchor="middle" font-size="12" fill="white" font-weight="bold">LED</text>
                         
-                        <!-- Electrones animados -->
-                        <circle r="4" fill="#60a5fa">
+                        <circle r="4" fill="#00D4FF">
                             <animateMotion dur="2s" repeatCount="indefinite" 
                                 path="M 80,100 L 180,100 L 280,100 L 380,100 L 380,170 L 80,170 Z"/>
                         </circle>
-                        <circle r="4" fill="#60a5fa">
+                        <circle r="4" fill="#00D4FF">
                             <animateMotion dur="2s" repeatCount="indefinite" begin="0.5s"
                                 path="M 80,100 L 180,100 L 280,100 L 380,100 L 380,170 L 80,170 Z"/>
                         </circle>
-                        <circle r="4" fill="#60a5fa">
+                        <circle r="4" fill="#00D4FF">
                             <animateMotion dur="2s" repeatCount="indefinite" begin="1s"
                                 path="M 80,100 L 180,100 L 280,100 L 380,100 L 380,170 L 80,170 Z"/>
                         </circle>
@@ -323,74 +336,74 @@
                 </div>
 
                 <!-- Resultados -->
-                <div class="bg-gradient-to-r from-green-900 to-cyan-900 p-6 rounded-lg text-center border-2 border-green-500">
-                    <p class="text-sm text-slate-300 mb-2">Fórmula aplicada: I = V / R</p>
-                    <p class="text-4xl font-bold text-green-400 mb-2">
+                <div class="bg-gradient-to-r from-electro-green/20 to-electro-cyan/20 p-8 rounded-xl text-center border-2 border-electro-green/50">
+                    <p class="text-sm text-slate-300 mb-2 font-bold uppercase tracking-wider">Fórmula aplicada: I = V / R</p>
+                    <p class="text-4xl md:text-5xl font-extrabold text-electro-green mb-3">
                         I = <span id="voltajeResultado">9</span>V / <span id="resistenciaResultado">100</span>Ω = <span id="corrienteResultado">0.090</span> A
                     </p>
-                    <p class="text-lg text-slate-200">
-                        = <span id="corrienteMA" class="text-green-400 font-bold">90</span> mA
+                    <p class="text-xl text-slate-200 mb-4">
+                        = <span id="corrienteMA" class="text-electro-green font-bold">90</span> mA
                     </p>
-                    <div id="estadoLED" class="mt-4 p-3 bg-yellow-600 rounded-lg">
-                        <p class="font-bold">⚠️ Corriente alta (precaución)</p>
-                        <p class="text-sm">Para un LED estándar (20-30 mA ideal)</p>
+                    <div id="estadoLED" class="mt-4 p-4 bg-electro-yellow/20 border border-electro-yellow rounded-lg">
+                        <p class="font-bold text-electro-yellow text-lg">⚠️ Corriente alta (precaución)</p>
+                        <p class="text-sm text-slate-300">Para un LED estándar (20-30 mA ideal)</p>
                     </div>
                 </div>
 
-                <div class="mt-4 p-4 bg-blue-900 rounded-lg">
-                    <h3 class="font-bold mb-2 text-yellow-300">💡 Interpretación:</h3>
-                    <p id="interpretacion" class="text-sm text-slate-300"></p>
+                <div class="mt-6 p-6 bg-electro-blue/40 rounded-xl border border-electro-cyan/30">
+                    <h3 class="font-bold mb-3 text-electro-yellow text-xl">💡 Interpretación:</h3>
+                    <p id="interpretacion" class="text-slate-200 text-lg"></p>
                 </div>
             </div>
         </div>
 
         <!-- SECCIÓN 3: EJEMPLOS PRÁCTICOS -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-yellow-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-electro-yellow">
                 <i class="fas fa-lightbulb mr-2"></i>Ejemplos Prácticos: ¡Calcula Tú Mismo!
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 Resuelve estos problemas usando la Ley de Ohm. Completa los 50 ejemplos.
             </p>
 
             <!-- Barra de progreso -->
-            <div class="bg-slate-900 p-4 rounded-lg mb-6">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-slate-400">Progreso:</span>
-                    <span class="text-sm font-bold text-cyan-400" id="progreso-texto">0 de 50 completados</span>
+            <div class="bg-electro-dark/60 p-6 rounded-xl mb-8 border border-electro-cyan/30">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm text-slate-400 font-bold uppercase">Progreso:</span>
+                    <span class="text-sm font-bold text-electro-cyan" id="progreso-texto">0 de 50 completados</span>
                 </div>
-                <div class="w-full bg-slate-700 rounded-full h-3">
-                    <div id="barra-progreso" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                <div class="w-full bg-electro-blue rounded-full h-4 overflow-hidden">
+                    <div id="barra-progreso" class="bg-gradient-to-r from-electro-cyan to-electro-green h-4 rounded-full transition-all duration-500 shadow-lg" style="width: 0%"></div>
                 </div>
             </div>
 
             <!-- Contenedor del ejemplo actual -->
-            <div id="ejemplo-actual" class="bg-slate-900 p-6 rounded-lg border-2 border-cyan-500">
+            <div id="ejemplo-actual" class="bg-electro-dark/60 p-8 rounded-xl border-2 border-electro-cyan/50">
                 <!-- Se llena dinámicamente -->
             </div>
 
             <!-- Botones de navegación -->
-            <div class="flex gap-4 mt-6">
+            <div class="flex gap-4 mt-8">
                 <button onclick="ejemploAnterior()" 
                         id="btn-anterior"
-                        class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="flex-1 bg-electro-blue hover:bg-electro-circuit text-white font-bold py-4 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed border border-electro-cyan/30">
                     <i class="fas fa-arrow-left mr-2"></i>Anterior
                 </button>
                 <button onclick="siguienteEjemplo()" 
                         id="btn-siguiente"
-                        class="flex-1 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition">
+                        class="flex-1 bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 rounded-xl transition shadow-lg shadow-electro-cyan/20">
                     Siguiente<i class="fas fa-arrow-right ml-2"></i>
                 </button>
             </div>
 
             <!-- Selector rápido -->
-            <div class="mt-6 bg-slate-900 p-4 rounded-lg">
-                <p class="text-sm text-slate-400 mb-3">O salta a un ejemplo específico:</p>
-                <div class="flex gap-2">
+            <div class="mt-8 bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                <p class="text-sm text-slate-400 mb-3 font-bold">O salta a un ejemplo específico:</p>
+                <div class="flex gap-3">
                     <input type="number" id="saltar-a" min="1" max="50" placeholder="Número (1-50)" 
-                           class="flex-1 p-2 bg-slate-700 rounded border border-slate-600 text-white">
+                           class="flex-1 p-3 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white focus:outline-none focus:border-electro-cyan">
                     <button onclick="irAEjemplo()" 
-                            class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded transition">
+                            class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-lg transition">
                         Ir
                     </button>
                 </div>
@@ -398,31 +411,37 @@
         </div>
 
         <!-- SECCIÓN 4: QUIZ -->
-        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
-            <h2 class="text-2xl font-heading font-bold mb-4 text-purple-400">
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-2xl section-animate">
+            <h2 class="text-3xl font-heading font-bold mb-6 text-purple-400">
                 <i class="fas fa-question-circle mr-2"></i>Quiz: Evalúa tu Conocimiento
             </h2>
-            <p class="text-slate-300 mb-4">
+            <p class="text-slate-300 mb-6 text-lg">
                 10 preguntas aleatorias de un banco de 30 sobre la Ley de Ohm.
             </p>
             
-            <div id="quiz-container" class="space-y-4 mb-6"></div>
+            <div id="quiz-container" class="space-y-4 mb-8"></div>
             
             <button onclick="verResultados()" 
-                    class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-lg transition">
+                    class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 rounded-xl transition shadow-lg mb-4">
                 <i class="fas fa-check-circle mr-2"></i>Ver Resultados
             </button>
             
             <div id="resultado-quiz" class="mt-6 hidden"></div>
             
             <button onclick="nuevoIntento()" 
-                    class="w-full mt-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-lg transition hidden"
+                    class="w-full mt-4 bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 rounded-xl transition hidden shadow-lg shadow-electro-cyan/20"
                     id="btn-reintentar">
                 <i class="fas fa-redo mr-2"></i>Intentar de Nuevo
             </button>
         </div>
 
     </div>
+
+    <!-- FOOTER DEL MÓDULO -->
+    <footer class="bg-electro-dark p-8 text-center border-t-4 border-electro-yellow mt-12">
+        <p class="text-lg font-bold text-white">© 2026 ElectroLearn - Proyecto de Grado</p>
+        <p class="text-electro-cyan mt-2">Desarrollado por el Grupo 3B Informática</p>
+    </footer>
 
     <script>
         // ============ SIMULADOR LEY DE OHM ============
@@ -442,7 +461,7 @@
         const interpretacion = document.getElementById('interpretacion');
         const led = document.getElementById('led');
 
-        let modoCalculo = 'voltaje'; // 'voltaje', 'resistencia', 'corriente'
+        let modoCalculo = 'voltaje';
 
         function actualizarSimulador() {
             const v = parseFloat(voltajeSlider.value);
@@ -460,25 +479,24 @@
             corrienteResultado.textContent = i.toFixed(3);
             corrienteMA.textContent = iMA.toFixed(1);
 
-            // Estado del LED
             if (iMA < 5) {
-                estadoLED.className = 'mt-4 p-3 bg-gray-600 rounded-lg';
-                estadoLED.innerHTML = '<p class="font-bold"> LED apagado</p><p class="text-sm">Corriente muy baja</p>';
+                estadoLED.className = 'mt-4 p-4 bg-slate-700 border border-slate-500 rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold text-slate-300 text-lg">⚫ LED apagado</p><p class="text-sm text-slate-400">Corriente muy baja</p>';
                 led.style.opacity = '0.3';
                 interpretacion.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. Muy baja para encender un LED.`;
             } else if (iMA >= 5 && iMA <= 30) {
-                estadoLED.className = 'mt-4 p-3 bg-green-600 rounded-lg';
-                estadoLED.innerHTML = '<p class="font-bold">✅ LED encendido correctamente</p><p class="text-sm">Corriente ideal (5-30 mA)</p>';
+                estadoLED.className = 'mt-4 p-4 bg-electro-green/20 border border-electro-green rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold text-electro-green text-lg">✅ LED encendido correctamente</p><p class="text-sm text-slate-300">Corriente ideal (5-30 mA)</p>';
                 led.style.opacity = '1';
                 interpretacion.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. Valor perfecto para un LED.`;
             } else if (iMA > 30 && iMA <= 50) {
-                estadoLED.className = 'mt-4 p-3 bg-yellow-600 rounded-lg';
-                estadoLED.innerHTML = '<p class="font-bold">⚠️ LED muy brillante</p><p class="text-sm">Corriente alta, podría dañarse</p>';
+                estadoLED.className = 'mt-4 p-4 bg-electro-yellow/20 border border-electro-yellow rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold text-electro-yellow text-lg">⚠️ LED muy brillante</p><p class="text-sm text-slate-300">Corriente alta, podría dañarse</p>';
                 led.style.opacity = '1';
                 interpretacion.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. Alta para un LED. Aumenta la resistencia.`;
             } else {
-                estadoLED.className = 'mt-4 p-3 bg-red-600 rounded-lg';
-                estadoLED.innerHTML = '<p class="font-bold">🔥 LED QUEMADO</p><p class="text-sm">Corriente excesiva</p>';
+                estadoLED.className = 'mt-4 p-4 bg-electro-red/20 border border-electro-red rounded-lg';
+                estadoLED.innerHTML = '<p class="font-bold text-electro-red text-lg">🔥 LED QUEMADO</p><p class="text-sm text-slate-300">Corriente excesiva</p>';
                 led.style.opacity = '0.5';
                 interpretacion.textContent = `Con ${v}V y ${r}Ω, la corriente es de ${iMA.toFixed(1)} mA. ¡Demasiado alta! El LED se quema.`;
             }
@@ -489,56 +507,56 @@
 
         // ============ 50 EJEMPLOS PRÁCTICOS ============
         const ejemplosPracticos = [
-            { titulo: "Linterna Básica", icono: "🔦", color: "yellow", tipo: "I", v: 3, r: 150, unidad: "mA" },
-            { titulo: "Cargador de Celular", icono: "📱", color: "cyan", tipo: "I", v: 5, r: 100, unidad: "mA" },
-            { titulo: "LED Rojo", icono: "💡", color: "red", tipo: "R", v: 5, i: 0.02, unidad: "Ω" },
-            { titulo: "Batería de 9V", icono: "🔋", color: "yellow", tipo: "I", v: 9, r: 450, unidad: "mA" },
+            { titulo: "Linterna Básica", icono: "🔦", color: "electro-yellow", tipo: "I", v: 3, r: 150, unidad: "mA" },
+            { titulo: "Cargador de Celular", icono: "📱", color: "electro-cyan", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "LED Rojo", icono: "💡", color: "electro-red", tipo: "R", v: 5, i: 0.02, unidad: "Ω" },
+            { titulo: "Batería de 9V", icono: "🔋", color: "electro-yellow", tipo: "I", v: 9, r: 450, unidad: "mA" },
             { titulo: "Motor Pequeño", icono: "⚙️", color: "blue", tipo: "V", i: 0.5, r: 24, unidad: "V" },
-            { titulo: "Resistencia para LED", icono: "", color: "green", tipo: "R", v: 12, i: 0.02, unidad: "Ω" },
-            { titulo: "Circuito de 12V", icono: "🚗", color: "red", tipo: "I", v: 12, r: 240, unidad: "mA" },
-            { titulo: "Fuente de Poder", icono: "🔌", color: "cyan", tipo: "V", i: 2, r: 6, unidad: "V" },
-            { titulo: "Resistencia Limitadora", icono: "", color: "yellow", tipo: "R", v: 9, i: 0.03, unidad: "Ω" },
-            { titulo: "Cargador USB", icono: "🔌", color: "green", tipo: "I", v: 5, r: 50, unidad: "mA" },
-            { titulo: "Batería de Auto", icono: "🚗", color: "red", tipo: "I", v: 12, r: 4, unidad: "A" },
-            { titulo: "Panel Solar", icono: "☀️", color: "yellow", tipo: "V", i: 0.5, r: 12, unidad: "V" },
+            { titulo: "Resistencia para LED", icono: "🛡️", color: "electro-green", tipo: "R", v: 12, i: 0.02, unidad: "Ω" },
+            { titulo: "Circuito de 12V", icono: "🚗", color: "electro-red", tipo: "I", v: 12, r: 240, unidad: "mA" },
+            { titulo: "Fuente de Poder", icono: "🔌", color: "electro-cyan", tipo: "V", i: 2, r: 6, unidad: "V" },
+            { titulo: "Resistencia Limitadora", icono: "⚡", color: "electro-yellow", tipo: "R", v: 9, i: 0.03, unidad: "Ω" },
+            { titulo: "Cargador USB", icono: "🔌", color: "electro-green", tipo: "I", v: 5, r: 50, unidad: "mA" },
+            { titulo: "Batería de Auto", icono: "🚗", color: "electro-red", tipo: "I", v: 12, r: 4, unidad: "A" },
+            { titulo: "Panel Solar", icono: "☀️", color: "electro-yellow", tipo: "V", i: 0.5, r: 12, unidad: "V" },
             { titulo: "Resistencia de Potencia", icono: "⚡", color: "orange", tipo: "P", v: 12, i: 0.5, unidad: "W" },
-            { titulo: "Circuito en Serie", icono: "", color: "blue", tipo: "R", v: 9, i: 0.03, unidad: "Ω" },
+            { titulo: "Circuito en Serie", icono: "🔗", color: "blue", tipo: "R", v: 9, i: 0.03, unidad: "Ω" },
             { titulo: "Circuito en Paralelo", icono: "🔀", color: "purple", tipo: "I", v: 12, r: 60, unidad: "mA" },
-            { titulo: "Divisor de Voltaje", icono: "⚖️", color: "cyan", tipo: "V", i: 0.01, r: 500, unidad: "V" },
-            { titulo: "Amplificador", icono: "🔊", color: "green", tipo: "I", v: 15, r: 300, unidad: "mA" },
-            { titulo: "Sensor de Temperatura", icono: "🌡️", color: "red", tipo: "R", v: 5, i: 0.01, unidad: "Ω" },
+            { titulo: "Divisor de Voltaje", icono: "⚖️", color: "electro-cyan", tipo: "V", i: 0.01, r: 500, unidad: "V" },
+            { titulo: "Amplificador", icono: "🔊", color: "electro-green", tipo: "I", v: 15, r: 300, unidad: "mA" },
+            { titulo: "Sensor de Temperatura", icono: "🌡️", color: "electro-red", tipo: "R", v: 5, i: 0.01, unidad: "Ω" },
             { titulo: "LED Azul", icono: "💡", color: "blue", tipo: "R", v: 5, i: 0.02, unidad: "Ω" },
-            { titulo: "Resistor de Precisión", icono: "🎯", color: "yellow", tipo: "V", i: 0.001, r: 1000, unidad: "V" },
+            { titulo: "Resistor de Precisión", icono: "🎯", color: "electro-yellow", tipo: "V", i: 0.001, r: 1000, unidad: "V" },
             { titulo: "Circuito Integrado", icono: "🔲", color: "purple", tipo: "I", v: 5, r: 250, unidad: "mA" },
-            { titulo: "Transistor NPN", icono: "🔺", color: "green", tipo: "R", v: 12, i: 0.05, unidad: "Ω" },
-            { titulo: "Diodo Zener", icono: "️", color: "red", tipo: "I", v: 5.1, r: 510, unidad: "mA" },
-            { titulo: "Capacitor Cargado", icono: "🔋", color: "cyan", tipo: "V", i: 0.1, r: 100, unidad: "V" },
+            { titulo: "Transistor NPN", icono: "🔺", color: "electro-green", tipo: "R", v: 12, i: 0.05, unidad: "Ω" },
+            { titulo: "Diodo Zener", icono: "⚡", color: "electro-red", tipo: "I", v: 5.1, r: 510, unidad: "mA" },
+            { titulo: "Capacitor Cargado", icono: "🔋", color: "electro-cyan", tipo: "V", i: 0.1, r: 100, unidad: "V" },
             { titulo: "Inductor", icono: "🌀", color: "blue", tipo: "R", v: 9, i: 0.09, unidad: "Ω" },
-            { titulo: "Relé", icono: "🔘", color: "yellow", tipo: "I", v: 12, r: 240, unidad: "mA" },
+            { titulo: "Relé", icono: "🔘", color: "electro-yellow", tipo: "I", v: 12, r: 240, unidad: "mA" },
             { titulo: "Transformador", icono: "⚡", color: "orange", tipo: "V", i: 1, r: 120, unidad: "V" },
-            { titulo: "Fusible", icono: "🛡️", color: "red", tipo: "R", v: 120, i: 10, unidad: "Ω" },
-            { titulo: "Breaker", icono: "🔒", color: "green", tipo: "I", v: 120, r: 12, unidad: "A" },
+            { titulo: "Fusible", icono: "🛡️", color: "electro-red", tipo: "R", v: 120, i: 10, unidad: "Ω" },
+            { titulo: "Breaker", icono: "🔒", color: "electro-green", tipo: "I", v: 120, r: 12, unidad: "A" },
             { titulo: "Potenciómetro", icono: "🎚️", color: "purple", tipo: "V", i: 0.01, r: 1000, unidad: "V" },
-            { titulo: "LDR (Sensor de Luz)", icono: "💡", color: "yellow", tipo: "R", v: 5, i: 0.005, unidad: "Ω" },
-            { titulo: "Termistor", icono: "🌡️", color: "red", tipo: "I", v: 5, r: 1000, unidad: "mA" },
-            { titulo: "Piezoeléctrico", icono: "", color: "cyan", tipo: "V", i: 0.001, r: 10000, unidad: "V" },
+            { titulo: "LDR (Sensor de Luz)", icono: "💡", color: "electro-yellow", tipo: "R", v: 5, i: 0.005, unidad: "Ω" },
+            { titulo: "Termistor", icono: "🌡️", color: "electro-red", tipo: "I", v: 5, r: 1000, unidad: "mA" },
+            { titulo: "Piezoeléctrico", icono: "🔊", color: "electro-cyan", tipo: "V", i: 0.001, r: 10000, unidad: "V" },
             { titulo: "Motor DC", icono: "⚙️", color: "blue", tipo: "R", v: 12, i: 0.5, unidad: "Ω" },
-            { titulo: "Servo Motor", icono: "", color: "green", tipo: "I", v: 5, r: 100, unidad: "mA" },
+            { titulo: "Servo Motor", icono: "⚙️", color: "electro-green", tipo: "I", v: 5, r: 100, unidad: "mA" },
             { titulo: "Step Motor", icono: "🔄", color: "purple", tipo: "V", i: 0.3, r: 40, unidad: "V" },
-            { titulo: "Buzzer", icono: "🔊", color: "yellow", tipo: "R", v: 5, i: 0.03, unidad: "Ω" },
-            { titulo: "Display 7 Segmentos", icono: "🔢", color: "red", tipo: "I", v: 5, r: 250, unidad: "mA" },
-            { titulo: "LCD", icono: "📟", color: "cyan", tipo: "V", i: 0.05, r: 100, unidad: "V" },
+            { titulo: "Buzzer", icono: "🔊", color: "electro-yellow", tipo: "R", v: 5, i: 0.03, unidad: "Ω" },
+            { titulo: "Display 7 Segmentos", icono: "🔢", color: "electro-red", tipo: "I", v: 5, r: 250, unidad: "mA" },
+            { titulo: "LCD", icono: "📟", color: "electro-cyan", tipo: "V", i: 0.05, r: 100, unidad: "V" },
             { titulo: "OLED", icono: "📱", color: "blue", tipo: "R", v: 3.3, i: 0.01, unidad: "Ω" },
-            { titulo: "WiFi Module", icono: "📶", color: "green", tipo: "I", v: 3.3, r: 33, unidad: "mA" },
+            { titulo: "WiFi Module", icono: "📶", color: "electro-green", tipo: "I", v: 3.3, r: 33, unidad: "mA" },
             { titulo: "Bluetooth", icono: "📡", color: "purple", tipo: "V", i: 0.02, r: 165, unidad: "V" },
-            { titulo: "GPS Module", icono: "🛰️", color: "yellow", tipo: "R", v: 5, i: 0.05, unidad: "Ω" },
-            { titulo: "Acelerómetro", icono: "📐", color: "red", tipo: "I", v: 3.3, r: 330, unidad: "mA" },
-            { titulo: "Giroscopio", icono: "🔄", color: "cyan", tipo: "V", i: 0.01, r: 330, unidad: "V" },
+            { titulo: "GPS Module", icono: "🛰️", color: "electro-yellow", tipo: "R", v: 5, i: 0.05, unidad: "Ω" },
+            { titulo: "Acelerómetro", icono: "📐", color: "electro-red", tipo: "I", v: 3.3, r: 330, unidad: "mA" },
+            { titulo: "Giroscopio", icono: "🔄", color: "electro-cyan", tipo: "V", i: 0.01, r: 330, unidad: "V" },
             { titulo: "Magnetómetro", icono: "🧭", color: "blue", tipo: "R", v: 3.3, i: 0.003, unidad: "Ω" },
-            { titulo: "Barómetro", icono: "🌡️", color: "green", tipo: "I", v: 3.3, r: 330, unidad: "mA" },
+            { titulo: "Barómetro", icono: "🌡️", color: "electro-green", tipo: "I", v: 3.3, r: 330, unidad: "mA" },
             { titulo: "Sensor de Humedad", icono: "💧", color: "purple", tipo: "V", i: 0.005, r: 660, unidad: "V" },
-            { titulo: "Sensor de Gas", icono: "💨", color: "yellow", tipo: "R", v: 5, i: 0.15, unidad: "Ω" },
-            { titulo: "Sensor Ultrasónico", icono: "📡", color: "red", tipo: "I", v: 5, r: 500, unidad: "mA" }
+            { titulo: "Sensor de Gas", icono: "💨", color: "electro-yellow", tipo: "R", v: 5, i: 0.15, unidad: "Ω" },
+            { titulo: "Sensor Ultrasónico", icono: "📡", color: "electro-red", tipo: "I", v: 5, r: 500, unidad: "mA" }
         ];
 
         // ============ SISTEMA DE EJEMPLOS ============
@@ -565,30 +583,30 @@
             
             const container = document.getElementById('ejemplo-actual');
             container.innerHTML = `
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm text-slate-400">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
-                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-green-400 text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-sm text-slate-400 font-bold">Ejemplo ${ejemploActual + 1} de ${ejemplosPracticos.length}</span>
+                    ${ejemplosCompletados.has(ejemploActual) ? '<span class="text-electro-green text-sm font-bold"><i class="fas fa-check-circle mr-1"></i>Completado</span>' : ''}
                 </div>
                 
-                <h3 class="text-xl font-bold mb-3 text-${ej.color}-400">
+                <h3 class="text-2xl font-bold mb-4 text-${ej.color}">
                     ${ej.icono} ${ej.titulo}
                 </h3>
                 
-                <p class="text-slate-300 mb-4">${pregunta}</p>
+                <p class="text-slate-300 mb-6 text-lg">${pregunta}</p>
                 
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <p class="text-sm text-slate-400 mb-2">Tu respuesta:</p>
-                    <div class="flex gap-2">
+                <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/30">
+                    <p class="text-sm text-slate-400 mb-3 font-bold">Tu respuesta:</p>
+                    <div class="flex gap-3">
                         <input type="number" id="respuesta-actual" 
                                placeholder="Ingresa la respuesta en ${ej.unidad}" 
-                               class="flex-1 p-3 bg-slate-700 rounded border border-slate-600 text-white text-lg"
+                               class="flex-1 p-4 bg-electro-blue rounded-lg border border-electro-cyan/30 text-white text-lg focus:outline-none focus:border-electro-cyan"
                                onkeypress="if(event.key==='Enter') verificarEjemploActual(${respuestaCorrecta}, '${ej.unidad}', '${ej.tipo}', ${ej.v || 0}, ${ej.r || 0}, ${ej.i || 0})">
                         <button onclick="verificarEjemploActual(${respuestaCorrecta}, '${ej.unidad}', '${ej.tipo}', ${ej.v || 0}, ${ej.r || 0}, ${ej.i || 0})" 
-                                class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded transition">
+                                class="bg-electro-cyan hover:bg-cyan-400 text-electro-dark font-bold py-4 px-8 rounded-lg transition shadow-lg shadow-electro-cyan/20">
                             Verificar
                         </button>
                     </div>
-                    <div id="resultado-actual" class="mt-3 hidden"></div>
+                    <div id="resultado-actual" class="mt-4 hidden"></div>
                 </div>
             `;
             
@@ -604,8 +622,8 @@
             if (isNaN(respuesta)) {
                 resultadoDiv.classList.remove('hidden');
                 resultadoDiv.innerHTML = `
-                    <div class="bg-yellow-900 border-2 border-yellow-500 p-3 rounded">
-                        <p class="font-bold text-yellow-400">⚠️ Ingresa un número</p>
+                    <div class="bg-electro-yellow/20 border-2 border-electro-yellow p-4 rounded-lg">
+                        <p class="font-bold text-electro-yellow text-lg">⚠️ Ingresa un número</p>
                     </div>
                 `;
                 return;
@@ -625,9 +643,9 @@
                 else formula = `P = V×I = ${v}V × ${i}A = ${correcta.toFixed(2)} ${unidad}`;
                 
                 resultadoDiv.innerHTML = `
-                    <div class="bg-green-900 border-2 border-green-500 p-3 rounded">
-                        <p class="font-bold text-green-400">✅ ¡Correcto!</p>
-                        <p class="text-sm text-slate-300">${formula}</p>
+                    <div class="bg-electro-green/20 border-2 border-electro-green p-4 rounded-lg">
+                        <p class="font-bold text-electro-green text-lg">✅ ¡Correcto!</p>
+                        <p class="text-slate-200 mt-2">${formula}</p>
                     </div>
                 `;
                 actualizarProgreso();
@@ -645,10 +663,10 @@
                 else formula = `P = V×I = ${v}V × ${i}A`;
                 
                 resultadoDiv.innerHTML = `
-                    <div class="bg-red-900 border-2 border-red-500 p-3 rounded">
-                        <p class="font-bold text-red-400">❌ Incorrecto</p>
-                        <p class="text-sm text-slate-300">La respuesta correcta es <strong>${correcta.toFixed(2)} ${unidad}</strong></p>
-                        <p class="text-xs text-slate-400 mt-1">Fórmula: ${formula} = ${correcta.toFixed(2)} ${unidad}</p>
+                    <div class="bg-electro-red/20 border-2 border-electro-red p-4 rounded-lg">
+                        <p class="font-bold text-electro-red text-lg">❌ Incorrecto</p>
+                        <p class="text-slate-200 mt-2">La respuesta correcta es <strong>${correcta.toFixed(2)} ${unidad}</strong></p>
+                        <p class="text-sm text-slate-400 mt-2">Fórmula: ${formula} = ${correcta.toFixed(2)} ${unidad}</p>
                     </div>
                 `;
             }
@@ -756,13 +774,13 @@
                 const opcionesMezcladas = mezclarArray(opcionesConIndice);
                 
                 const preguntaHTML = `
-                    <div class="bg-slate-900 p-4 rounded-lg" data-pregunta="${index}">
-                        <p class="font-semibold mb-3">${index + 1}. ${pregunta.pregunta}</p>
-                        <div class="space-y-2">
+                    <div class="bg-electro-dark/60 p-6 rounded-xl border border-electro-cyan/20" data-pregunta="${index}">
+                        <p class="font-semibold mb-4 text-lg">${index + 1}. ${pregunta.pregunta}</p>
+                        <div class="space-y-3">
                             ${opcionesMezcladas.map((opcion, opIndex) => `
                                 <button onclick="seleccionarRespuesta(${index}, this)" 
                                         data-es-correcta="${opcion.esCorrecta}"
-                                        class="w-full text-left p-3 bg-slate-700 rounded hover:bg-slate-600 transition opcion-btn">
+                                        class="w-full text-left p-4 bg-electro-blue/40 rounded-lg hover:bg-electro-blue border border-electro-cyan/20 transition opcion-btn text-slate-200">
                                     ${opcion.texto}
                                 </button>
                             `).join('')}
@@ -792,18 +810,18 @@
                 btn.disabled = true;
                 btn.classList.add('opacity-50');
                 if (btn.dataset.esCorrecta === 'true') {
-                    btn.classList.remove('bg-slate-700', 'opacity-50');
-                    btn.classList.add('bg-green-600');
+                    btn.classList.remove('bg-electro-blue/40', 'opacity-50');
+                    btn.classList.add('bg-electro-green/30', 'border-electro-green');
                 }
             });
             
             if (esCorrecta) {
                 correctas++;
-                boton.classList.remove('bg-slate-700', 'opacity-50');
-                boton.classList.add('bg-green-600');
+                boton.classList.remove('bg-electro-blue/40', 'opacity-50');
+                boton.classList.add('bg-electro-green/30', 'border-electro-green');
             } else {
-                boton.classList.remove('bg-slate-700', 'opacity-50');
-                boton.classList.add('bg-red-600');
+                boton.classList.remove('bg-electro-blue/40', 'opacity-50');
+                boton.classList.add('bg-electro-red/30', 'border-electro-red');
             }
         }
 
@@ -817,32 +835,32 @@
             const resultadoDiv = document.getElementById('resultado-quiz');
             
             let mensaje, color, emoji;
-            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas la Ley de Ohm'; color = 'green'; emoji = '🏆'; }
-            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'blue'; emoji = '👍'; }
-            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar'; color = 'orange'; emoji = '📚'; }
-            else { mensaje = 'Estudia nuevamente el módulo'; color = 'red'; emoji = '⚠️'; }
+            if (porcentaje >= 90) { mensaje = '¡Excelente! Dominas la Ley de Ohm'; color = 'electro-green'; emoji = '🏆'; }
+            else if (porcentaje >= 70) { mensaje = '¡Bien hecho!'; color = 'electro-cyan'; emoji = '👍'; }
+            else if (porcentaje >= 50) { mensaje = 'Necesitas repasar'; color = 'electro-yellow'; emoji = '📚'; }
+            else { mensaje = 'Estudia nuevamente el módulo'; color = 'electro-red'; emoji = '⚠️'; }
             
             let explicacionesHTML = preguntasActuales.map((p, i) => {
                 const esCorrecta = respuestasSeleccionadas[i];
                 return `
-                    <div class="bg-slate-900 p-3 rounded mb-2 ${esCorrecta ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}">
-                        <p class="font-semibold text-sm">${i + 1}. ${p.pregunta}</p>
-                        <p class="text-xs mt-1 ${esCorrecta ? 'text-green-400' : 'text-red-400'}">
+                    <div class="bg-electro-dark/60 p-4 rounded-lg mb-3 ${esCorrecta ? 'border-l-4 border-electro-green' : 'border-l-4 border-electro-red'}">
+                        <p class="font-semibold text-sm mb-1">${i + 1}. ${p.pregunta}</p>
+                        <p class="text-xs ${esCorrecta ? 'text-electro-green' : 'text-electro-red'} font-bold">
                             ${esCorrecta ? '✓ Correcta' : '✗ Incorrecta'}
                         </p>
-                        <p class="text-xs text-slate-400 mt-1"><em>${p.explicacion}</em></p>
+                        <p class="text-xs text-slate-400 mt-2"><em>${p.explicacion}</em></p>
                     </div>
                 `;
             }).join('');
             
             resultadoDiv.innerHTML = `
-                <div class="bg-${color}-900 border-2 border-${color}-500 p-6 rounded-lg text-center mb-4">
-                    <p class="text-4xl mb-2">${emoji}</p>
-                    <h3 class="text-2xl font-bold text-${color}-400 mb-2">${mensaje}</h3>
-                    <p class="text-3xl font-bold text-white">${correctas} de 10 (${porcentaje}%)</p>
+                <div class="bg-${color}/20 border-2 border-${color} p-8 rounded-2xl text-center mb-6">
+                    <p class="text-5xl mb-3">${emoji}</p>
+                    <h3 class="text-3xl font-bold text-${color} mb-2">${mensaje}</h3>
+                    <p class="text-4xl font-extrabold text-white">${correctas} de 10 (${porcentaje}%)</p>
                 </div>
-                <div class="mt-4">
-                    <h3 class="font-bold text-lg mb-3 text-cyan-400">Revisión de Respuestas:</h3>
+                <div class="mt-6">
+                    <h3 class="font-bold text-xl mb-4 text-electro-cyan">Revisión de Respuestas:</h3>
                     ${explicacionesHTML}
                 </div>
             `;
