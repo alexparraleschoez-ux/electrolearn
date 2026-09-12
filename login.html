@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - ElectroLearn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'electro-dark': '#0A1628',
+                        'electro-blue': '#1E3A8A',
+                        'electro-circuit': '#1E40AF',
+                        'electro-yellow': '#FACC15',
+                        'electro-cyan': '#00D4FF',
+                        'electro-green': '#00FF88',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.6), 0 0 60px rgba(250, 204, 21, 0.3); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .logo-float { animation: float 4s ease-in-out infinite; }
+        .card-glow { animation: pulse-glow 3s ease-in-out infinite; }
+        .shake-error { animation: shake 0.5s ease-in-out; }
+        
+        .glass-login {
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        
+        .input-electric:focus {
+            border-color: #00D4FF;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Fondo animado */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-electro-dark text-white font-body min-h-screen flex items-center justify-center p-4 bg-grid relative overflow-hidden">
+
+    <!-- Efectos de fondo -->
+    <div class="absolute top-0 left-0 w-96 h-96 bg-electro-cyan/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-electro-yellow/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+    <!-- Tarjeta de Login -->
+    <div class="glass-login w-full max-w-md p-8 rounded-3xl relative z-10 card-glow">
+        
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <div class="inline-block p-4 bg-electro-dark/50 rounded-2xl border border-electro-cyan/30 mb-4 logo-float">
+                <!-- Reemplaza esta ruta con la de tu logo real -->
+                <img src="multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-24 w-auto mx-auto drop-shadow-[0_0_15px_rgba(0,212,255,0.5)]" onerror="this.src='https://via.placeholder.com/150x80/0A1628/00D4FF?text=ElectroLearn'">
+            </div>
+            <h1 class="text-3xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-electro-cyan to-electro-yellow">
+                ElectroLearn
+            </h1>
+            <p class="text-slate-400 mt-2 text-sm">Repositorio Digital Interactivo</p>
+        </div>
+
+        <!-- Formulario -->
+        <form id="loginForm" class="space-y-6">
+            <div>
+                <label class="block text-sm font-bold text-electro-cyan mb-2 uppercase tracking-wider">
+                    <i class="fas fa-user mr-2"></i>Usuario
+                </label>
+                <input type="text" id="usuario" required 
+                       class="input-electric w-full bg-electro-dark/80 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none transition-all duration-300"
+                       placeholder="Ej: Alex Parrales">
+            </div>
+
+            <div>
+                <label class="block text-sm font-bold text-electro-cyan mb-2 uppercase tracking-wider">
+                    <i class="fas fa-lock mr-2"></i>Contraseña
+                </label>
+                <div class="relative">
+                    <input type="password" id="contrasena" required 
+                           class="input-electric w-full bg-electro-dark/80 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none transition-all duration-300"
+                           placeholder="Ingresa tu nombre">
+                    <button type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-electro-cyan transition">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+                <p class="text-xs text-electro-yellow mt-2 flex items-center">
+                    <i class="fas fa-lightbulb mr-1"></i> 
+                    Pista: Tu contraseña es tu propio nombre.
+                </p>
+            </div>
+
+            <!-- Mensaje de error -->
+            <div id="errorMsg" class="hidden bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-xl text-sm text-center">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                <span id="errorText">La contraseña debe ser igual a tu nombre.</span>
+            </div>
+
+            <button type="submit" 
+                    class="w-full bg-gradient-to-r from-electro-cyan to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-electro-dark font-extrabold py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-electro-cyan/25 flex items-center justify-center gap-2">
+                <span>Ingresar al Laboratorio</span>
+                <i class="fas fa-bolt"></i>
+            </button>
+        </form>
+
+        <div class="mt-6 text-center">
+            <p class="text-xs text-slate-500">
+                © 2026 ElectroLearn - Grupo 3B Informática
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar/Ocultar contraseña
+        function togglePassword() {
+            const input = document.getElementById('contrasena');
+            const icon = document.getElementById('eyeIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Lógica de Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const usuario = document.getElementById('usuario').value.trim();
+            const contrasena = document.getElementById('contrasena').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+            const card = document.querySelector('.glass-login');
+
+            // Validación: La contraseña debe ser igual al nombre del usuario (insensible a mayúsculas)
+            if (usuario.toLowerCase() === contrasena.toLowerCase() && usuario.length > 0) {
+                // Éxito: Guardar en localStorage y redirigir
+                localStorage.setItem('electrolearn_user', usuario);
+                
+                // Efecto visual de éxito
+                card.style.borderColor = '#00FF88';
+                card.style.boxShadow = '0 0 40px rgba(0, 255, 136, 0.4)';
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 800);
+            } else {
+                // Error: Mostrar mensaje y animación de sacudida
+                errorMsg.classList.remove('hidden');
+                document.getElementById('errorText').textContent = 'La contraseña debe ser exactamente tu nombre.';
+                
+                card.classList.add('shake-error');
+                setTimeout(() => {
+                    card.classList.remove('shake-error');
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>

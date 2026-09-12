@@ -38,6 +38,14 @@
             }
         }
     </script>
+    
+    <!-- VERIFICACIÓN DE SESIÓN -->
+    <script>
+        if (!localStorage.getItem('electrolearn_user')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
     <style>
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
@@ -59,19 +67,16 @@
 </head>
 <body class="bg-electro-dark text-white font-body">
 
-    <!-- HEADER FIJO CON LOGO GRANDE -->
+    <!-- HEADER FIJO CON LOGO, NAVEGACIÓN Y USUARIO -->
     <header class="bg-gradient-to-r from-electro-blue via-electro-circuit to-electro-blue p-4 shadow-2xl sticky top-0 z-50 border-b-4 border-electro-yellow">
-        <div class="container mx-auto flex justify-between items-center">
+        <div class="container mx-auto flex flex-col xl:flex-row justify-between items-center gap-4">
             <a href="index.html" class="flex items-center logo-float">
-                <img src="multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-16 md:h-20 w-auto drop-shadow-lg">
+                <img src="multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-16 md:h-20 w-auto drop-shadow-lg" onerror="this.style.display='none'">
+                <span class="text-2xl font-heading font-extrabold text-white ml-3">ElectroLearn</span>
             </a>
             
-            <button id="menu-btn" class="md:hidden text-2xl text-electro-yellow focus:outline-none">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <nav>
-                <ul id="menu" class="hidden md:flex gap-8 font-bold text-lg">
+            <nav class="w-full xl:w-auto">
+                <ul class="flex flex-wrap justify-center xl:justify-end gap-4 xl:gap-8 font-bold text-lg">
                     <li><a href="#inicio" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Inicio</a></li>
                     <li><a href="#modulos" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Módulos</a></li>
                     <li><a href="videos.html" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Videos</a></li>
@@ -79,6 +84,16 @@
                     <li><a href="#progreso" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Mi Progreso</a></li>
                 </ul>
             </nav>
+
+            <div class="flex items-center gap-4 bg-electro-dark/40 px-4 py-2 rounded-full border border-electro-cyan/30 w-full xl:w-auto justify-center xl:justify-end">
+                <div class="text-right">
+                    <p class="text-xs text-slate-400 uppercase tracking-wider">Bienvenido</p>
+                    <p id="user-display" class="text-sm font-bold text-electro-cyan truncate max-w-[120px] sm:max-w-none">Usuario</p>
+                </div>
+                <button onclick="cerrarSesion()" class="bg-electro-red/20 hover:bg-electro-red/40 text-electro-red border border-electro-red/50 px-4 py-2 rounded-lg font-bold transition-all flex items-center gap-2" title="Cerrar Sesión">
+                    <i class="fas fa-sign-out-alt"></i> <span class="hidden sm:inline">Salir</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -239,6 +254,20 @@
         <p class="text-slate-400 text-sm mt-4">Bachiller en Informática - Soporte Informático</p>
     </footer>
 
+    <!-- SCRIPTS DE SESIÓN Y FUNCIONALIDAD -->
+    <script>
+        // Mostrar nombre del usuario en el header
+        const usuarioLogueado = localStorage.getItem('electrolearn_user');
+        if (usuarioLogueado) {
+            document.getElementById('user-display').textContent = usuarioLogueado;
+        }
+
+        // Función para cerrar sesión
+        function cerrarSesion() {
+            localStorage.removeItem('electrolearn_user');
+            window.location.href = 'login.html';
+        }
+    </script>
     <script src="js/main.js"></script>
 </body>
 </html>
