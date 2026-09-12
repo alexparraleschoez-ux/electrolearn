@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Videos educativos de electricidad y electrónica">
+    <title>Videos Educativos - ElectroLearn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'electro-dark': '#0f172a',
+                        'electro-yellow': '#facc15',
+                        'electro-cyan': '#22d3ee',
+                        'electro-green': '#4ade80',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-animate { animation: fadeInUp 0.6s ease-out; }
+        .video-card {
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-color: #22d3ee;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-electro-dark text-white font-body min-h-screen">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-600 p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-heading font-bold flex items-center">
+                <i class="fas fa-bolt mr-2 text-electro-yellow"></i> ElectroLearn
+            </a>
+            <nav class="hidden md:flex gap-6 font-semibold">
+                <a href="index.html" class="hover:text-electro-yellow transition">Inicio</a>
+                <a href="index.html#modulos" class="hover:text-electro-yellow transition">Módulos</a>
+                <a href="videos.html" class="text-electro-yellow">Videos</a>
+                <a href="modulos/modulo10-laboratorio/index.html" class="hover:text-electro-yellow transition">Simuladores</a>
+                <a href="index.html#progreso" class="hover:text-electro-yellow transition">Mi Progreso</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- TÍTULO -->
+    <section class="py-8 text-center px-4 section-animate">
+        <h1 class="text-3xl md:text-5xl font-heading font-bold mb-2">
+            <i class="fab fa-youtube text-red-500 mr-2"></i> Videos Educativos
+        </h1>
+        <p class="text-slate-300 text-lg">Aprende con videos tutoriales de YouTube organizados por módulo</p>
+    </section>
+
+    <div class="container mx-auto px-4 pb-16 space-y-12">
+
+        <!-- MÓDULO 1 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-cyan-400">
+                <i class="fas fa-wave-square mr-2"></i>Módulo 1: Corriente Eléctrica
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/XuTJ6Ze0S1Y" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">¿Qué es la Corriente Eléctrica?</h3>
+                    <p class="text-sm text-slate-400">Explicación completa sobre corriente eléctrica, voltaje y resistencia.</p>
+                    <a href="https://www.youtube.com/watch?v=XuTJ6Ze0S1Y" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/3X1VqKzKhJg" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Corriente Continua vs Alterna</h3>
+                    <p class="text-sm text-slate-400">Diferencias entre CC y CA con ejemplos prácticos.</p>
+                    <a href="https://www.youtube.com/watch?v=3X1VqKzKhJg" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 2 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-green-400">
+                <i class="fas fa-calculator mr-2"></i>Módulo 2: Ley de Ohm
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/fPz9D8bqJhU" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Ley de Ohm Explicada</h3>
+                    <p class="text-sm text-slate-400">Fórmula V = I × R explicada paso a paso con ejemplos.</p>
+                    <a href="https://www.youtube.com/watch?v=fPz9D8bqJhU" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/HVvYCZmZw8o" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Triángulo de la Ley de Ohm</h3>
+                    <p class="text-sm text-slate-400">Cómo usar el triángulo para calcular V, I y R fácilmente.</p>
+                    <a href="https://www.youtube.com/watch?v=HVvYCZmZw8o" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 3 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-purple-400">
+                <i class="fas fa-microchip mr-2"></i>Módulo 3: Componentes
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/6jD0KzGRCe0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Resistencias y Código de Colores</h3>
+                    <p class="text-sm text-slate-400">Cómo leer el código de colores de las resistencias.</p>
+                    <a href="https://www.youtube.com/watch?v=6jD0KzGRCe0" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/7Hx8VAzHjKw" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Capacitores y Condensadores</h3>
+                    <p class="text-sm text-slate-400">Funcionamiento y tipos de capacitores.</p>
+                    <a href="https://www.youtube.com/watch?v=7Hx8VAzHjKw" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/QpXZz5VKS9o" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Diodos y LEDs</h3>
+                    <p class="text-sm text-slate-400">Introducción a diodos y LEDs en electrónica.</p>
+                    <a href="https://www.youtube.com/watch?v=QpXZz5VKS9o" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 4 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-red-400">
+                <i class="fas fa-project-diagram mr-2"></i>Módulo 4: Circuitos
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/m78lZAbwDtM" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Circuitos en Serie</h3>
+                    <p class="text-sm text-slate-400">Características y cálculo de circuitos en serie.</p>
+                    <a href="https://www.youtube.com/watch?v=m78lZAbwDtM" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/9TzjqfSsr0I" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Circuitos en Paralelo</h3>
+                    <p class="text-sm text-slate-400">Características y cálculo de circuitos en paralelo.</p>
+                    <a href="https://www.youtube.com/watch?v=9TzjqfSsr0I" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 5 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-orange-400">
+                <i class="fas fa-tools mr-2"></i>Módulo 5: Herramientas
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/4qXRVqDLqW8" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Cómo Usar el Multímetro</h3>
+                    <p class="text-sm text-slate-400">Tutorial completo para usar multímetro digital.</p>
+                    <a href="https://www.youtube.com/watch?v=4qXRVqDLqW8" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/8jYzXqJqJqY" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Cómo Soldar Correctamente</h3>
+                    <p class="text-sm text-slate-400">Técnicas de soldadura para electrónica.</p>
+                    <a href="https://www.youtube.com/watch?v=8jYzXqJqJqY" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/9kZKzKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Uso del Protoboard</h3>
+                    <p class="text-sm text-slate-400">Cómo usar protoboard para armar circuitos.</p>
+                    <a href="https://www.youtube.com/watch?v=9kZKzKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 6 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-pink-400">
+                <i class="fas fa-microchip mr-2"></i>Módulo 6: Componentes Avanzados
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/5kZKzKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Transistores BJT Explicados</h3>
+                    <p class="text-sm text-slate-400">Funcionamiento de transistores NPN y PNP.</p>
+                    <a href="https://www.youtube.com/watch?v=5kZKzKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/6kZKzKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Circuitos Integrados 555</h3>
+                    <p class="text-sm text-slate-400">Timer 555 y sus aplicaciones.</p>
+                    <a href="https://www.youtube.com/watch?v=6kZKzKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 7 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-yellow-400">
+                <i class="fas fa-bolt mr-2"></i>Módulo 7: Fuentes de Poder
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/7kZKzKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Fuentes de Poder Lineales</h3>
+                    <p class="text-sm text-slate-400">Transformadores, rectificadores y reguladores.</p>
+                    <a href="https://www.youtube.com/watch?v=7kZKzKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/8kZKzKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Fuentes Switching</h3>
+                    <p class="text-sm text-slate-400">Fuentes conmutadas y su funcionamiento.</p>
+                    <a href="https://www.youtube.com/watch?v=8kZKzKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 8 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-indigo-400">
+                <i class="fas fa-wave-square mr-2"></i>Módulo 8: Señales y Ondas
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/9kZKzKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Señales Analógicas vs Digitales</h3>
+                    <p class="text-sm text-slate-400">Diferencias y características de cada tipo.</p>
+                    <a href="https://www.youtube.com/watch?v=9kZKzKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/10kZKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">PWM - Modulación por Ancho de Pulso</h3>
+                    <p class="text-sm text-slate-400">Qué es PWM y cómo funciona.</p>
+                    <a href="https://www.youtube.com/watch?v=10kZKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 9 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-teal-400">
+                <i class="fas fa-robot mr-2"></i>Módulo 9: Arduino Básico
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/11kZKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Introducción a Arduino</h3>
+                    <p class="text-sm text-slate-400">Qué es Arduino y cómo empezar.</p>
+                    <a href="https://www.youtube.com/watch?v=11kZKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/12kZKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Tu Primer Programa en Arduino</h3>
+                    <p class="text-sm text-slate-400">LED Blink - Primer proyecto.</p>
+                    <a href="https://www.youtube.com/watch?v=12kZKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/13kZKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Sensores con Arduino</h3>
+                    <p class="text-sm text-slate-400">Conexión y uso de sensores básicos.</p>
+                    <a href="https://www.youtube.com/watch?v=13kZKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 10 -->
+        <div class="bg-slate-800 p-6 rounded-xl shadow-xl section-animate">
+            <h2 class="text-2xl font-heading font-bold mb-6 text-blue-400">
+                <i class="fas fa-flask mr-2"></i>Módulo 10: Laboratorio Virtual
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/14kZKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Tinkercad Circuits Tutorial</h3>
+                    <p class="text-sm text-slate-400">Cómo usar Tinkercad para simular circuitos.</p>
+                    <a href="https://www.youtube.com/watch?v=14kZKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+                <div class="video-card bg-slate-900 p-4 rounded-lg">
+                    <div class="video-wrapper mb-3">
+                        <iframe src="https://www.youtube.com/embed/15kZKzKzKz" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <h3 class="font-bold mb-2">Simuladores PhET</h3>
+                    <p class="text-sm text-slate-400">Uso de simuladores PhET para aprender electrónica.</p>
+                    <a href="https://www.youtube.com/watch?v=15kZKzKzKz" target="_blank" class="text-electro-cyan text-sm hover:underline mt-2 block">
+                        Ver en YouTube <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 p-8 text-center border-t border-slate-800">
+        <p class="text-lg font-semibold">© 2026 ElectroLearn - Proyecto de Grado</p>
+        <p class="text-slate-400 mt-2">Desarrollado por el Grupo 3B Informática</p>
+        <p class="text-slate-500 text-sm mt-4">Bachiller en Informática - Soporte Informático</p>
+    </footer>
+
+</body>
+</html>
