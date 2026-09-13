@@ -68,7 +68,7 @@
 <body class="bg-electro-dark text-white font-body">
 
     <!-- ========================================== -->
-    <!-- TOAST DE BIENVENIDA (NUEVO)                -->
+    <!-- TOAST DE BIENVENIDA                        -->
     <!-- ========================================== -->
     <div id="welcome-toast" class="fixed top-4 right-4 md:top-6 md:right-6 z-[100] transform translate-x-[150%] opacity-0 transition-all duration-500 ease-out">
         <div class="bg-electro-dark/95 backdrop-blur-md border-l-4 border-electro-cyan text-white px-5 py-4 rounded-lg shadow-2xl flex items-center gap-4 min-w-[300px] md:min-w-[350px]">
@@ -98,6 +98,8 @@
                 <ul class="flex flex-wrap justify-center xl:justify-end gap-4 xl:gap-8 font-bold text-lg">
                     <li><a href="#inicio" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Inicio</a></li>
                     <li><a href="#modulos" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Módulos</a></li>
+                    <!-- NUEVO ENLACE AGREGADO AQUÍ -->
+                    <li><a href="conceptuales.html" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Conceptuales</a></li>
                     <li><a href="videos.html" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Videos</a></li>
                     <li><a href="modulos/modulo10-laboratorio/index.html" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Simuladores</a></li>
                     <li><a href="#progreso" class="text-white hover:text-electro-yellow transition-all duration-300 hover:scale-110">Mi Progreso</a></li>
@@ -287,17 +289,16 @@
             window.location.href = 'login.html';
         }
 
-        // 3. LÓGICA DEL TOAST DE BIENVENIDA (NUEVO)
+        // 3. LÓGICA DEL TOAST DE BIENVENIDA
         document.addEventListener('DOMContentLoaded', () => {
             const usuario = localStorage.getItem('electrolearn_user');
             if (usuario) {
                 // Insertar nombre en el toast
                 document.getElementById('toast-username').textContent = usuario;
                 
-                // Mostrar el toast después de 600ms (para que la carga de la página sea suave)
+                // Mostrar el toast después de 600ms
                 setTimeout(() => {
                     const toast = document.getElementById('welcome-toast');
-                    // Quitamos las clases que lo ocultan y agregamos las que lo muestran
                     toast.classList.remove('translate-x-[150%]', 'opacity-0');
                     toast.classList.add('translate-x-0', 'opacity-100');
                     
@@ -312,7 +313,6 @@
         // Función para cerrar el toast manualmente
         function closeToast() {
             const toast = document.getElementById('welcome-toast');
-            // Invertimos las clases para que se deslice hacia afuera
             toast.classList.remove('translate-x-0', 'opacity-100');
             toast.classList.add('translate-x-[150%]', 'opacity-0');
         }

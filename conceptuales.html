@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contenidos Conceptuales - ElectroLearn</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'heading': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'electro-dark': '#0A1628',
+                        'electro-blue': '#1E3A8A',
+                        'electro-circuit': '#1E40AF',
+                        'electro-yellow': '#FACC15',
+                        'electro-cyan': '#00D4FF',
+                        'electro-green': '#00FF88',
+                        'electro-red': '#FF4444',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0A1628 0%, #1E3A8A 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #FACC15 0%, #00D4FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .module-card {
+            transition: all 0.3s ease;
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background: rgba(250, 204, 21, 0.2);
+            transform: scale(1.05);
+        }
+        .nav-button.active {
+            background: rgba(0, 212, 255, 0.3);
+            border-color: #00D4FF;
+        }
+    </style>
+</head>
+<body class="text-white font-body min-h-screen">
+
+    <!-- HEADER (Rutas corregidas a raíz) -->
+    <header class="bg-gradient-to-r from-electro-blue via-electro-circuit to-electro-blue p-4 shadow-2xl sticky top-0 z-50 border-b-4 border-electro-yellow">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <a href="index.html" class="flex items-center">
+                <img src="multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-16 w-auto drop-shadow-lg" onerror="this.style.display='none'">
+                <span class="text-2xl font-heading font-extrabold text-white ml-3">ElectroLearn</span>
+            </a>
+            
+            <nav>
+                <ul class="flex flex-wrap justify-center gap-6 font-bold text-lg">
+                    <li><a href="index.html" class="text-white hover:text-electro-yellow transition-all">Inicio</a></li>
+                    <li><a href="index.html#modulos" class="text-white hover:text-electro-yellow transition-all">Módulos</a></li>
+                    <li><a href="conceptuales.html" class="text-electro-yellow transition-all">Conceptuales</a></li>
+                    <li><a href="index.html#progreso" class="text-white hover:text-electro-yellow transition-all">Mi Progreso</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="py-16 text-center px-4">
+        <h1 class="text-4xl md:text-6xl font-heading font-extrabold mb-6">
+            Contenidos <span class="gradient-text">Conceptuales</span>
+        </h1>
+        <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+            Fundamentos teóricos alineados al Módulo de Especialización Nro. 5: Fundamentos Básicos de Electricidad y Electrónica.
+        </p>
+    </section>
+
+    <!-- NAVEGACIÓN DE MÓDULOS -->
+    <section class="container mx-auto px-4 mb-12">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+            <button onclick="showModule(1)" class="nav-button active bg-electro-blue/50 border-2 border-electro-cyan/30 p-3 rounded-lg font-bold text-sm md:text-base">
+                <i class="fas fa-bolt mr-2 text-electro-cyan"></i>1. Fundamentos
+            </button>
+            <button onclick="showModule(2)" class="nav-button bg-electro-blue/50 border-2 border-electro-green/30 p-3 rounded-lg font-bold text-sm md:text-base">
+                <i class="fas fa-calculator mr-2 text-electro-green"></i>2. Ley de Ohm
+            </button>
+            <button onclick="showModule(3)" class="nav-button bg-electro-blue/50 border-2 border-purple-400/30 p-3 rounded-lg font-bold text-sm md:text-base">
+                <i class="fas fa-microchip mr-2 text-purple-400"></i>3. Componentes
+            </button>
+            <button onclick="showModule(4)" class="nav-button bg-electro-blue/50 border-2 border-electro-red/30 p-3 rounded-lg font-bold text-sm md:text-base">
+                <i class="fas fa-project-diagram mr-2 text-electro-red"></i>4. Circuitos
+            </button>
+            <button onclick="showModule(5)" class="nav-button bg-electro-blue/50 border-2 border-orange-400/30 p-3 rounded-lg font-bold text-sm md:text-base">
+                <i class="fas fa-exclamation-triangle mr-2 text-orange-400"></i>5. Riesgos
+            </button>
+            <button onclick="showModule(6)" class="nav-button bg-electro-blue/50 border-2 border-pink-400/30 p-3 rounded-lg font-bold text-sm md:text-base">
+                <i class="fas fa-shield-alt mr-2 text-pink-400"></i>6. Protección
+            </button>
+            <button onclick="showModule(7)" class="nav-button bg-electro-blue/50 border-2 border-electro-yellow/30 p-3 rounded-lg font-bold text-sm md:text-base">
+                <i class="fas fa-tools mr-2 text-electro-yellow"></i>7. Mantenimiento
+            </button>
+            <button onclick="showModule(8)" class="nav-button bg-electro-blue/50 border-2 border-indigo-400/30 p-3 rounded-lg font-bold text-sm md:text-base">
+                <i class="fas fa-first-aid mr-2 text-indigo-400"></i>8. Emergencias
+            </button>
+            <button onclick="showModule(9)" class="nav-button bg-electro-blue/50 border-2 border-teal-400/30 p-3 rounded-lg font-bold text-sm md:text-base">
+                <i class="fas fa-robot mr-2 text-teal-400"></i>9. Electrónica/Arduino
+            </button>
+            <button onclick="showModule(10)" class="nav-button bg-gradient-to-br from-electro-cyan to-purple-600 border-2 border-white/50 p-3 rounded-lg font-bold text-sm md:text-base">
+                <i class="fas fa-flask mr-2 text-electro-yellow"></i>10. Lab. Virtual
+            </button>
+        </div>
+    </section>
+
+    <!-- CONTENIDO DE MÓDULOS (Alineado al PDF MINEDUC) -->
+    <section class="container mx-auto px-4 pb-20">
+        
+        <!-- MÓDULO 1: FUNDAMENTOS ELÉCTRICOS -->
+        <div id="module-1" class="content-section active">
+            <div class="module-card bg-electro-blue/30 backdrop-blur-lg rounded-2xl p-8 border-2 border-electro-cyan/30">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-bolt text-5xl text-electro-cyan mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-heading font-extrabold text-electro-cyan">Módulo 1: Fundamentos de Electricidad</h2>
+                        <p class="text-slate-300">Principios básicos y tipos de corriente (Currículo Oficial)</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-slate-200">
+                    <div class="bg-electro-dark/50 p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-book mr-2"></i>Magnitudes Fundamentales</h3>
+                        <ul class="space-y-3">
+                            <li><strong class="text-electro-cyan">Tensión/Voltaje (V):</strong> Fuerza que impulsa los electrones, medida en Voltios (V).</li>
+                            <li><strong class="text-electro-cyan">Corriente (I):</strong> Flujo de carga eléctrica, medida en Amperios (A).</li>
+                            <li><strong class="text-electro-cyan">Resistencia (R):</strong> Oposición al paso de la corriente, medida en Ohmios (Ω).</li>
+                            <li><strong class="text-electro-cyan">Potencia (P):</strong> Tasa de transferencia de energía, medida en Watts (W).</li>
+                            <li><strong class="text-electro-cyan">Energía:</strong> Capacidad de realizar trabajo eléctrico (kWh o Julios).</li>
+                        </ul>
+                    </div>
+                    <div class="bg-electro-dark/50 p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-exchange-alt mr-2"></i>Tipos de Corriente</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-electro-blue/50 p-4 rounded-lg">
+                                <h4 class="font-bold text-electro-green mb-2">Corriente Continua (DC/CC)</h4>
+                                <p>Flujo constante en una sola dirección. Aplicaciones: Baterías, fuentes de alimentación de PC, paneles solares.</p>
+                            </div>
+                            <div class="bg-electro-blue/50 p-4 rounded-lg">
+                                <h4 class="font-bold text-electro-cyan mb-2">Corriente Alterna (AC/CA)</h4>
+                                <p>Flujo que cambia de dirección periódicamente. Aplicaciones: Red eléctrica domiciliaria, generadores, transformadores.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 2: LEY DE OHM -->
+        <div id="module-2" class="content-section">
+            <div class="module-card bg-electro-blue/30 backdrop-blur-lg rounded-2xl p-8 border-2 border-electro-green/30">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-calculator text-5xl text-electro-green mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-heading font-extrabold text-electro-green">Módulo 2: Ley de Ohm</h2>
+                        <p class="text-slate-300">Relación fundamental entre magnitudes eléctricas</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-slate-200">
+                    <div class="bg-electro-dark/50 p-6 rounded-xl text-center">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4">Fórmula Principal</h3>
+                        <div class="bg-electro-blue/80 p-6 rounded-lg inline-block w-full md:w-auto">
+                            <p class="text-4xl font-bold text-electro-yellow mb-2">V = I × R</p>
+                            <div class="grid md:grid-cols-3 gap-4 text-sm mt-4 text-left">
+                                <div><strong>V</strong> = Voltaje (Voltios)</div>
+                                <div><strong>I</strong> = Corriente (Amperios)</div>
+                                <div><strong>R</strong> = Resistencia (Ohmios)</div>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-4 mt-6">
+                            <div class="bg-electro-dark/70 p-3 rounded"><p class="font-bold text-electro-cyan">I = V / R</p><p class="text-sm">Calcular corriente</p></div>
+                            <div class="bg-electro-dark/70 p-3 rounded"><p class="font-bold text-electro-cyan">R = V / I</p><p class="text-sm">Calcular resistencia</p></div>
+                            <div class="bg-electro-dark/70 p-3 rounded"><p class="font-bold text-electro-cyan">P = V × I</p><p class="text-sm">Potencia eléctrica</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 3: COMPONENTES BÁSICOS -->
+        <div id="module-3" class="content-section">
+            <div class="module-card bg-electro-blue/30 backdrop-blur-lg rounded-2xl p-8 border-2 border-purple-400/30">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-microchip text-5xl text-purple-400 mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-heading font-extrabold text-purple-400">Módulo 3: Componentes Eléctricos</h2>
+                        <p class="text-slate-300">Identificación y función de componentes comunes</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-slate-200">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-electro-yellow mb-3">Resistencias y Fusibles</h3>
+                            <p class="text-sm mb-2"><strong>Resistencias:</strong> Limitan el paso de corriente. Se miden en Ohmios (código de colores).</p>
+                            <p class="text-sm"><strong>Fusibles:</strong> Dispositivos de sacrificio que se funden ante sobrecorriente para proteger el circuito.</p>
+                        </div>
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-electro-yellow mb-3">Condensadores y Diodos</h3>
+                            <p class="text-sm mb-2"><strong>Condensadores:</strong> Almacenan energía en un campo eléctrico (Filtrado, acoplamiento).</p>
+                            <p class="text-sm"><strong>Diodos:</strong> Permiten el paso de corriente en una sola dirección (Rectificación, LEDs).</p>
+                        </div>
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-electro-yellow mb-3">Interruptores y Transformadores</h3>
+                            <p class="text-sm mb-2"><strong>Interruptores:</strong> Abren o cierran el circuito manualmente o automáticamente.</p>
+                            <p class="text-sm"><strong>Transformadores:</strong> Modifican los niveles de voltaje de CA mediante inducción electromagnética.</p>
+                        </div>
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-electro-yellow mb-3">Transistores</h3>
+                            <p class="text-sm">Dispositivos semiconductores (BJT, MOSFET) que amplifican señales o actúan como interruptores electrónicos de alta velocidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 4: CIRCUITOS ELÉCTRICOS -->
+        <div id="module-4" class="content-section">
+            <div class="module-card bg-electro-blue/30 backdrop-blur-lg rounded-2xl p-8 border-2 border-electro-red/30">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-project-diagram text-5xl text-electro-red mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-heading font-extrabold text-electro-red">Módulo 4: Circuitos Eléctricos</h2>
+                        <p class="text-slate-300">Estructura y comportamiento de circuitos simples</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-slate-200">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-lg font-bold text-electro-cyan mb-3">Serie</h3>
+                            <ul class="text-sm space-y-2">
+                                <li>• Un solo camino para la corriente.</li>
+                                <li>• La corriente es igual en todos los puntos.</li>
+                                <li>• El voltaje se divide entre componentes.</li>
+                                <li>• Si uno falla, todo el circuito se abre.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-lg font-bold text-electro-green mb-3">Paralelo</h3>
+                            <ul class="text-sm space-y-2">
+                                <li>• Múltiples caminos (ramas) para la corriente.</li>
+                                <li>• El voltaje es igual en todas las ramas.</li>
+                                <li>• La corriente total se divide.</li>
+                                <li>• Si una rama falla, las demás siguen operando.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-lg font-bold text-electro-yellow mb-3">Mixtos</h3>
+                            <ul class="text-sm space-y-2">
+                                <li>• Combinación de configuraciones serie y paralelo.</li>
+                                <li>• Requiere simplificación por pasos (resistencias equivalentes).</li>
+                                <li>• Común en instalaciones reales y placas electrónicas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 5: RIESGOS ELÉCTRICOS (Alineado al PDF) -->
+        <div id="module-5" class="content-section">
+            <div class="module-card bg-electro-blue/30 backdrop-blur-lg rounded-2xl p-8 border-2 border-orange-400/30">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-exclamation-triangle text-5xl text-orange-400 mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-heading font-extrabold text-orange-400">Módulo 5: Riesgos Eléctricos</h2>
+                        <p class="text-slate-300">Identificación de peligros en entornos informáticos</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-slate-200">
+                    <div class="bg-electro-dark/50 p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-bolt mr-2"></i>Tipos de Incidentes</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-red-900/30 p-4 rounded-lg border border-red-500/30">
+                                <p class="font-bold text-electro-red mb-2">Descargas Eléctricas</p>
+                                <p class="text-sm">Paso de corriente a través del cuerpo humano por contacto directo o indirecto.</p>
+                            </div>
+                            <div class="bg-red-900/30 p-4 rounded-lg border border-red-500/30">
+                                <p class="font-bold text-electro-red mb-2">Cortocircuitos</p>
+                                <p class="text-sm">Conexión de baja resistencia entre fases o entre fase y neutro, generando corrientes altísimas.</p>
+                            </div>
+                            <div class="bg-red-900/30 p-4 rounded-lg border border-red-500/30">
+                                <p class="font-bold text-electro-red mb-2">Sobrecargas</p>
+                                <p class="text-sm">Exceso de demanda de corriente en un circuito por conectar demasiados dispositivos.</p>
+                            </div>
+                            <div class="bg-red-900/30 p-4 rounded-lg border border-red-500/30">
+                                <p class="font-bold text-electro-red mb-2">Arcos Eléctricos</p>
+                                <p class="text-sm">Descarga luminosa de alta temperatura a través del aire entre conductores.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-electro-dark/50 p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-search mr-2"></i>Factores de Riesgo Comunes</h3>
+                        <ul class="space-y-2">
+                            <li><i class="fas fa-times-circle text-electro-red mr-2"></i>Cables dañados, pelados o con empalmes improvisados.</li>
+                            <li><i class="fas fa-times-circle text-electro-red mr-2"></i>Malas conexiones o regletas sobrecargadas.</li>
+                            <li><i class="fas fa-times-circle text-electro-red mr-2"></i>Presencia de humedad cerca de equipos energizados.</li>
+                            <li><i class="fas fa-times-circle text-electro-red mr-2"></i>Falta de puesta a tierra o tierra deficiente.</li>
+                            <li><i class="fas fa-times-circle text-electro-red mr-2"></i>Acumulación de electricidad estática en componentes sensibles.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 6: PROTECCIÓN ELÉCTRICA (Alineado al PDF) -->
+        <div id="module-6" class="content-section">
+            <div class="module-card bg-electro-blue/30 backdrop-blur-lg rounded-2xl p-8 border-2 border-pink-400/30">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-shield-alt text-5xl text-pink-400 mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-heading font-extrabold text-pink-400">Módulo 6: Protección y Puesta a Tierra</h2>
+                        <p class="text-slate-300">Dispositivos y normas de seguridad en sistemas TI</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-slate-200">
+                    <div class="bg-electro-dark/50 p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-globe mr-2"></i>Puesta a Tierra (Sistemas TI)</h3>
+                        <p class="mb-3">Desviación segura de corrientes de fuga o descargas atmosféricas hacia el suelo, protegiendo tanto a las personas como a los equipos.</p>
+                        <ul class="text-sm space-y-2">
+                            <li>• <strong>Tierra de protección:</strong> Conecta las carcazas metálicas de los equipos.</li>
+                            <li>• <strong>Tierra de servicio:</strong> Referencia de voltaje para el correcto funcionamiento de circuitos electrónicos.</li>
+                        </ul>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-lg font-bold text-electro-cyan mb-3">Dispositivos de Protección</h3>
+                            <ul class="text-sm space-y-2">
+                                <li><strong>Interruptor Diferencial (ID):</strong> Detecta fugas de corriente a tierra y corta el suministro.</li>
+                                <li><strong>Disyuntor (Breaker):</strong> Protege contra sobrecargas y cortocircuitos.</li>
+                                <li><strong>Supresores de picos:</strong> Absorben transitorios de voltaje (rayos, conmutación).</li>
+                            </ul>
+                        </div>
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-lg font-bold text-electro-cyan mb-3">Equipos de Respaldo</h3>
+                            <ul class="text-sm space-y-2">
+                                <li><strong>UPS (SAI):</strong> Proporciona energía de respaldo y regula el voltaje ante microcortes.</li>
+                                <li><strong>Reguladores de voltaje:</strong> Mantienen un voltaje de salida estable ante fluctuaciones de la red.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 7: MANTENIMIENTO Y MEDICIONES (Alineado al PDF) -->
+        <div id="module-7" class="content-section">
+            <div class="module-card bg-electro-blue/30 backdrop-blur-lg rounded-2xl p-8 border-2 border-electro-yellow/30">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-tools text-5xl text-electro-yellow mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-heading font-extrabold text-electro-yellow">Módulo 7: Mantenimiento y Mediciones</h2>
+                        <p class="text-slate-300">Inspección, diagnóstico y documentación técnica</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-slate-200">
+                    <div class="bg-electro-dark/50 p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-clipboard-check mr-2"></i>Inspección Visual y Técnica</h3>
+                        <ul class="space-y-2">
+                            <li>• Revisión de cables, conectores, regletas y sistemas de alimentación.</li>
+                            <li>• Detección de signos de sobrecalentamiento (cables derretidos, olor a quemado).</li>
+                            <li>• Verificación de ventilación y organización de cables (gestión de cableado).</li>
+                        </ul>
+                    </div>
+                    <div class="bg-electro-dark/50 p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-tachometer-alt mr-2"></i>Mediciones Básicas con Multímetro</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-electro-blue/30 p-4 rounded-lg">
+                                <p class="font-bold text-electro-cyan mb-2">Continuidad a Tierra</p>
+                                <p class="text-sm">Verificar que la carcasa del equipo tenga conexión eléctrica continua con el borne de tierra.</p>
+                            </div>
+                            <div class="bg-electro-blue/30 p-4 rounded-lg">
+                                <p class="font-bold text-electro-cyan mb-2">Resistencia de Aislamiento</p>
+                                <p class="text-sm">Medir la resistencia entre conductores para asegurar que no haya fugas o cortos potenciales.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-electro-dark/50 p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-file-alt mr-2"></i>Registro y Documentación</h3>
+                        <p>Es obligatorio documentar las pruebas de seguridad eléctrica y electrónica realizadas, registrando valores medidos, hallazgos y acciones correctivas en formatos o protocolos definidos por la institución.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 8: GESTIÓN DE EMERGENCIAS (Alineado al PDF) -->
+        <div id="module-8" class="content-section">
+            <div class="module-card bg-electro-blue/30 backdrop-blur-lg rounded-2xl p-8 border-2 border-indigo-400/30">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-first-aid text-5xl text-indigo-400 mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-heading font-extrabold text-indigo-400">Módulo 8: Gestión de Emergencias</h2>
+                        <p class="text-slate-300">Protocolos de actuación ante incidentes eléctricos</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-slate-200">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-electro-yellow mb-4">Protocolos de Actuación</h3>
+                            <ol class="list-decimal list-inside space-y-3">
+                                <li><strong>Corte de energía:</strong> Desconectar la fuente principal inmediatamente (interruptor general).</li>
+                                <li><strong>No tocar a la víctima:</strong> Si sigue en contacto con la fuente, usar material aislante (madera seca, plástico) para separarla.</li>
+                                <li><strong>RCP Básico:</strong> Si la persona no respira, iniciar reanimación cardiopulmonar y llamar a emergencias.</li>
+                                <li><strong>Reporte:</strong> Comunicar el incidente a los superiores y documentar lo sucedido.</li>
+                            </ol>
+                        </div>
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-electro-yellow mb-4">Prevención de Incendios</h3>
+                            <div class="bg-red-900/30 p-4 rounded-lg border border-red-500/50 mb-4">
+                                <p class="font-bold text-electro-red text-lg"><i class="fas fa-fire-extinguisher mr-2"></i>Extintores Clase C</p>
+                                <p class="text-sm mt-2">Exclusivos para incendios en equipos eléctricos energizados. Utilizan agentes no conductores (CO2 o polvo químico seco) para evitar descargas al operador.</p>
+                            </div>
+                            <p class="text-sm"><strong>Nota:</strong> NUNCA usar agua o extintores de Clase A en equipos energizados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 9: ELECTRÓNICA Y ARDUINO (Alineado al PDF) -->
+        <div id="module-9" class="content-section">
+            <div class="module-card bg-electro-blue/30 backdrop-blur-lg rounded-2xl p-8 border-2 border-teal-400/30">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-robot text-5xl text-teal-400 mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-heading font-extrabold text-teal-400">Módulo 9: Electrónica Básica y Arduino</h2>
+                        <p class="text-slate-300">Semiconductores, PCBs y placas de prototipado</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-slate-200">
+                    <div class="bg-electro-dark/50 p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-layer-group mr-2"></i>Fundamentos de Electrónica</h3>
+                        <ul class="space-y-2">
+                            <li><strong>Semiconductores:</strong> Materiales (como el silicio) cuya conductividad puede controlarse, base de la electrónica moderna.</li>
+                            <li><strong>Circuitos Impresos (PCBs):</strong> Placas que interconectan componentes electrónicos mediante pistas de cobre, reemplazando el cableado discreto.</li>
+                        </ul>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-lg font-bold text-electro-cyan mb-3">Protoboard</h3>
+                            <p class="text-sm">Tablero de pruebas con conexiones internas sin soldadura. Permite armar y modificar circuitos temporales de forma rápida y segura para validar diseños antes de pasarlos a una PCB.</p>
+                        </div>
+                        <div class="bg-electro-dark/50 p-6 rounded-xl">
+                            <h3 class="text-lg font-bold text-electro-cyan mb-3">Placas Arduinas</h3>
+                            <p class="text-sm">Plataformas de hardware libre basadas en microcontroladores. Permiten leer entradas (sensores) y controlar salidas (motores, LEDs) mediante programación, facilitando el prototipado de sistemas electrónicos interactivos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 10: LABORATORIO VIRTUAL Y SEGURIDAD PROCEDIMENTAL -->
+        <div id="module-10" class="content-section">
+            <div class="module-card bg-gradient-to-br from-electro-cyan to-purple-600 p-8 rounded-2xl border-2 border-white/50">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-flask text-5xl text-electro-yellow mr-4"></i>
+                    <div>
+                        <h2 class="text-3xl font-heading font-extrabold text-white">Módulo 10: Laboratorio Virtual y Procedimientos</h2>
+                        <p class="text-slate-200">Simulación y aplicación de normas de seguridad</p>
+                    </div>
+                </div>
+                <div class="space-y-6 text-white">
+                    <div class="bg-white/10 backdrop-blur p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-laptop-code mr-2"></i>Simuladores (PhET / Tinkercad)</h3>
+                        <p class="mb-3">Herramientas para validar circuitos de forma segura antes de la implementación física, permitiendo visualizar corrientes, voltajes y programar placas Arduino virtuales.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur p-6 rounded-xl">
+                        <h3 class="text-xl font-bold text-electro-yellow mb-4"><i class="fas fa-user-shield mr-2"></i>Normas de Seguridad Procedimental</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-green-600/30 p-4 rounded-lg border border-green-400/50">
+                                <p class="font-bold text-electro-green mb-2">Buenas Prácticas (EPP y ESD)</p>
+                                <ul class="text-sm space-y-1">
+                                    <li>✓ Uso de pulseras antiestáticas al manipular componentes.</li>
+                                    <li>✓ Desconexión total de la energía antes de intervenir (Bloqueo/Etiquetado).</li>
+                                    <li>✓ Uso de calzado con suela aislante y herramientas dieléctricas.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-600/30 p-4 rounded-lg border border-blue-400/50">
+                                <p class="font-bold text-electro-cyan mb-2">Cultura Preventiva</p>
+                                <ul class="text-sm space-y-1">
+                                    <li>✓ Evaluar el entorno: humedad, ventilación, orden.</li>
+                                    <li>✓ Nunca trabajar solo en instalaciones energizadas.</li>
+                                    <li>✓ Reportar inmediatamente cualquier anomalía o riesgo detectado.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-electro-dark p-10 text-center border-t-4 border-electro-yellow">
+        <p class="text-xl font-bold text-white">© 2026 ElectroLearn - Proyecto de Grado</p>
+        <p class="text-electro-cyan mt-3 text-lg">Desarrollado por el Grupo 3B Informática</p>
+        <p class="text-slate-400 text-sm mt-4">Bachiller en Informática - Soporte Informático</p>
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+        function showModule(moduleNumber) {
+            // Ocultar todos los módulos
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remover clase active de todos los botones
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Mostrar el módulo seleccionado
+            const selectedModule = document.getElementById(`module-${moduleNumber}`);
+            if (selectedModule) {
+                selectedModule.classList.add('active');
+            }
+
+            // Agregar clase active al botón presionado
+            buttons[moduleNumber - 1].classList.add('active');
+
+            // Scroll suave hacia el contenido
+            selectedModule.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Verificar sesión (Ruta corregida a raíz)
+        if (!localStorage.getItem('electrolearn_user')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
