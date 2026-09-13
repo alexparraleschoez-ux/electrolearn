@@ -105,6 +105,13 @@
             box-shadow: 0 0 40px rgba(0, 212, 255, 0.3),
                         inset 0 0 20px rgba(0, 212, 255, 0.1);
         }
+
+        /* Clase para ocultar el video */
+        .video-hidden {
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
     </style>
 </head>
 <body class="text-white font-body min-h-screen flex items-center justify-center p-4">
@@ -122,10 +129,10 @@
         </div>
 
         <!-- Video Container -->
-        <div class="bg-electro-dark/50 backdrop-blur-lg rounded-3xl p-4 md:p-8 border-2 border-electro-cyan/30 shadow-2xl slide-up" style="animation-delay: 0.2s">
+        <div id="video-section" class="bg-electro-dark/50 backdrop-blur-lg rounded-3xl p-4 md:p-8 border-2 border-electro-cyan/30 shadow-2xl slide-up" style="animation-delay: 0.2s">
             
             <!-- Video de YouTube Shorts -->
-            <div class="video-container glow-border border-4 border-electro-cyan/50">
+            <div id="video-container" class="video-container glow-border border-4 border-electro-cyan/50">
                 <div class="video-wrapper">
                     <iframe 
                         id="welcome-video"
@@ -168,7 +175,41 @@
         let player;
         let videoEnded = false;
         let redirectTimeout;
+        let isRedirecting = false;
         const VIDEO_DURATION = 131; // 2 minutos y 11 segundos
+
+        // Función para redirigir
+        function redirectToIndex() {
+            if (isRedirecting) return;
+            isRedirecting = true;
+            
+            // Ocultar el video inmediatamente
+            const videoSection = document.getElementById('video-section');
+            const videoContainer = document.getElementById('video-container');
+            
+            if (videoContainer) {
+                videoContainer.classList.add('video-hidden');
+            }
+            
+            // Detener el reproductor
+            if (player && player.stopVideo) {
+                player.stopVideo();
+            }
+            
+            // Limpiar todos los timeouts
+            clearTimeout(redirectTimeout);
+            
+            // Redirigir después de un breve delay para asegurar que se oculte el video
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 100);
+        }
+
+        // Función para saltar video
+        function skipVideo() {
+            videoEnded = true;
+            redirectToIndex();
+        }
 
         // Función para crear el reproductor de YouTube
         function onYouTubeIframeAPIReady() {
@@ -188,7 +229,7 @@
             // Programar redirección de seguridad (145 segundos - más que la duración del video)
             redirectTimeout = setTimeout(() => {
                 if (!videoEnded) {
-                    skipVideo();
+                    redirectToIndex();
                 }
             }, 145000); // 145 segundos (2:25)
         }
@@ -197,47 +238,38 @@
         function onPlayerStateChange(event) {
             // Si el video terminó (YT.PlayerState.ENDED = 0)
             if (event.data === 0) {
-                videoEnded = true;
-                clearTimeout(redirectTimeout);
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
+                if (!videoEnded) {
+                    videoEnded = true;
+                    redirectToIndex();
+                }
             }
             // Si el video está reproduciéndose (YT.PlayerState.PLAYING = 1)
             else if (event.data === 1) {
                 // Intentar desmutear después de que empiece a reproducir
-                try {
-                    setTimeout(() => {
-                        event.target.unMute();
-                    }, 1000);
-                } catch(e) {
-                    // Si no se puede, permanece muteado
-                }
+                setTimeout(() => {
+                    try {
+                        if (player && player.unMute) {
+                            player.unMute();
+                        }
+                    } catch(e) {
+                        // Si no se puede, permanece muteado
+                    }
+                }, 1000);
             }
-        }
-
-        // Función para saltar video
-        function skipVideo() {
-            videoEnded = true;
-            clearTimeout(redirectTimeout);
-            if (player && player.stopVideo) {
-                player.stopVideo();
-            }
-            window.location.href = 'index.html';
         }
 
         // Fallback: Si la API de YouTube no carga en 3 segundos, usar timeout
         setTimeout(() => {
-            if (!player && !videoEnded) {
+            if (!player && !videoEnded && !isRedirecting) {
                 redirectTimeout = setTimeout(() => {
-                    skipVideo();
+                    redirectToIndex();
                 }, 145000);
             }
         }, 3000);
 
         // Prevenir que el usuario se vaya sin confirmar (opcional)
         window.addEventListener('beforeunload', function (e) {
-            if (!videoEnded) {
+            if (!videoEnded && !isRedirecting) {
                 e.preventDefault();
                 e.returnValue = '';
             }
