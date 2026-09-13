@@ -45,7 +45,7 @@
             overflow-x: hidden;
         }
 
-        /* Contenedor responsive para YouTube */
+        /* Contenedor del video con transición suave */
         .video-container {
             position: relative;
             width: 100%;
@@ -54,16 +54,18 @@
             background: #000;
             border-radius: 1rem;
             overflow: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .video-container.hidden-video {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
+        /* Estado oculto del video */
+        .video-container.ended {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            transform: scale(0.95);
         }
 
-        /* Aspect ratio 9:16 para Shorts */
+        /* Wrapper con aspect ratio 9:16 */
         .video-wrapper {
             position: relative;
             padding-bottom: 177.77%;
@@ -71,7 +73,8 @@
             overflow: hidden;
         }
 
-        .video-wrapper iframe {
+        .video-wrapper iframe,
+        .video-wrapper > div {
             position: absolute;
             top: 0;
             left: 0;
@@ -108,9 +111,35 @@
             box-shadow: 0 0 40px rgba(0, 212, 255, 0.3),
                         inset 0 0 20px rgba(0, 212, 255, 0.1);
         }
+
+        /* Overlay para prevenir interacción durante redirección */
+        .redirect-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 22, 40, 0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .redirect-overlay.active {
+            display: flex;
+        }
     </style>
 </head>
 <body class="text-white font-body min-h-screen flex items-center justify-center p-4">
+
+    <!-- Overlay de redirección -->
+    <div id="redirect-overlay" class="redirect-overlay">
+        <div class="text-center">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-electro-cyan mb-4"></div>
+            <p class="text-electro-cyan text-xl font-bold">Redirigiendo...</p>
+        </div>
+    </div>
 
     <!-- Contenedor Principal -->
     <div class="max-w-4xl w-full text-center">
@@ -130,7 +159,7 @@
             <!-- Video de YouTube -->
             <div id="video-container" class="video-container glow-border border-4 border-electro-cyan/50">
                 <div class="video-wrapper">
-                    <div id="youtube-player"></div>
+                    <div id="player-container"></div>
                 </div>
             </div>
 
@@ -143,7 +172,7 @@
             </div>
 
             <!-- Botón de saltar -->
-            <button onclick="manualSkip()" class="mt-6 bg-electro-yellow hover:bg-yellow-400 text-electro-dark font-bold py-2.5 md:py-3 px-6 md:px-8 rounded-full transition-all transform hover:scale-105 text-sm md:text-base">
+            <button onclick="skipToIndex()" class="mt-6 bg-electro-yellow hover:bg-yellow-400 text-electro-dark font-bold py-2.5 md:py-3 px-6 md:px-8 rounded-full transition-all transform hover:scale-105 text-sm md:text-base">
                 <i class="fas fa-forward mr-2"></i>Saltar video e ir al inicio
             </button>
         </div>
@@ -161,133 +190,198 @@
 
         // Variables de control
         let player = null;
-        let hasRedirected = false;
-        let redirectTimer = null;
-        let videoDuration = 131000; // 2:11 en milisegundos
-        let videoStartTime = null;
+        let isRedirecting = false;
+        let videoEnded = false;
+        let safetyTimer = null;
+        let checkInterval = null;
+        const VIDEO_ID = 'lgIGX4bClNk';
+        const VIDEO_DURATION_MS = 131000; // 2:11 en milisegundos
 
-        // Función única de redirección
-        function performRedirect() {
-            if (hasRedirected) return;
-            hasRedirected = true;
+        // Función principal de redirección
+        function redirectToIndex() {
+            if (isRedirecting) return;
+            isRedirecting = true;
 
-            // Limpiar todo
-            if (redirectTimer) {
-                clearTimeout(redirectTimer);
-                redirectTimer = null;
+            // Limpiar todos los timers e intervals
+            if (safetyTimer) {
+                clearTimeout(safetyTimer);
+                safetyTimer = null;
+            }
+            if (checkInterval) {
+                clearInterval(checkInterval);
+                checkInterval = null;
             }
 
-            // Ocultar video inmediatamente
-            const container = document.getElementById('video-container');
-            if (container) {
-                container.classList.add('hidden-video');
+            // Marcar video como terminado
+            videoEnded = true;
+
+            // Ocultar video inmediatamente con clase CSS
+            const videoContainer = document.getElementById('video-container');
+            if (videoContainer) {
+                videoContainer.classList.add('ended');
             }
 
-            // Detener reproductor
-            if (player && typeof player.stopVideo === 'function') {
+            // Detener y destruir el reproductor
+            if (player) {
                 try {
                     player.stopVideo();
-                    player.destroy();
-                } catch(e) {}
+                    player.pauseVideo();
+                    setTimeout(() => {
+                        if (player && player.destroy) {
+                            player.destroy();
+                            player = null;
+                        }
+                    }, 100);
+                } catch(e) {
+                    console.log('Error al detener video:', e);
+                }
             }
 
-            // Redirigir
+            // Mostrar overlay de redirección
+            const overlay = document.getElementById('redirect-overlay');
+            if (overlay) {
+                overlay.classList.add('active');
+            }
+
+            // Redirigir después de un breve delay para que se vea la transición
             setTimeout(() => {
                 window.location.replace('index.html');
-            }, 50);
+            }, 300);
         }
 
-        // Saltar manualmente
-        function manualSkip() {
-            performRedirect();
+        // Función para saltar manualmente
+        function skipToIndex() {
+            redirectToIndex();
         }
 
         // Cargar API de YouTube
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         // Cuando la API esté lista
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '100%',
+            player = new YT.Player('player-container', {
+                videoId: VIDEO_ID,
                 width: '100%',
-                videoId: 'lgIGX4bClNk',
+                height: '100%',
                 playerVars: {
                     'autoplay': 1,
                     'mute': 1,
                     'controls': 1,
                     'rel': 0,
                     'loop': 0,
-                    'disablekb': 1,
-                    'fs': 0,
-                    'modestbranding': 1
+                    'disablekb': 0,
+                    'fs': 1,
+                    'modestbranding': 1,
+                    'playsinline': 1,
+                    'enablejsapi': 1
                 },
                 events: {
                     'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
                 }
             });
         }
 
         // Cuando el reproductor esté listo
         function onPlayerReady(event) {
-            videoStartTime = Date.now();
+            console.log('Player ready');
             
-            // Reproducir
+            // Reproducir el video
             try {
                 event.target.playVideo();
-            } catch(e) {}
+            } catch(e) {
+                console.log('Error al reproducir:', e);
+            }
 
-            // Timeout de seguridad basado en la duración real del video
-            redirectTimer = setTimeout(() => {
-                if (!hasRedirected) {
-                    performRedirect();
+            // Timer de seguridad: 140 segundos (131 + 9 de margen)
+            safetyTimer = setTimeout(() => {
+                if (!videoEnded) {
+                    console.log('Safety timeout triggered');
+                    redirectToIndex();
                 }
-            }, videoDuration + 5000); // 5 segundos de margen
+            }, 140000);
+
+            // Verificación periódica del estado del video
+            checkInterval = setInterval(() => {
+                if (player && player.getCurrentTime && !videoEnded) {
+                    const currentTime = player.getCurrentTime();
+                    const duration = player.getDuration();
+                    
+                    // Si el tiempo actual está muy cerca del final (dentro de 2 segundos)
+                    if (duration > 0 && currentTime >= duration - 2) {
+                        console.log('Video near end detected');
+                        videoEnded = true;
+                        redirectToIndex();
+                    }
+                }
+            }, 1000); // Verificar cada segundo
         }
 
-        // Cambios de estado
+        // Cambios de estado del reproductor
         function onPlayerStateChange(event) {
-            // Video terminado (0)
-            if (event.data === 0) {
-                if (!hasRedirected) {
-                    performRedirect();
+            console.log('Player state changed:', event.data);
+
+            // ENDED (0) - Video terminó
+            if (event.data === YT.PlayerState.ENDED) {
+                console.log('Video ended event detected');
+                if (!videoEnded) {
+                    videoEnded = true;
+                    redirectToIndex();
                 }
             }
-            // Video reproduciéndose (1)
-            else if (event.data === 1) {
-                // Intentar desmutear después de 1 segundo
+            // PLAYING (1) - Video se está reproduciendo
+            else if (event.data === YT.PlayerState.PLAYING) {
+                // Intentar desmutear después de 1.5 segundos
                 setTimeout(() => {
-                    if (player && !hasRedirected) {
+                    if (player && !videoEnded) {
                         try {
                             player.unMute();
                         } catch(e) {}
                     }
-                }, 1000);
+                }, 1500);
             }
-            // Video en pausa (2) o buffer (3)
-            else if (event.data === 2 || event.data === 3) {
-                // Verificar si ya pasó el tiempo máximo
-                if (videoStartTime && !hasRedirected) {
-                    const elapsed = Date.now() - videoStartTime;
-                    if (elapsed > videoDuration + 5000) {
-                        performRedirect();
+            // PAUSED (2) - Video pausado
+            else if (event.data === YT.PlayerState.PAUSED) {
+                // Si está pausado cerca del final, redirigir
+                if (player && !videoEnded) {
+                    const currentTime = player.getCurrentTime();
+                    const duration = player.getDuration();
+                    if (duration > 0 && currentTime >= duration - 3) {
+                        videoEnded = true;
+                        redirectToIndex();
                     }
                 }
             }
+            // BUFFERING (3) - Video cargando
+            else if (event.data === YT.PlayerState.BUFFERING) {
+                // No hacer nada, esperar a que cargue
+            }
+        }
+
+        // Manejo de errores
+        function onPlayerError(event) {
+            console.log('Player error:', event.data);
+            // Si hay error, redirigir después de 5 segundos
+            setTimeout(() => {
+                if (!videoEnded) {
+                    redirectToIndex();
+                }
+            }, 5000);
         }
 
         // Prevenir navegación accidental
         window.addEventListener('beforeunload', function(e) {
-            if (!hasRedirected) {
+            if (!videoEnded && !isRedirecting) {
                 e.preventDefault();
                 e.returnValue = '';
             }
         });
 
-        // Cleanup al salir
+        // Limpieza al salir
         window.addEventListener('unload', function() {
             if (player) {
                 try {
