@@ -77,7 +77,6 @@
         <!-- Logo -->
         <div class="text-center mb-8">
             <div class="inline-block p-4 bg-electro-dark/50 rounded-2xl border border-electro-cyan/30 mb-4 logo-float">
-                <!-- Reemplaza esta ruta con la de tu logo real -->
                 <img src="multimedia/imagenes/logo.png" alt="ElectroLearn Logo" class="h-24 w-auto mx-auto drop-shadow-[0_0_15px_rgba(0,212,255,0.5)]" onerror="this.src='https://via.placeholder.com/150x80/0A1628/00D4FF?text=ElectroLearn'">
             </div>
             <h1 class="text-3xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-electro-cyan to-electro-yellow">
@@ -162,15 +161,16 @@
 
             // Validación: La contraseña debe ser igual al nombre del usuario (insensible a mayúsculas)
             if (usuario.toLowerCase() === contrasena.toLowerCase() && usuario.length > 0) {
-                // Éxito: Guardar en localStorage y redirigir
+                // Éxito: Guardar en localStorage
                 localStorage.setItem('electrolearn_user', usuario);
                 
                 // Efecto visual de éxito
                 card.style.borderColor = '#00FF88';
                 card.style.boxShadow = '0 0 40px rgba(0, 255, 136, 0.4)';
                 
+                // CAMBIO REALIZADO: Redirigir a la página de bienvenida con el video
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = 'bienvenida.html';
                 }, 800);
             } else {
                 // Error: Mostrar mensaje y animación de sacudida
