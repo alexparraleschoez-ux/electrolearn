@@ -52,51 +52,40 @@
         <!-- Logo y Título -->
         <div class="mb-8 slide-up">
             <img src="multimedia/imagenes/logo.png" alt="ElectroLearn" class="h-24 mx-auto mb-4 drop-shadow-[0_0_20px_rgba(0,212,255,0.5)]" onerror="this.style.display='none'">
-            <h1 class="text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-electro-cyan to-electro-yellow mb-2">
+            <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-electro-cyan to-electro-yellow mb-2">
                 ¡Bienvenido a ElectroLearn!
             </h1>
-            <p id="welcome-message" class="text-xl text-slate-300"></p>
+            <p id="welcome-message" class="text-lg md:text-xl text-slate-300"></p>
         </div>
 
         <!-- Video Container -->
-        <div class="bg-electro-dark/50 backdrop-blur-lg rounded-3xl p-8 border-2 border-electro-cyan/30 shadow-2xl slide-up" style="animation-delay: 0.2s">
+        <div class="bg-electro-dark/50 backdrop-blur-lg rounded-3xl p-6 md:p-8 border-2 border-electro-cyan/30 shadow-2xl slide-up" style="animation-delay: 0.2s">
             
-            <!-- Video -->
-            <div class="relative rounded-2xl overflow-hidden border-4 border-electro-cyan/50 shadow-[0_0_40px_rgba(0,212,255,0.3)]">
-                <!-- Reemplaza 'video-bienvenida.mp4' con la ruta de tu video -->
-                <video id="welcome-video" class="w-full" autoplay playsinline controls>
-                    <source src="multimedia/videos/bienvenida.mp4" type="video/mp4">
-                    <!-- Si no tienes video aún, puedes usar un placeholder o eliminar esta línea -->
-                    Tu navegador no soporta el elemento de video.
-                </video>
-                
-                <!-- Overlay de carga -->
-                <div id="video-loading" class="absolute inset-0 bg-electro-dark/80 flex items-center justify-center">
-                    <div class="text-center">
-                        <i class="fas fa-circle-notch fa-spin text-5xl text-electro-cyan mb-4"></i>
-                        <p class="text-electro-cyan">Cargando video...</p>
-                    </div>
+            <!-- Video de YouTube -->
+            <div class="relative rounded-2xl overflow-hidden border-4 border-electro-cyan/50 shadow-[0_0_40px_rgba(0,212,255,0.3)]" style="padding-bottom: 177.77%; height: 0;">
+                <!-- YouTube Shorts (formato vertical 9:16) -->
+                <iframe 
+                    id="welcome-video"
+                    class="absolute top-0 left-0 w-full h-full"
+                    src="https://www.youtube.com/embed/lgIGX4bClNk?autoplay=1&rel=0&mute=0" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- Mensaje de redirección -->
+            <div id="redirecting" class="mt-6 slide-up" style="animation-delay: 0.4s">
+                <div class="inline-flex items-center gap-3 bg-electro-green/20 border border-electro-green/50 px-6 py-3 rounded-full">
+                    <i class="fas fa-info-circle text-electro-green text-xl"></i>
+                    <span class="text-electro-green font-bold">Después del video serás redirigido automáticamente...</span>
                 </div>
             </div>
 
-            <!-- Barra de progreso del video -->
-            <div class="mt-6 bg-slate-700 rounded-full h-2 overflow-hidden">
-                <div id="video-progress" class="bg-gradient-to-r from-electro-cyan to-electro-green h-full transition-all duration-300" style="width: 0%"></div>
-            </div>
-            <p class="text-sm text-slate-400 mt-2">Redirigiendo automáticamente...</p>
-
-            <!-- Botón de saltar (opcional) -->
+            <!-- Botón de saltar -->
             <button onclick="skipVideo()" class="mt-6 bg-electro-yellow hover:bg-yellow-400 text-electro-dark font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
                 <i class="fas fa-forward mr-2"></i>Saltar video e ir al inicio
             </button>
-        </div>
-
-        <!-- Mensaje de redirección -->
-        <div id="redirecting" class="hidden mt-6 slide-up">
-            <div class="inline-flex items-center gap-3 bg-electro-green/20 border border-electro-green/50 px-6 py-3 rounded-full">
-                <i class="fas fa-check-circle text-electro-green text-2xl"></i>
-                <span class="text-electro-green font-bold">¡Video completado! Redirigiendo...</span>
-            </div>
         </div>
 
     </div>
@@ -111,75 +100,43 @@
         // Mostrar nombre del usuario
         document.getElementById('welcome-message').textContent = `Hola, ${usuario}. Prepárate para aprender electricidad y electrónica.`;
 
-        // Variables del video
-        const video = document.getElementById('welcome-video');
-        const loading = document.getElementById('video-loading');
-        const progress = document.getElementById('video-progress');
-        const redirecting = document.getElementById('redirecting');
-
-        // Cuando el video está listo
-        video.addEventListener('loadeddata', () => {
-            loading.style.display = 'none';
-            video.play().catch(error => {
-                console.log('Autoplay prevenido por el navegador:', error);
-                // Mostrar mensaje si el autoplay está bloqueado
-                loading.innerHTML = `
-                    <div class="text-center">
-                        <i class="fas fa-play-circle text-5xl text-electro-cyan mb-4"></i>
-                        <p class="text-electro-cyan mb-4">Haz clic para reproducir el video</p>
-                        <button onclick="video.play(); this.parentElement.parentElement.style.display='none'" 
-                                class="bg-electro-cyan text-electro-dark font-bold py-3 px-6 rounded-full">
-                            <i class="fas fa-play mr-2"></i>Reproducir
-                        </button>
-                    </div>
-                `;
-            });
-        });
-
-        // Actualizar barra de progreso
-        video.addEventListener('timeupdate', () => {
-            const percent = (video.currentTime / video.duration) * 100;
-            progress.style.width = percent + '%';
-        });
-
-        // Cuando el video termina
-        video.addEventListener('ended', () => {
-            mostrarRedireccion();
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 2000);
-        });
-
+        // Detectar cuando el video termina (YouTube)
+        // Como es un Short, estimamos que dura alrededor de 60 segundos
+        // El usuario puede saltar o ver completo
+        
+        let videoEnded = false;
+        const videoIframe = document.getElementById('welcome-video');
+        
         // Función para saltar video
         function skipVideo() {
-            video.pause();
-            mostrarRedireccion();
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
+            videoEnded = true;
+            window.location.href = 'index.html';
         }
 
-        // Mostrar mensaje de redirección
-        function mostrarRedireccion() {
-            redirecting.classList.remove('hidden');
-            progress.classList.remove('from-electro-cyan', 'to-electro-green');
-            progress.classList.add('bg-electro-green');
-            progress.style.width = '100%';
-        }
+        // Redirección automática después de 65 segundos (tiempo estimado del Short)
+        setTimeout(() => {
+            if (!videoEnded) {
+                skipVideo();
+            }
+        }, 65000); // 65 segundos
 
-        // Si hay error al cargar el video
-        video.addEventListener('error', () => {
-            loading.innerHTML = `
-                <div class="text-center">
-                    <i class="fas fa-exclamation-triangle text-5xl text-electro-yellow mb-4"></i>
-                    <p class="text-electro-yellow mb-4">No se pudo cargar el video</p>
-                    <button onclick="skipVideo()" 
-                            class="bg-electro-yellow text-electro-dark font-bold py-3 px-6 rounded-full">
-                        Continuar de todas formas
-                    </button>
-                </div>
-            `;
+        // También agregar un listener para cuando el video termine realmente
+        // Usando postMessage API de YouTube
+        window.addEventListener('message', (event) => {
+            if (event.origin === 'https://www.youtube.com' && event.data === 'ended') {
+                videoEnded = true;
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }
         });
+
+        // Fallback: Si pasan 70 segundos, redirigir sí o sí
+        setTimeout(() => {
+            if (!videoEnded) {
+                window.location.href = 'index.html';
+            }
+        }, 70000);
     </script>
 </body>
 </html>
